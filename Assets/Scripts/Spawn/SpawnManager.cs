@@ -82,5 +82,10 @@ namespace Spawn
     {
       StartSpawn(2, 3f, "enemy_test");
     }
+
+    private void Start()
+    {
+      StartTestSpawn();
+    }
   }
 }
