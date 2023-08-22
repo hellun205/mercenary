@@ -22,24 +22,26 @@ namespace Weapon
 
     private float time;
 
-#if UNITY_EDITOR
     private void Reset()
     {
       collider = GetComponent<CircleCollider2D>();
-      collider.radius = weaponData.status.range;
     }
-    private void OnValidate()
-    {
-      collider.radius = weaponData.status.range;
-    }
-#endif
 
     private void Awake()
     {
+      RefreshRange();
+    }
+
+    [ContextMenu("Refresh Range")]
+    private void RefreshRange()
+    {
+      collider.radius = weaponData.status.range;
     }
 
     private void Update()
     {
+      RefreshRange();
+      
       if (hasTarget && target && target.canTarget)
       {
         transform.localRotation = Quaternion.Lerp
