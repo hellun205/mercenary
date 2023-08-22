@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Util
@@ -10,10 +12,17 @@ namespace Util
       return Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
     }
 
-    public static Quaternion GetAngleOfLookAtObject(this Quaternion rotation, Transform sender, Transform target)
+    public static Quaternion GetRotationOfLookAtObject(this Transform sender, Transform target)
     {
-      var euler = rotation.eulerAngles;
+      var euler = sender.rotation.eulerAngles;
       return Quaternion.Euler(euler.x, euler.y, GetAngleOfLookAtObject(sender, target));
+    }
+
+    public static T GetRandom<T>(this IEnumerable<T> enumerable)
+    {
+      var array = enumerable.ToArray();
+
+      return array[Random.Range(0, array.Length)];
     }
   }
 }

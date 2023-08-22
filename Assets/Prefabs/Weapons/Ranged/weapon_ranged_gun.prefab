@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseController: {fileID: 2212616828029449990}
+  firePosition: {fileID: 0}
   bullet: bullet_gun
 --- !u!58 &3393872150850634041
 CircleCollider2D:
@@ -100,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 30
 --- !u!50 &911719469100006593
 Rigidbody2D:
   serializedVersion: 4

@@ -45,16 +45,17 @@ namespace Weapon
         transform.localRotation = Quaternion.Lerp
         (
           transform.rotation,
-          transform.rotation.GetAngleOfLookAtObject(transform, target.transform),
+          transform.GetRotationOfLookAtObject(target.transform),
           Time.deltaTime * 10f
         );
 
-        if (time >= weaponData.status.attackDelay)
+        if (time >= 1 / weaponData.status.attackSpeed)
         {
           time = 0;
           onFire?.Invoke();
         }
       }
+      else hasTarget = false;
 
       time += Time.deltaTime;
     }
@@ -73,6 +74,7 @@ namespace Weapon
     {
       if (hasTarget && other.gameObject == target.gameObject)
       {
+        target = null;
         hasTarget = false;
       }
     }

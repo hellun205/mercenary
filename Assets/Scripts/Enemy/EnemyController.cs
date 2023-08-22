@@ -1,15 +1,32 @@
+using System;
+using Manager;
+using Spawn;
 using UnityEngine;
+using Util;
 using Weapon;
 
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : MonoBehaviour
+  public class EnemyController : SpawnableObject
   {
-    public bool canTarget { get; set; }
+    public float moveSpeed = 2f;
 
-    public Vector3 position => transform.position;
+    private Transform target;
 
-    public GameObject go => gameObject;
+    public bool isEnabled = true;
+
+    private void Start()
+    {
+      target = GameManager.Player.transform;
+    }
+
+    private void Update()
+    {
+      if (!isEnabled) return;
+
+      transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
+      transform.Translate(Vector3.right * (Time.deltaTime * moveSpeed));
+    }
   }
 }

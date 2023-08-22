@@ -33,7 +33,7 @@ namespace Weapon
     {
       target = targetableObject.transform;
       this.damage = damage;
-      transform.rotation = transform.rotation.GetAngleOfLookAtObject(transform, target);
+      transform.rotation = transform.GetRotationOfLookAtObject(target);
       isEnabled = true;
     }
 
