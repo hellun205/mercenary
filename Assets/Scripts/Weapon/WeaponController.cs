@@ -2,6 +2,7 @@ using System;
 using JetBrains.Annotations;
 using Manager;
 using UnityEngine;
+using Util;
 
 namespace Weapon
 {
@@ -16,6 +17,10 @@ namespace Weapon
 
     [SerializeField]
     private CircleCollider2D collider;
+
+    public Action onFire;
+
+    private float time;
 
 #if UNITY_EDITOR
     private void Reset()
@@ -35,14 +40,23 @@ namespace Weapon
 
     private void Update()
     {
-      if (hasTarget && target.canTarget)
+      if (hasTarget && target && target.canTarget)
       {
-        var offset = target.transform.position - transform.position;
-        var rotation = Quaternion.Euler(0, 0,
-          Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg);
-        transform.localRotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 5f);
-        Debug.Log(Mathf.Atan2(target.transform.position.y, target.transform.position.x) * Mathf.Rad2Deg);
+        transform.localRotation = Quaternion.Lerp
+        (
+          transform.rotation,
+          transform.rotation.GetAngleOfLookAtObject(transform, target.transform),
+          Time.deltaTime * 10f
+        );
+
+        if (time >= weaponData.status.attackDelay)
+        {
+          time = 0;
+          onFire?.Invoke();
+        }
       }
+
+      time += Time.deltaTime;
     }
 
     private void OnTriggerStay2D(Collider2D other)

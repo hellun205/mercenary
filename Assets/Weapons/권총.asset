@@ -16,8 +16,8 @@ MonoBehaviour:
   prefab: weapon_ranged_gun
   descriptions: 
   status:
-    attackDamage: 0
+    attackDamage: 25
     hp: 0
-    attackSpeed: 0
     moveSpeed: 0
     range: 20
+    attackDelay: 2
