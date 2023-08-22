@@ -6,11 +6,11 @@ namespace Weapon
   {
     public Sprite icon;
 
-    public Sprite sprite;
+    public string prefab;
 
     [Multiline]
     public string descriptions;
 
-    public IncreaseStatus status;
+    public WeaponStatus status;
   }
 }

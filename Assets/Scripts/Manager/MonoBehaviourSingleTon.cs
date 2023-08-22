@@ -9,7 +9,7 @@ namespace Manager
     
     protected virtual void Awake()
     {
-      if (Instance is not null)
+      if (Instance is null)
         Instance = (T)this;
       else
       {
