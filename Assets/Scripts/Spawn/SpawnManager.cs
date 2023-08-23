@@ -80,7 +80,7 @@ namespace Spawn
     [ContextMenu("Start Spawn: Test")]
     public void StartTestSpawn()
     {
-      StartSpawn(2, 3f, "enemy_test");
+      StartSpawn(3, 2f, "enemy_test");
     }
 
     private void Start()

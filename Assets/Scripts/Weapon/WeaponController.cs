@@ -18,13 +18,12 @@ namespace Weapon
     [SerializeField]
     private CircleCollider2D collider;
 
-    public Action onFire;
-
     private float time;
 
     private void Reset()
     {
       collider = GetComponent<CircleCollider2D>();
+      collider.isTrigger = true;
     }
 
     private void Awake()
@@ -54,12 +53,16 @@ namespace Weapon
         if (time >= 1 / weaponData.status.attackSpeed)
         {
           time = 0;
-          onFire?.Invoke();
+          OnFire();
         }
+        
+        time += Time.deltaTime;
       }
-      else hasTarget = false;
-
-      time += Time.deltaTime;
+      else
+      {
+        hasTarget = false;
+        // time = 0;
+      }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -79,6 +82,11 @@ namespace Weapon
         target = null;
         hasTarget = false;
       }
+    }
+
+    protected virtual void OnFire()
+    {
+      
     }
   }
 }
