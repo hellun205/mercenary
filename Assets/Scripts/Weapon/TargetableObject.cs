@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 namespace Weapon
@@ -15,6 +16,7 @@ namespace Weapon
       if (hp <= 0)
       {
         canTarget = false;
+        GameManager.Spawn.Spawn(transform.position, "coin");
         Destroy(gameObject);
       }
     }
