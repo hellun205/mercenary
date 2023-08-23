@@ -11,6 +11,7 @@ namespace Manager
     public static PlayerController Player { get; private set; }
     public static MapManager Map { get; private set; }
     public static SpawnManager Spawn { get; private set; }
+    public static UIManager UI { get; private set; }
 
     protected override void Awake()
     {
@@ -21,6 +22,7 @@ namespace Manager
       Player = FindObjectOfType<PlayerController>();
       Map = FindObjectOfType<MapManager>();
       Spawn = FindObjectOfType<SpawnManager>();
+      UI = FindObjectOfType<UIManager>();
     }
   }
 }
