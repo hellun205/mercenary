@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Pool;
 using UnityEngine;
 
 namespace Coin
@@ -9,6 +10,14 @@ namespace Coin
     public bool isFollowing;
 
     private static Transform target => GameManager.Player.transform;
+
+    private PoolObject po;
+
+    private void Awake()
+    {
+      po = GetComponent<PoolObject>();
+      po.onGet += () => isFollowing = false;
+    }
 
     public void Update()
     {

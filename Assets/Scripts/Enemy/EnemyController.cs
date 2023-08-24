@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Pool;
 using Spawn;
 using UnityEngine;
 using Util;
@@ -8,13 +9,31 @@ using Weapon;
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : SpawnableObject
+  public class EnemyController : MonoBehaviour
   {
-    public float moveSpeed = 2f;
+    [Header("Base Status")]
+    public EnemyStatus status;
+    
+    // [Header("Variable Status")]
+    
+    public bool isEnabled = true;
 
     private Transform target;
 
-    public bool isEnabled = true;
+    private PoolObject po;
+
+    private void Awake()
+    {
+      po = GetComponent<PoolObject>();
+      po.onGet += () =>
+      {
+        isEnabled = true;
+      };
+      po.onReleased += () =>
+      {
+        isEnabled = false;
+      };
+    }
 
     private void Start()
     {
@@ -26,7 +45,7 @@ namespace Enemy
       if (!isEnabled) return;
 
       transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
-      transform.Translate(Vector3.right * (Time.deltaTime * moveSpeed));
+      transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
     }
   }
 }

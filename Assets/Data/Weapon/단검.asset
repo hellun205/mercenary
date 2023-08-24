@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uB2E8\uAC80"
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 7f303ee68234d144db3a4ecf14317baa, type: 3}
-  prefab: 
+  prefab: weapon_melee_knife
   descriptions: 
   status:
     attackDamage: 25

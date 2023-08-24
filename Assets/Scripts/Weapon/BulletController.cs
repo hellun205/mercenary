@@ -1,4 +1,5 @@
 using System;
+using Pool;
 using UnityEngine;
 using Util;
 
@@ -17,6 +18,21 @@ namespace Weapon
     public float despawnTime = 10f;
     
     private float time;
+
+    private PoolObject po;
+
+    private void Awake()
+    {
+      po = GetComponent<PoolObject>();
+      po.onGet += () =>
+      {
+        isEnabled = true;
+      };
+      po.onReleased += () =>
+      {
+        isEnabled = false;
+      };
+    }
 
     private void Update()
     {

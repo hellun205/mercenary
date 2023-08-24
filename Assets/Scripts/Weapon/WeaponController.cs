@@ -1,6 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using Manager;
+using Pool;
 using UnityEngine;
 using Util;
 
@@ -69,9 +70,6 @@ namespace Weapon
 
       if (weaponData.needFlip)
         sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
-
-
-      
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -86,7 +84,9 @@ namespace Weapon
 
     private void OnTriggerExit2D(Collider2D other)
     {
-      if (hasTarget && other.gameObject == target.gameObject)
+      if (hasTarget &&
+          other.TryGetComponent(typeof(TargetableObject), out var component) &&
+          ((TargetableObject)component).index == target.index)
       {
         target = null;
         hasTarget = false;
