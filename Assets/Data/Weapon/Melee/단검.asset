@@ -18,7 +18,7 @@ MonoBehaviour:
   status:
     attackDamage: 25
     hp: 0
-    attackSpeed: 2
+    attackSpeed: 1
     moveSpeed: 0
-    range: 2.85
+    range: 2.5
   needFlip: 0

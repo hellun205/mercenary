@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: enemy_test
   m_EditorClassIdentifier: 
   maxHp: 50
-  moveSpeed: 3
+  moveSpeed: 1
