@@ -12,5 +12,7 @@ namespace Weapon
     public string descriptions;
 
     public WeaponStatus status;
+
+    public bool needFlip;
   }
 }

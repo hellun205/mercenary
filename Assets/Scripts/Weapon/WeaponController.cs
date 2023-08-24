@@ -20,6 +20,9 @@ namespace Weapon
 
     private float time;
 
+    [SerializeField]
+    private SpriteRenderer sr;
+
     private void Reset()
     {
       collider = GetComponent<CircleCollider2D>();
@@ -40,7 +43,7 @@ namespace Weapon
     private void Update()
     {
       RefreshRange();
-      
+
       if (hasTarget && target && target.canTarget)
       {
         transform.localRotation = Quaternion.Lerp
@@ -55,7 +58,7 @@ namespace Weapon
           time = 0;
           OnFire();
         }
-        
+
         time += Time.deltaTime;
       }
       else
@@ -63,6 +66,12 @@ namespace Weapon
         hasTarget = false;
         // time = 0;
       }
+
+      if (weaponData.needFlip)
+        sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+
+
+      
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -86,7 +95,6 @@ namespace Weapon
 
     protected virtual void OnFire()
     {
-      
     }
   }
 }
