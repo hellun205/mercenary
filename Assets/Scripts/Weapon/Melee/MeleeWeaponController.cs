@@ -1,4 +1,8 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using Manager;
 using UnityEngine;
 using Util;
 
@@ -9,8 +13,9 @@ namespace Weapon.Melee
     [SerializeField]
     protected Transform movingObj;
 
-    // private Coroutine fireCrt;
     private Coroutiner fireCrt;
+
+    private List<int> attackedTargets = new List<int>();
 
     protected override void Awake()
     {
@@ -22,13 +27,19 @@ namespace Weapon.Melee
     protected override void Update()
     {
       base.Update();
-     
-      isAttacking = movingObj.localPosition.x > weaponData.status.fireRange * 0.3f;
+
+      var debugTxt = GameManager.UI.Find("$debug");
+      var sb = new StringBuilder();
+
+      foreach (var i in attackedTargets)
+        sb.Append($"{i}\n");
+
+      debugTxt.text = sb.ToString();
     }
 
     protected override void OnFire()
     {
-      base.OnFire();
+      attackedTargets.Clear();
       fireCrt.Start();
     }
 
@@ -37,11 +48,12 @@ namespace Weapon.Melee
       var time = 0f;
       var tmp = 0f;
       isAttacking = true;
-      while (movingObj.localPosition.x < weaponData.status.fireRange * 0.9)
+
+      while (!movingObj.localPosition.x.isSimilar(weaponData.status.fireRange))
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * 1.2f * weaponData.status.attackSpeed;
+        time += Time.deltaTime * weaponData.status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
@@ -51,11 +63,11 @@ namespace Weapon.Melee
       time = 0f;
 
 
-      while (movingObj.localPosition.x > 0)
+      while (!movingObj.localPosition.x.isSimilar(0))
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * 1.2f * weaponData.status.attackSpeed;
+        time += Time.deltaTime * weaponData.status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
@@ -63,6 +75,21 @@ namespace Weapon.Melee
       }
 
       isAttacking = false;
+    }
+
+    public void Attack(TargetableObject targetObj)
+    {
+      if (!isAttacking || attackedTargets.Contains(targetObj.index)) return;
+      attackedTargets.Add(targetObj.index);
+      try
+      {
+        if (targetObj.canTarget && targetObj.gameObject.activeSelf)
+          targetObj.Hit(weaponData.status.attackDamage);
+      }
+      catch (Exception ex)
+      {
+        Debug.Log("Error Attack target:" + ex.Message);
+      }
     }
   }
 }

@@ -10,10 +10,8 @@ namespace Weapon.Ranged
   
     protected override void OnFire()
     {
-      // var bulletObj = Instantiate(GameManager.Prefab.Get(bullet), firePosition.position, Quaternion.identity)
-      //  .GetComponent<BulletController>();
       var bulletObj = GameManager.Pool.Summon<BulletController>(bullet, firePosition.position);
-      
+      bulletObj.maxPenetrateCount = weaponData.penetrate;
       bulletObj.SetTarget(target, weaponData.status.attackDamage);
     }
   }

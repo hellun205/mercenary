@@ -17,9 +17,9 @@ MonoBehaviour:
   prefab: weapon_throwing_test
   descriptions: 
   status:
-    attackDamage: 20
+    attackDamage: 25
     hp: 0
-    attackSpeed: 1
+    attackSpeed: 2
     moveSpeed: 0
     fireRange: 5
   needFlipY: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   throwingObj: weapon_throwing_test_obj
   damageDelay: 2
   damageRange: 2
-  fireOnContact: 0
+  fireOnContact: 1

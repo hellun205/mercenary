@@ -1,6 +1,7 @@
 using System;
 using Manager;
 using Pool;
+using Pool.Extensions;
 using TMPro;
 using UnityEngine;
 using Util;
@@ -40,12 +41,11 @@ namespace Weapon
     {
       hp -= damage;
       GetComponent<SpriteRenderer>().color = Color.red;
-      GameManager.Pool.Summon("text", transform.position, obj =>
+      GameManager.Pool.Summon<Text>("text", transform.position, obj =>
       {
-        var t = obj.GetComponent<TextMeshProUGUI>();
-        t.text = $"{damage}";
-        t.color = Color.red;
-        Utils.Wait(1.5f, obj.Release);
+        obj.value = $"{damage}";
+        obj.color = Color.red;
+        Utils.Wait(1.5f, obj.po.Release);
       });
 
       if (hp <= 0)

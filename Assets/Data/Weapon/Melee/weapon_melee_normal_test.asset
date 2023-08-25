@@ -17,9 +17,9 @@ MonoBehaviour:
   prefab: weapon_melee_knife
   descriptions: 
   status:
-    attackDamage: 10
+    attackDamage: 25
     hp: 0
-    attackSpeed: 2
+    attackSpeed: 0.7
     moveSpeed: 0
     fireRange: 2.5
   needFlipY: 0

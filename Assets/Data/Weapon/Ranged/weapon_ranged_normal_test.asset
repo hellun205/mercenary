@@ -19,7 +19,10 @@ MonoBehaviour:
   status:
     attackDamage: 50
     hp: 0
-    attackSpeed: 20
+    attackSpeed: 1
     moveSpeed: 0
-    fireRange: 3
-  needFlip: 1
+    fireRange: 5
+  needFlipY: 1
+  needFlipX: 0
+  rotate: 1
+  penetrate: 0

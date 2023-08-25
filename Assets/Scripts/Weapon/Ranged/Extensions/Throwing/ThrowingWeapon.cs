@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Weapon.Ranged.Extensions.Throwing
 {
   [CreateAssetMenu(fileName = "Throwing Weapon", menuName = "Weapon/Ranged/Throwing", order = 0)]
-  public class ThrowingWeapon : RangedWeapon
+  public class ThrowingWeapon : Weapon
   {
-    [Header("Throwing")]
+    [Header("Ranged - Throwing")]
     public string throwingObj;
     
     public float damageDelay;

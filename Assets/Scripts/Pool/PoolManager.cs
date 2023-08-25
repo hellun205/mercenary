@@ -72,6 +72,7 @@ namespace Pool
     {
       obj.transform.position = tmpPos;
       obj.index = index++;
+      obj.name = $"{obj.type} ({obj.index})";
       obj.OnGet();
       obj.gameObject.SetActive(true);
     }
@@ -80,18 +81,10 @@ namespace Pool
     {
       var o = GameManager.Prefab.Get<PoolObject>(name);
       PoolObject obj;
-      if (o is UIPoolObject uiPoolObject)
-      {
-        obj = Object.Instantiate(o, uiParent);
-        obj.GetComponent<UIPoolObject>().position = tmpPos;
-      }
-      else
-      {
-        obj = Object.Instantiate(o, tmpPos, Quaternion.identity, parent);
-      }
+      obj = Object.Instantiate(o, o is UIPoolObject ? uiParent : parent);
+      obj.position = tmpPos;
       obj.type = name;
-      // obj.index = index++;
-      // obj.OnGet();
+      
       return obj;
     }
 

@@ -52,5 +52,8 @@ namespace Util
 
       return screenPoint;
     }
+
+    public static bool isSimilar(this float a, float b, float criteria = 0.3f)
+      => Mathf.Abs(a - b) < criteria;
   }
 }

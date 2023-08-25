@@ -11,8 +11,7 @@ namespace Weapon.Melee
 
     private void OnTriggerStay2D(Collider2D other)
     {
-      if (mainCtrler.isAttacking)
-        mainCtrler.Attack(other.GetComponent<TargetableObject>());
+      mainCtrler.Attack(other.GetComponent<TargetableObject>());
     }
   }
 }
