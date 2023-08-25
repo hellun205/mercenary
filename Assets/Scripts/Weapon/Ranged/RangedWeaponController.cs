@@ -1,10 +1,9 @@
-using System;
 using Manager;
 using UnityEngine;
 
-namespace Weapon
+namespace Weapon.Ranged
 {
-  public class RangedWeaponController : WeaponController
+  public class RangedWeaponController : WeaponController<RangedWeapon>
   {
     public Transform firePosition;
     public string bullet;

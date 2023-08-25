@@ -1,36 +1,36 @@
 using System;
-using JetBrains.Annotations;
-using Manager;
-using Pool;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public class WeaponController : MonoBehaviour
+  public class WeaponController<T> : MonoBehaviour where T : Weapon
   {
-    public Weapon weaponData;
+    public T weaponData;
 
     public TargetableObject target;
+    public TargetableObject AttackTarget;
 
     public bool hasTarget = false;
 
+    [FormerlySerializedAs("collider")]
     [SerializeField]
-    private CircleCollider2D collider;
+    private CircleCollider2D col;
 
     private float time;
 
     [SerializeField]
-    private SpriteRenderer sr;
+    protected SpriteRenderer sr;
 
-    private void Reset()
+    protected virtual void Reset()
     {
-      collider = GetComponent<CircleCollider2D>();
-      collider.isTrigger = true;
+      col = GetComponent<CircleCollider2D>();
+      col.isTrigger = true;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
       RefreshRange();
     }
@@ -38,7 +38,7 @@ namespace Weapon
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      collider.radius = weaponData.status.range;
+      col.radius = weaponData.status.fireRange;
     }
 
     private void Update()
@@ -47,12 +47,13 @@ namespace Weapon
 
       if (hasTarget && target && target.canTarget)
       {
-        transform.localRotation = Quaternion.Lerp
-        (
-          transform.rotation,
-          transform.GetRotationOfLookAtObject(target.transform),
-          Time.deltaTime * 10f
-        );
+        if (weaponData.rotate)
+          transform.localRotation = Quaternion.Lerp
+          (
+            transform.rotation,
+            transform.GetRotationOfLookAtObject(target.transform),
+            Time.deltaTime * 10f
+          );
 
         if (time >= 1 / weaponData.status.attackSpeed)
         {
@@ -95,6 +96,24 @@ namespace Weapon
 
     protected virtual void OnFire()
     {
+    }
+
+    protected void SetTarget(TargetableObject targetObj)
+    {
+      AttackTarget = targetObj;
+    }
+
+    protected void Attack()
+    {
+      try
+      {
+        if (AttackTarget.canTarget && AttackTarget.gameObject.activeSelf)
+          AttackTarget.Hit(weaponData.status.attackDamage);
+      }
+      catch (Exception ex)
+      {
+        Debug.Log("Error Attack target:" + ex.Message);
+      }
     }
   }
 }

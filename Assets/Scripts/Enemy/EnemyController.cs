@@ -9,6 +9,7 @@ using Weapon;
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
+  [RequireComponent(typeof(PoolObject))]
   public class EnemyController : MonoBehaviour
   {
     [Header("Base Status")]

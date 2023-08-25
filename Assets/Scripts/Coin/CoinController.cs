@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Coin
 {
+  [RequireComponent(typeof(PoolObject))]
   public class CoinController : MonoBehaviour
   {
     public bool isFollowing;

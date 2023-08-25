@@ -1,9 +1,8 @@
-using System;
 using Pool;
 using UnityEngine;
 using Util;
 
-namespace Weapon
+namespace Weapon.Ranged
 {
   public class BulletController : MonoBehaviour
   {

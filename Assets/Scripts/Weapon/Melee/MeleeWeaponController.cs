@@ -1,15 +1,23 @@
 using System.Collections;
-using Manager;
 using UnityEngine;
+using Util;
 
-namespace Weapon
+namespace Weapon.Melee
 {
-  public class MeleeWeaponController : WeaponController
+  public class MeleeWeaponController : WeaponController<MeleeWeapon>
   {
     [SerializeField]
     private Transform movingObj;
 
-    private Coroutine fireCrt;
+    // private Coroutine fireCrt;
+    private Coroutiner fireCrt;
+
+    protected override void Awake()
+    {
+      base.Awake();
+      
+      fireCrt = new Coroutiner(FireCRT);
+    }
 
     protected override void OnFire()
     {
@@ -18,17 +26,16 @@ namespace Weapon
       //   .GetComponent<BulletController>();
 
       // bulletObj.SetTarget(target, weaponData.status.attackDamage);
-      if (fireCrt is not null) StopCoroutine(fireCrt);
-      fireCrt = StartCoroutine(FireCRT());
+      fireCrt.Start();
     }
 
     private IEnumerator FireCRT()
     {
       var time = 0f;
       var tmp = 0f;
-      var curTarget = target;
+      SetTarget(target);
 
-      while (movingObj.localPosition.x < weaponData.status.range * 0.9)
+      while (movingObj.localPosition.x < weaponData.status.fireRange * 0.9)
       {
         yield return new WaitForEndOfFrame();
 
@@ -36,16 +43,10 @@ namespace Weapon
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
-        movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, weaponData.status.range, time), pos.y, pos.z);
+        movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, weaponData.status.fireRange, time), pos.y, pos.z);
       }
 
-      try
-      {
-        curTarget.Hit(weaponData.status.attackDamage);
-      }
-      catch
-      {
-      }
+      Attack();
 
       time = 0f;
 
