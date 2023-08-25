@@ -16,9 +16,6 @@ namespace Manager
         Destroy(this);
         throw new Exception("already exists SingleTon Object:" + name);
       }
-      
-      if (this is IDontDestroyObject)
-        DontDestroyOnLoad(gameObject);
     }
   }
 }

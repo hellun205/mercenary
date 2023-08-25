@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -55,5 +56,13 @@ namespace Util
 
     public static bool isSimilar(this float a, float b, float criteria = 0.3f)
       => Mathf.Abs(a - b) < criteria;
+    
+    [MenuItem("Assets/GetAssetPath")]
+    static void GetAssetPath()
+    {
+      UnityEngine.Object pSelectObj = Selection.activeObject;
+      string sAssetPath = AssetDatabase.GetAssetPath(pSelectObj.GetInstanceID());
+      Debug.Log(sAssetPath);
+    }
   }
 }

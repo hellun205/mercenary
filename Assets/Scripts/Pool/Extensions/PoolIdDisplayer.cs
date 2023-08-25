@@ -23,7 +23,7 @@ namespace Pool.Extensions
 
       po.onGet += () =>
       {
-        GameManager.Pool.Summon<FollowingText>("followingtext", po.position, obj =>
+        GameManager.Pool.Summon<FollowingText>("ui/followingtext", po.position, obj =>
         {
           obj.follower.SetTarget(po);
           obj.value = $"{po.index}";

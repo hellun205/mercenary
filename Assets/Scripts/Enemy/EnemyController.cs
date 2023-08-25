@@ -32,6 +32,7 @@ namespace Enemy
       };
       po.onReleased += () =>
       {
+        GameManager.Spawn.Spawn(transform.position, "object/coin");
         isEnabled = false;
       };
     }
