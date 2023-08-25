@@ -1,6 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Manager;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Util
 {
@@ -29,6 +33,24 @@ namespace Util
     {
       return new Color(r ?? original.r, g ?? original.g, b ?? original.b, a ?? original.a);
     }
-    
+
+    public static void Wait(float second, Action fn) => GameManager.Instance.StartCoroutine(WaitRoutine(second, fn));
+
+    private static IEnumerator WaitRoutine(float second, Action fn)
+    {
+      yield return new WaitForSecondsRealtime(second);
+      fn.Invoke();
+    }
+
+    public static Vector3 WorldToScreenSpace(this RectTransform canvas, Vector3 worldPos)
+    {
+      var screenPoint = Camera.main.WorldToScreenPoint(worldPos);
+      screenPoint.z = 0;
+
+      if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, screenPoint, Camera.main, out var screenPos))
+        return screenPos;
+
+      return screenPoint;
+    }
   }
 }

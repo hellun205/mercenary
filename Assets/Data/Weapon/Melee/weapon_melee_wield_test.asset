@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f00c15e72041dc8c424b82115fda7e, type: 3}
-  m_Name: "\uB2E8\uAC80"
+  m_Script: {fileID: 11500000, guid: 3d369133bfe34c93adc52a7a7663be1e, type: 3}
+  m_Name: weapon_melee_wield_test
   m_EditorClassIdentifier: 
   _name: 
-  icon: {fileID: 21300000, guid: 7f303ee68234d144db3a4ecf14317baa, type: 3}
-  prefab: weapon_melee_knife
+  icon: {fileID: 0}
+  prefab: 
   descriptions: 
   status:
-    attackDamage: 25
+    attackDamage: 0
     hp: 0
     attackSpeed: 1
     moveSpeed: 0
-    fireRange: 2.5
-  needFlip: 0
+    fireRange: 10
+  needFlipY: 0
+  needFlipX: 0
+  rotate: 1

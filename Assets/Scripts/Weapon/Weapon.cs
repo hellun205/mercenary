@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -16,8 +17,11 @@ namespace Weapon
 
     public WeaponStatus status;
     
+    [FormerlySerializedAs("needFlip")]
     [Header("Sprite Setting")]
-    public bool needFlip;
+    public bool needFlipY;
+
+    public bool needFlipX;
 
     public bool rotate = true;
   }

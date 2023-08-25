@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
@@ -6,23 +7,28 @@ using Util;
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public class WeaponController<T> : MonoBehaviour where T : Weapon
+  public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
     public T weaponData;
 
     public TargetableObject target;
-    public TargetableObject AttackTarget;
 
     public bool hasTarget = false;
+
 
     [FormerlySerializedAs("collider")]
     [SerializeField]
     private CircleCollider2D col;
 
     private float time;
+    
+    public bool isAttacking;
 
     [SerializeField]
     protected SpriteRenderer sr;
+    
+    [SerializeField]
+    private List<int> attackedTargets = new List<int>();
 
     protected virtual void Reset()
     {
@@ -41,13 +47,13 @@ namespace Weapon
       col.radius = weaponData.status.fireRange;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
       RefreshRange();
 
       if (hasTarget && target && target.canTarget)
       {
-        if (weaponData.rotate)
+        if (weaponData.rotate && !isAttacking)
           transform.localRotation = Quaternion.Lerp
           (
             transform.rotation,
@@ -69,8 +75,10 @@ namespace Weapon
         // time = 0;
       }
 
-      if (weaponData.needFlip)
+      if (weaponData.needFlipY)
         sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+      if (weaponData.needFlipX)
+        sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -96,19 +104,17 @@ namespace Weapon
 
     protected virtual void OnFire()
     {
+      attackedTargets.Clear();
     }
-
-    protected void SetTarget(TargetableObject targetObj)
+    
+    public void Attack(TargetableObject targetObj)
     {
-      AttackTarget = targetObj;
-    }
-
-    protected void Attack()
-    {
+      if (!isAttacking && attackedTargets.Contains(targetObj.index)) return;
+      attackedTargets.Add(targetObj.index);
       try
       {
-        if (AttackTarget.canTarget && AttackTarget.gameObject.activeSelf)
-          AttackTarget.Hit(weaponData.status.attackDamage);
+        if (targetObj.canTarget && targetObj.gameObject.activeSelf)
+          targetObj.Hit(weaponData.status.attackDamage);
       }
       catch (Exception ex)
       {

@@ -1,7 +1,7 @@
 using Pool;
 using UnityEngine;
 
-namespace Weapon.Throwing
+namespace Weapon.Ranged.Extensions.Throwing
 {
   [RequireComponent(typeof(PoolObject))]
   public class ExplosionEffectController : MonoBehaviour

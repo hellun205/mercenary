@@ -2,6 +2,7 @@ using System;
 using Manager;
 using Pool;
 using UnityEngine;
+using Weapon.Ranged.Extensions.Throwing;
 
 namespace Weapon.Throwing
 {

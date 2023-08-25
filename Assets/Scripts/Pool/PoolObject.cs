@@ -1,13 +1,20 @@
+using System;
 using Manager;
 using UnityEngine;
 
 namespace Pool
 {
-  public sealed class PoolObject : MonoBehaviour
+  public class PoolObject : MonoBehaviour
   {
     [Header("Pool Object")]
     public int index;
     public string type;
+
+    public virtual Vector2 position
+    {
+      get => transform.position;
+      set => transform.position = value;
+    }
 
     public delegate void PoolObjectEventListener();
     public event PoolObjectEventListener onGet;

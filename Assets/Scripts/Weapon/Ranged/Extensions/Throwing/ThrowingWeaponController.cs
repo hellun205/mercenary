@@ -2,8 +2,9 @@ using System.Collections;
 using Manager;
 using UnityEngine;
 using Util;
+using Weapon.Throwing;
 
-namespace Weapon.Throwing
+namespace Weapon.Ranged.Extensions.Throwing
 {
   public class ThrowingWeaponController : WeaponController<ThrowingWeapon>
   {

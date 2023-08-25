@@ -7,7 +7,7 @@ namespace Weapon.Melee
   public class MeleeWeaponController : WeaponController<MeleeWeapon>
   {
     [SerializeField]
-    private Transform movingObj;
+    protected Transform movingObj;
 
     // private Coroutine fireCrt;
     private Coroutiner fireCrt;
@@ -15,17 +15,20 @@ namespace Weapon.Melee
     protected override void Awake()
     {
       base.Awake();
-      
+
       fireCrt = new Coroutiner(FireCRT);
+    }
+
+    protected override void Update()
+    {
+      base.Update();
+     
+      isAttacking = movingObj.localPosition.x > weaponData.status.fireRange * 0.3f;
     }
 
     protected override void OnFire()
     {
-      Debug.Log("Fire!");
-      // var bulletObj = Instantiate(GameManager.Prefab.Get(bullet), firePosition.position, Quaternion.identity)
-      //   .GetComponent<BulletController>();
-
-      // bulletObj.SetTarget(target, weaponData.status.attackDamage);
+      base.OnFire();
       fireCrt.Start();
     }
 
@@ -33,33 +36,33 @@ namespace Weapon.Melee
     {
       var time = 0f;
       var tmp = 0f;
-      SetTarget(target);
-
+      isAttacking = true;
       while (movingObj.localPosition.x < weaponData.status.fireRange * 0.9)
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * 2;
+        time += Time.deltaTime * 1.2f * weaponData.status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
         movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, weaponData.status.fireRange, time), pos.y, pos.z);
       }
 
-      Attack();
-
       time = 0f;
+
 
       while (movingObj.localPosition.x > 0)
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * 2;
+        time += Time.deltaTime * 1.2f * weaponData.status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
         movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, 0f, time), pos.y, pos.z);
       }
+
+      isAttacking = false;
     }
   }
 }

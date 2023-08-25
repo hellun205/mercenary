@@ -15,7 +15,11 @@ namespace Pool
 
     private Vector2 tmpPos;
 
-    public Transform parent = (GameObject.Find("@summoned_objects") ?? new GameObject("@summoned_objects")).transform;
+    public Transform parent = (GameObject.Find("@summoned_objects") ??
+                               new GameObject("@summoned_objects")).transform;
+
+    public Transform uiParent = (GameObject.Find("@summoned_objects_ui") ??
+                                 new GameObject("@summoned_objects_ui")).transform;
 
     public PoolManager()
     {
@@ -32,7 +36,7 @@ namespace Pool
       return obj;
     }
 
-    public T Summon<T>(string name, Vector2 pos, Action<T> setter = null) where T: Component
+    public T Summon<T>(string name, Vector2 pos, Action<T> setter = null) where T : Component
     {
       var summon = Summon(name, pos, o => setter?.Invoke(o.GetComponent<T>()));
       return summon.GetComponent<T>();
@@ -74,8 +78,17 @@ namespace Pool
 
     private PoolObject CreateFunc(string name)
     {
-      var obj = Object.Instantiate(GameManager.Prefab.Get(name), tmpPos, Quaternion.identity, parent)
-        .GetComponent<PoolObject>();
+      var o = GameManager.Prefab.Get<PoolObject>(name);
+      PoolObject obj;
+      if (o is UIPoolObject uiPoolObject)
+      {
+        obj = Object.Instantiate(o, uiParent);
+        obj.GetComponent<UIPoolObject>().position = tmpPos;
+      }
+      else
+      {
+        obj = Object.Instantiate(o, tmpPos, Quaternion.identity, parent);
+      }
       obj.type = name;
       // obj.index = index++;
       // obj.OnGet();
