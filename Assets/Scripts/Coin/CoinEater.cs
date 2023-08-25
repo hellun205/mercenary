@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Pool;
 using UnityEngine;
 
 namespace Coin
@@ -15,7 +16,8 @@ namespace Coin
       {
         coin++;
         GameManager.UI.Find("$coin").text = $"{coin}";
-        Destroy(other.gameObject);
+        // Destroy(other.gameObject);
+        other.GetComponent<PoolObject>().Release();
       }
     }
   }

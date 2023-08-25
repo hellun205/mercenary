@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Manager
@@ -10,6 +11,11 @@ namespace Manager
     public T Get(string itemName)
     {
       return items.Find(item => item.name == itemName);
+    }
+
+    public TComponent Get<TComponent>(string itemName) where TComponent : Component
+    {
+      return Get(itemName).GetComponent<TComponent>();
     }
   }
 

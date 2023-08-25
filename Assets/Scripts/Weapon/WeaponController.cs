@@ -1,32 +1,42 @@
 using System;
-using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public class WeaponController : MonoBehaviour
+  public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
-    public Weapon weaponData;
+    public T weaponData;
 
     public TargetableObject target;
 
     public bool hasTarget = false;
 
+    [FormerlySerializedAs("collider")]
     [SerializeField]
-    private CircleCollider2D collider;
+    private CircleCollider2D col;
 
     private float time;
 
-    private void Reset()
+    public bool isAttacking;
+
+    [SerializeField]
+    protected SpriteRenderer sr;
+
+
+    protected virtual void Reset()
     {
-      collider = GetComponent<CircleCollider2D>();
-      collider.isTrigger = true;
+      col = GetComponent<CircleCollider2D>();
+      col.isTrigger = true;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
       RefreshRange();
     }
@@ -34,28 +44,28 @@ namespace Weapon
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      collider.radius = weaponData.status.range;
+      col.radius = weaponData.status.fireRange;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
       RefreshRange();
-      
       if (hasTarget && target && target.canTarget)
       {
-        transform.localRotation = Quaternion.Lerp
-        (
-          transform.rotation,
-          transform.GetRotationOfLookAtObject(target.transform),
-          Time.deltaTime * 10f
-        );
+        var r = transform.GetRotationOfLookAtObject(target.transform);
+        if (weaponData.rotate && !isAttacking)
+        {
+          transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
+        }
 
-        if (time >= 1 / weaponData.status.attackSpeed)
+        if (time >= 1 / weaponData.status.attackSpeed && (
+              !weaponData.rotate ||
+              Math.Abs(transform.rotation.eulerAngles.z - r.eulerAngles.z) < 10f))
         {
           time = 0;
           OnFire();
         }
-        
+
         time += Time.deltaTime;
       }
       else
@@ -63,6 +73,11 @@ namespace Weapon
         hasTarget = false;
         // time = 0;
       }
+
+      if (weaponData.needFlipY)
+        sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+      if (weaponData.needFlipX)
+        sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -77,7 +92,9 @@ namespace Weapon
 
     private void OnTriggerExit2D(Collider2D other)
     {
-      if (hasTarget && other.gameObject == target.gameObject)
+      if (hasTarget &&
+          other.TryGetComponent(typeof(TargetableObject), out var component) &&
+          ((TargetableObject) component).index == target.index)
       {
         target = null;
         hasTarget = false;
@@ -86,7 +103,6 @@ namespace Weapon
 
     protected virtual void OnFire()
     {
-      
     }
   }
 }

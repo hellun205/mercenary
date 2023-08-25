@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -9,6 +10,6 @@ namespace Weapon
     public float hp;
     public float attackSpeed;
     public float moveSpeed;
-    public float range;
+    public float fireRange;
   }
 }

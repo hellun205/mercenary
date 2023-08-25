@@ -1,5 +1,6 @@
 using Enemy;
 using Player;
+using Pool;
 using Spawn;
 
 namespace Manager
@@ -12,6 +13,8 @@ namespace Manager
     public static MapManager Map { get; private set; }
     public static SpawnManager Spawn { get; private set; }
     public static UIManager UI { get; private set; }
+    public static PoolManager Pool { get; private set; }
+    
 
     protected override void Awake()
     {
@@ -23,6 +26,7 @@ namespace Manager
       Map = FindObjectOfType<MapManager>();
       Spawn = FindObjectOfType<SpawnManager>();
       UI = FindObjectOfType<UIManager>();
+      Pool = PoolManager.Instance;
     }
   }
 }
