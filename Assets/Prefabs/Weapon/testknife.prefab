@@ -120,7 +120,6 @@ MonoBehaviour:
   col: {fileID: 4050276591124512170}
   isAttacking: 0
   sr: {fileID: 2983364493825563897}
-  attackedTargets: 
   movingObj: {fileID: 1075818993657578876}
 --- !u!1 &7329823742863762386
 GameObject:

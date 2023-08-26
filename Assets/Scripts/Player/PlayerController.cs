@@ -5,6 +5,6 @@ namespace Player
 {
   public class PlayerController : MonoBehaviour
   {
-    
+    public PlayerStatus status;
   }
 }

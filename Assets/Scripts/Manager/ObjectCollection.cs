@@ -54,7 +54,7 @@ namespace Manager
           if (typeof(T).Name == "GameObject")
             asset = (T) AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
           else
-            asset = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)).GetComponent<T>();
+            asset = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
 
           items.Add(path.Replace($"Assets/{root}/", "").Replace($".{exts}", "").ToLower(), asset);
         }
