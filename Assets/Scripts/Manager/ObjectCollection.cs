@@ -52,15 +52,11 @@ namespace Manager
         {
           T asset;
           if (typeof(T).Name == "GameObject")
-          {
             asset = (T) AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
-          }
           else
-          {
             asset = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)).GetComponent<T>();
-          }
 
-          items.Add(path.Replace($"Assets/{root}/", "").Replace($".{exts}", ""), asset);
+          items.Add(path.Replace($"Assets/{root}/", "").Replace($".{exts}", "").ToLower(), asset);
         }
       }
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
   prefab: 
   descriptions: 
   status:
-    attackDamage: 0
+    attackDamage: 1e+11
     hp: 0
     attackSpeed: 1
     moveSpeed: 0

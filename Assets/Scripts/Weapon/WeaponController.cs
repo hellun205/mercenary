@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Manager;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -49,6 +45,7 @@ namespace Weapon
 
     protected virtual void Update()
     {
+      GameManager.UI.Find("$debug").text = $"{time}";
       RefreshRange();
       if (hasTarget && target && target.canTarget)
       {
@@ -60,7 +57,7 @@ namespace Weapon
 
         if (time >= 1 / weaponData.status.attackSpeed && (
               !weaponData.rotate ||
-              Math.Abs(transform.rotation.eulerAngles.z - r.eulerAngles.z) < 10f))
+              transform.rotation.eulerAngles.z.ApproximatelyEqual(r.eulerAngles.z, 10f) ))
         {
           time = 0;
           OnFire();
@@ -78,6 +75,7 @@ namespace Weapon
         sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
       if (weaponData.needFlipX)
         sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -104,5 +102,6 @@ namespace Weapon
     protected virtual void OnFire()
     {
     }
+
   }
 }

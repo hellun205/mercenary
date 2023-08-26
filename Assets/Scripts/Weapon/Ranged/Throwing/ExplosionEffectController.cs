@@ -11,8 +11,6 @@ namespace Weapon.Ranged.Throwing
 
     [SerializeField]
     private string animName;
-    [SerializeField]
-    private string noneName = "None";
 
     private void Awake()
     {
@@ -25,7 +23,6 @@ namespace Weapon.Ranged.Throwing
 
     private void PoolOnRelease()
     {
-      // anim.Play(noneName);
     }
 
     private void PoolOnGet()

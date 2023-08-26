@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Coin
 {
@@ -8,21 +9,22 @@ namespace Coin
   {
     public float range = 20f;
 
+    [FormerlySerializedAs("collider")]
     [SerializeField]
-    private CircleCollider2D collider;
+    private CircleCollider2D col;
     
     private void Reset()
     {
-      collider = GetComponent<CircleCollider2D>();
-      collider.radius = range;
-      collider.isTrigger = true;
-      collider.includeLayers = LayerMask.GetMask("Coin");
-      collider.excludeLayers = int.MaxValue;
+      col = GetComponent<CircleCollider2D>();
+      col.radius = range;
+      col.isTrigger = true;
+      col.includeLayers = LayerMask.GetMask("Coin");
+      col.excludeLayers = int.MaxValue;
     }
 
     private void OnValidate()
     {
-      collider.radius = range;
+      col.radius = range;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
