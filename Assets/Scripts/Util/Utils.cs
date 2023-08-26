@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,6 +34,16 @@ namespace Util
     {
       return new Color(r ?? original.r, g ?? original.g, b ?? original.b, a ?? original.a);
     }
+    
+    public static Vector3 Setter(this Vector3 original, float? x = null, float? y = null, float? z = null)
+    {
+      return new Vector3(x ?? original.x, y ?? original.y, z ?? original.z);
+    }
+    
+    public static Vector2 Setter(this Vector2 original, float? x = null, float? y = null)
+    {
+      return new Vector2(x ?? original.x, y ?? original.y);
+    }
 
     public static void Wait(float second, Action fn) => GameManager.Instance.StartCoroutine(WaitRoutine(second, fn));
 
@@ -53,7 +64,7 @@ namespace Util
       return screenPoint;
     }
 
-    public static bool isSimilar(this float a, float b, float criteria = 0.3f)
-      => Mathf.Abs(a - b) < criteria;
+    public static bool ApproximatelyEqual(this float a, float b, float errorRange = 0.3f)
+      => Mathf.Abs(a - b) < errorRange;
   }
 }

@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Weapon
 {
-  public abstract class TargetableStatus : ScriptableObject
+  [CreateAssetMenu(menuName = "Status/Normal")]
+  public class TargetableStatus : ScriptableObject
   {
     public float maxHp;
   }

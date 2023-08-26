@@ -15,7 +15,7 @@ namespace Weapon.Melee
 
     private Coroutiner fireCrt;
 
-    private List<int> attackedTargets = new List<int>();
+    protected List<int> attackedTargets = new List<int>();
 
     protected override void Awake()
     {
@@ -28,13 +28,13 @@ namespace Weapon.Melee
     {
       base.Update();
 
-      var debugTxt = GameManager.UI.Find("$debug");
-      var sb = new StringBuilder();
-
-      foreach (var i in attackedTargets)
-        sb.Append($"{i}\n");
-
-      debugTxt.text = sb.ToString();
+      // var debugTxt = GameManager.UI.Find("$debug");
+      // var sb = new StringBuilder();
+      //
+      // foreach (var i in attackedTargets)
+      //   sb.Append($"{i}\n");
+      //
+      // debugTxt.text = sb.ToString();
     }
 
     protected override void OnFire()
@@ -49,7 +49,7 @@ namespace Weapon.Melee
       var tmp = 0f;
       isAttacking = true;
 
-      while (!movingObj.localPosition.x.isSimilar(weaponData.status.fireRange))
+      while (!movingObj.localPosition.x.ApproximatelyEqual(weaponData.status.fireRange))
       {
         yield return new WaitForEndOfFrame();
 
@@ -63,7 +63,7 @@ namespace Weapon.Melee
       time = 0f;
 
 
-      while (!movingObj.localPosition.x.isSimilar(0))
+      while (!movingObj.localPosition.x.ApproximatelyEqual(0))
       {
         yield return new WaitForEndOfFrame();
 
@@ -79,10 +79,10 @@ namespace Weapon.Melee
 
     public void Attack(TargetableObject targetObj)
     {
-      if (!isAttacking || attackedTargets.Contains(targetObj.index)) return;
-      attackedTargets.Add(targetObj.index);
       try
       {
+        if (!isAttacking || attackedTargets.Contains(targetObj.index)) return;
+        attackedTargets.Add(targetObj.index);
         if (targetObj.canTarget && targetObj.gameObject.activeSelf)
           targetObj.Hit(weaponData.status.attackDamage);
       }

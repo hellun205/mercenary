@@ -5,10 +5,10 @@ using Spawn;
 
 namespace Manager
 {
-  public sealed class GameManager : MonoBehaviourSingleTon<GameManager>, IDontDestroyObject
+  public sealed class GameManager : MonoBehaviourSingleTon<GameManager>
   {
     public static KeyManager Key { get; private set; }
-    public static ObjectCollection Prefab { get; private set; }
+    // public static ObjectCollection Prefab { get; private set; }
     public static PlayerController Player { get; private set; }
     public static MapManager Map { get; private set; }
     public static SpawnManager Spawn { get; private set; }
@@ -21,7 +21,7 @@ namespace Manager
       base.Awake();
 
       Key = KeyManager.Instance;
-      Prefab = transform.Find("@prefabs").GetComponent<ObjectCollection>();
+      // Prefab = transform.Find("@prefabs").GetComponent<ObjectCollection>();
       Player = FindObjectOfType<PlayerController>();
       Map = FindObjectOfType<MapManager>();
       Spawn = FindObjectOfType<SpawnManager>();

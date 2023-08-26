@@ -27,7 +27,7 @@ namespace Util
     public void Start(params object[] parameters)
     {
       Stop();
-      GameManager.Instance.StartCoroutine((IEnumerator)GetRoutine().DynamicInvoke(parameters));
+      current = GameManager.Instance.StartCoroutine((IEnumerator)GetRoutine().DynamicInvoke(parameters));
     }
 
     public void Stop()

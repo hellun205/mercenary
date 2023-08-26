@@ -41,7 +41,7 @@ namespace Weapon
     {
       hp -= damage;
       GetComponent<SpriteRenderer>().color = Color.red;
-      GameManager.Pool.Summon<Text>("text", transform.position, obj =>
+      GameManager.Pool.Summon<Text>("ui/text", transform.position, obj =>
       {
         obj.value = $"{damage}";
         obj.color = Color.red;
@@ -50,8 +50,6 @@ namespace Weapon
 
       if (hp <= 0)
       {
-        canTarget = false;
-        GameManager.Spawn.Spawn(transform.position, "coin");
         po.Release();
       }
     }
