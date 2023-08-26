@@ -7,5 +7,7 @@ namespace Weapon.Ranged
   {
     [Header("Ranged - Normal")]
     public int penetrate;
+
+    public string bullet;
   }
 }

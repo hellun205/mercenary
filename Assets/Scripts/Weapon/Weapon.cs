@@ -10,8 +10,6 @@ namespace Weapon
     
     public Sprite icon;
 
-    public string prefab;
-
     [Multiline]
     public string descriptions;
 

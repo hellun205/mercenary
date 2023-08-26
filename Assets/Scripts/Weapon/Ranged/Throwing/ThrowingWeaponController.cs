@@ -24,8 +24,8 @@ namespace Weapon.Ranged.Throwing
     protected virtual IEnumerator FireRoutine()
     {
       var t = 0f;
-      GameManager.Pool.Summon<ThrowingObjectController>(weaponData.throwingObj, transform.position,
-        obj => obj.SetTarget(target.transform));
+      GameManager.Pool.Summon<ThrowingObjectController>(GetPObj(weaponData.throwingObj), transform.position,
+        obj => obj.SetTarget(target.transform, this));
       sr.color = sr.color.Setter(a: 0f);
       yield return null;
       

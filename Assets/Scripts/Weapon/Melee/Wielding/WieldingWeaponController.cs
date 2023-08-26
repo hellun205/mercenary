@@ -35,6 +35,7 @@ namespace Weapon.Melee.Wielding
     protected override void Update()
     {
       base.Update();
+      if (!isReady) return;
 
       var z = transform.localRotation.eulerAngles.z;
       var s = transform.localScale;

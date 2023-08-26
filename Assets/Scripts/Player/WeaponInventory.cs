@@ -31,10 +31,11 @@ namespace Player
       if (weapons[slot] != null)
         RemoveWeapon(slot);
       var data = GameManager.WeaponData[weaponName];
-      
+
       weapons[slot] = data;
-      Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position, Quaternion.identity,
+      var obj = Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position, Quaternion.identity,
         weaponSlots[slot]);
+      obj.name = weaponName;
     }
 
     public void RemoveWeapon(int slot)
@@ -59,5 +60,16 @@ namespace Player
         SetWeapon(original, tmp);
       }
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Set Weapon for test")]
+    private void Test()
+    {
+      SetWeapon(0, "melee/testknife");
+      SetWeapon(1, "melee/testaxe");
+      SetWeapon(2, "ranged/testgun");
+      SetWeapon(3, "ranged/testbomb");
+    }
+#endif
   }
 }

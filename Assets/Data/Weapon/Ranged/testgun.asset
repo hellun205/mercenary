@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 
   icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
-  prefab: weapon_ranged_gun
   descriptions: 
   status:
-    attackDamage: 50
+    attackDamage: 1
     hp: 0
     attackSpeed: 1
     moveSpeed: 0
@@ -26,3 +25,4 @@ MonoBehaviour:
   needFlipX: 0
   rotate: 1
   penetrate: 0
+  bullet: bullet

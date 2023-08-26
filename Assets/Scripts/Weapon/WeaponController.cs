@@ -1,6 +1,6 @@
+using System;
 using Manager;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Util;
 
 namespace Weapon
@@ -8,24 +8,31 @@ namespace Weapon
   [RequireComponent(typeof(CircleCollider2D))]
   public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
-    public T weaponData;
+    public T weaponData => (T)GameManager.WeaponData[name];
 
+    [Header("Target")]
     public TargetableObject target;
-
+    
     public bool hasTarget = false;
 
-    [FormerlySerializedAs("collider")]
+    [NonSerialized]
+    public bool isAttacking;
+
+    [Header("Weapon Control")]
+    [SerializeField]
+    protected SpriteRenderer sr;
+
     [SerializeField]
     private CircleCollider2D col;
 
     private float time;
+    private float readyTime;
 
-    public bool isAttacking;
+    [NonSerialized]
+    public bool isReady;
 
-    [SerializeField]
-    protected SpriteRenderer sr;
-
-
+    public string GetPObj(string objName) => $"weapon/{name}/{objName}";
+    
     protected virtual void Reset()
     {
       col = GetComponent<CircleCollider2D>();
@@ -34,7 +41,7 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      RefreshRange();
+      // RefreshRange();
     }
 
     [ContextMenu("Refresh Range")]
@@ -45,7 +52,13 @@ namespace Weapon
 
     protected virtual void Update()
     {
-      GameManager.UI.Find("$debug").text = $"{time}";
+      if (!isReady)
+      {
+        readyTime += Time.deltaTime;
+        if (readyTime >= 2f) isReady = true;
+        return;
+      }
+      
       RefreshRange();
       if (hasTarget && target && target.canTarget)
       {

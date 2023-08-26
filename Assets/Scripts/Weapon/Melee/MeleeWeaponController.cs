@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using Manager;
 using UnityEngine;
 using Util;
 
@@ -22,19 +20,6 @@ namespace Weapon.Melee
       base.Awake();
 
       fireCrt = new Coroutiner(FireCRT);
-    }
-
-    protected override void Update()
-    {
-      base.Update();
-
-      // var debugTxt = GameManager.UI.Find("$debug");
-      // var sb = new StringBuilder();
-      //
-      // foreach (var i in attackedTargets)
-      //   sb.Append($"{i}\n");
-      //
-      // debugTxt.text = sb.ToString();
     }
 
     protected override void OnFire()
