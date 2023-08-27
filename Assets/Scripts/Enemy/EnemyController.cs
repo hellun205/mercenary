@@ -1,20 +1,44 @@
 using System;
 using Manager;
-using Spawn;
+using Pool;
 using UnityEngine;
 using Util;
 using Weapon;
 
 namespace Enemy
 {
-  [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : SpawnableObject
+  [RequireComponent(typeof(TargetableObject),typeof(PoolObject))]
+  public class EnemyController : MonoBehaviour
   {
-    public float moveSpeed = 2f;
+    [Header("Base Status")]
+    public EnemyStatus status;
+
+    private bool isEnabled = true;
 
     private Transform target;
 
-    public bool isEnabled = true;
+    [NonSerialized]
+    public PoolObject po;
+
+    private void Awake()
+    {
+      po = GetComponent<PoolObject>();
+      po.onGet += () =>
+      {
+        isEnabled = true;
+      };
+      po.onReleased += () =>
+      {
+        var count = 1;
+        if (GameManager.Player.status.luck.ApplyPercentage())
+          count++;
+        
+        for (var i = 0; i <count; i ++)
+          GameManager.Spawn.Spawn(transform.position, "object/coin");
+        
+        isEnabled = false;
+      };
+    }
 
     private void Start()
     {
@@ -26,7 +50,14 @@ namespace Enemy
       if (!isEnabled) return;
 
       transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
-      transform.Translate(Vector3.right * (Time.deltaTime * moveSpeed));
+      transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+      if (!other.CompareTag("Player")) return;
+      
+      GameManager.Player.Hit(status.damage);
     }
   }
 }

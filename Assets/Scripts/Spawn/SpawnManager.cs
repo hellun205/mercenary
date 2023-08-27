@@ -1,5 +1,5 @@
-using System;
 using Manager;
+using Pool;
 using UnityEngine;
 using Util;
 
@@ -14,18 +14,18 @@ namespace Spawn
 
     private float time;
 
-    public GameObject SpawnRandomPos(string targetPrefab)
-      => SpawnRandomPos<GameObject>(targetPrefab);
+    public PoolObject SpawnRandomPos(string targetPrefab)
+      => SpawnRandomPos<PoolObject>(targetPrefab);
 
-    public T SpawnRandomPos<T>(string targetPrefab)
+    public T SpawnRandomPos<T>(string targetPrefab) where T : Component
     {
       return Spawn<T>(GameManager.Map.GetRandom(), targetPrefab);
     }
 
-    public GameObject Spawn(Vector2 position, string targetPrefab)
-      => Spawn<GameObject>(position, targetPrefab);
+    public PoolObject Spawn(Vector2 position, string targetPrefab)
+      => Spawn<PoolObject>(position, targetPrefab);
 
-    public T Spawn<T>(Vector2 position, string targetPrefab)
+    public T Spawn<T>(Vector2 position, string targetPrefab) where T : Component
     {
       // Debug.Log(position);
       // if (
@@ -36,9 +36,9 @@ namespace Spawn
       // )
       //   throw new Exception("The position are out of bounds on the map.");
 
-      var go = Instantiate(GameManager.Prefab.Get(targetPrefab), position, Quaternion.identity);
-
-      return go.GetComponent<T>();
+      // var go = Instantiate(GameManager.Prefab.Get(targetPrefab), position, Quaternion.identity);
+      var go = GameManager.Pool.Summon<T>(targetPrefab, position);
+      return go;
     }
 
     private void Update()
@@ -80,7 +80,8 @@ namespace Spawn
     [ContextMenu("Start Spawn: Test")]
     public void StartTestSpawn()
     {
-      StartSpawn(3, 2f, "enemy_test");
+      StartSpawn(5, 1.5f, "enemy/test");
+      // Spawn(Vector2.zero, "enemy/test");
     }
 
     private void Start()
