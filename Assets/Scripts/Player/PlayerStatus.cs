@@ -17,8 +17,17 @@ namespace Player
     public float regeneration;
     
     [Tooltip("피해 흡혈 (회복할 확률)")]
+    [Range(0f, 1f)]
     public float drainHp;
     
+    [Header("Invincibility")]
+    [Tooltip("무적")]
+    public bool isInvincibility;
+    
+    [Tooltip("무적 시간")]
+    [Min(0.01f)]
+    public float invincibilityTime;
+
     [Header("Attack")]
     [Tooltip("근거리 피해량")]
     public float meleeDamage;
@@ -36,13 +45,16 @@ namespace Player
     public float range;
     
     [Header("Other")]
-    [Tooltip("방어")]
+    [Tooltip("방어 %")]
+    [Range(0f, 1f)]
     public float armor;
 
     [Tooltip("이동 속도")]
     public float moveSpeed;
 
     [Tooltip("행운")]
+    [Range(0f, 1f)]
     public float luck;
+
   }
 }

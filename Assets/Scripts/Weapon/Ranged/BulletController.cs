@@ -1,3 +1,4 @@
+using System;
 using Pool;
 using UnityEngine;
 using Util;
@@ -22,7 +23,8 @@ namespace Weapon.Ranged
     private float time;
     private int curPenetrateCount;
 
-    private PoolObject po;
+    [NonSerialized]
+    public PoolObject po;
 
     private void Awake()
     {

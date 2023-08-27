@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 namespace Weapon.Ranged.Throwing
@@ -15,5 +16,7 @@ namespace Weapon.Ranged.Throwing
     public float damageRange;
 
     public bool fireOnContact;
+    
+    public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
   }
 }

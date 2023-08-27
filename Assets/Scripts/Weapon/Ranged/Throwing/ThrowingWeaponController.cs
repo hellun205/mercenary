@@ -32,7 +32,7 @@ namespace Weapon.Ranged.Throwing
       while (sr.color.a < 1)
       {
         sr.color = Color.Lerp(sr.color.Setter(a:0f), sr.color.Setter(a: 1f), t);
-        t += Time.deltaTime * 1.5f * weaponData.status.attackSpeed;
+        t += Time.deltaTime * 1.5f * weaponData.GetAttackSpeed();
         yield return new WaitForEndOfFrame();
       }
     }

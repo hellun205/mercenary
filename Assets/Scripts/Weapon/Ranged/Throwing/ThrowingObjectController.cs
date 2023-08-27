@@ -63,7 +63,7 @@ namespace Weapon.Ranged.Throwing
       var enemies = Physics2D.OverlapCircleAll(transform.position, weaponData.damageRange, LayerMask.GetMask("Enemy"));
       foreach (var enemy in enemies)
       {
-        enemy.GetComponent<TargetableObject>().Hit(weaponData.status.attackDamage);
+        enemy.GetComponent<TargetableObject>().Hit(weaponData.GetAttackDamage());
       }
 
       po.Release();

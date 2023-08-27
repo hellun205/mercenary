@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace Weapon
 {
   [Serializable]
-  public struct WeaponStatus
+  public class WeaponStatus
   {
     public float attackDamage;
     public float hp;

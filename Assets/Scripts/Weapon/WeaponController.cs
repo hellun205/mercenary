@@ -47,7 +47,7 @@ namespace Weapon
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      col.radius = weaponData.status.fireRange;
+      col.radius = weaponData.GetRange();
     }
 
     protected virtual void Update()
@@ -68,7 +68,7 @@ namespace Weapon
           transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
         }
 
-        if (time >= 1 / weaponData.status.attackSpeed && (
+        if (time >= 1 / weaponData.GetAttackSpeed() && (
               !weaponData.rotate ||
               transform.rotation.eulerAngles.z.ApproximatelyEqual(r.eulerAngles.z, 10f) ))
         {

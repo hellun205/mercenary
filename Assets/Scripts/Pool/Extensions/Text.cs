@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Pool.Extensions
@@ -8,8 +9,9 @@ namespace Pool.Extensions
   [RequireComponent(typeof(PoolObject))]
   public class Text : MonoBehaviour
   {
-    public TextMeshProUGUI t;
+    public TextMeshProUGUI text;
     public Image bg;
+    
     public PoolObject po;
 
     private void Awake()
@@ -19,14 +21,14 @@ namespace Pool.Extensions
 
     public string value
     {
-      get => t.text;
-      set => t.text = value;
+      get => text.text;
+      set => text.text = value;
     }
 
     public Color color
     {
-      get => t.color;
-      set => t.color = value;
+      get => text.color;
+      set => text.color = value;
     }
 
     public Color bgColor

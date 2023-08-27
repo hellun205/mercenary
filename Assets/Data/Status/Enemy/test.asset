@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   maxHp: 5
+  damage: 1
   moveSpeed: 1
