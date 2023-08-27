@@ -1,5 +1,4 @@
 using System.Collections;
-using Manager;
 using UnityEngine;
 using Util;
 using Weapon.Extensions;
@@ -35,6 +34,7 @@ namespace Weapon.Melee.Wielding
     protected override void Update()
     {
       base.Update();
+      if (!isReady) return;
 
       var z = transform.localRotation.eulerAngles.z;
       var s = transform.localScale;
@@ -55,14 +55,14 @@ namespace Weapon.Melee.Wielding
       var time = 0f;
       moveCrt2.Stop();
 
-      while (!movingObj.localPosition.x.ApproximatelyEqual(weaponData.status.fireRange))
+      while (!movingObj.localPosition.x.ApproximatelyEqual(weaponData.GetRange()))
       {
         yield return new WaitForEndOfFrame();
 
-        time = Time.deltaTime * weaponData.status.attackSpeed * 4f;
+        time = Time.deltaTime * weaponData.GetAttackSpeed() * 4f;
 
         var pos = movingObj.localPosition;
-        movingObj.localPosition = new Vector3(Mathf.Lerp(pos.x, weaponData.status.fireRange, time), pos.y, pos.z);
+        movingObj.localPosition = new Vector3(Mathf.Lerp(pos.x, weaponData.GetRange(), time), pos.y, pos.z);
       }
 
       if (!ready)
@@ -81,7 +81,7 @@ namespace Weapon.Melee.Wielding
       {
         yield return new WaitForEndOfFrame();
 
-        time = Time.deltaTime * weaponData.status.attackSpeed* 5f;
+        time = Time.deltaTime * weaponData.GetAttackSpeed()* 5f;
 
         var pos = movingObj.localPosition;
         movingObj.localPosition = new Vector3(Mathf.Lerp(pos.x, 0f, time), pos.y, pos.z);
@@ -91,7 +91,7 @@ namespace Weapon.Melee.Wielding
     public void StartWielding()
     {
       moveCrt.Stop();
-      anim.SetFloat("speed", weaponData.status.attackSpeed);
+      anim.SetFloat("speed", weaponData.GetAttackSpeed());
       anim.Play("");
     }
 

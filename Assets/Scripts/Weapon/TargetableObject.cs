@@ -18,38 +18,44 @@ namespace Weapon
 
     public int index => po.index;
 
-    private PoolObject po;
+    [NonSerialized]
+    public PoolObject po;
+
+    private SpriteRenderer sr;
 
     private void Awake()
     {
       po = GetComponent<PoolObject>();
+      sr = GetComponent<SpriteRenderer>();
       po.onGet += () =>
       {
         hp = status.maxHp;
         canTarget = true;
+        sr.color = Color.white;
       };
-      po.onReleased += () => canTarget = false;
+      // po.onReleased += () => canTarget = false;
     }
 
     private void Update()
     {
-      GetComponent<SpriteRenderer>().color =
-        Color.Lerp(GetComponent<SpriteRenderer>().color, Color.white, Time.deltaTime * 5f);
+      sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime * 5f);
     }
 
     public void Hit(float damage)
     {
+      GameManager.Player.SuccessfulAttack();
       hp -= damage;
-      GetComponent<SpriteRenderer>().color = Color.red;
-      GameManager.Pool.Summon<Text>("ui/text", transform.position, obj =>
+      sr.color = Color.red;
+      GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(0.4f), obj =>
       {
-        obj.value = $"{damage}";
+        obj.value = $"{Mathf.RoundToInt(damage)}";
         obj.color = Color.red;
         Utils.Wait(1.5f, obj.po.Release);
       });
 
       if (hp <= 0)
       {
+        canTarget = false;
         po.Release();
       }
     }

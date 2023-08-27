@@ -1,6 +1,6 @@
-using System;
 using Manager;
 using Pool;
+using TMPro;
 using UnityEngine;
 
 namespace Coin
@@ -15,7 +15,7 @@ namespace Coin
       if (other.CompareTag("Coin"))
       {
         coin++;
-        GameManager.UI.Find("$coin").text = $"{coin}";
+        GameManager.UI.Find<TextMeshProUGUI>("$coin").text = $"{coin}";
         // Destroy(other.gameObject);
         other.GetComponent<PoolObject>().Release();
       }

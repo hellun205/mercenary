@@ -1,4 +1,3 @@
-using System;
 using Manager;
 using UnityEngine;
 
@@ -6,7 +5,6 @@ namespace Player
 {
   public class PlayerMovement : MonoBehaviour
   {
-    public float moveSpeed = 3f;
     public Vector2 currentMoveAmount = Vector2.zero;
 
     private void Update()
@@ -24,7 +22,7 @@ namespace Player
 
     private void FixedUpdate()
     {
-      transform.Translate(currentMoveAmount * (moveSpeed * Time.fixedDeltaTime));
+      transform.Translate(currentMoveAmount * (GameManager.Player.status.moveSpeed * Time.fixedDeltaTime));
     }
   }
 }

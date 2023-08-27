@@ -34,12 +34,12 @@ namespace Util
     {
       return new Color(r ?? original.r, g ?? original.g, b ?? original.b, a ?? original.a);
     }
-    
+
     public static Vector3 Setter(this Vector3 original, float? x = null, float? y = null, float? z = null)
     {
       return new Vector3(x ?? original.x, y ?? original.y, z ?? original.z);
     }
-    
+
     public static Vector2 Setter(this Vector2 original, float? x = null, float? y = null)
     {
       return new Vector2(x ?? original.x, y ?? original.y);
@@ -66,5 +66,21 @@ namespace Util
 
     public static bool ApproximatelyEqual(this float a, float b, float errorRange = 0.3f)
       => Mathf.Abs(a - b) < errorRange;
+
+    public static Vector2 GetAroundRandom(this Transform main, float radius)
+    {
+      var p = main.position;
+      var min = new Vector2(p.x - radius, p.y - radius);
+      var max = new Vector2(p.x + radius, p.y + radius);
+      return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+    }
+
+    public static bool ApplyPercentage(this float percentage, params float[] additive)
+    {
+      var random = Random.Range(0f, 1f);
+      foreach (var add in additive)
+        percentage += add;
+      return Mathf.Min(1f, Mathf.Max(0,percentage)) > random;
+    }
   }
 }

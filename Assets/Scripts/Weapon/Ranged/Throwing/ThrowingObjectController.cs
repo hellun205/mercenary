@@ -7,17 +7,14 @@ namespace Weapon.Ranged.Throwing
   [RequireComponent(typeof(PoolObject))]
   public class ThrowingObjectController : MonoBehaviour
   {
-    [SerializeField]
-    private ThrowingWeapon weaponData;
-
-    [SerializeField]
-    private string explosionEffectObj;
+    public ThrowingWeapon weaponData;
 
     private PoolObject po;
     private bool isEnabled;
     public Transform target;
     private Vector2 targetPos;
     private float time;
+    private ThrowingWeaponController mainCtrler;
 
     protected virtual void Awake()
     {
@@ -49,9 +46,10 @@ namespace Weapon.Ranged.Throwing
         Fire();
     }
 
-    public void SetTarget(Transform target)
+    public void SetTarget(Transform target, ThrowingWeaponController mainCtrl)
     {
       this.target = target;
+      mainCtrler = mainCtrl;
       targetPos = target.position;
       isEnabled = true;
     }
@@ -59,13 +57,13 @@ namespace Weapon.Ranged.Throwing
     protected virtual void Fire()
     {
       isEnabled = false;
-      GameManager.Pool.Summon<ExplosionEffectController>(explosionEffectObj, transform.position,
+      GameManager.Pool.Summon<ExplosionEffectController>(mainCtrler.GetPObj(weaponData.effectObj), transform.position,
         obj => obj.SetRange(weaponData.damageRange));
 
       var enemies = Physics2D.OverlapCircleAll(transform.position, weaponData.damageRange, LayerMask.GetMask("Enemy"));
       foreach (var enemy in enemies)
       {
-        enemy.GetComponent<TargetableObject>().Hit(weaponData.status.attackDamage);
+        enemy.GetComponent<TargetableObject>().Hit(weaponData.GetAttackDamage());
       }
 
       po.Release();

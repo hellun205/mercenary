@@ -1,27 +1,24 @@
 using System;
 using Manager;
 using Pool;
-using Spawn;
 using UnityEngine;
 using Util;
 using Weapon;
 
 namespace Enemy
 {
-  [RequireComponent(typeof(TargetableObject))]
-  [RequireComponent(typeof(PoolObject))]
+  [RequireComponent(typeof(TargetableObject),typeof(PoolObject))]
   public class EnemyController : MonoBehaviour
   {
     [Header("Base Status")]
     public EnemyStatus status;
-    
-    // [Header("Variable Status")]
-    
-    public bool isEnabled = true;
+
+    private bool isEnabled = true;
 
     private Transform target;
 
-    private PoolObject po;
+    [NonSerialized]
+    public PoolObject po;
 
     private void Awake()
     {
@@ -32,7 +29,13 @@ namespace Enemy
       };
       po.onReleased += () =>
       {
-        GameManager.Spawn.Spawn(transform.position, "object/coin");
+        var count = 1;
+        if (GameManager.Player.status.luck.ApplyPercentage())
+          count++;
+        
+        for (var i = 0; i <count; i ++)
+          GameManager.Spawn.Spawn(transform.position, "object/coin");
+        
         isEnabled = false;
       };
     }
@@ -48,6 +51,13 @@ namespace Enemy
 
       transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
       transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+      if (!other.CompareTag("Player")) return;
+      
+      GameManager.Player.Hit(status.damage);
     }
   }
 }

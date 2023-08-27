@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 namespace Weapon.Ranged
@@ -7,5 +8,9 @@ namespace Weapon.Ranged
   {
     [Header("Ranged - Normal")]
     public int penetrate;
+
+    public string bullet;
+    
+    public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
   }
 }

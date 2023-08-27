@@ -12,7 +12,8 @@ namespace Coin
 
     private static Transform target => GameManager.Player.transform;
 
-    private PoolObject po;
+    [NonSerialized]
+    public PoolObject po;
 
     private void Awake()
     {

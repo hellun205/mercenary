@@ -1,6 +1,4 @@
-using System;
 using Manager;
-using TMPro;
 using UnityEngine;
 
 namespace Pool.Extensions
@@ -28,7 +26,7 @@ namespace Pool.Extensions
           obj.follower.SetTarget(po);
           obj.value = $"{po.index}";
           obj.color = color;
-          obj.t.fontSize = 5;
+          obj.text.fontSize = 5;
           obj.bgColor = new Color(0f, 0f, 0f, 0.3f);
         });
       };

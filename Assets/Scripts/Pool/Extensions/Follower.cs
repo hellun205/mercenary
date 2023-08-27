@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Pool.Extensions
@@ -10,7 +9,7 @@ namespace Pool.Extensions
 
     public bool isEnabled => target is not null;
     
-    private PoolObject po;
+    public PoolObject po;
 
     private void Awake()
     {

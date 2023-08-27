@@ -1,3 +1,4 @@
+using System;
 using Pool;
 using UnityEngine;
 
@@ -6,7 +7,9 @@ namespace Weapon.Ranged.Throwing
   [RequireComponent(typeof(PoolObject))]
   public class ExplosionEffectController : MonoBehaviour
   {
-    private PoolObject po;
+    [NonSerialized]
+    public PoolObject po;
+    
     private Animator anim;
 
     [SerializeField]

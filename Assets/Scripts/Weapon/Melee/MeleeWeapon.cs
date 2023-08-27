@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 namespace Weapon.Melee
@@ -6,5 +7,7 @@ namespace Weapon.Melee
   public class MeleeWeapon : Weapon
   {
     // [Header("Melee - Normal")]
+    
+    public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.meleeDamage;
   }
 }
