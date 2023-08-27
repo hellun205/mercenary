@@ -14,14 +14,18 @@ namespace Player
 
     private ProgressBar hpBar;
 
+    public WeaponInventory weaponInventory;
+
     private float curRegenerationHp;
 
     private float time;
 
     private void Awake()
     {
+      weaponInventory = GetComponent<WeaponInventory>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
+      RefreshHpBar();
     }
 
     private void Update()
@@ -44,9 +48,14 @@ namespace Player
 
     private void LateUpdate()
     {
+      RefreshHpBar();
+      anim.SetFloat("invincibility", 1 / status.invincibilityTime);
+    }
+
+    private void RefreshHpBar()
+    {
       hpBar.maxValue = status.maxHp;
       hpBar.value = status.hp;
-      anim.SetFloat("invincibility", 1 / status.invincibilityTime);
     }
 
     private void StartInvincibility()
@@ -65,7 +74,7 @@ namespace Player
       var dmg = damage * (1 - status.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
       anim.SetTrigger("hurt");
-      
+
       GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(1f), (obj) =>
       {
         obj.value = $"{Mathf.RoundToInt(dmg)}";
@@ -95,6 +104,11 @@ namespace Player
       {
         Heal(1);
       }
+    }
+
+    private void Start()
+    {
+      weaponInventory.Test();
     }
   }
 }

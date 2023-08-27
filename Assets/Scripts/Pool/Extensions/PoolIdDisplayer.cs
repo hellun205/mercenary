@@ -1,6 +1,4 @@
-using System;
 using Manager;
-using TMPro;
 using UnityEngine;
 
 namespace Pool.Extensions

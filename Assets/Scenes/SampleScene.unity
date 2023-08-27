@@ -1949,8 +1949,8 @@ MonoBehaviour:
   status:
     maxHp: 20
     hp: 20
-    regeneration: 5
-    drainHp: 0
+    regeneration: 0
+    drainHp: 0.1
     isInvincibility: 0
     invincibilityTime: 0.7
     meleeDamage: 0
@@ -1959,8 +1959,9 @@ MonoBehaviour:
     attackSpeed: 0
     range: 0
     armor: 0
-    moveSpeed: 3
-    luck: 0
+    moveSpeed: 4
+    luck: 0.1
+  weaponInventory: {fileID: 0}
 --- !u!114 &4852745831040376065
 MonoBehaviour:
   m_ObjectHideFlags: 0

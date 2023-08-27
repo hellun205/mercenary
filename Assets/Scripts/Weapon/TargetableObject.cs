@@ -48,7 +48,7 @@ namespace Weapon
       sr.color = Color.red;
       GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(0.4f), obj =>
       {
-        obj.value = $"{damage}";
+        obj.value = $"{Mathf.RoundToInt(damage)}";
         obj.color = Color.red;
         Utils.Wait(1.5f, obj.po.Release);
       });
