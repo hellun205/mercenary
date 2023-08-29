@@ -3,6 +3,7 @@ using System.Collections;
 using Manager;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 using Weapon;
 
@@ -18,6 +19,7 @@ namespace Wave
 
     private TextMeshProUGUI timerText;
     private TextMeshProUGUI waveText;
+    private Image storePanel;
 
     private Coroutiner timerCrt;
 
@@ -26,7 +28,14 @@ namespace Wave
       base.Awake();
       waveText = GameManager.UI.Find<TextMeshProUGUI>("$wave");
       timerText = GameManager.UI.Find<TextMeshProUGUI>("$timer");
+      storePanel = GameManager.UI.Find<Image>("$store", obj => obj.gameObject.SetActive(false));
       timerCrt = new Coroutiner(TimerRoutine);
+      GameManager.UI.Find<Button>("$btn_nextwave").onClick.AddListener(() =>
+      {
+        Time.timeScale = 1f;
+        storePanel.gameObject.SetActive(false);
+        NextWave();
+      });
     }
 
     private IEnumerator TimerRoutine()
@@ -59,8 +68,12 @@ namespace Wave
       timerCrt.Stop();
       GameManager.Spawn.spawn = false;
       KillEnemies();
-      Debug.Log($"ended wave: {currentWave}.");
-      Utils.Wait(3f, () => NextWave());
+      
+      Utils.Wait(1.5f, () =>
+      {
+        Time.timeScale = 0f;
+        storePanel.gameObject.SetActive(true);
+      });
     }
 
     public void NextWave()
