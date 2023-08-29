@@ -76,17 +76,5 @@ namespace Spawn
     {
       spawn = false;
     }
-
-    [ContextMenu("Start Spawn: Test")]
-    public void StartTestSpawn()
-    {
-      StartSpawn(5, 1.5f, "enemy/test");
-      // Spawn(Vector2.zero, "enemy/test");
-    }
-
-    private void Start()
-    {
-      StartTestSpawn();
-    }
   }
 }

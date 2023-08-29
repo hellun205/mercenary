@@ -4,18 +4,13 @@ using UnityEngine.UI;
 
 namespace Pool.Extensions
 {
-  [RequireComponent(typeof(PoolObject))]
-  public class Text : MonoBehaviour
+  public class Text : UsePool
   {
-    public TextMeshProUGUI text;
-    public Image bg;
+    [SerializeField]
+    private TextMeshProUGUI text;
     
-    public PoolObject po;
-
-    private void Awake()
-    {
-      po = GetComponent<PoolObject>();
-    }
+    [SerializeField]
+    private Image bg;
 
     public string value
     {
@@ -33,6 +28,20 @@ namespace Pool.Extensions
     {
       get => bg.color;
       set => bg.color = value;
+    }
+
+    public FontWeight fontWeight
+    {
+      get => text.fontWeight;
+      set => text.fontWeight = value;
+    }
+
+    protected override void OnSummon()
+    {
+      value = "";
+      color = Color.white;
+      bgColor = new Color(0f, 0f, 0f, 0.5f);
+      fontWeight = FontWeight.Regular;
     }
   }
 }
