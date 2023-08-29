@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Manager;
 using Pool.Extensions;
 using UI;
@@ -19,6 +20,8 @@ namespace Player
     private float curRegenerationHp;
 
     private float time;
+
+    private List<int> damagedEnemies = new();
 
     private void Awake()
     {
@@ -65,22 +68,21 @@ namespace Player
 
     private void EndInvincibility()
     {
+      damagedEnemies.Clear();
       status.isInvincibility = false;
     }
 
-    public void Hit(float damage)
+    public void Hit(float damage, int index)
     {
-      if (status.isInvincibility) return;
+      if (status.isInvincibility || damagedEnemies.Contains(index)) return;
+      damagedEnemies.Add(index);
+      
       var dmg = damage * (1 - status.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
       anim.SetTrigger("hurt");
 
-      GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(1f), (obj) =>
-      {
-        obj.value = $"{Mathf.RoundToInt(dmg)}";
-        obj.color = Color.red;
-        Utils.Wait(1.5f, () => obj.po.Release());
-      });
+      GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
+        obj => obj.value = Mathf.RoundToInt(damage));
     }
 
     public void Heal(int amount)
@@ -90,12 +92,8 @@ namespace Player
 
       var healed = status.hp - tmp;
       if (healed >= 1)
-        GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(1f), (obj) =>
-        {
-          obj.value = $"+{Mathf.Floor(healed)}";
-          obj.color = Color.green;
-          Utils.Wait(1.5f, () => obj.po.Release());
-        });
+        GameManager.Pool.Summon<Heal>("ui/heal", transform.GetAroundRandom(0.4f),
+          obj => obj.value = Mathf.RoundToInt(healed));
     }
 
     public void SuccessfulAttack()

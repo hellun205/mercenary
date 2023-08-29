@@ -1,14 +1,13 @@
-using System;
 using Manager;
-using Pool;
+using Pool.Extensions;
 using UnityEngine;
 using Util;
 using Weapon;
 
 namespace Enemy
 {
-  [RequireComponent(typeof(TargetableObject),typeof(PoolObject))]
-  public class EnemyController : MonoBehaviour
+  [RequireComponent(typeof(TargetableObject))]
+  public class EnemyController : UsePool
   {
     [Header("Base Status")]
     public EnemyStatus status;
@@ -17,27 +16,35 @@ namespace Enemy
 
     private Transform target;
 
-    [NonSerialized]
-    public PoolObject po;
+    private TargetableObject to;
 
-    private void Awake()
+    protected override void OnSummon()
     {
-      po = GetComponent<PoolObject>();
-      po.onGet += () =>
-      {
-        isEnabled = true;
-      };
-      po.onReleased += () =>
-      {
-        var count = 1;
-        if (GameManager.Player.status.luck.ApplyPercentage())
-          count++;
-        
-        for (var i = 0; i <count; i ++)
-          GameManager.Spawn.Spawn(transform.position, "object/coin");
-        
-        isEnabled = false;
-      };
+      isEnabled = true;
+    }
+
+    protected override void Awake()
+    {
+      to = GetComponent<TargetableObject>();
+      base.Awake();
+    }
+
+    protected override void OnKilled()
+    {
+      if (to.playerAttacked)
+        ThrowCoin();
+
+      isEnabled = false;
+    }
+
+    private void ThrowCoin()
+    {
+      var count = 1;
+      if (GameManager.Player.status.luck.ApplyPercentage())
+        count++;
+
+      for (var i = 0; i < count; i++)
+        GameManager.Spawn.Spawn(transform.position, "object/coin");
     }
 
     private void Start()
@@ -47,7 +54,7 @@ namespace Enemy
 
     private void Update()
     {
-      if (!isEnabled) return;
+      if (!isEnabled || !to.canTarget) return;
 
       transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
       transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
@@ -55,9 +62,9 @@ namespace Enemy
 
     private void OnTriggerStay2D(Collider2D other)
     {
-      if (!other.CompareTag("Player")) return;
-      
-      GameManager.Player.Hit(status.damage);
+      if (!other.CompareTag("Player") || !to.canTarget) return;
+
+      GameManager.Player.Hit(status.damage, po.index);
     }
   }
 }

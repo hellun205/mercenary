@@ -39,7 +39,9 @@ namespace Weapon.Melee.Wielding
       var z = transform.localRotation.eulerAngles.z;
       var s = transform.localScale;
       var l = lr.rotation;
-      lr.rotation = l.Setter(Mathf.Abs(l.z) * z is (> 90 and < 270) or (< -90 and > 270) ? -1 : 1);
+      
+      
+      lr.rotation = l.Setter(z:Mathf.Abs(l.z) * z is (> 90 and < 270) or (< -90 and > 270) ? -1 : 1);
       cRotate.localScale = s.Setter(x: Mathf.Abs(s.x) * z is (> 90 and < 270) or (< -90 and > 270) ? -1 : 1);
     }
 

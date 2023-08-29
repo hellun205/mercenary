@@ -2,22 +2,15 @@ using UnityEngine;
 
 namespace Pool.Extensions
 {
-  [RequireComponent(typeof(PoolObject))]
-  public class Follower : MonoBehaviour
+  public class Follower : UsePool
   {
     private PoolObject target;
 
     public bool isEnabled => target is not null;
-    
-    public PoolObject po;
 
-    private void Awake()
+    protected override void OnKilled()
     {
-      po = GetComponent<PoolObject>();
-      po.onReleased += () =>
-      {
-        target = null;
-      };
+      target = null;
     }
 
     public void SetTarget(PoolObject obj)
