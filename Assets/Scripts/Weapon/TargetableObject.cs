@@ -1,39 +1,58 @@
-using System;
+using System.Collections;
 using Manager;
-using Pool;
 using Pool.Extensions;
-using TMPro;
 using UnityEngine;
 using Util;
 
 namespace Weapon
 {
-  public class TargetableObject : MonoBehaviour
+  public class TargetableObject : UsePool
   {
     public TargetableStatus status;
 
-    public bool canTarget;
+    public bool canTarget => !isDead;
 
     public float hp;
 
     public int index => po.index;
 
-    [NonSerialized]
-    public PoolObject po;
-
     private SpriteRenderer sr;
 
-    private void Awake()
+    private bool isDead;
+
+    private Coroutiner deadCrt;
+
+    protected override void Awake()
     {
-      po = GetComponent<PoolObject>();
       sr = GetComponent<SpriteRenderer>();
-      po.onGet += () =>
+      deadCrt = new Coroutiner(DeadRoutine);
+
+      base.Awake();
+    }
+
+    private IEnumerator DeadRoutine()
+    {
+      var time = 0f;
+      while (!sr.color.a.ApproximatelyEqual(0f, 0.1f))
       {
-        hp = status.maxHp;
-        canTarget = true;
-        sr.color = Color.white;
-      };
-      // po.onReleased += () => canTarget = false;
+        sr.color = sr.color.Setter(a: Mathf.Lerp(sr.color.a, 0f, time));
+        time += Time.deltaTime;
+        yield return new WaitForEndOfFrame();
+      }
+
+      po.Release();
+    }
+
+    protected override void OnSummon()
+    {
+      hp = status.maxHp;
+      isDead = false;
+      sr.color = Color.white;
+    }
+
+    protected override void OnKilled()
+    {
+      deadCrt.Stop();
     }
 
     private void Update()
@@ -46,17 +65,13 @@ namespace Weapon
       GameManager.Player.SuccessfulAttack();
       hp -= damage;
       sr.color = Color.red;
-      GameManager.Pool.Summon<Text>("ui/text", transform.GetAroundRandom(0.4f), obj =>
-      {
-        obj.value = $"{Mathf.RoundToInt(damage)}";
-        obj.color = Color.red;
-        Utils.Wait(1.5f, obj.po.Release);
-      });
+      GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
+        obj => obj.value = Mathf.RoundToInt(damage));
 
       if (hp <= 0)
       {
-        canTarget = false;
-        po.Release();
+        isDead = true;
+        deadCrt.Start();
       }
     }
   }

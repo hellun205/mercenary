@@ -390,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 668328552}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 1.56, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 799467789}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.93, y: 1.44, z: 0}
+  m_LocalPosition: {x: -0.8, y: 0.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -618,7 +618,7 @@ Transform:
   m_GameObject: {fileID: 1105902840}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.32, y: 0.51, z: 0}
+  m_LocalPosition: {x: 0.96, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -945,8 +945,12 @@ MonoBehaviour:
       Value: {fileID: 940086527808425985, guid: 5e3545603a6ea0348a9abc6f94cb8d18, type: 3}
     - Key: object/coin
       Value: {fileID: 7279768655807220559, guid: e34d1ca73e8320f49a913a514a226b54, type: 3}
+    - Key: ui/damage
+      Value: {fileID: 1489425705252346965, guid: 888924f33230a584ca5477ddfdf7bcab, type: 3}
     - Key: ui/followingtext
       Value: {fileID: 1489425705252346965, guid: 160db1491d02f3148a89109f5beea144, type: 3}
+    - Key: ui/heal
+      Value: {fileID: 1489425705252346965, guid: 0b865fc2ab556a64fa12ca8e98601fdf, type: 3}
     - Key: ui/text
       Value: {fileID: 1489425705252346965, guid: d30d22e1c90aba342a8f5e83f2439ef9, type: 3}
     - Key: weapon/ranged/testbomb/effect_explosion
@@ -1330,7 +1334,7 @@ Transform:
   m_GameObject: {fileID: 1713774330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.47, y: 0.48, z: 0}
+  m_LocalPosition: {x: -1.4, y: -0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
