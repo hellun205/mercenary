@@ -31,14 +31,20 @@ namespace Enemy
 
     protected override void OnKilled()
     {
+      if (to.playerAttacked)
+        ThrowCoin();
+
+      isEnabled = false;
+    }
+
+    private void ThrowCoin()
+    {
       var count = 1;
       if (GameManager.Player.status.luck.ApplyPercentage())
         count++;
 
       for (var i = 0; i < count; i++)
         GameManager.Spawn.Spawn(transform.position, "object/coin");
-
-      isEnabled = false;
     }
 
     private void Start()

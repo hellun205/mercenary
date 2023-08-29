@@ -2,6 +2,7 @@ using Player;
 using Pool;
 using Spawn;
 using UI;
+using Wave;
 using Weapon;
 
 namespace Manager
@@ -16,6 +17,7 @@ namespace Manager
     public static SpawnManager Spawn { get; private set; }
     public static UIManager UI { get; private set; }
     public static PoolManager Pool { get; private set; }
+    public static WaveManager Wave { get; private set; }
 
     protected override void Awake()
     {
@@ -29,6 +31,7 @@ namespace Manager
       Spawn = FindObjectOfType<SpawnManager>();
       UI = FindObjectOfType<UIManager>();
       Pool = PoolManager.Instance;
+      Wave = FindObjectOfType<WaveManager>();
     }
   }
 }

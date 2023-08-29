@@ -22,6 +22,8 @@ namespace Weapon
 
     private Coroutiner deadCrt;
 
+    public bool playerAttacked;
+
     protected override void Awake()
     {
       sr = GetComponent<SpriteRenderer>();
@@ -47,6 +49,7 @@ namespace Weapon
     {
       hp = status.maxHp;
       isDead = false;
+      playerAttacked = false;
       sr.color = Color.white;
     }
 
@@ -63,6 +66,7 @@ namespace Weapon
     public void Hit(float damage)
     {
       GameManager.Player.SuccessfulAttack();
+      playerAttacked = true;
       hp -= damage;
       sr.color = Color.red;
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
@@ -70,9 +74,14 @@ namespace Weapon
 
       if (hp <= 0)
       {
-        isDead = true;
-        deadCrt.Start();
+        Kill(true);
       }
+    }
+
+    public void Kill(bool throwCoin = false)
+    {
+      isDead = true;
+      deadCrt.Start();
     }
   }
 }
