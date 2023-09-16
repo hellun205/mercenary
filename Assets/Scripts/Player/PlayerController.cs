@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Manager;
 using Pool.Extensions;
@@ -9,6 +10,9 @@ namespace Player
 {
   public class PlayerController : MonoBehaviour
   {
+    [NonSerialized]
+    public PlayerInventory inventory;
+    
     private Animator anim;
 
     public PlayerStatus status;
@@ -25,6 +29,7 @@ namespace Player
 
     private void Awake()
     {
+      inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
