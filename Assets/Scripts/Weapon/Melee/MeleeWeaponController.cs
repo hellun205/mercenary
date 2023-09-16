@@ -34,15 +34,15 @@ namespace Weapon.Melee
       var tmp = 0f;
       isAttacking = true;
 
-      while (!movingObj.localPosition.x.ApproximatelyEqual(weaponData.GetRange()))
+      while (!movingObj.localPosition.x.ApproximatelyEqual(status.range))
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * weaponData.GetAttackSpeed();
+        time += Time.deltaTime * status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
-        movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, weaponData.GetRange(), time), pos.y, pos.z);
+        movingObj.localPosition = new Vector3(Mathf.Lerp(tmp, status.range, time), pos.y, pos.z);
       }
 
       time = 0f;
@@ -52,7 +52,7 @@ namespace Weapon.Melee
       {
         yield return new WaitForEndOfFrame();
 
-        time += Time.deltaTime * weaponData.GetAttackSpeed();
+        time += Time.deltaTime * status.attackSpeed;
 
         var pos = movingObj.localPosition;
         tmp = pos.x;
@@ -69,7 +69,7 @@ namespace Weapon.Melee
         if (!isAttacking || attackedTargets.Contains(targetObj.index)) return;
         attackedTargets.Add(targetObj.index);
         if (targetObj.canTarget && targetObj.gameObject.activeSelf)
-          targetObj.Hit(weaponData.GetAttackDamage());
+          targetObj.Hit(status.meleeDamage);
       }
       catch (Exception ex)
       {

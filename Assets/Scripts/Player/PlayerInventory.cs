@@ -3,6 +3,7 @@ using AYellowpaper.SerializedCollections;
 using Item;
 using Manager;
 using Store.Inventory;
+using Store.Status;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -20,10 +21,13 @@ namespace Player
     private (ItemData item, ushort count) temp;
     private Transform inventoryItemsParent;
 
+    public event Action onChanged;
+
     private void Awake()
     {
       pool = new ObjectPool<InventoryItem>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
       inventoryItemsParent = GameManager.UI.Find("$inventory_items").transform;
+      onChanged += () =>  GameManager.StatusUI.Refresh();
     }
 
     private void ActionOnDestroy(InventoryItem obj)
@@ -56,6 +60,7 @@ namespace Player
         temp = (item, count);
         uiItems.Add(item, pool.Get());
       }
+      onChanged?.Invoke();
     }
 
     public void LoseItem(ItemData item, ushort count = 1)
@@ -73,6 +78,9 @@ namespace Player
         items[item] -= count;
         uiItems[item].SetCount(items[item]);
       }
+      onChanged?.Invoke();
     }
+    
+    
   }
 }

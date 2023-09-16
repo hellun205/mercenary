@@ -17,6 +17,6 @@ namespace Weapon.Ranged.Throwing
 
     public bool fireOnContact;
     
-    public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
+    // public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
   }
 }

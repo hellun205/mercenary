@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Manager;
 using Pool.Extensions;
 using UI;
@@ -112,6 +113,24 @@ namespace Player
     private void Start()
     {
       weaponInventory.Test();
+    }
+
+    public PlayerStatus GetStatus()
+    {
+      var res = status;
+      // var weapons = weaponInventory.weapons;
+      var items = inventory.items;
+
+      // foreach (var weapon in weapons)
+      // {
+      //   if (weapon is null) continue;
+      //   res += weapon.status;
+      // }
+      
+      foreach (var (item, count) in items)
+        res += item.increaseStatus * count;
+
+      return res;
     }
   }
 }

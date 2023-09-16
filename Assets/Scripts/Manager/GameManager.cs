@@ -2,6 +2,7 @@ using Item;
 using Player;
 using Pool;
 using Spawn;
+using Store.Status;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Manager
     public static PoolManager Pool { get; private set; }
     public static WaveManager Wave { get; private set; }
     public static ScriptableObjectCollection Items { get; private set; }
+    public static Status StatusUI { get; private set; }
 
     public State<int> coin;
 
@@ -40,6 +42,7 @@ namespace Manager
       Pool = PoolManager.Instance;
       Wave = FindObjectOfType<WaveManager>();
       Items = transform.Find("@item_data").GetComponent<ScriptableObjectCollection>();
+      StatusUI = FindObjectOfType<Status>();
     }
     
     protected override void Awake()

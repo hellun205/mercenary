@@ -1,5 +1,6 @@
 using System;
 using Manager;
+using Player;
 using UnityEngine;
 using Util;
 
@@ -9,7 +10,10 @@ namespace Weapon
   public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
     public T weaponData => (T)GameManager.WeaponData[name];
-
+    
+    [NonSerialized]
+    public PlayerStatus status;
+    
     [Header("Target")]
     public TargetableObject target;
     
@@ -42,12 +46,13 @@ namespace Weapon
     protected virtual void Awake()
     {
       // RefreshRange();
+      GameManager.Wave.onWaveStart += () => status = GameManager.Player.GetStatus() + weaponData.status;
     }
 
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      col.radius = weaponData.GetRange();
+      col.radius = status.range;
     }
 
     protected virtual void Update()
@@ -68,7 +73,7 @@ namespace Weapon
           transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
         }
 
-        if (time >= 1 / weaponData.GetAttackSpeed() && (
+        if (time >= 1 / status.attackSpeed && (
               !weaponData.rotate ||
               transform.rotation.eulerAngles.z.ApproximatelyEqual(r.eulerAngles.z, 10f) ))
         {

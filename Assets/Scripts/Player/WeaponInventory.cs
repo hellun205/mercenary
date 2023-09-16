@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Manager;
+using Store.Status;
 using UnityEngine;
 
 namespace Player
@@ -14,6 +16,8 @@ namespace Player
 
     public Transform weaponParent;
 
+    public event Action onChanged;
+
     private void Awake()
     {
       weaponParent = transform.Find("@weapons");
@@ -22,8 +26,8 @@ namespace Player
         weapons.Add(null);
         weaponSlots.Add(weaponParent.Find($"{i}"));
       }
-      // SetWeapon(0, "melee/testknife");
-      // Utils.Wait(5f, () => RemoveWeapon(0));
+
+      onChanged += () => GameManager.StatusUI.Refresh();
     }
 
     public void SetWeapon(int slot, string weaponName)
@@ -33,15 +37,18 @@ namespace Player
       var data = GameManager.WeaponData[weaponName];
 
       weapons[slot] = data;
-      var obj = Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position, Quaternion.identity,
+      var obj = Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position,
+        Quaternion.identity,
         weaponSlots[slot]);
       obj.name = weaponName;
+      onChanged?.Invoke();
     }
 
     public void RemoveWeapon(int slot)
     {
       weapons[slot] = null;
       Destroy(weaponSlots[slot].GetChild(0).gameObject);
+      onChanged?.Invoke();
     }
 
     public void MoveWeapon(int original, int to)

@@ -8,6 +8,6 @@ namespace Weapon.Melee
   {
     // [Header("Melee - Normal")]
     
-    public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.meleeDamage;
+    // public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.meleeDamage;
   }
 }

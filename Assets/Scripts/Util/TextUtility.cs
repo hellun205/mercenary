@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using UnityEngine;
 
@@ -10,6 +11,14 @@ namespace Util
 
     public static string AddColor(this string text, Color color)
       => text.AddStyle("color", $"#{ColorUtility.ToHtmlStringRGBA(color)}");
-    
+
+    public static string GetViaValue(this float value, Color plusColor, Color minusColor, Color zeroColor)
+    {
+      var color = value > 0 ? plusColor : value == 0 ? zeroColor : minusColor;
+      var sign = value > 0 ? "+" : value == 0 ? "" : "-";
+      return $"{sign}{Math.Abs(Math.Round(value, 2))}".AddColor(color);
+    }
+    public static string GetViaValue(this float value)
+      => GetViaValue(value, new Color32(47, 157, 39, 255), new Color32(152, 0, 0, 255), Color.white);
   }
 }
