@@ -12,21 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0cee0bd9f4cbb8ce0630da1ab1e04, type: 3}
   m_Name: test_item2
   m_EditorClassIdentifier: 
-  itemName: "\uD14C\uC2A4\uD2B8 1"
+  itemName: "\uD14C\uC2A4\uD2B8 2"
   icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
-  price: 0
+  price: 6
   increaseStatus:
-    maxHp: 0
-    hp: 0
+    maxHp: 1.05
+    hp: -2.2
     regeneration: 0
     drainHp: 0
     isInvincibility: 0
     invincibilityTime: 0
-    meleeDamage: 0
-    rangedDamage: 0
+    meleeDamage: -1.74
+    rangedDamage: 1.23
     bleedingDamage: 0
-    attackSpeed: 0
+    attackSpeed: 1.59
     range: 0
     armor: 0
     moveSpeed: 0
     luck: 0
+  description: 

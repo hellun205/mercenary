@@ -14,19 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uD14C\uC2A4\uD2B8 1"
   icon: {fileID: 21300000, guid: 2fc6f8e02ebfd6d4ebff78ce8b78a07a, type: 3}
-  price: 0
+  price: 5
   increaseStatus:
-    maxHp: 0
-    hp: 0
+    maxHp: 1.19
+    hp: 4.02
     regeneration: 0
     drainHp: 0
     isInvincibility: 0
     invincibilityTime: 0
-    meleeDamage: 0
+    meleeDamage: 2.35
     rangedDamage: 0
-    bleedingDamage: 0
+    bleedingDamage: 2.53
     attackSpeed: 0
     range: 0
     armor: 0
-    moveSpeed: 0
+    moveSpeed: -4.56
     luck: 0
+  description: 

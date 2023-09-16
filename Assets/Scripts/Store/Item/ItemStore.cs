@@ -17,17 +17,14 @@ namespace Store.Item
       
       items = container.GetComponentsInChildren<Item>();
       refreshBtn.onClick.AddListener(RefreshItems);
+      GameManager.Wave.onWaveEnd += RefreshItems;
     }
-
-    private void Start()
-    {
-      RefreshItems();
-    }
-
+    
     public void RefreshItems()
     {
       for (var i = 0; i < 3; i++)
       {
+        if (items[i].isLocking) continue;
         var item = GameManager.Items.items.Keys.GetRandom();
         
         items[i].SetItem(GameManager.GetItem(item));

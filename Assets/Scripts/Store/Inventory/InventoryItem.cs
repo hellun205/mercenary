@@ -24,7 +24,7 @@ namespace Store.Inventory
 
     public void SetCount(ushort count)
     {
-      this.count.text = $"{count}";
+      this.count.text = $"{(count == 1 ? "" : count)}";
     }
   }
 }

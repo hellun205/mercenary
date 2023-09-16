@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using System.Text;
+using Player;
 using UnityEngine;
 
 namespace Item
@@ -14,9 +15,14 @@ namespace Item
 
     public PlayerStatus increaseStatus;
 
+    public string description;
+
     public string GetDescription()
     {
-      return "DESCRIPTION NOT IMPLEMENT!";
+      var sb = new StringBuilder();
+      sb.Append(increaseStatus.GetDescription());
+      sb.Append($"{description}");
+      return sb.ToString();
     }
   }
 }

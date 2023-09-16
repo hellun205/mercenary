@@ -23,6 +23,8 @@ namespace Wave
 
     private Coroutiner timerCrt;
 
+    public event Action onWaveEnd;
+
     protected override void Awake()
     {
       base.Awake();
@@ -68,6 +70,7 @@ namespace Wave
       timerCrt.Stop();
       GameManager.Spawn.spawn = false;
       KillEnemies();
+      onWaveEnd?.Invoke();
 
       CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>
       {

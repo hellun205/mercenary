@@ -21,6 +21,20 @@ namespace Store.Item
     private Button purchaseButton;
 
     [SerializeField]
+    private Button lockButton;
+
+    [SerializeField]
+    private Image lockButtonImage;
+
+    [SerializeField]
+    private Sprite lockImage;
+    
+    [SerializeField]
+    private Sprite unlockImage;
+
+    public bool isLocking;
+
+    [SerializeField]
     private TextMeshProUGUI purchaseButtonText;
 
     private ItemData itemData;
@@ -28,7 +42,13 @@ namespace Store.Item
     private void Awake()
     {
       purchaseButton.onClick.AddListener(OnPurchase);
+      lockButton.onClick.AddListener(OnLockButtonClick);
       GameManager.Instance.coin.onSet += _ => RefreshButtonEnabled();
+    }
+
+    private void OnLockButtonClick()
+    {
+      SetLock(!isLocking);
     }
 
     private void OnPurchase()
@@ -38,6 +58,13 @@ namespace Store.Item
       SetEnabled(false);
       GameManager.Instance.coin.value -= itemData.price;
       GameManager.Player.inventory.GainItem(itemData);
+      SetLock(false);
+    }
+
+    public void SetLock(bool value)
+    {
+      isLocking = value;
+      lockButtonImage.sprite = isLocking ? lockImage : unlockImage;
     }
 
     public void SetItem(ItemData item)
