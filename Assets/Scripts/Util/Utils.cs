@@ -45,14 +45,6 @@ namespace Util
       return new Vector2(x ?? original.x, y ?? original.y);
     }
 
-    public static void Wait(float second, Action fn) => GameManager.Instance.StartCoroutine(WaitRoutine(second, fn));
-
-    private static IEnumerator WaitRoutine(float second, Action fn)
-    {
-      yield return new WaitForSecondsRealtime(second);
-      fn.Invoke();
-    }
-
     public static Vector3 WorldToScreenSpace(this RectTransform canvas, Vector3 worldPos)
     {
       var screenPoint = Camera.main.WorldToScreenPoint(worldPos);

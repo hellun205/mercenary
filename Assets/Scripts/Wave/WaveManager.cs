@@ -68,12 +68,12 @@ namespace Wave
       timerCrt.Stop();
       GameManager.Spawn.spawn = false;
       KillEnemies();
-      
-      Utils.Wait(1.5f, () =>
+
+      CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>
       {
         Time.timeScale = 0f;
         storePanel.gameObject.SetActive(true);
-      });
+      }));
     }
 
     public void NextWave()

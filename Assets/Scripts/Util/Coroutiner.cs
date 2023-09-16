@@ -16,7 +16,7 @@ namespace Util
       this.routine = routine;
     }
 
-    public void Start(params object[] parameters)
+    public void Start()
     {
       Stop();
       current = GameManager.Instance.StartCoroutine(routine.Invoke());
