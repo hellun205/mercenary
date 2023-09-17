@@ -37,7 +37,7 @@ namespace Store.Item
     [SerializeField]
     private TextMeshProUGUI purchaseButtonText;
 
-    private ItemData itemData;
+    private IPossessible itemData;
 
     private void Awake()
     {
@@ -67,11 +67,11 @@ namespace Store.Item
       lockButtonImage.sprite = isLocking ? lockImage : unlockImage;
     }
 
-    public void SetItem(ItemData item)
+    public void SetItem(IPossessible item)
     {
       itemData = item;
       itemName.text = item.itemName;
-      itemDescriptions.text = item.GetDescription();
+      itemDescriptions.text = item.description;
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
       RefreshButtonEnabled();

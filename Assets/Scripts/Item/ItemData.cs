@@ -5,17 +5,28 @@ using UnityEngine;
 namespace Item
 {
   [CreateAssetMenu(fileName = "Item Data", menuName = "Item Data", order = 0)]
-  public class ItemData : ScriptableObject
+  public class ItemData : ScriptableObject, IPossessible
   {
-    public string itemName;
+    [SerializeField]
+    private string m_itemName;
 
-    public Sprite icon;
+    [SerializeField]
+    private string m_description;
+    
+    [SerializeField]
+    private Sprite m_icon;
 
-    public int price;
+    [SerializeField]
+    private int m_price;
 
     public IncreaseStatus increaseStatus;
 
-    public string description;
+    public string itemName => m_itemName;
+    public string description => m_description;
+
+    public Sprite icon => m_icon;
+
+    public int price => m_price;
 
     public string GetDescription()
     {

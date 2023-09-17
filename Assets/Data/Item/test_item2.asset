@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0cee0bd9f4cbb8ce0630da1ab1e04, type: 3}
   m_Name: test_item2
   m_EditorClassIdentifier: 
-  itemName: "\uD14C\uC2A4\uD2B8 2"
-  icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
-  price: 6
+  m_itemName: "\uBE44\uD2B8\uCF54\uC778"
+  m_description: 
+  m_icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
+  m_price: 0
   increaseStatus:
     maxHp: 0
     regeneration: 0
@@ -29,4 +30,3 @@ MonoBehaviour:
     armor: 0
     moveSpeed: 0
     luck: 0
-  description: 

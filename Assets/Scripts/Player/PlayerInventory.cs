@@ -12,13 +12,13 @@ namespace Player
   public class PlayerInventory : MonoBehaviour
   {
     [SerializedDictionary("Item", "Count")]
-    public SerializedDictionary<ItemData, ushort> items;
+    public SerializedDictionary<IPossessible, ushort> items;
 
     [SerializedDictionary("Item", "UI")]
-    public SerializedDictionary<ItemData, InventoryItem> uiItems;
+    public SerializedDictionary<IPossessible, InventoryItem> uiItems;
 
     private IObjectPool<InventoryItem> pool;
-    private (ItemData item, ushort count) temp;
+    private (IPossessible item, ushort count) temp;
     private Transform inventoryItemsParent;
 
     public event Action onChanged;
@@ -47,7 +47,7 @@ namespace Player
     private InventoryItem CreateFunc()
       => Instantiate(GameManager.Prefabs.Get<InventoryItem>("inventory_item"), inventoryItemsParent);
 
-    public void GainItem(ItemData item, ushort count = 1)
+    public void GainItem(IPossessible item, ushort count = 1)
     {
       if (items.ContainsKey(item))
       {
@@ -63,7 +63,7 @@ namespace Player
       onChanged?.Invoke();
     }
 
-    public void LoseItem(ItemData item, ushort count = 1)
+    public void LoseItem(IPossessible item, ushort count = 1)
     {
       if (!items.ContainsKey(item)) return;
 

@@ -101,11 +101,18 @@ namespace Player
       return sb.ToString();
     }
 
-    public static string GetTextViaValue(string text, float value)
+    public static string GetTextViaValue
+    (
+      string text,
+      float value,
+      float multiple = 1f,
+      string prefix = "",
+      string subfix = ""
+    )
     {
       var color = value > 0 ? new Color32(47, 157, 39, 255) : new Color32(152, 0, 0, 255);
       var sign = value > 0 ? '+' : '-';
-      return $"{text} {sign}{Math.Abs(Math.Round(value, 2))}".AddColor(color);
+      return $"{text} {sign}{prefix}{Math.Abs(Math.Round(value, 2)) * multiple}{subfix}".AddColor(color);
     }
 
     public PlayerStatus(PlayerStatus other)
@@ -145,7 +152,7 @@ namespace Player
       res.knockback += b.knockback;
       res.moveSpeed += b.moveSpeed;
       res.luck += b.luck;
-      
+
       return res;
     }
   }

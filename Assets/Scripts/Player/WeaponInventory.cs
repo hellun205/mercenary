@@ -60,11 +60,19 @@ namespace Player
       }
       else
       {
-        var tmp = weapons[to].name;
-        RemoveWeapon(to);
-        SetWeapon(to, weapons[original].name);
-        RemoveWeapon(original);
-        SetWeapon(original, tmp);
+        if (weapons[to] == null)
+        {
+          SetWeapon(to, weapons[original].name);
+          RemoveWeapon(original);
+        }
+        else
+        {
+          var tmp = weapons[to].name;
+          RemoveWeapon(to);
+          SetWeapon(to, weapons[original].name);
+          RemoveWeapon(original);
+          SetWeapon(original, tmp);
+        }
       }
     }
 

@@ -1,5 +1,7 @@
 using System;
+using System.Text;
 using Player;
+using Util.Text;
 
 namespace Weapon
 {
@@ -13,7 +15,7 @@ namespace Weapon
     public float multipleCritical = 1;
     public float knockback;
     public float bleedingDamage;
-    
+
     public static WeaponStatus operator +(WeaponStatus a, PlayerStatus b)
       => new()
       {
@@ -35,5 +37,25 @@ namespace Weapon
         bleedingDamage = a.bleedingDamage + b.bleedingDamage,
         type = a.type
       };
+
+    public string GetDescription()
+    {
+      var sb = new StringBuilder();
+
+      if (attackDamage != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("공격력", attackDamage)).Append("\n");
+      if (multipleCritical != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("치명타 확률", multipleCritical, prefix: "x")).Append("\n");
+      if (bleedingDamage != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("출혈 피해량", bleedingDamage)).Append("\n");
+      if (attackSpeed != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("공격 속도", attackSpeed)).Append("\n");
+      if (knockback != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("넉백", knockback)).Append("\n");
+      if (fireRange != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("범위", fireRange)).Append("\n");
+
+      return sb.ToString();
+    }
   }
 }

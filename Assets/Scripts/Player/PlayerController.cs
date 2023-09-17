@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Item;
 using Manager;
 using Pool.Extensions;
 using UI;
@@ -21,6 +22,7 @@ namespace Player
 
     private ProgressBar hpBar;
 
+    [NonSerialized]
     public WeaponInventory weaponInventory;
 
     private float curRegenerationHp;
@@ -29,6 +31,8 @@ namespace Player
 
     private List<int> damagedEnemies = new();
 
+    public List<WeaponInventory> partnerWeaponInventories;
+
     private void Awake()
     {
       inventory = GetComponent<PlayerInventory>();
@@ -36,6 +40,7 @@ namespace Player
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
       RefreshHpBar();
+      
     }
 
     private void Update()
@@ -113,7 +118,7 @@ namespace Player
 
     private void Start()
     {
-      weaponInventory.Test();
+      // weaponInventory.Test();
     }
 
     public PlayerStatus GetStatus()
@@ -128,8 +133,8 @@ namespace Player
       //   res += weapon.status;
       // }
       
-      foreach (var (item, count) in items)
-        res += item.increaseStatus * count;
+      foreach (var (item, count) in items.Where(x => x.Key is ItemData))
+        res += (item as ItemData).increaseStatus * count;
 
       return res;
     }

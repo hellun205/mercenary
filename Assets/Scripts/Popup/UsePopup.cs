@@ -15,7 +15,7 @@ namespace Popup
 
     protected virtual void Awake()
     {
-      popupPanel = (T)GameManager.UI.Find<PopupPanel>(popupName);
+      popupPanel = GameManager.UI.Find<T>(popupName);
       canvas = GetComponentInParent<Canvas>();
     }
 
