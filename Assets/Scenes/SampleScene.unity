@@ -862,6 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100fb61e0d9547e888303fad0a2e6d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plus: 2
 --- !u!1001 &153519383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3700,7 +3701,7 @@ GameObject:
   - component: {fileID: 699646992}
   - component: {fileID: 699646991}
   m_Layer: 0
-  m_Name: text
+  m_Name: $item_refresh_button_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3745,7 +3746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C8\uB85C\uACE0\uCE68"
+  m_text: <sprite=0> $0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -3764,7 +3765,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 1b58470ac7b468844a5c541f53cc3fc2, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

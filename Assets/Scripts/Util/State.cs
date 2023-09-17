@@ -24,8 +24,14 @@ namespace Util
 
       foreach (var onStateChangeEvent in onStateChangeEvents)
         onSet += onStateChangeEvent;
-      
-      // onSet?.Invoke(value);
+
+      try
+      {
+        onSet?.Invoke(value);
+      }
+      catch
+      {
+      }
     }
 
     public State(params Action<T>[] onStateChangeEvents) : this(default, onStateChangeEvents)
