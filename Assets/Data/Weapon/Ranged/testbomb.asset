@@ -18,10 +18,11 @@ MonoBehaviour:
   status:
     type: 1
     attackDamage: 5
-    hp: 0
-    attackSpeed: 0.7
-    moveSpeed: 0
+    attackSpeed: 2
     fireRange: 5
+    multipleCritical: 1
+    knockback: 0
+    bleedingDamage: 0
   needFlipY: 0
   needFlipX: 0
   rotate: 0

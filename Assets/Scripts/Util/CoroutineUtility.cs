@@ -18,5 +18,14 @@ namespace Util
         fn?.Invoke();
       }
     }
+
+    public static Coroutine Wait(float second, Action fn)
+      => Start((new WaitForSeconds(second), fn));
+    
+    public static Coroutine WaitUnscaled(float second, Action fn)
+      => Start((new WaitForSecondsRealtime(second), fn));
+    
+    public static Coroutine WaitUntil(Func<bool> predicate, Action fn)
+      => Start((new WaitUntil(predicate), fn));
   }
 }

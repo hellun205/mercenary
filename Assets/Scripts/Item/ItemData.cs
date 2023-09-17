@@ -13,7 +13,7 @@ namespace Item
 
     public int price;
 
-    public PlayerStatus increaseStatus;
+    public IncreaseStatus increaseStatus;
 
     public string description;
 

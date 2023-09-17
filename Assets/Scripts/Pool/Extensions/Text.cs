@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Pool.Extensions
 {
-  public class Text : UsePool
+  public class Text : MonoBehaviour, IUsePool
   {
     [SerializeField]
     private TextMeshProUGUI text;
@@ -36,7 +36,9 @@ namespace Pool.Extensions
       set => text.fontWeight = value;
     }
 
-    protected override void OnSummon()
+    public PoolObject poolObject { get; set; }
+
+    public void OnSummon()
     {
       value = "";
       color = Color.white;

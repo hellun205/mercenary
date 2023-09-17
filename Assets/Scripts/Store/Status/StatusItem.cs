@@ -1,14 +1,12 @@
-﻿using System;
-using Manager;
+﻿using Popup;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
 
 namespace Store.Status
 {
-  public class StatusItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+  public class StatusItem : UsePopup<PopupPanel>
   {
     [Header("Bind")]
     [SerializeField]
@@ -26,17 +24,12 @@ namespace Store.Status
     public string statName;
     public float statValue;
 
+    public string valueFormat;
+
     [Multiline]
     public string description;
 
-    private static Popup popup;
-    private Canvas canvas;
-
-    private void Awake()
-    {
-      popup ??= GameManager.UI.Find<Popup>("$popup_stat");
-      canvas = GetComponentInParent<Canvas>();
-    }
+    public override string popupName => "$popup_stat";
 
     private void OnValidate()
     {
@@ -47,29 +40,30 @@ namespace Store.Status
     {
       statIconImage.sprite = statIcon;
       statNameText.text = statName;
-      statValueText.text = statValue.GetViaValue();
+      statValueText.text = GetValue(valueFormat);
     }
 
-
-    public void OnPointerExit(PointerEventData eventData)
+    public override void OnEntered()
     {
-      popup.HidePopup();
+      popupPanel.ShowPopup(statName, GetValue(description));
     }
 
-    public void OnPointerMove(PointerEventData eventData)
+    private string GetValue(string format)
     {
-      Move(eventData);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-      Move(eventData);
-      popup.ShowPopup(statName, description);
-    }
-
-    public void Move(PointerEventData eventData)
-    {
-      popup.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(eventData.position);
+      try
+      {
+        return string.Format
+        (
+          format,
+          statValue.GetViaValue(""),
+          (statValue * 100f).GetViaValue(""),
+          (statValue * 0.1f).GetViaValue("")
+        );
+      }
+      catch
+      {
+        return format;
+      }
     }
   }
 }

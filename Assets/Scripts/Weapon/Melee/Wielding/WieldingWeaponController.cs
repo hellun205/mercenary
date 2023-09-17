@@ -1,4 +1,6 @@
-using System.Collections;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using Util;
 using Weapon.Extensions;
@@ -12,23 +14,18 @@ namespace Weapon.Melee.Wielding
     private Transform cRotate;
 
     private Animator anim;
-
-    public string animName;
-
-    public Coroutiner moveCrt;
-    public Coroutiner moveCrt2;
-
+    
     public bool ready = false;
 
     [SerializeField]
     private LockRotation lr;
 
+    public TweenerCore<Vector3, Vector3, VectorOptions> tweener;
+
     protected override void Awake()
     {
       base.Awake();
       anim = GetComponent<Animator>();
-      moveCrt = new Coroutiner(MoveCRT);
-      moveCrt2 = new Coroutiner(MoveCRT2);
     }
 
     protected override void Update()
@@ -48,62 +45,25 @@ namespace Weapon.Melee.Wielding
     protected override void OnFire()
     {
       ready = false;
-      attackedTargets.Clear();
-      moveCrt.Start();
+      // moveCrt.Start();
+      tweener = movingObj.DOLocalMoveX(status.fireRange, 0.3f * Mathf.Min(1, status.attackSpeed))
+       .OnComplete(StartWielding);
     }
-
-    private IEnumerator MoveCRT()
-    {
-      var time = 0f;
-      moveCrt2.Stop();
-
-      while (!movingObj.localPosition.x.ApproximatelyEqual(status.range))
-      {
-        yield return new WaitForEndOfFrame();
-
-        time = Time.deltaTime * status.attackSpeed * 4f;
-
-        var pos = movingObj.localPosition;
-        movingObj.localPosition = new Vector3(Mathf.Lerp(pos.x, status.range, time), pos.y, pos.z);
-      }
-
-      if (!ready)
-      {
-        ready = true;
-        StartWielding();
-      }
-    }
-
-    private IEnumerator MoveCRT2()
-    {
-      var time = 0f;
-      var tmp = movingObj.localPosition.x;
-
-      while (!movingObj.localPosition.x.ApproximatelyEqual(0f))
-      {
-        yield return new WaitForEndOfFrame();
-
-        time = Time.deltaTime * status.attackSpeed* 5f;
-
-        var pos = movingObj.localPosition;
-        movingObj.localPosition = new Vector3(Mathf.Lerp(pos.x, 0f, time), pos.y, pos.z);
-      }
-    }
+    
 
     public void StartWielding()
     {
-      moveCrt.Stop();
+      tweener.Kill();
       anim.SetFloat("speed", status.attackSpeed);
       anim.Play("");
     }
-
-
+    
     public void OnAttack() => isAttacking = true;
 
     public void EndAttack()
     {
       isAttacking = false;
-      moveCrt2.Start();
+      movingObj.DOLocalMoveX(0f, 0.4f * Mathf.Min(1, status.attackSpeed));
     }
   }
 }

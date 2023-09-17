@@ -2,9 +2,9 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace Store
+namespace Popup
 {
-  public class Popup : MonoBehaviour
+  public class PopupPanel : MonoBehaviour
   {
     [NonSerialized]
     public RectTransform rectTransform;

@@ -1,20 +1,24 @@
 using System.Collections;
+using Interact;
 using Manager;
+using Pool;
 using Pool.Extensions;
 using UnityEngine;
 using Util;
 
 namespace Weapon
 {
-  public class TargetableObject : UsePool
+  public class TargetableObject : InteractiveObject, IUsePool
   {
+    public PoolObject poolObject { get; set; }
+    
     public TargetableStatus status;
 
     public bool canTarget => !isDead;
 
     public float hp;
 
-    public int index => po.index;
+    public int index => poolObject.index;
 
     private SpriteRenderer sr;
 
@@ -24,12 +28,10 @@ namespace Weapon
 
     public bool playerAttacked;
 
-    protected override void Awake()
+    private void Awake()
     {
       sr = GetComponent<SpriteRenderer>();
       deadCrt = new Coroutiner(DeadRoutine);
-
-      base.Awake();
     }
 
     private IEnumerator DeadRoutine()
@@ -42,10 +44,10 @@ namespace Weapon
         yield return new WaitForEndOfFrame();
       }
 
-      po.Release();
+      poolObject.Release();
     }
 
-    protected override void OnSummon()
+    public void OnSummon()
     {
       hp = status.maxHp;
       isDead = false;
@@ -53,7 +55,7 @@ namespace Weapon
       sr.color = Color.white;
     }
 
-    protected override void OnKilled()
+    public void OnKilled()
     {
       deadCrt.Stop();
     }
@@ -63,25 +65,27 @@ namespace Weapon
       sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime * 5f);
     }
 
-    public void Hit(float damage)
+    public void Kill(bool throwCoin = false)
     {
+      isDead = true;
+      deadCrt.Start();
+    }
+
+    protected override void OnInteract(Interacter caster)
+    {
+      if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
+      
       GameManager.Player.SuccessfulAttack();
       playerAttacked = true;
-      hp -= damage;
+      hp -= ao.damage;
       sr.color = Color.red;
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
-        obj => obj.value = Mathf.RoundToInt(damage));
+        obj => obj.value = Mathf.RoundToInt(ao.damage));
 
       if (hp <= 0)
       {
         Kill(true);
       }
-    }
-
-    public void Kill(bool throwCoin = false)
-    {
-      isDead = true;
-      deadCrt.Start();
     }
   }
 }

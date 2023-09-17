@@ -16,18 +16,17 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 2fc6f8e02ebfd6d4ebff78ce8b78a07a, type: 3}
   price: 5
   increaseStatus:
-    maxHp: 1.19
-    hp: 4.02
+    maxHp: 2
     regeneration: 0
     drainHp: 0
-    isInvincibility: 0
-    invincibilityTime: 0
-    meleeDamage: 2.35
+    meleeDamage: 0
     rangedDamage: 0
-    bleedingDamage: 2.53
+    bleedingDamage: 0
+    criticalPercent: 0
     attackSpeed: 0
     range: 0
+    knockback: 0
     armor: 0
-    moveSpeed: -4.56
+    moveSpeed: 0
     luck: 0
   description: 

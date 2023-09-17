@@ -25,6 +25,8 @@ namespace Wave
 
     public event Action onWaveEnd;
     public event Action onWaveStart;
+    
+    public bool state { get; private set; }
 
     protected override void Awake()
     {
@@ -63,7 +65,8 @@ namespace Wave
       GameManager.Spawn.spawn = true;
       waveText.text = $"웨이브 {currentWave + 1}";
       onWaveStart?.Invoke();
-      
+
+      state = true;
       timerCrt.Start();
     }
 
@@ -72,6 +75,7 @@ namespace Wave
       timerCrt.Stop();
       GameManager.Spawn.spawn = false;
       KillEnemies();
+      state = false;
       onWaveEnd?.Invoke();
 
       CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>

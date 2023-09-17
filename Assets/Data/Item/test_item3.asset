@@ -17,17 +17,16 @@ MonoBehaviour:
   price: 12
   increaseStatus:
     maxHp: 0
-    hp: 0
     regeneration: 0
     drainHp: 0
-    isInvincibility: 0
-    invincibilityTime: 0
-    meleeDamage: 1.4
+    meleeDamage: 0
     rangedDamage: 0
     bleedingDamage: 0
-    attackSpeed: 0.48
-    range: 1.11
+    criticalPercent: 0
+    attackSpeed: 0
+    range: 0
+    knockback: 0
     armor: 0
-    moveSpeed: -2.6
+    moveSpeed: 0
     luck: 0
   description: 

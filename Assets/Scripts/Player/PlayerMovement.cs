@@ -7,6 +7,8 @@ namespace Player
   {
     public Vector2 currentMoveAmount = Vector2.zero;
 
+    public float baseMoveSpeed = 4;
+
     private void Update()
     {
       float v = 0f, h = 0f;
@@ -22,7 +24,7 @@ namespace Player
 
     private void FixedUpdate()
     {
-      transform.Translate(currentMoveAmount * (GameManager.Player.status.moveSpeed * Time.fixedDeltaTime));
+      transform.Translate(currentMoveAmount * (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
     }
   }
 }

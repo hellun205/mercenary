@@ -2,13 +2,15 @@ using UnityEngine;
 
 namespace Pool.Extensions
 {
-  public class Follower : UsePool
+  public class Follower :MonoBehaviour , IUsePool
   {
+    public PoolObject poolObject { get; set; }
+    
     private PoolObject target;
 
     public bool isEnabled => target is not null;
 
-    protected override void OnKilled()
+    public void OnKilled()
     {
       target = null;
     }
@@ -22,7 +24,7 @@ namespace Pool.Extensions
     private void TargetOnReleased()
     {
       target.onReleased -= TargetOnReleased;
-      po.Release();
+      poolObject.Release();
     }
 
     private void Update()

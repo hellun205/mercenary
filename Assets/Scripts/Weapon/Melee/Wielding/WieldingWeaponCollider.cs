@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Weapon.Melee.Wielding
@@ -12,7 +13,7 @@ namespace Weapon.Melee.Wielding
     {
       if (!mainCtrler.ready)
       {
-        mainCtrler.moveCrt.Stop();
+        mainCtrler.tweener.Kill();
         mainCtrler.ready = true;
         mainCtrler.StartWielding();
       }

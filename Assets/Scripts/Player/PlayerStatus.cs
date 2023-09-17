@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 using Weapon;
 
@@ -40,8 +41,9 @@ namespace Player
     [Tooltip("출혈 피해량")]
     public float bleedingDamage;
 
+    [FormerlySerializedAs("criticalPercentage")]
     [Tooltip("치명타율")]
-    public float criticalPercentage;
+    public float criticalPercent;
 
     [Tooltip("공격 속도")]
     public float attackSpeed;
@@ -78,8 +80,8 @@ namespace Player
         sb.Append(GetTextViaValue("근거리 피해량", meleeDamage)).Append("\n");
       if (rangedDamage != 0)
         sb.Append(GetTextViaValue("원거리 피해량", rangedDamage)).Append("\n");
-      if (criticalPercentage != 0)
-        sb.Append(GetTextViaValue("치명타 확률", criticalPercentage)).Append("\n");
+      if (criticalPercent != 0)
+        sb.Append(GetTextViaValue("치명타 확률", criticalPercent)).Append("\n");
       if (bleedingDamage != 0)
         sb.Append(GetTextViaValue("출혈 피해량", bleedingDamage)).Append("\n");
       if (attackSpeed != 0)
@@ -109,7 +111,7 @@ namespace Player
     {
       attackSpeed = other.armor;
       knockback = other.knockback;
-      criticalPercentage = other.criticalPercentage;
+      criticalPercent = other.criticalPercent;
       bleedingDamage = other.bleedingDamage;
       regeneration = other.regeneration;
       armor = other.armor;
@@ -125,78 +127,25 @@ namespace Player
       rangedDamage = other.rangedDamage;
     }
 
-    public static PlayerStatus operator +(PlayerStatus a, PlayerStatus b)
-      => new()
-      {
-        attackSpeed = a.armor + b.armor,
-        knockback = a.knockback + b.knockback,
-        criticalPercentage = a.criticalPercentage + b.criticalPercentage,
-        bleedingDamage = a.bleedingDamage + b.bleedingDamage,
-        regeneration = a.regeneration + b.regeneration,
-        armor = a.armor + b.armor,
-        hp = a.hp + b.hp,
-        luck = a.luck + b.luck,
-        range = a.range + b.range,
-        drainHp = a.drainHp + b.drainHp,
-        invincibilityTime = a.invincibilityTime + b.invincibilityTime,
-        isInvincibility = a.isInvincibility,
-        maxHp = a.maxHp + b.maxHp,
-        meleeDamage = a.meleeDamage + b.meleeDamage,
-        moveSpeed = a.moveSpeed + b.moveSpeed,
-        rangedDamage = a.rangedDamage + b.rangedDamage
-      };
-
-    public static PlayerStatus operator -(PlayerStatus a)
-      => new()
-      {
-        attackSpeed = -a.armor,
-        knockback = -a.knockback,
-        criticalPercentage = -a.criticalPercentage,
-        bleedingDamage = -a.bleedingDamage,
-        regeneration = -a.regeneration,
-        armor = -a.armor,
-        hp = -a.hp,
-        luck = -a.luck,
-        range = -a.range,
-        drainHp = -a.drainHp,
-        invincibilityTime = -a.invincibilityTime,
-        maxHp = -a.maxHp,
-        meleeDamage = -a.meleeDamage,
-        moveSpeed = -a.moveSpeed,
-        rangedDamage = -a.rangedDamage
-      };
-    
-    public static PlayerStatus operator *(PlayerStatus a, int b)
-      => new(a)
-      {
-        attackSpeed = a.armor * b,
-        knockback = a.knockback * b,
-        criticalPercentage = a.criticalPercentage * b,
-        bleedingDamage = a.bleedingDamage * b,
-        regeneration = a.regeneration * b,
-        armor = a.armor * b,
-        hp = a.hp * b,
-        luck = a.luck * b,
-        range = a.range* b,
-        drainHp = a.drainHp * b,
-        invincibilityTime = a.invincibilityTime* b,
-        maxHp = a.maxHp * b,
-        meleeDamage = a.meleeDamage * b,
-        moveSpeed = a.moveSpeed * b,
-        rangedDamage = a.rangedDamage* b
-      };
-
-    public static PlayerStatus operator -(PlayerStatus a, PlayerStatus b)
-      => a + -b;
-
-    public static PlayerStatus operator +(PlayerStatus a, WeaponStatus b) => new(a)
+    public static PlayerStatus operator +(PlayerStatus a, IncreaseStatus b)
     {
-      meleeDamage = b.type == WeaponType.Melee ? a.meleeDamage + b.attackDamage : a.meleeDamage,
-      rangedDamage = b.type == WeaponType.Ranged ? a.rangedDamage + b.attackDamage : a.rangedDamage,
-      attackSpeed = a.attackSpeed + b.attackSpeed,
-      maxHp = a.maxHp + b.hp,
-      moveSpeed = a.moveSpeed + b.moveSpeed,
-      range = a.range + b.fireRange
-    };
+      var res = new PlayerStatus(a);
+
+      res.maxHp += b.maxHp;
+      res.regeneration += b.regeneration;
+      res.drainHp += b.drainHp;
+      res.meleeDamage += b.meleeDamage;
+      res.rangedDamage += b.rangedDamage;
+      res.criticalPercent += b.criticalPercent;
+      res.bleedingDamage += b.bleedingDamage;
+      res.attackSpeed += b.attackSpeed;
+      res.range += b.range;
+      res.armor += b.armor;
+      res.knockback += b.knockback;
+      res.moveSpeed += b.moveSpeed;
+      res.luck += b.luck;
+      
+      return res;
+    }
   }
 }

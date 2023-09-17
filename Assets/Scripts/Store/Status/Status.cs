@@ -40,7 +40,7 @@ namespace Store.Status
       SetValue("hp_drain", status.drainHp);
       SetValue("melee_damage", status.meleeDamage);
       SetValue("ranged_damage", status.rangedDamage);
-      SetValue("critical_percentage", status.criticalPercentage);
+      SetValue("critical_percentage", status.criticalPercent);
       SetValue("bleeding_damage", status.bleedingDamage);
       SetValue("attack_speed", status.attackSpeed);
       SetValue("weapon_range", status.range);

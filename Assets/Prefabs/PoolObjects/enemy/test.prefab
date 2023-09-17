@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3511379061321155166}
   - component: {fileID: 6442367214357192638}
   - component: {fileID: 940086527808425985}
-  - component: {fileID: 5046994210879644650}
   m_Layer: 6
   m_Name: test
   m_TagString: Enemy
@@ -164,8 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0a64db92a0464b9c372a7e522d4826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caster: 4
+  currentCondition: 4
+  ignoreOpponentAttack: 0
   status: {fileID: 11400000, guid: 774c9b6c3643a034ea9b072788991468, type: 2}
-  isEnabled: 1
 --- !u!114 &6442367214357192638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,9 +179,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888dfa54ab314bb88110c506b09f9ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  detectCaster: 2
+  condition: 4
   status: {fileID: 11400000, guid: 774c9b6c3643a034ea9b072788991468, type: 2}
-  canTarget: 1
-  hp: 0
+  hp: 3
+  playerAttacked: 0
 --- !u!114 &940086527808425985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,16 +199,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   type: 
---- !u!114 &5046994210879644650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4041412545215779635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e8f01385db24835927c31c61e4abfd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}

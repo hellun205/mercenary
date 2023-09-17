@@ -1,5 +1,6 @@
+using Interact;
 using Manager;
-using Pool.Extensions;
+using Pool;
 using UnityEngine;
 using Util;
 using Weapon;
@@ -7,8 +8,10 @@ using Weapon;
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : UsePool
+  public class EnemyController : Interacter, IUsePool
   {
+    public PoolObject poolObject { get; set; }
+
     [Header("Base Status")]
     public EnemyStatus status;
 
@@ -18,18 +21,22 @@ namespace Enemy
 
     private TargetableObject to;
 
-    protected override void OnSummon()
+    private void Reset()
+    {
+      caster = InteractCaster.Others;
+    }
+
+    private void Awake()
+    {
+      to = GetComponent<TargetableObject>();
+    }
+
+    public void OnSummon()
     {
       isEnabled = true;
     }
 
-    protected override void Awake()
-    {
-      to = GetComponent<TargetableObject>();
-      base.Awake();
-    }
-
-    protected override void OnKilled()
+    public void OnKilled()
     {
       if (to.playerAttacked)
         ThrowCoin();
@@ -64,7 +71,7 @@ namespace Enemy
     {
       if (!other.CompareTag("Player") || !to.canTarget) return;
 
-      GameManager.Player.Hit(status.damage, po.index);
+      GameManager.Player.Hit(status.damage, poolObject.index);
     }
   }
 }

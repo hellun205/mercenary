@@ -71,9 +71,9 @@ namespace Player
     [ContextMenu("Set Weapon for test")]
     public void Test()
     {
-      SetWeapon(0, "melee/testknife");
-      SetWeapon(1, "melee/testaxe");
-      SetWeapon(2, "ranged/testgun");
+      // SetWeapon(0, "melee/testknife");
+      // SetWeapon(1, "melee/testaxe");
+      // SetWeapon(2, "ranged/testgun");
       SetWeapon(3, "ranged/testbomb");
     }
   }

@@ -1,4 +1,5 @@
 using System;
+using Interact;
 using Pool;
 using UnityEngine;
 using Util;
@@ -6,11 +7,9 @@ using Util;
 namespace Weapon.Ranged
 {
   [RequireComponent(typeof(PoolObject))]
-  public class BulletController : MonoBehaviour
+  public class BulletController : AttackableObject
   {
     public Transform target;
-
-    public float damage;
 
     public float speed = 10f;
 
@@ -22,7 +21,7 @@ namespace Weapon.Ranged
 
     private float time;
     private int curPenetrateCount;
-
+    
     [NonSerialized]
     public PoolObject po;
 
@@ -48,18 +47,16 @@ namespace Weapon.Ranged
         Destroy(gameObject);
     }
 
-    public void SetTarget(TargetableObject targetableObject, float damage)
+    public void SetTarget(TargetableObject targetableObject)
     {
       target = targetableObject.transform;
-      this.damage = damage;
       transform.rotation = transform.GetRotationOfLookAtObject(target);
       isEnabled = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    protected override void OnInteract(InteractiveObject target)
     {
-      col.GetComponent<TargetableObject>().Hit(damage);
-      
+      base.OnInteract(target);
       if (curPenetrateCount >= maxPenetrateCount)
         po.Release();
       else curPenetrateCount++;

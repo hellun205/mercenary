@@ -9,14 +9,14 @@ namespace Weapon
   [RequireComponent(typeof(CircleCollider2D))]
   public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
-    public T weaponData => (T)GameManager.WeaponData[name];
-    
+    public T weaponData => (T) GameManager.WeaponData[name];
+
     [NonSerialized]
-    public PlayerStatus status;
-    
+    public WeaponStatus status;
+
     [Header("Target")]
     public TargetableObject target;
-    
+
     public bool hasTarget = false;
 
     [NonSerialized]
@@ -36,7 +36,7 @@ namespace Weapon
     public bool isReady;
 
     public string GetPObj(string objName) => $"weapon/{name}/{objName}";
-    
+
     protected virtual void Reset()
     {
       col = GetComponent<CircleCollider2D>();
@@ -46,24 +46,35 @@ namespace Weapon
     protected virtual void Awake()
     {
       // RefreshRange();
-      GameManager.Wave.onWaveStart += () => status = GameManager.Player.GetStatus() + weaponData.status;
+      GameManager.Wave.onWaveStart += RefreshStatus;
+    }
+
+    private void Start()
+    {
+      RefreshStatus();
+    }
+
+    private void RefreshStatus()
+    {
+      status = weaponData.status + GameManager.Player.GetStatus();
     }
 
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      col.radius = status.range;
+      col.radius = status.fireRange;
     }
 
     protected virtual void Update()
     {
+      if (!GameManager.Wave.state) return;
       if (!isReady)
       {
         readyTime += Time.deltaTime;
         if (readyTime >= 2f) isReady = true;
         return;
       }
-      
+
       RefreshRange();
       if (hasTarget && target && target.canTarget)
       {
@@ -73,9 +84,9 @@ namespace Weapon
           transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
         }
 
-        if (time >= 1 / status.attackSpeed && (
+        if (time >= status.attackSpeed && (
               !weaponData.rotate ||
-              transform.rotation.eulerAngles.z.ApproximatelyEqual(r.eulerAngles.z, 10f) ))
+              transform.rotation.eulerAngles.z.ApproximatelyEqual(r.eulerAngles.z, 10f)))
         {
           time = 0;
           OnFire();
@@ -93,7 +104,6 @@ namespace Weapon
         sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
       if (weaponData.needFlipX)
         sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
-
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -108,9 +118,7 @@ namespace Weapon
 
     private void OnTriggerExit2D(Collider2D other)
     {
-      if (hasTarget &&
-          other.TryGetComponent(typeof(TargetableObject), out var component) &&
-          ((TargetableObject) component).index == target.index)
+      if (hasTarget && other.TryGetComponent<TargetableObject>(out var to) && to.index == target.index)
       {
         target = null;
         hasTarget = false;
@@ -121,5 +129,9 @@ namespace Weapon
     {
     }
 
+    protected void ApplyDamage(AttackableObject ao)
+    {
+      ao.damage = status.attackDamage;
+    }
   }
 }

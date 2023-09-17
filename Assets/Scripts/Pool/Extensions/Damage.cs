@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace Pool.Extensions
 {
-  public class Damage : UsePool
+  public class Damage : MonoBehaviour, IUsePool
   {
+    public PoolObject poolObject { get; set; }
+
     private Animator anim;
-    
+
     [SerializeField]
     private TextMeshProUGUI text;
 
@@ -21,15 +23,14 @@ namespace Pool.Extensions
         _value = value;
         text.text = $"{_value}";
       }
-    }  
-    
-    protected override void Awake()
-    {
-      anim = GetComponent<Animator>();
-      base.Awake();
     }
 
-    protected override void OnSummon()
+    private void Awake()
+    {
+      anim = GetComponent<Animator>();
+    }
+
+    public void OnSummon()
     {
       anim.SetTrigger("lift");
     }
