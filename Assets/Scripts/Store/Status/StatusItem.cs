@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
+using Util.Text;
 
 namespace Store.Status
 {
@@ -52,11 +53,12 @@ namespace Store.Status
     {
       try
       {
+        var percent = TaggedText.Parse((statValue * 100f).GetViaValue("")).AppendText("%");
         return string.Format
         (
           format,
           statValue.GetViaValue(""),
-          (statValue * 100f).GetViaValue(""),
+          percent,
           (statValue * 0.1f).GetViaValue("")
         );
       }

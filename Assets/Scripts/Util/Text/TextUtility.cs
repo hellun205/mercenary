@@ -1,8 +1,7 @@
 using System;
-using System.Text;
 using UnityEngine;
 
-namespace Util
+namespace Util.Text
 {
   public static class TextUtility
   {

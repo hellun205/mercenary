@@ -3,6 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Util;
+using Util.Text;
 using Weapon;
 
 namespace Player

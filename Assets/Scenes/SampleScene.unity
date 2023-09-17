@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
-      value: "{1}% \uB354 \uBE60\uB974\uAC8C \uC774\uB3D9\uD569\uB2C8\uB2E4."
+      value: "{1} \uB354 \uBE60\uB974\uAC8C \uC774\uB3D9\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
@@ -410,7 +410,7 @@ PrefabInstance:
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
       value: "\uC801\uC5D0\uAC8C \uB300\uBBF8\uC9C0\uB97C \uC785\uD614\uC744 \uB54C
-        {1}%\uC758 \uD655\uB960\uB85C \uCCB4\uB825 1\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+        {1}\uC758 \uD655\uB960\uB85C \uCCB4\uB825 1\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
@@ -531,7 +531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
-      value: "{1}%\uC758 \uD655\uB960\uB85C \uC801\uC774 \uB3C8\uC744 \uB450\uBC30\uB85C
+      value: "{1}\uC758 \uD655\uB960\uB85C \uC801\uC774 \uB3C8\uC744 \uB450\uBC30\uB85C
         \uB5A8\uC5B4\uB728\uB9BD\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
@@ -6905,7 +6905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
-      value: "{1}%\uC758 \uD655\uB960\uB85C \uCE58\uBA85\uD0C0 \uACF5\uACA9\uC744
+      value: "{1}\uC758 \uD655\uB960\uB85C \uCE58\uBA85\uD0C0 \uACF5\uACA9\uC744
         \uAC00\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
@@ -7360,7 +7360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
-      value: "\uB300\uBBF8\uC9C0\uB97C {1}% \uB35C \uBC1B\uC2B5\uB2C8\uB2E4. \uCD5C\uB300
+      value: "\uB300\uBBF8\uC9C0\uB97C {1} \uB35C \uBC1B\uC2B5\uB2C8\uB2E4. \uCD5C\uB300
         \uAC12\uC740 60 \uC785\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
@@ -7838,7 +7838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: description
-      value: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 {1}% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+      value: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 {1} \uC99D\uAC00\uD569\uB2C8\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
@@ -8569,7 +8569,7 @@ MonoBehaviour:
     knockback: 0
     armor: 0
     moveSpeed: 0
-    luck: 0
+    luck: 0.372
   weaponInventory: {fileID: 0}
 --- !u!1001 &2609594835135962058
 PrefabInstance:
