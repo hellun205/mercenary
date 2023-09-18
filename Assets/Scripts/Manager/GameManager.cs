@@ -50,7 +50,7 @@ namespace Manager
       base.Awake();
       Init();
         
-      coin = new State<int>(30, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));;
+      coin = new State<int>(3277770, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));;
     }
 
     public static IPossessible GetItem(string itemName)

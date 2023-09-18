@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Interact;
 using Manager;
 using Pool;
@@ -12,8 +13,6 @@ namespace Weapon
   {
     public PoolObject poolObject { get; set; }
     
-    public TargetableStatus status;
-
     public bool canTarget => !isDead;
 
     public float hp;
@@ -28,10 +27,29 @@ namespace Weapon
 
     public bool playerAttacked;
 
+    private Queue<float> bleedingQueue = new();
+
+    public const float bleedingDelay = 0.7f;
+    
+    [Header("Targetable Object")]
+    public TargetableStatus status;
+    
+    [SerializeField]
+    private Timer bleedingTimer = new ();
+
     private void Awake()
     {
       sr = GetComponent<SpriteRenderer>();
       deadCrt = new Coroutiner(DeadRoutine);
+      bleedingTimer.duration = bleedingDelay;
+      bleedingTimer.onEnd += OnTimerEnd;
+    }
+
+    private void OnTimerEnd(Timer sender)
+    {
+      if (bleedingQueue.TryDequeue(out var amount))
+        Damage(amount);
+      CoroutineUtility.WaitUntil(() => bleedingQueue.Count > 0, () => sender.Start());
     }
 
     private IEnumerator DeadRoutine()
@@ -53,11 +71,14 @@ namespace Weapon
       isDead = false;
       playerAttacked = false;
       sr.color = Color.white;
+      bleedingTimer.Start();
     }
 
     public void OnKilled()
     {
       deadCrt.Stop();
+      bleedingTimer.Stop();
+      bleedingQueue.Clear();
     }
 
     private void Update()
@@ -76,14 +97,26 @@ namespace Weapon
       if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
       
       GameManager.Player.SuccessfulAttack();
-      playerAttacked = true;
-      hp -= ao.damage;
+      Damage(ao.damage);
+
+
+      if (ao.isCritical)
+      {
+        for (var i = 0; i < AttackableObject.bleedingCount; i++)
+          bleedingQueue.Enqueue(ao.bleeding / AttackableObject.bleedingCount);
+      }
+    }
+
+    private void Damage(float amount)
+    {
+      hp -= amount;
       sr.color = Color.red;
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
-        obj => obj.value = Mathf.RoundToInt(ao.damage));
+        obj => obj.value = Mathf.RoundToInt(amount));
 
       if (hp <= 0)
       {
+        playerAttacked = true;
         Kill(true);
       }
     }

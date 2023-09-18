@@ -16,6 +16,9 @@ namespace Manager
 
     [SerializeField]
     protected string exts = "prefab";
+
+    [SerializeField]
+    protected bool isPath = true;
 #endif
 
     [SerializedDictionary("path", "object")]
@@ -51,8 +54,8 @@ namespace Manager
         if (path.Contains($".{exts}"))
         {
           var asset = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
-
-          items.Add(path.Replace($"Assets/{root}/", "").Replace($".{exts}", "").ToLower(), asset);
+          var key = isPath ? path.Replace($"Assets/{root}/", "").Replace($".{exts}", "").ToLower() : asset.name;
+          items.Add(key, asset);
         }
       }
     }

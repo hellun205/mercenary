@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Item;
 using Manager;
 using TMPro;
 using UnityEngine;
@@ -37,12 +40,16 @@ namespace Store.Item
       
     public void RefreshItems()
     {
+      var list = new List<IPossessible>();
+      list.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
+      list.AddRange(GameManager.WeaponData.items.Values);
+        
       for (var i = 0; i < 3; i++)
       {
         if (items[i].isLocking) continue;
-        var item = GameManager.Items.items.Keys.GetRandom();
+        var item = list.GetRandom();
         
-        items[i].SetItem(GameManager.GetItem(item));
+        items[i].SetItem(item);
       }
     }
   }

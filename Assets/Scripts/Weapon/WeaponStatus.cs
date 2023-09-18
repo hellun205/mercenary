@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Player;
+using UnityEngine;
 using Util.Text;
 
 namespace Weapon
@@ -15,6 +16,8 @@ namespace Weapon
     public float multipleCritical = 1;
     public float knockback;
     public float bleedingDamage;
+    [NonSerialized]
+    public float criticalPercent;
 
     public static WeaponStatus operator +(WeaponStatus a, PlayerStatus b)
       => new()
@@ -32,9 +35,10 @@ namespace Weapon
           WeaponType.Ranged => b.range,
           _                 => 0,
         },
-        multipleCritical = a.multipleCritical * b.criticalPercent,
+        criticalPercent = a.multipleCritical * b.criticalPercent,
+        multipleCritical = a.multipleCritical,
         knockback = a.knockback + b.knockback,
-        bleedingDamage = a.bleedingDamage + b.bleedingDamage,
+        bleedingDamage = a.bleedingDamage > 0 ? a.bleedingDamage + b.bleedingDamage : 0,
         type = a.type
       };
 

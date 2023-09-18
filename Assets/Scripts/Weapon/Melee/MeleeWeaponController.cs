@@ -9,10 +9,10 @@ namespace Weapon.Melee
   {
     [SerializeField]
     protected Transform movingObj;
-    
+
     [SerializeField]
     private AttackableObject attackableObject;
-    
+
     private void Start()
     {
       GameManager.Wave.onWaveStart += () => ApplyDamage(attackableObject);
@@ -21,14 +21,15 @@ namespace Weapon.Melee
     protected override void OnFire()
     {
       isAttacking = true;
+      attackableObject.RemoveDetection();
       attackableObject.currentCondition = InteractCondition.Attack;
 
       movingObj.DOLocalMoveX(status.fireRange, 0.05f * Mathf.Min(status.attackSpeed, 1f))
        .OnComplete(() =>
         {
           isAttacking = false;
-          attackableObject.currentCondition = InteractCondition.Normal;
-          movingObj.DOLocalMoveX(0f, 0.15f * Mathf.Min(status.attackSpeed, 1f));
+          movingObj.DOLocalMoveX(0f, 0.15f * Mathf.Min(status.attackSpeed, 1f))
+           .OnComplete(() => attackableObject.currentCondition = InteractCondition.Normal);
         });
     }
   }

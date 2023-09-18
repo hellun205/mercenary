@@ -9,7 +9,7 @@ namespace Weapon
   [RequireComponent(typeof(CircleCollider2D))]
   public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
   {
-    public T weaponData => (T) GameManager.WeaponData[name];
+    public T weaponData;
 
     [NonSerialized]
     public WeaponStatus status;
@@ -45,17 +45,18 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      // RefreshRange();
       GameManager.Wave.onWaveStart += RefreshStatus;
     }
 
     private void Start()
     {
+      weaponData = (T) GameManager.WeaponData[name];
       RefreshStatus();
     }
 
     private void RefreshStatus()
     {
+      weaponData = (T) GameManager.WeaponData[name];
       status = weaponData.status + GameManager.Player.GetStatus();
     }
 
@@ -132,6 +133,11 @@ namespace Weapon
     protected void ApplyDamage(AttackableObject ao)
     {
       ao.damage = status.attackDamage;
+      if (status.bleedingDamage > 0)
+      {
+        ao.isCritical = status.criticalPercent.ApplyPercentage();
+        ao.bleeding = status.bleedingDamage;
+      }
     }
   }
 }

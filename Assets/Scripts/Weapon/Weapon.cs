@@ -33,7 +33,5 @@ namespace Weapon
     public string description => descriptions;
     public Sprite icon => m_icon;
     public int price => m_price;
-
-    public string fullName => $"{status.type.ToString().ToLower()}/{name}";
   }
 }
