@@ -21,18 +21,18 @@ namespace Item
 
     public IncreaseStatus increaseStatus;
 
-    public string itemName => m_itemName;
-    public string description => m_description;
+    public string itemName => $"[아이템] {m_itemName}";
+    public string description => GetDescription();
 
     public Sprite icon => m_icon;
 
     public int price => m_price;
 
-    public string GetDescription()
+    private string GetDescription()
     {
       var sb = new StringBuilder();
       sb.Append(increaseStatus.GetDescription());
-      sb.Append($"{description}");
+      sb.Append($"{m_description}");
       return sb.ToString();
     }
   }

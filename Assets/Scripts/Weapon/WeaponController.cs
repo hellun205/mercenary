@@ -63,7 +63,7 @@ namespace Weapon
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      col.radius = status.fireRange;
+      col.radius = status.fireRange / 10;
     }
 
     protected virtual void Update()

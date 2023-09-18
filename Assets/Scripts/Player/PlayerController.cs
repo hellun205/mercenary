@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using Enemy;
+using Interact;
 using Item;
 using Manager;
 using Pool.Extensions;
@@ -11,11 +16,11 @@ using Util.Text;
 
 namespace Player
 {
-  public class PlayerController : MonoBehaviour
+  public class PlayerController : InteractiveObject
   {
     [NonSerialized]
     public PlayerInventory inventory;
-    
+
     private Animator anim;
 
     public PlayerStatus status;
@@ -29,10 +34,13 @@ namespace Player
 
     private float time;
 
-    private List<int> damagedEnemies = new();
-
     public List<WeaponInventory> partnerWeaponInventories;
 
+    [SerializeField]
+    private SpriteRenderer sr;
+
+    private TweenerCore<Color, Color, ColorOptions> colorTweener;
+    
     private void Awake()
     {
       inventory = GetComponent<PlayerInventory>();
@@ -40,7 +48,6 @@ namespace Player
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
       RefreshHpBar();
-      
     }
 
     private void Update()
@@ -64,7 +71,6 @@ namespace Player
     private void LateUpdate()
     {
       RefreshHpBar();
-      anim.SetFloat("invincibility", 1 / status.invincibilityTime);
     }
 
     private void RefreshHpBar()
@@ -73,25 +79,13 @@ namespace Player
       hpBar.value = status.hp;
     }
 
-    private void StartInvincibility()
+    private void Hit(float damage)
     {
-      status.isInvincibility = true;
-    }
-
-    private void EndInvincibility()
-    {
-      damagedEnemies.Clear();
-      status.isInvincibility = false;
-    }
-
-    public void Hit(float damage, int index)
-    {
-      if (status.isInvincibility || damagedEnemies.Contains(index)) return;
-      damagedEnemies.Add(index);
-      
       var dmg = damage * (1 - status.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
-      anim.SetTrigger("hurt");
+      colorTweener.Kill();
+      sr.color = Color.red;
+      colorTweener = sr.DOColor(Color.white, 0.5f);
 
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(damage));
@@ -116,27 +110,24 @@ namespace Player
       }
     }
 
-    private void Start()
-    {
-      // weaponInventory.Test();
-    }
-
     public PlayerStatus GetStatus()
     {
       var res = status;
-      // var weapons = weaponInventory.weapons;
       var items = inventory.items;
 
-      // foreach (var weapon in weapons)
-      // {
-      //   if (weapon is null) continue;
-      //   res += weapon.status;
-      // }
-      
       foreach (var (item, count) in items.Where(x => x.Key is ItemData))
         res += (item as ItemData).increaseStatus * count;
 
       return res;
+    }
+    
+    protected override void OnInteract(Interacter caster)
+    {
+      base.OnInteract(caster);
+      if (caster.TryGetComponent<EnemyController>(out var ec))
+      {
+        Hit(ec.status.damage);
+      }
     }
   }
 }

@@ -29,6 +29,11 @@ namespace Manager
 
     public State<int> coin;
 
+    [SerializeField]
+    private Sprite m_emptySprite;
+
+    public static Sprite emptySprite => Instance.m_emptySprite;
+    
     private void Init()
     {
       Key = KeyManager.Instance;

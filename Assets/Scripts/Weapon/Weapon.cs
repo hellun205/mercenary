@@ -1,3 +1,4 @@
+using System.Text;
 using Item;
 using Manager;
 using UnityEngine;
@@ -29,9 +30,17 @@ namespace Weapon
 
     public bool rotate = true;
 
-    public string itemName => _name;
-    public string description => descriptions;
+    public string itemName => $"[무기] {_name}";
+    public string description => GetDescription();
     public Sprite icon => m_icon;
     public int price => m_price;
+    
+    private string GetDescription()
+    {
+      var sb = new StringBuilder();
+      sb.Append(status.GetDescription());
+      sb.Append($"{descriptions}");
+      return sb.ToString();
+    }
   }
 }

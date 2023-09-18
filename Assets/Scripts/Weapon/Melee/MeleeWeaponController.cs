@@ -11,7 +11,7 @@ namespace Weapon.Melee
     protected Transform movingObj;
 
     [SerializeField]
-    private AttackableObject attackableObject;
+    protected AttackableObject attackableObject;
 
     private void Start()
     {

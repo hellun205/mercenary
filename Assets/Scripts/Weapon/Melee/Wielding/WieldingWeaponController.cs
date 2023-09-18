@@ -1,6 +1,7 @@
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Interact;
 using UnityEngine;
 using Util;
 using Weapon.Extensions;
@@ -53,6 +54,7 @@ namespace Weapon.Melee.Wielding
     public void StartWielding()
     {
       tweener.Kill();
+      attackableObject.currentCondition = InteractCondition.Attack;
       anim.SetFloat("speed", status.attackSpeed);
       anim.Play("");
     }
@@ -63,6 +65,7 @@ namespace Weapon.Melee.Wielding
     {
       isAttacking = false;
       movingObj.DOLocalMoveX(0f, 0.4f * Mathf.Min(1, status.attackSpeed));
+      attackableObject.currentCondition = InteractCondition.Normal;
     }
   }
 }

@@ -19,7 +19,7 @@ MonoBehaviour:
     type: 0
     attackDamage: 6
     attackSpeed: 1
-    fireRange: 5
+    fireRange: 20
     multipleCritical: 2.5
     knockback: 0
     bleedingDamage: 3

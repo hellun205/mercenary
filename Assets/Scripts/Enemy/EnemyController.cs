@@ -1,5 +1,6 @@
 using Interact;
 using Manager;
+using Player;
 using Pool;
 using UnityEngine;
 using Util;
@@ -12,7 +13,7 @@ namespace Enemy
   {
     public PoolObject poolObject { get; set; }
 
-    [Header("Base Status")]
+    [Header("Enemy Controller")]
     public EnemyStatus status;
 
     private bool isEnabled = true;
@@ -20,6 +21,9 @@ namespace Enemy
     private Transform target;
 
     private TargetableObject to;
+
+    [SerializeField]
+    private Timer attackCooldownTimer = new ();
 
     private void Reset()
     {
@@ -29,6 +33,8 @@ namespace Enemy
     private void Awake()
     {
       to = GetComponent<TargetableObject>();
+      attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
+      attackCooldownTimer.onEnd += _ => currentCondition = InteractCondition.Attack;
     }
 
     public void OnSummon()
@@ -67,11 +73,20 @@ namespace Enemy
       transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    protected override void OnInteract(InteractiveObject target)
     {
-      if (!other.CompareTag("Player") || !to.canTarget) return;
-
-      GameManager.Player.Hit(status.damage, poolObject.index);
+      base.OnInteract(target);
+      if (target.TryGetComponent<PlayerController>(out var pc))
+      {
+        attackCooldownTimer.Start();
+      }
     }
+
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //   if (!other.CompareTag("Player") || !to.canTarget) return;
+    //
+    //   GameManager.Player.Hit(status.damage, poolObject.index);
+    // }
   }
 }

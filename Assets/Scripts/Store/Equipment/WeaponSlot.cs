@@ -35,6 +35,7 @@ namespace Store.Equipment
     {
       this.weapon = weapon;
       targetImg.sprite = weapon == null ? null : weapon.icon;
+      targetImg.color = weapon == null ? Color.clear : Color.white;
       if (setWeaponInventory)
         wrapper.SetWeapon(slotIndex, weapon);
     }
@@ -52,7 +53,6 @@ namespace Store.Equipment
           (draggingItem.wrapperIndex, draggingItem.weaponInventoryIndex),
           (GetWrapperIndex(wrapper), slotIndex)
         );
-        OnEntered();
       }
       else
       {
@@ -61,7 +61,9 @@ namespace Store.Equipment
         GameManager.Player.inventory.LoseItem(weapon);
         Set(weapon);
       }
+
       draggingItem.EndDrag();
+      OnEntered();
     }
 
     public static int GetWrapperIndex(WeaponSlotWrapper wrapper)

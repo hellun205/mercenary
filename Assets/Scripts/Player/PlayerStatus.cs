@@ -107,12 +107,14 @@ namespace Player
       float value,
       float multiple = 1f,
       string prefix = "",
-      string subfix = ""
+      string subfix = "",
+      char plus = '+',
+      char minus = '-'
     )
     {
       var color = value > 0 ? new Color32(47, 157, 39, 255) : new Color32(152, 0, 0, 255);
-      var sign = value > 0 ? '+' : '-';
-      return $"{text} {sign}{prefix}{Math.Abs(Math.Round(value, 2)) * multiple}{subfix}".AddColor(color);
+      var sign = value > 0 ? plus : minus;
+      return $"{text} {$"{sign}{prefix}{Math.Abs(Math.Round(value, 2)) * multiple}{subfix}".AddColor(color)}";
     }
 
     public PlayerStatus(PlayerStatus other)

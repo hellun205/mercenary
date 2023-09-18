@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125.21347, y: 0}
-  m_SizeDelta: {x: 150.427, y: 0}
+  m_AnchoredPosition: {x: 118.88907, y: 0}
+  m_SizeDelta: {x: 163.0758, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5480837608135467000
 CanvasRenderer:
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=#FFFFFFFF>0</color>
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -303,7 +303,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 0}
+  m_SizeDelta: {x: 37.351, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &9167778429925724515
 CanvasRenderer:
@@ -402,6 +402,7 @@ MonoBehaviour:
   statIcon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
   statName: 
   statValue: 0
+  valueFormat: 
   description: 
 --- !u!222 &2891851466529269632
 CanvasRenderer:

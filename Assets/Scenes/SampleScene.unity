@@ -1517,8 +1517,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1822,8 +1822,26 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: bamboo_spear
+      Value: {fileID: 7312725726241196181, guid: d4aa1f01f3b5bcb438075c493b882da4, type: 3}
+    - Key: bassball_bat
+      Value: {fileID: 1928209057720957025, guid: 2d93eba0447fa214b911aa3dfb1d4a7b, type: 3}
+    - Key: frying_pan
+      Value: {fileID: 1928209057720957025, guid: ad71addc0e4564d439eee0b23b0cffbf, type: 3}
+    - Key: katana
+      Value: {fileID: 1928209057720957025, guid: d27d5f2a20d57f7498588abaae2ba01b, type: 3}
     - Key: knife
       Value: {fileID: 7312725726241196181, guid: efab48923162c444e9844d8e0072173c, type: 3}
+    - Key: lance
+      Value: {fileID: 7312725726241196181, guid: df31c02493f034946bd65c1120ef69b8, type: 3}
+    - Key: lazer_sword
+      Value: {fileID: 1928209057720957025, guid: 483d3448e056d964ca6416de5644fa59, type: 3}
+    - Key: long_sword
+      Value: {fileID: 1928209057720957025, guid: b0a1e0dfc98ace24aa381af5c2f7bc97, type: 3}
+    - Key: rapier
+      Value: {fileID: 7312725726241196181, guid: dd26b41bda87e1b478a96f13e13d6019, type: 3}
+    - Key: spear
+      Value: {fileID: 7312725726241196181, guid: b4e5e9e06fea2ec42bf7b1af7456b2c0, type: 3}
     - Key: testaxe
       Value: {fileID: 1928209057720957025, guid: a0e62bbd267169b4ab184f25b3c0176b, type: 3}
     - Key: testbomb
@@ -3285,7 +3303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3880,7 +3898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4431,7 +4449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB34\uAE30 / \uC544\uC774\uD15C \uAD6C\uB9E4"
+  m_text: "\uBB34\uAE30 / \uC544\uC774\uD15C \uC0C1\uC810"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -4699,6 +4717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79811c19245d47afae1b72b92fb31cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_emptySprite: {fileID: 21300000, guid: a30b7e5b236ef6c4492236fef986ea9e, type: 3}
 --- !u!4 &690776538
 Transform:
   m_ObjectHideFlags: 0
@@ -4904,8 +4923,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6874,12 +6893,26 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: bamboo_spear
+      Value: {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
+    - Key: bassball_bat
+      Value: {fileID: 11400000, guid: d7a763c98081d1d4f9f2bd6a916f9c91, type: 2}
+    - Key: frying_pan
+      Value: {fileID: 11400000, guid: c502a7265402f0d4d9f80b76c1da15af, type: 2}
+    - Key: katana
+      Value: {fileID: 11400000, guid: b70b280c56cf6e447a66e78221f0d9b0, type: 2}
     - Key: knife
       Value: {fileID: 11400000, guid: 50c8f4f423149c040804e6745eac068b, type: 2}
-    - Key: testaxe
-      Value: {fileID: 11400000, guid: de485e69c7995b343ac54226456bd4b8, type: 2}
-    - Key: testknife
-      Value: {fileID: 11400000, guid: c8f7478fc2ea4ef49a7cb4d5cce8d051, type: 2}
+    - Key: lance
+      Value: {fileID: 11400000, guid: 19d6168dfd7ee3443811f1b21c25d611, type: 2}
+    - Key: lazer_sword
+      Value: {fileID: 11400000, guid: 252f8dcc53f012d44b5acfd5fb661629, type: 2}
+    - Key: long_sword
+      Value: {fileID: 11400000, guid: 0961a2693aee6d94a84897aa1714271e, type: 2}
+    - Key: rapier
+      Value: {fileID: 11400000, guid: f24f8a68e3048a544b449d49cb36e0be, type: 2}
+    - Key: spear
+      Value: {fileID: 11400000, guid: ca84a766132bdbb41b0ccb4e7aae454d, type: 2}
     - Key: testbomb
       Value: {fileID: 11400000, guid: 8b483b826695b84488e6eba303c21f1e, type: 2}
     - Key: testgun
@@ -7826,7 +7859,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 127.5, y: 127.5}
+  m_CellSize: {x: 92, y: 92}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -9379,7 +9412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9580,7 +9613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10265,7 +10298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11153,6 +11186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d6be3976264f51b5f66ef055ad4124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  detectCaster: 4
+  condition: 4
   status:
     maxHp: 15
     hp: 15
@@ -11173,6 +11209,7 @@ MonoBehaviour:
   partnerWeaponInventories:
   - {fileID: 240670877}
   - {fileID: 2114749600}
+  sr: {fileID: 9160706765462602622}
 --- !u!1001 &2609594835135962058
 PrefabInstance:
   m_ObjectHideFlags: 0
