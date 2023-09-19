@@ -8,7 +8,7 @@ namespace UI.DragNDrop
     [SerializeField]
     private Image targetImage;
 
-    public bool isDragging;
+    public bool isDragging { get; private set; }
 
     public RectTransform rectTransform { get; private set; }
 

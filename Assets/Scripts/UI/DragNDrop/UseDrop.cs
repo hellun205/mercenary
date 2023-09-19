@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UI.DragNDrop
 {
-  public class UseDrop<T> : MonoBehaviour, IDropHandler where T : DragRequest
+  public abstract class UseDrop<T> : MonoBehaviour, IDropHandler where T : DragRequest
   {
     public event Action<T> onGetRequest;
 
