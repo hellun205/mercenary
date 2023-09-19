@@ -1,15 +1,15 @@
 using Item;
 using Manager;
-using Popup;
+using Store.Equipment;
 using TMPro;
+using UI.DragNDrop;
+using UI.Popup;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Util;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<PopupPanel>, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerUpHandler
+  public class InventoryItem : UsePopup<PopupPanel>
   {
     public IPossessible itemData;
 
@@ -22,14 +22,32 @@ namespace Store.Inventory
     public InventoryUI parentUI;
       
     public override string popupName => "$popup_item";
-    
-    public static DragItem draggingItem;
+
+    private ItemDrop useDrop;
+    private ItemDrag useDrag;
 
     protected override void Awake()
     {
       base.Awake();
-      draggingItem ??= GameManager.UI.Find<DragItem>("$dragging_item");
       parentUI = FindObjectOfType<InventoryUI>();
+      useDrag = GetComponent<ItemDrag>();
+      useDrop = GetComponent<ItemDrop>();
+
+      useDrag.draggingObject = GameManager.UI.Find<DraggingObject>("$dragging_item");
+      useDrag.getter = () => new ItemRequest()
+      {
+        beginDragType = DragType.Inventory,
+        item = itemData,
+        draggingImage = itemData.icon,
+        weaponInventoryUI = FindObjectOfType<WeaponInventoryUI>()
+      };
+      
+      useDrop.onGetRequest += OnDrop;
+    }
+
+    private void OnDrop(ItemRequest data)
+    {
+      parentUI.OnDrop(data);
     }
 
     public void SetItem(IPossessible item, ushort count)
@@ -47,32 +65,6 @@ namespace Store.Inventory
     public override void OnEntered()
     {
       popupPanel.ShowPopup(itemData.itemName, itemData.description);
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-      draggingItem.SetItem(itemData, false);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-      if (!draggingItem.isDragging) return;
-      draggingItem.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(Input.mousePosition);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-      draggingItem.EndDrag();
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-      parentUI.OnDrop(eventData);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-      draggingItem.EndDrag();
     }
   }
 }

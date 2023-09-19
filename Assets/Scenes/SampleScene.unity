@@ -175,10 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetImage: {fileID: 10128038}
   isDragging: 0
-  isWeaponInventory: 0
-  wrapperIndex: 0
-  weaponInventoryIndex: 0
-  list: {fileID: 0}
 --- !u!114 &10128038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2466,6 +2462,7 @@ GameObject:
   - component: {fileID: 362284032}
   - component: {fileID: 362284031}
   - component: {fileID: 362284033}
+  - component: {fileID: 362284034}
   m_Layer: 0
   m_Name: inventory
   m_TagString: Untagged
@@ -2541,6 +2538,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f93d3f695c472a87e77e1d9ac1e192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &362284034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362284029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4174c4e65f334c51b39f842e82868195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &375100241

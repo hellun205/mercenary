@@ -1,15 +1,13 @@
 using System;
 using Manager;
-using Popup;
-using Store.Inventory;
+using UI.DragNDrop;
+using UI.Popup;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Util;
 
 namespace Store.Equipment
 {
-  public class WeaponSlot : UsePopup<PopupPanel>, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+  public class WeaponSlot : UsePopup<PopupPanel>
   {
     [SerializeField]
     private Image targetImg;
@@ -18,17 +16,64 @@ namespace Store.Equipment
 
     public int slotIndex;
 
+    private ItemDrag useDrag;
+    private ItemDrop useDrop;
+
     [NonSerialized]
     public WeaponSlotWrapper wrapper;
 
-    public static DragItem draggingItem;
+    private WeaponInventoryUI parentUI;
 
     public override string popupName => "$popup_weapon";
 
     protected override void Awake()
     {
       base.Awake();
-      draggingItem ??= GameManager.UI.Find<DragItem>("$dragging_item");
+      parentUI = FindObjectOfType<WeaponInventoryUI>();
+      useDrag = GetComponent<ItemDrag>();
+      useDrop = GetComponent<ItemDrop>();
+
+      useDrag.draggingObject = GameManager.UI.Find<DraggingObject>("$dragging_item");
+      useDrag.condition = () => weapon != null;
+      useDrag.getter = () => new ItemRequest()
+      {
+        beginDragType = DragType.WeaponSlot,
+        item = weapon,
+        weaponSlotData = (GetWrapperIndex(wrapper), slotIndex),
+        draggingImage = weapon.icon,
+        weaponInventoryUI = parentUI
+      };
+
+      useDrop.onGetRequest += OnDrop;
+    }
+
+    private void OnDrop(ItemRequest data)
+    {
+      if (data.item is not Weapon.Weapon weapon) return;
+     
+      switch (data.beginDragType)
+      {
+        case DragType.Inventory:
+          if (this.weapon != null)
+            GameManager.Player.inventory.GainItem(this.weapon);
+          GameManager.Player.inventory.LoseItem(weapon);
+          Set(weapon);
+          break;
+
+        case DragType.WeaponSlot:
+          if (data.weaponSlotData.wrapperId == GetWrapperIndex(wrapper) && data.weaponSlotData.slotId == slotIndex)
+            return;
+          wrapper.list.Move
+          (
+            (data.weaponSlotData.wrapperId, data.weaponSlotData.slotId),
+            (GetWrapperIndex(wrapper), slotIndex)
+          );
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+
+      OnEntered();
     }
 
     public void Set(Weapon.Weapon weapon, bool setWeaponInventory = true)
@@ -40,63 +85,21 @@ namespace Store.Equipment
         wrapper.SetWeapon(slotIndex, weapon);
     }
 
-    public void OnDrop(PointerEventData eventData)
-    {
-      if (!draggingItem.isDragging || draggingItem.itemData is not Weapon.Weapon weapon) return;
-
-      if (draggingItem.isWeaponInventory)
-      {
-        if (draggingItem.wrapperIndex == GetWrapperIndex(wrapper) && draggingItem.weaponInventoryIndex == slotIndex)
-          return;
-        wrapper.list.Move
-        (
-          (draggingItem.wrapperIndex, draggingItem.weaponInventoryIndex),
-          (GetWrapperIndex(wrapper), slotIndex)
-        );
-      }
-      else
-      {
-        if (this.weapon != null)
-          GameManager.Player.inventory.GainItem(this.weapon);
-        GameManager.Player.inventory.LoseItem(weapon);
-        Set(weapon);
-      }
-
-      draggingItem.EndDrag();
-      OnEntered();
-    }
-
     public static int GetWrapperIndex(WeaponSlotWrapper wrapper)
     {
       return wrapper.type switch
       {
-        EquipmentType.Player  => 0,
+        EquipmentType.Player => 0,
         EquipmentType.Partner => wrapper.partnerIndex + 1,
-        _                     => 0
+        _ => 0
       };
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-      if (weapon == null) return;
-      draggingItem.SetItem(weapon, true, GetWrapperIndex(wrapper), slotIndex);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-      if (!draggingItem.isDragging) return;
-      draggingItem.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(Input.mousePosition);
-    }
 
     public override void OnEntered()
     {
       if (weapon == null) return;
       popupPanel.ShowPopup(weapon.itemName, weapon.description);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-      draggingItem.EndDrag();
     }
   }
 }

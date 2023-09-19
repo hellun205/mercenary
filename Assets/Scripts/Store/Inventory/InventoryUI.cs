@@ -1,25 +1,24 @@
-using System;
 using Manager;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Store.Inventory
 {
-  public class InventoryUI : MonoBehaviour, IDropHandler
+  public class InventoryUI : MonoBehaviour
   {
-    public static DragItem draggingItem;
+    private ItemDrop useDrop;
 
     private void Awake()
     {
-      draggingItem ??= GameManager.UI.Find<DragItem>("$dragging_item");
+      useDrop = GetComponent<ItemDrop>();
+      useDrop.onGetRequest += OnDrop;
     }
-    
-    public void OnDrop(PointerEventData eventData)
+
+    public void OnDrop(ItemRequest data)
     {
-      if (!draggingItem.isWeaponInventory) return;
-      
-      draggingItem.list.list[draggingItem.wrapperIndex].slots[draggingItem.weaponInventoryIndex].Set(null);
-      GameManager.Player.inventory.GainItem(draggingItem.itemData);
+      if (data.beginDragType != DragType.WeaponSlot) return;
+
+      data.weaponInventoryUI.list[data.weaponSlotData.wrapperId].slots[data.weaponSlotData.slotId].Set(null);
+      GameManager.Player.inventory.GainItem(data.item);
     }
   }
 }

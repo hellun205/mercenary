@@ -6,7 +6,7 @@ namespace Store.Equipment
 {
   public class WeaponSlotWrapper : MonoBehaviour
   {
-    public WeaponSlotWrapperList list;
+    public WeaponInventoryUI list;
 
     public EquipmentType type;
 

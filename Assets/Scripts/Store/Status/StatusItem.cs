@@ -1,5 +1,5 @@
-﻿using Popup;
-using TMPro;
+﻿using TMPro;
+using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;

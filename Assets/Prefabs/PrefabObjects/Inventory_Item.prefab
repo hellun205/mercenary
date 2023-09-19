@@ -201,7 +201,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -222,6 +222,8 @@ GameObject:
   - component: {fileID: 5207494117468999565}
   - component: {fileID: 6363469247024545836}
   - component: {fileID: 4993990227682298340}
+  - component: {fileID: 5681082476631839353}
+  - component: {fileID: 4786904359158401529}
   m_Layer: 0
   m_Name: Inventory_Item
   m_TagString: Untagged
@@ -318,3 +320,27 @@ MonoBehaviour:
   count: {fileID: 1870941010627348036}
   icon: {fileID: 2208840611077847884}
   parentUI: {fileID: 0}
+--- !u!114 &5681082476631839353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5573889196081841131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4e5768ba864f9eb624f7b61cf8eb93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4786904359158401529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5573889196081841131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4174c4e65f334c51b39f842e82868195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
