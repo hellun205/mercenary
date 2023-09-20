@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Enemy;
 using Interact;
 using Manager;
 using Pool;
@@ -12,7 +13,7 @@ namespace Weapon
   public class TargetableObject : InteractiveObject, IUsePool
   {
     public PoolObject poolObject { get; set; }
-    
+
     public bool canTarget => !isDead;
 
     public float hp;
@@ -30,22 +31,51 @@ namespace Weapon
     private Queue<float> bleedingQueue = new();
 
     public const float bleedingDelay = 0.7f;
-    
+
+    private MovableObject movableObject;
+
     [Header("Targetable Object")]
     public TargetableStatus status;
-    
+
     [SerializeField]
-    private Timer bleedingTimer = new ();
+    private Timer bleedingTimer = new();
+
+    [SerializeField]
+    private Timer knockBackTimer = new();
+
+    private Vector2 knockBackStartPosition;
+    private Vector2 knockBackEndPosition;
 
     private void Awake()
     {
       sr = GetComponent<SpriteRenderer>();
+      movableObject = GetComponent<MovableObject>();
       deadCrt = new Coroutiner(DeadRoutine);
       bleedingTimer.duration = bleedingDelay;
-      bleedingTimer.onEnd += OnTimerEnd;
+      bleedingTimer.onEnd += OnBleedingTimerEnd;
+      knockBackTimer.onTick += OnKnockBackTimerTick;
+      knockBackTimer.onEnd += OnKnockBackTimerEnd;
+      knockBackTimer.onBeforeStart += OnKnockBackTimerBeforeStart;
     }
 
-    private void OnTimerEnd(Timer sender)
+    private void OnKnockBackTimerBeforeStart(Timer sender)
+    {
+      if (movableObject != null)
+        movableObject.canMove = false;
+    }
+
+    private void OnKnockBackTimerEnd(Timer sender)
+    {
+      if (movableObject != null)
+        movableObject.canMove = true;
+    }
+
+    private void OnKnockBackTimerTick(Timer sender)
+    {
+      transform.position = Vector2.Lerp(knockBackStartPosition, knockBackEndPosition, sender.value);
+    }
+
+    private void OnBleedingTimerEnd(Timer sender)
     {
       if (bleedingQueue.TryDequeue(out var amount))
         Damage(amount);
@@ -95,10 +125,9 @@ namespace Weapon
     protected override void OnInteract(Interacter caster)
     {
       if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
-      
-      GameManager.Player.SuccessfulAttack();
-      Damage(ao.damage);
 
+      GameManager.Player.SuccessfulAttack();
+      Damage(ao.damage, ao.knockBack);
 
       if (ao.isCritical)
       {
@@ -107,12 +136,21 @@ namespace Weapon
       }
     }
 
-    private void Damage(float amount)
+    private void Damage(float amount, float knockBack = 0f)
     {
       hp -= amount;
       sr.color = Color.red;
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(amount));
+
+      if (knockBack > 0)
+      {
+        knockBackStartPosition = transform.position;
+        knockBackEndPosition = transform.position +
+                               (transform.position - GameManager.Player.transform.position).normalized *
+                               (knockBack / 10);
+        knockBackTimer.Start();
+      }
 
       if (hp <= 0)
       {

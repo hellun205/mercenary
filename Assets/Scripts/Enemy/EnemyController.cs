@@ -16,11 +16,12 @@ namespace Enemy
     [Header("Enemy Controller")]
     public EnemyStatus status;
 
-    private bool isEnabled = true;
+    // private bool isEnabled = true;
 
     private Transform target;
 
     private TargetableObject to;
+    private MovableObject movableObject;
 
     [SerializeField]
     private Timer attackCooldownTimer = new ();
@@ -33,13 +34,15 @@ namespace Enemy
     private void Awake()
     {
       to = GetComponent<TargetableObject>();
+      movableObject = GetComponent<MovableObject>();
       attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
       attackCooldownTimer.onEnd += _ => currentCondition = InteractCondition.Attack;
+      movableObject.moveSpeed = () => status.moveSpeed;
     }
 
     public void OnSummon()
     {
-      isEnabled = true;
+      movableObject.canMove = true;
     }
 
     public void OnKilled()
@@ -47,7 +50,7 @@ namespace Enemy
       if (to.playerAttacked)
         ThrowCoin();
 
-      isEnabled = false;
+      movableObject.canMove = false;
     }
 
     private void ThrowCoin()
@@ -65,13 +68,6 @@ namespace Enemy
       target = GameManager.Player.transform;
     }
 
-    private void Update()
-    {
-      if (!isEnabled || !to.canTarget) return;
-
-      transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
-      transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
-    }
 
     protected override void OnInteract(InteractiveObject target)
     {

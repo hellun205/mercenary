@@ -137,6 +137,7 @@ namespace Weapon
       {
         ao.isCritical = status.criticalPercent.ApplyPercentage();
         ao.bleeding = status.bleedingDamage;
+        ao.knockBack = status.knockback;
       }
     }
   }

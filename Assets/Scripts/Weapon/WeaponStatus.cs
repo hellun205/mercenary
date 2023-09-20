@@ -49,9 +49,9 @@ namespace Weapon
       if (attackDamage != 0)
         sb.Append(PlayerStatus.GetTextViaValue("공격력", attackDamage)).Append("\n");
       if (multipleCritical != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("치명타 확률", multipleCritical, plus: 'x', minus: 'x')).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("치명타 대미지", multipleCritical, plus: 'x', minus: 'x')).Append("\n");
       if (bleedingDamage != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("출혈 피해량", bleedingDamage)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("출혈 대미지", bleedingDamage)).Append("\n");
       if (attackSpeed != 0)
         sb.Append(PlayerStatus.GetTextViaValue("공격 속도", attackSpeed)).Append("\n");
       if (knockback != 0)

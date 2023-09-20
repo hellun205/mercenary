@@ -24,7 +24,7 @@ namespace Weapon.Melee
       attackableObject.RemoveDetection();
       attackableObject.currentCondition = InteractCondition.Attack;
 
-      movingObj.DOLocalMoveX(status.fireRange, 0.05f * Mathf.Min(status.attackSpeed, 1f))
+      movingObj.DOLocalMoveX(status.fireRange / 10, 0.05f * Mathf.Min(status.attackSpeed, 1f))
        .OnComplete(() =>
         {
           isAttacking = false;

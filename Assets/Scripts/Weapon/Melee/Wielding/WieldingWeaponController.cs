@@ -47,7 +47,7 @@ namespace Weapon.Melee.Wielding
     {
       ready = false;
       // moveCrt.Start();
-      tweener = movingObj.DOLocalMoveX(status.fireRange, 0.3f * Mathf.Min(1, status.attackSpeed))
+      tweener = movingObj.DOLocalMoveX(status.fireRange / 10, 0.3f * Mathf.Min(1, status.attackSpeed))
        .OnComplete(StartWielding);
     }
 

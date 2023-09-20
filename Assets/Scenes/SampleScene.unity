@@ -174,7 +174,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 10128038}
-  isDragging: 0
 --- !u!114 &10128038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11211,7 +11210,7 @@ MonoBehaviour:
     criticalPercent: 0.5
     attackSpeed: 0
     range: 0
-    knockback: 0
+    knockback: 3.24
     armor: 0
     moveSpeed: 0
     luck: 0.372
