@@ -12,7 +12,7 @@ namespace Store.Equipment
     [SerializeField]
     private Image targetImg;
 
-    public Weapon.Weapon weapon;
+    public Weapon.WeaponData weapon;
 
     public int slotIndex;
 
@@ -49,7 +49,7 @@ namespace Store.Equipment
 
     private void OnDrop(ItemRequest data)
     {
-      if (data.item is not Weapon.Weapon weapon) return;
+      if (data.item is not Weapon.WeaponData weapon) return;
      
       switch (data.beginDragType)
       {
@@ -76,7 +76,7 @@ namespace Store.Equipment
       OnEntered();
     }
 
-    public void Set(Weapon.Weapon weapon, bool setWeaponInventory = true)
+    public void Set(Weapon.WeaponData weapon, bool setWeaponInventory = true)
     {
       this.weapon = weapon;
       targetImg.sprite = weapon == null ? null : weapon.icon;

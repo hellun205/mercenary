@@ -7,7 +7,7 @@ namespace Weapon.Melee.Wielding
   public class WieldingWeaponCollider : MonoBehaviour
   {
     [SerializeField]
-    private WieldingWeaponController mainCtrler;
+    private WieldingWeapon mainCtrler;
 
     private void OnTriggerStay2D(Collider2D col)
     {

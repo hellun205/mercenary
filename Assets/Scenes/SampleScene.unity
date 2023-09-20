@@ -1837,6 +1837,24 @@ MonoBehaviour:
       Value: {fileID: 7312725726241196181, guid: dd26b41bda87e1b478a96f13e13d6019, type: 3}
     - Key: spear
       Value: {fileID: 7312725726241196181, guid: b4e5e9e06fea2ec42bf7b1af7456b2c0, type: 3}
+    - Key: bow
+      Value: {fileID: 1297951790826436554, guid: 526cc108d87831d4ebbe5ed52b4042a1, type: 3}
+    - Key: granade_launcher
+      Value: {fileID: 1297951790826436554, guid: 80e87b513a185b14abf2e0f844c3978b, type: 3}
+    - Key: hand_gun
+      Value: {fileID: 1297951790826436554, guid: 48c9d0f0f1c90114080330abd49250ab, type: 3}
+    - Key: lazer_gun
+      Value: {fileID: 1297951790826436554, guid: 00ae9cfe2b1e3ae4b9d3b25596d75252, type: 3}
+    - Key: min_gun
+      Value: {fileID: 1297951790826436554, guid: fee0f40fdbd08a842b936132fc37d83a, type: 3}
+    - Key: rocket_launcher
+      Value: {fileID: 1297951790826436554, guid: d9492c620ccc22145b869584f6b8ca74, type: 3}
+    - Key: shot_gun
+      Value: {fileID: 1297951790826436554, guid: 78b42f1c9e9fa6a43b3df91549b8a2f9, type: 3}
+    - Key: sniper_gun
+      Value: {fileID: 1297951790826436554, guid: 063691b27ef655a4d8688ce5bd99fb6f, type: 3}
+    - Key: submachine_gun
+      Value: {fileID: 1297951790826436554, guid: d80900a6bd00c154ba10bbd6891713db, type: 3}
     - Key: testaxe
       Value: {fileID: 1928209057720957025, guid: a0e62bbd267169b4ab184f25b3c0176b, type: 3}
     - Key: testbomb
@@ -6903,24 +6921,32 @@ MonoBehaviour:
     _serializedList:
     - Key: bamboo_spear
       Value: {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
-    - Key: bassball_bat
-      Value: {fileID: 11400000, guid: d7a763c98081d1d4f9f2bd6a916f9c91, type: 2}
-    - Key: frying_pan
-      Value: {fileID: 11400000, guid: c502a7265402f0d4d9f80b76c1da15af, type: 2}
-    - Key: katana
-      Value: {fileID: 11400000, guid: b70b280c56cf6e447a66e78221f0d9b0, type: 2}
     - Key: knife
       Value: {fileID: 11400000, guid: 50c8f4f423149c040804e6745eac068b, type: 2}
     - Key: lance
       Value: {fileID: 11400000, guid: 19d6168dfd7ee3443811f1b21c25d611, type: 2}
-    - Key: lazer_sword
-      Value: {fileID: 11400000, guid: 252f8dcc53f012d44b5acfd5fb661629, type: 2}
-    - Key: long_sword
-      Value: {fileID: 11400000, guid: 0961a2693aee6d94a84897aa1714271e, type: 2}
     - Key: rapier
       Value: {fileID: 11400000, guid: f24f8a68e3048a544b449d49cb36e0be, type: 2}
     - Key: spear
       Value: {fileID: 11400000, guid: ca84a766132bdbb41b0ccb4e7aae454d, type: 2}
+    - Key: bow
+      Value: {fileID: 11400000, guid: e6a2457d8c704a74bb56123652f7fec5, type: 2}
+    - Key: granade_launcher
+      Value: {fileID: 11400000, guid: b7eaee7292a35f341aae48c9695dc145, type: 2}
+    - Key: hand_gun
+      Value: {fileID: 11400000, guid: ace35243b1c9137428020795e1123d01, type: 2}
+    - Key: lazer_gun
+      Value: {fileID: 11400000, guid: 04871119e03ee8b42bc4b25e081e7264, type: 2}
+    - Key: mini_gun
+      Value: {fileID: 11400000, guid: d4b992b9dabe3ab4d8951d31d84487af, type: 2}
+    - Key: rocket_launcher
+      Value: {fileID: 11400000, guid: a181ba2921ed00948b0e46b73632e7f2, type: 2}
+    - Key: shot_gun
+      Value: {fileID: 11400000, guid: a6d631e1f4cdeaf46b48bc232ccbed6d, type: 2}
+    - Key: sniper_gun
+      Value: {fileID: 11400000, guid: 2ec369c28dc248243b2df01bd6d26df6, type: 2}
+    - Key: submachine_gun
+      Value: {fileID: 11400000, guid: bc65368f42fa57342bd265589a689450, type: 2}
     - Key: testbomb
       Value: {fileID: 11400000, guid: 8b483b826695b84488e6eba303c21f1e, type: 2}
     - Key: testgun
@@ -7454,6 +7480,10 @@ MonoBehaviour:
       Value: {fileID: 1489425705252346965, guid: 0b865fc2ab556a64fa12ca8e98601fdf, type: 3}
     - Key: ui/text
       Value: {fileID: 1489425705252346965, guid: d30d22e1c90aba342a8f5e83f2439ef9, type: 3}
+    - Key: weapon/granade_launcher/bullet
+      Value: {fileID: -640458343421406574, guid: 1d869638afb7e2e4b9a5377cd4edc978, type: 3}
+    - Key: weapon/granade_launcher/effect_explosion
+      Value: {fileID: 3049430774011418386, guid: e2f1f5461a4931d4b8ce091e037caec4, type: 3}
     - Key: weapon/ranged/testbomb/effect_explosion
       Value: {fileID: 3049430774011418386, guid: 33574d0dbb91a0e4396d465f4cca5a7e, type: 3}
     - Key: weapon/ranged/testbomb/throwing
@@ -11210,7 +11240,7 @@ MonoBehaviour:
     criticalPercent: 0.5
     attackSpeed: 0
     range: 0
-    knockback: 3.24
+    knockback: 0
     armor: 0
     moveSpeed: 0
     luck: 0.372

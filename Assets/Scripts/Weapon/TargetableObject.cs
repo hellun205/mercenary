@@ -127,7 +127,7 @@ namespace Weapon
       if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
 
       GameManager.Player.SuccessfulAttack();
-      Damage(ao.damage, ao.knockBack);
+      Damage(ao.damage, ao.knockBack, ao.transform);
 
       if (ao.isCritical)
       {
@@ -136,19 +136,18 @@ namespace Weapon
       }
     }
 
-    private void Damage(float amount, float knockBack = 0f)
+    private void Damage(float amount, float knockBack = 0f, Transform attacker = null)
     {
       hp -= amount;
       sr.color = Color.red;
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(amount));
 
-      if (knockBack > 0)
+      if (knockBack > 0 && attacker != null)
       {
         knockBackStartPosition = transform.position;
-        knockBackEndPosition = transform.position +
-                               (transform.position - GameManager.Player.transform.position).normalized *
-                               (knockBack / 10);
+        knockBackEndPosition = 
+          transform.position + (transform.position - attacker.position).normalized * (knockBack / 10);
         knockBackTimer.Start();
       }
 

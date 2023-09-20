@@ -41,7 +41,7 @@ namespace Store.Equipment
       // SetWeapon(b.wrapperIndex, b.slotIndex, slotB.weapon);
     }
 
-    public void SetWeapon(int wrapperIndex, int slotIndex, Weapon.Weapon weapon)
+    public void SetWeapon(int wrapperIndex, int slotIndex, Weapon.WeaponData weapon)
     {
       if (wrapperIndex == 0)
       {

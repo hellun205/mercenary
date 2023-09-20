@@ -6,7 +6,7 @@ using Util;
 
 namespace Weapon.Ranged.Throwing
 {
-  public class ThrowingWeaponController : WeaponController<ThrowingWeapon>
+  public class ThrowingWeaponController : WeaponController<ThrowingWeaponData>
   {
     protected override void OnFire()
     {

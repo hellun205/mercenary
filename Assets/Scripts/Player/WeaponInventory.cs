@@ -10,7 +10,7 @@ namespace Player
   {
     public int weaponMaxCount;
 
-    public List<Weapon.Weapon> weapons;
+    public List<Weapon.WeaponData> weapons;
 
     public List<Transform> weaponSlots;
 

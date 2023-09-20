@@ -26,7 +26,7 @@ namespace Store.Equipment
       }
     }
 
-    public void SetWeapon(int index, Weapon.Weapon weapon)
+    public void SetWeapon(int index, Weapon.WeaponData weapon)
     {
       if (type == EquipmentType.Player)
       {

@@ -205,7 +205,7 @@ MonoBehaviour:
   knockBackTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0
-    m_duration: 0.2
+    m_duration: 0.4
     m_easePower: 3
     m_value: 0
     m_type: 2

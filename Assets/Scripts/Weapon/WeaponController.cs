@@ -7,7 +7,7 @@ using Util;
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public abstract class WeaponController<T> : MonoBehaviour where T : Weapon
+  public abstract class WeaponController<T> : MonoBehaviour where T : WeaponData
   {
     public T weaponData;
 
@@ -137,8 +137,8 @@ namespace Weapon
       {
         ao.isCritical = status.criticalPercent.ApplyPercentage();
         ao.bleeding = status.bleedingDamage;
-        ao.knockBack = status.knockback;
       }
+      ao.knockBack = status.knockback;
     }
   }
 }
