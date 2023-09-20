@@ -10,7 +10,7 @@ namespace Weapon.Ranged.Bomb
 
     protected override void OnFire()
     {
-      var bulletObj = GameManager.Pool.Summon<BombBullet>(GetPObj(weaponData.bullet), firePosition.position);
+      var bulletObj = GameManager.Pool.Summon<GranadeBullet>(GetPObj(weaponData.bullet), firePosition.position);
       ApplyDamage(bulletObj);
       bulletObj.targetPosition = target.transform.position;
       bulletObj.maxPenetrateCount = 0;
@@ -18,6 +18,7 @@ namespace Weapon.Ranged.Bomb
       bulletObj.mainCtrler = this;
       bulletObj.SetTarget(target);
       bulletObj.SetRange(weaponData.explosionRange);
+      bulletObj.OnStart();
     }
   }
 }

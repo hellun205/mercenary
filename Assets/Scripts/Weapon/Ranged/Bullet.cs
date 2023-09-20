@@ -9,12 +9,16 @@ namespace Weapon.Ranged
   [RequireComponent(typeof(PoolObject))]
   public class Bullet : AttackableObject, IUsePool
   {
+    [NonSerialized]
     public Transform target;
 
+    [NonSerialized]
     public float speed = 10f;
 
+    [NonSerialized]
     public bool isEnabled = false;
 
+    [NonSerialized]
     public int maxPenetrateCount = 0;
 
     private int curPenetrateCount;

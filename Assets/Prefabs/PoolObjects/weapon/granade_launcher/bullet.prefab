@@ -119,14 +119,7 @@ MonoBehaviour:
   sr: {fileID: 1109187027350855757}
   targetPosition: {x: 0, y: 0}
   explosionRange: 0
-  explosionTimer:
-    m_isUnscaled: 0
-    m_elapsedTime: 0
-    m_duration: 1
-    m_easePower: 2
-    m_value: 0
-    m_type: 0
-    m_isPlaying: 0
+  detectEnemy: {fileID: 4450788279365091686}
   moveTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0
@@ -135,7 +128,14 @@ MonoBehaviour:
     m_value: 0
     m_type: 2
     m_isPlaying: 0
-  detectEnemy: {fileID: 4450788279365091686}
+  explosionTimer:
+    m_isUnscaled: 0
+    m_elapsedTime: 0
+    m_duration: 2.2
+    m_easePower: 2
+    m_value: 0
+    m_type: 0
+    m_isPlaying: 0
 --- !u!50 &7118866549088153384
 Rigidbody2D:
   serializedVersion: 4
