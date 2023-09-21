@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab6173d41c4b9ebcd7f640fec47716, type: 3}
   m_Name: bow
   m_EditorClassIdentifier: 
-  _name: "\uAD8C\uCD1D"
+  _name: 
   m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
   descriptions: 
   status:
     type: 1
-    attackDamage: 10
-    attackSpeed: 1.1
-    fireRange: 50
-    multipleCritical: 2
-    knockback: 0
+    attackDamage: 17
+    attackSpeed: 1.72
+    fireRange: 40
+    multipleCritical: 2.5
+    knockback: 2.5
     bleedingDamage: 0
   m_price: 0
   needFlipY: 1
   needFlipX: 0
   rotate: 1
-  penetrate: 0
+  penetrate: 1
   bullet: bullet
   errorRange: 0
   bulletCount: 1

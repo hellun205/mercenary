@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -640458343421406574}
   - component: {fileID: 7118866549088153384}
   - component: {fileID: 3998550730770054177}
-  - component: {fileID: 2697280275886615861}
+  - component: {fileID: 2601082141163383864}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -143,8 +143,8 @@ MonoBehaviour:
     m_value: 0
     m_type: 0
     m_isPlaying: 0
-  detectEnemy: {fileID: 2697280275886615861}
---- !u!114 &2697280275886615861
+  detectEnemy: {fileID: 2601082141163383864}
+--- !u!114 &2601082141163383864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -640458343421406574}
   - component: {fileID: 7118866549088153384}
   - component: {fileID: 3998550730770054177}
+  - component: {fileID: 7683778118613851098}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -132,6 +133,8 @@ MonoBehaviour:
   isCritical: 0
   knockBack: 0
   multipleDamage: 0
+  maxPenetrateCount: 0
+  curPenetrateCount: 0
   despawnTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0
@@ -140,6 +143,22 @@ MonoBehaviour:
     m_value: 0
     m_type: 0
     m_isPlaying: 0
+  detectEnemy: {fileID: 7683778118613851098}
+--- !u!114 &7683778118613851098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5567496927454876462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da54e2e896b46cc9392884adfddcbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  detectCaster: 4
+  condition: -1
 --- !u!1 &6926705991952487148
 GameObject:
   m_ObjectHideFlags: 0

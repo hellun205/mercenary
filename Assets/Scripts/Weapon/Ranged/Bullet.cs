@@ -16,20 +16,30 @@ namespace Weapon.Ranged
     [NonSerialized]
     public bool isEnabled = false;
 
-    [NonSerialized]
+    // [NonSerialized]
     public int maxPenetrateCount = 0;
 
+    [SerializeField]
     private int curPenetrateCount;
 
     public Timer despawnTimer = new();
 
     public PoolObject poolObject { get; set; }
-
-    protected virtual bool isKillOnInteract => true;
+    
+    [SerializeField]
+    protected InteractiveObject detectEnemy;
 
     protected virtual void Awake()
     {
       despawnTimer.onEnd += t => poolObject.Release();
+      detectEnemy.onInteract += OnDetect;
+    }
+
+    protected virtual void OnDetect(Interacter obj)
+    {
+      if (curPenetrateCount >= maxPenetrateCount)
+        poolObject.Release();
+      else curPenetrateCount++;
     }
 
     public virtual void OnSummon()
@@ -62,15 +72,6 @@ namespace Weapon.Ranged
       var rotation = Random.Range(z.eulerAngles.z - errorRange, z.eulerAngles.z + errorRange);
       transform.rotation = Quaternion.Euler(0, 0, rotation);
       isEnabled = true;
-    }
-
-    protected override void OnInteract(InteractiveObject target)
-    {
-      base.OnInteract(target);
-      if (!isKillOnInteract) return;
-      if (curPenetrateCount >= maxPenetrateCount)
-        poolObject.Release();
-      else curPenetrateCount++;
     }
   }
 }

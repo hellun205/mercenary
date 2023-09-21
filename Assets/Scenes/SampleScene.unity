@@ -6786,6 +6786,8 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: bow
+      Value: {fileID: 11400000, guid: e6a2457d8c704a74bb56123652f7fec5, type: 2}
     - Key: hand_gun
       Value: {fileID: 11400000, guid: ace35243b1c9137428020795e1123d01, type: 2}
     - Key: shot_gun
@@ -7335,6 +7337,8 @@ MonoBehaviour:
       Value: {fileID: 1489425705252346965, guid: 0b865fc2ab556a64fa12ca8e98601fdf, type: 3}
     - Key: ui/text
       Value: {fileID: 1489425705252346965, guid: d30d22e1c90aba342a8f5e83f2439ef9, type: 3}
+    - Key: weapon/bow/bullet
+      Value: {fileID: -640458343421406574, guid: 117c24784d1c3cf4cac3bebf275cafb4, type: 3}
     - Key: weapon/granade_launcher/bullet
       Value: {fileID: -640458343421406574, guid: 1d869638afb7e2e4b9a5377cd4edc978, type: 3}
     - Key: weapon/granade_launcher/effect_explosion

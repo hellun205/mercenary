@@ -21,13 +21,8 @@ namespace Weapon.Ranged.Bomb
 
     private CircleCollider2D col;
 
-    protected override bool isKillOnInteract => false;
-
     [NonSerialized]
     public RangedBombWeapon mainCtrler;
-
-    [SerializeField]
-    protected InteractiveObject detectEnemy;
 
     protected override void Awake()
     {
@@ -36,8 +31,9 @@ namespace Weapon.Ranged.Bomb
       detectEnemy.onInteract += OnDetect;
     }
 
-    private void OnDetect(Interacter obj)
+    protected override void OnDetect(Interacter obj)
     {
+      base.OnDetect(obj);
       if (!mainCtrler.weaponData.fireOnContact) return;
       OnDetect();
       Fire();
