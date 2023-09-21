@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Enemy;
 using Interact;
 using Manager;
@@ -24,8 +28,6 @@ namespace Weapon
 
     private bool isDead;
 
-    private Coroutiner deadCrt;
-
     public bool playerAttacked;
 
     private Queue<float> bleedingQueue = new();
@@ -46,11 +48,14 @@ namespace Weapon
     private Vector2 knockBackStartPosition;
     private Vector2 knockBackEndPosition;
 
+    public event Action onDead;
+
+    private TweenerCore<Color, Color, ColorOptions> deadTweener;
+
     private void Awake()
     {
       sr = GetComponent<SpriteRenderer>();
       movableObject = GetComponent<MovableObject>();
-      deadCrt = new Coroutiner(DeadRoutine);
       bleedingTimer.duration = bleedingDelay;
       bleedingTimer.onEnd += OnBleedingTimerEnd;
       knockBackTimer.onTick += OnKnockBackTimerTick;
@@ -82,21 +87,9 @@ namespace Weapon
       CoroutineUtility.WaitUntil(() => bleedingQueue.Count > 0, () => sender.Start());
     }
 
-    private IEnumerator DeadRoutine()
-    {
-      var time = 0f;
-      while (!sr.color.a.ApproximatelyEqual(0f, 0.1f))
-      {
-        sr.color = sr.color.Setter(a: Mathf.Lerp(sr.color.a, 0f, time));
-        time += Time.deltaTime;
-        yield return new WaitForEndOfFrame();
-      }
-
-      poolObject.Release();
-    }
-
     public void OnSummon()
     {
+      deadTweener.Kill();
       hp = status.maxHp;
       detectCaster = InteractCaster.Player;
       isDead = false;
@@ -107,13 +100,19 @@ namespace Weapon
 
     public void OnKilled()
     {
-      deadCrt.Stop();
       bleedingTimer.Stop();
       bleedingQueue.Clear();
+      OnSummon();
+    }
+
+    private void Start()
+    {
+      OnSummon();
     }
 
     private void Update()
     {
+      if (isDead) return;
       sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime * 5f);
     }
 
@@ -121,7 +120,9 @@ namespace Weapon
     {
       isDead = true;
       detectCaster = InteractCaster.Nothing;
-      deadCrt.Start();
+      deadTweener = sr.DOFade(0f, 0.3f).OnComplete(() => onDead?.Invoke());
+      // onDead?.Invoke();
+      CoroutineUtility.Wait(0.3f, () => poolObject.Release());
     }
 
     protected override void OnInteract(Interacter caster)

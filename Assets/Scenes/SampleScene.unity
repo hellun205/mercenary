@@ -7471,6 +7471,8 @@ MonoBehaviour:
       Value: {fileID: 1489425705252346965, guid: 0b865fc2ab556a64fa12ca8e98601fdf, type: 3}
     - Key: ui/text
       Value: {fileID: 1489425705252346965, guid: d30d22e1c90aba342a8f5e83f2439ef9, type: 3}
+    - Key: ui/warning
+      Value: {fileID: 6156070940922303566, guid: fb71b16c7ba9a464e981e22dc39e2414, type: 3}
     - Key: weapon/ballista/bullet
       Value: {fileID: -640458343421406574, guid: 161860c9d3bf8cc47a7e3507c1ae808c, type: 3}
     - Key: weapon/bow/bullet
@@ -7481,6 +7483,8 @@ MonoBehaviour:
       Value: {fileID: 3049430774011418386, guid: e2f1f5461a4931d4b8ce091e037caec4, type: 3}
     - Key: weapon/hand_gun/bullet
       Value: {fileID: -640458343421406574, guid: faeb235465aa701449698b70be5e6280, type: 3}
+    - Key: weapon/lazer_gun/bullet
+      Value: {fileID: -640458343421406574, guid: c7e18885523eb7845afdf2776c799bb8, type: 3}
     - Key: weapon/mini_gun/bullet
       Value: {fileID: -640458343421406574, guid: ee311cd7459ab10478d925a2fd11142e, type: 3}
     - Key: weapon/ranged/testbomb/effect_explosion

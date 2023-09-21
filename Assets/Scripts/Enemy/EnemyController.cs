@@ -38,6 +38,13 @@ namespace Enemy
       attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
       attackCooldownTimer.onEnd += _ => currentCondition = InteractCondition.Attack;
       movableObject.moveSpeed = () => status.moveSpeed;
+      to.onDead += OnDead;
+    }
+
+    private void OnDead()
+    {
+      if (to.playerAttacked)
+        ThrowCoin();
     }
 
     public void OnSummon()
@@ -47,9 +54,6 @@ namespace Enemy
 
     public void OnKilled()
     {
-      if (to.playerAttacked)
-        ThrowCoin();
-
       movableObject.canMove = false;
     }
 
@@ -60,15 +64,14 @@ namespace Enemy
         count++;
 
       for (var i = 0; i < count; i++)
-        GameManager.Spawn.Spawn(transform.position, "object/coin");
+        GameManager.Pool.Summon("object/coin", transform.position);
     }
 
     private void Start()
     {
       target = GameManager.Player.transform;
     }
-
-
+    
     protected override void OnInteract(InteractiveObject target)
     {
       base.OnInteract(target);

@@ -56,7 +56,14 @@ namespace Weapon
 
     private void RefreshStatus()
     {
-      weaponData = (T)GameManager.WeaponData[name];
+      try
+      {
+        weaponData = (T)GameManager.WeaponData[name];
+      }
+      catch(Exception ex)
+      {
+        Debug.Log(ex);
+      }
       status = weaponData.status + GameManager.Player.GetStatus();
     }
 
