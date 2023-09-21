@@ -17,10 +17,10 @@ MonoBehaviour:
   descriptions: 
   status:
     type: 1
-    attackDamage: 1
-    attackSpeed: 1
-    fireRange: 5
-    multipleCritical: 1
+    attackDamage: 10
+    attackSpeed: 1.1
+    fireRange: 50
+    multipleCritical: 2
     knockback: 0
     bleedingDamage: 0
   m_price: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   rotate: 1
   penetrate: 0
   bullet: bullet
-  errorRange: 0
+  errorRange: 5
   bulletCount: 1

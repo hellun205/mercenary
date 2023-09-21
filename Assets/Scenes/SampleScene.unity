@@ -6786,6 +6786,8 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: hand_gun
+      Value: {fileID: 11400000, guid: ace35243b1c9137428020795e1123d01, type: 2}
     - Key: shot_gun
       Value: {fileID: 11400000, guid: a6d631e1f4cdeaf46b48bc232ccbed6d, type: 2}
     - Key: mini_gun
@@ -7337,6 +7339,8 @@ MonoBehaviour:
       Value: {fileID: -640458343421406574, guid: 1d869638afb7e2e4b9a5377cd4edc978, type: 3}
     - Key: weapon/granade_launcher/effect_explosion
       Value: {fileID: 3049430774011418386, guid: e2f1f5461a4931d4b8ce091e037caec4, type: 3}
+    - Key: weapon/hand_gun/bullet
+      Value: {fileID: -640458343421406574, guid: faeb235465aa701449698b70be5e6280, type: 3}
     - Key: weapon/mini_gun/bullet
       Value: {fileID: -640458343421406574, guid: ee311cd7459ab10478d925a2fd11142e, type: 3}
     - Key: weapon/ranged/testbomb/effect_explosion
