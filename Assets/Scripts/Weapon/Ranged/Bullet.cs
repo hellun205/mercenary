@@ -10,7 +10,6 @@ namespace Weapon.Ranged
   [RequireComponent(typeof(PoolObject))]
   public class Bullet : AttackableObject, IUsePool
   {
-    [NonSerialized]
     public float speed = 10f;
 
     [NonSerialized]

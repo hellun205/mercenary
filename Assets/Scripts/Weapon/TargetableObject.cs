@@ -98,6 +98,7 @@ namespace Weapon
     public void OnSummon()
     {
       hp = status.maxHp;
+      detectCaster = InteractCaster.Player;
       isDead = false;
       playerAttacked = false;
       sr.color = Color.white;
@@ -119,6 +120,7 @@ namespace Weapon
     public void Kill(bool throwCoin = false)
     {
       isDead = true;
+      detectCaster = InteractCaster.Nothing;
       deadCrt.Start();
     }
 

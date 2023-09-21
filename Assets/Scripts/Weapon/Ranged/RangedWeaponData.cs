@@ -15,5 +15,6 @@ namespace Weapon.Ranged
 
     public int bulletCount;
 
+    public float bulletSpeed;
   }
 }

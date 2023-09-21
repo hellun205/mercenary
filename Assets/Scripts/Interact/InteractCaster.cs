@@ -5,7 +5,8 @@ namespace Interact
   [Flags]
   public enum InteractCaster
   {
-    Player =  1 << 1,
+    Nothing = 0,
+    Player = 1 << 1,
     Others = 1 << 2
   }
 }

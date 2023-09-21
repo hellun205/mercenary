@@ -31,3 +31,4 @@ MonoBehaviour:
   bullet: bullet
   errorRange: 0
   bulletCount: 1
+  bulletSpeed: 10

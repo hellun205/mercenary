@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab6173d41c4b9ebcd7f640fec47716, type: 3}
   m_Name: shot_gun
   m_EditorClassIdentifier: 
-  _name: "\uC0B0\uD0C4"
+  _name: "\uC0B0\uD0C4\uCD1D"
   m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
   descriptions: 
   status:
@@ -29,5 +29,6 @@ MonoBehaviour:
   rotate: 1
   penetrate: 0
   bullet: bullet
-  errorRange: 50
+  errorRange: 40
   bulletCount: 4
+  bulletSpeed: 10
