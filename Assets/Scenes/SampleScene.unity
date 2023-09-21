@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -507,7 +507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -633,7 +633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -8770,7 +8770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -9380,7 +9380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -9947,7 +9947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8935391074237226942, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: valueFormat
-      value: '{1}'
+      value: '{3}'
       objectReference: {fileID: 0}
     - target: {fileID: 9205414263579392737, guid: ee0ca5b06898e164095a2451c558b7ae, type: 3}
       propertyPath: m_text
@@ -11429,7 +11429,7 @@ MonoBehaviour:
     maxHp: 15
     hp: 15
     regeneration: 0
-    drainHp: 0
+    drainHp: 0.439
     meleeDamage: 0
     rangedDamage: 0
     bleedingDamage: 0

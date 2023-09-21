@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,13 +54,13 @@ namespace Store.Status
     {
       try
       {
-        var percent = TaggedText.Parse((statValue * 100f).GetViaValue("")).AppendText("%");
         return string.Format
         (
           format,
           statValue.GetViaValue(""),
-          percent,
-          (statValue * 0.1f).GetViaValue("")
+          TaggedText.Parse(Mathf.FloorToInt(statValue * 100f).GetViaValue("")).AppendText("%"),
+          (statValue * 0.1f).GetViaValue(""),
+          Mathf.FloorToInt(statValue * 100f).GetViaValue("")
         );
       }
       catch

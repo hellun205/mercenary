@@ -27,5 +27,9 @@ namespace Util.Text
     }
     public static string GetViaValue(this float value, string plus = "+", string minus = "-")
       => GetViaValue(value, new Color32(47, 157, 39, 255), new Color32(152, 0, 0, 255), Color.white, plus, minus);
+
+    public static string GetViaValue(this int value, string plus = "+", string minus = "-")
+      => GetViaValue((float)value, new Color32(47, 157, 39, 255), new Color32(152, 0, 0, 255), Color.white, plus,
+        minus);
   }
 }

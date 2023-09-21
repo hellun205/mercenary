@@ -122,7 +122,7 @@ namespace Weapon
       detectCaster = InteractCaster.Nothing;
       deadTweener = sr.DOFade(0f, 0.3f).OnComplete(() => onDead?.Invoke());
       // onDead?.Invoke();
-      CoroutineUtility.Wait(0.3f, () => poolObject.Release());
+      CoroutineUtility.Wait(0.4f, () => poolObject.Release());
     }
 
     protected override void OnInteract(Interacter caster)
