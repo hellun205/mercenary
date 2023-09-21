@@ -140,7 +140,7 @@ namespace Player
       res.bleedingDamage += b.bleedingDamage;
       res.attackSpeed += b.attackSpeed;
       res.range += b.range;
-      res.armor += b.armor;
+      res.armor = Mathf.Min(a.armor + b.armor, 0.6f);
       res.knockback += b.knockback;
       res.moveSpeed += b.moveSpeed;
       res.luck += b.luck;

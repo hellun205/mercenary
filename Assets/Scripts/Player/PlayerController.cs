@@ -40,14 +40,29 @@ namespace Player
     private SpriteRenderer sr;
 
     private TweenerCore<Color, Color, ColorOptions> colorTweener;
+
+    private InteractiveObject io;
+
+    public PlayerStatus currentStatus { get; private set; }
     
     private void Awake()
     {
       inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
+      io = GetComponent<InteractiveObject>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
+      io.onInteract += OnDamage;
+      GameManager.Wave.onWaveStart += () => currentStatus = GetStatus();
       RefreshHpBar();
+    }
+
+    private void OnDamage(Interacter obj)
+    {
+      if (obj.TryGetComponent<EnemyController>(out var ec))
+      {
+        Hit(ec.status.damage * (1 - currentStatus.armor));
+      }
     }
 
     private void Update()
@@ -121,14 +136,14 @@ namespace Player
       return res;
     }
     
-    protected override void OnInteract(Interacter caster)
-    {
-      base.OnInteract(caster);
-      if (caster.TryGetComponent<EnemyController>(out var ec))
-      {
-        Hit(ec.status.damage);
-      }
-    }
+    // protected override void OnInteract(Interacter caster)
+    // {
+    //   base.OnInteract(caster);
+    //   if (caster.TryGetComponent<EnemyController>(out var ec))
+    //   {
+    //     Hit(ec.status.damage);
+    //   }
+    // }
 
     private void Start()
     {
