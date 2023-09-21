@@ -30,3 +30,4 @@ MonoBehaviour:
   penetrate: 0
   bullet: bullet
   errorRange: 20
+  bulletCount: 1

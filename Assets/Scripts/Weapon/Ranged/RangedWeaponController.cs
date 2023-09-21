@@ -10,10 +10,13 @@ namespace Weapon.Ranged
   
     protected override void OnFire()
     {
-      var bulletObj = GameManager.Pool.Summon<Bullet>(GetPObj(weaponData.bullet), firePosition.position);
-      ApplyDamage(bulletObj);
-      bulletObj.maxPenetrateCount = weaponData.penetrate;
-      bulletObj.SetTarget(target, weaponData.errorRange);
+      for (var i = 0; i < weaponData.bulletCount; i++)
+      {
+        var bulletObj = GameManager.Pool.Summon<Bullet>(GetPObj(weaponData.bullet), firePosition.position);
+        ApplyDamage(bulletObj);
+        bulletObj.maxPenetrateCount = weaponData.penetrate;
+        bulletObj.SetTarget(target, weaponData.errorRange);
+      }
     }
   }
 }

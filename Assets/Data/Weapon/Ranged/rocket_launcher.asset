@@ -27,7 +27,10 @@ MonoBehaviour:
   needFlipY: 1
   needFlipX: 0
   rotate: 1
+  penetrate: 0
   bullet: bullet
+  errorRange: 0
+  bulletCount: 1
   effectObj: effect_explosion
   explosionDelay: 2
   explosionRange: 20

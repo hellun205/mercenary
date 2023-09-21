@@ -29,3 +29,5 @@ MonoBehaviour:
   rotate: 1
   penetrate: 0
   bullet: bullet
+  errorRange: 0
+  bulletCount: 1

@@ -13,5 +13,7 @@ namespace Weapon.Ranged
 
     public float errorRange;
 
+    public int bulletCount;
+
   }
 }

@@ -6786,6 +6786,8 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: shot_gun
+      Value: {fileID: 11400000, guid: a6d631e1f4cdeaf46b48bc232ccbed6d, type: 2}
     - Key: mini_gun
       Value: {fileID: 11400000, guid: d4b992b9dabe3ab4d8951d31d84487af, type: 2}
     - Key: bamboo_spear
@@ -7347,6 +7349,8 @@ MonoBehaviour:
       Value: {fileID: -640458343421406574, guid: 822500529e125a041bf62d7f2d532261, type: 3}
     - Key: weapon/rocket_launcher/effect_explosion
       Value: {fileID: 3049430774011418386, guid: 0d978a8a39695f54a9efdb1e7f4e4a61, type: 3}
+    - Key: weapon/shot_gun/bullet
+      Value: {fileID: -640458343421406574, guid: 8e200dd9230161c439bf2d2d710e6732, type: 3}
 --- !u!1 &1552714099
 GameObject:
   m_ObjectHideFlags: 0
