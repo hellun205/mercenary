@@ -43,7 +43,7 @@ namespace Store.Item
     {
       purchaseButton.onClick.AddListener(OnPurchase);
       lockButton.onClick.AddListener(OnLockButtonClick);
-      GameManager.Instance.coin.onSet += _ => RefreshButtonEnabled();
+      GameManager.Manager.coin.onSet += _ => RefreshButtonEnabled();
     }
 
     private void OnLockButtonClick()
@@ -53,10 +53,10 @@ namespace Store.Item
 
     private void OnPurchase()
     {
-      if (GameManager.Instance.coin.value < itemData.price) return;
+      if (GameManager.Manager.coin.value < itemData.price) return;
 
       SetEnabled(false);
-      GameManager.Instance.coin.value -= itemData.price;
+      GameManager.Manager.coin.value -= itemData.price;
       GameManager.Player.inventory.GainItem(itemData);
       SetLock(false);
     }
@@ -86,7 +86,7 @@ namespace Store.Item
 
     private void RefreshButtonEnabled()
     {
-      purchaseButton.interactable = GameManager.Instance.coin.value >= itemData.price;
+      purchaseButton.interactable = GameManager.Manager.coin.value >= itemData.price;
     }
   }
 }

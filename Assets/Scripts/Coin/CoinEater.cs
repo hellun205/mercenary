@@ -19,7 +19,7 @@ namespace Coin
         var po = other.GetComponent<PoolObject>();
         ateCoins.Add(po.index);
         po.Release();
-        GameManager.Instance.coin.value++;
+        GameManager.Manager.coin.value++;
       }
     }
 

@@ -9,7 +9,7 @@ using Weapon;
 
 namespace Wave
 {
-  public class WaveManager : MonoBehaviourSingleTon<WaveManager>
+  public class WaveManager : MonoBehaviour
   {
     public WaveSetting currentSetting;
 
@@ -28,9 +28,8 @@ namespace Wave
     
     public bool state { get; private set; }
 
-    protected override void Awake()
+    private void Awake()
     {
-      base.Awake();
       waveText = GameManager.UI.Find<TextMeshProUGUI>("$wave");
       timerText = GameManager.UI.Find<TextMeshProUGUI>("$timer");
       storePanel = GameManager.UI.Find<Image>("$store", obj => obj.gameObject.SetActive(false));

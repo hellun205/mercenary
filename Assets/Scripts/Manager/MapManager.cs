@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Manager
 {
-  public class MapManager : MonoBehaviourSingleTon<MapManager>
+  public class MapManager : MonoBehaviour
   {
     public Transform start;
     public Transform end;

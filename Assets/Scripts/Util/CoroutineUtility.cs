@@ -8,7 +8,7 @@ namespace Util
   public static class CoroutineUtility
   {
     public static Coroutine Start(params (Yield yieldInstruction, Action fn)[] routines)
-      => GameManager.Instance.StartCoroutine(Routine(routines));
+      => GameManager.Manager.StartCoroutine(Routine(routines));
     
     private static IEnumerator Routine(params (Yield yieldInstruction, Action fn)[] routines)
     {

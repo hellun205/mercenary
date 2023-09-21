@@ -60,7 +60,7 @@ namespace Util
     {
       if (camera == null)
       {
-        camera = Camera.main;
+        camera = GameManager.Camera.camera;
       }
       var viewportPosition = camera.WorldToViewportPoint(worldPosition);
       return canvas.ViewportToCanvasPosition(viewportPosition);

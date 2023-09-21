@@ -6,13 +6,12 @@ using UnityEngine;
 
 namespace UI
 {
-  public class UIManager : MonoBehaviourSingleTon<UIManager>
+  public class UIManager : MonoBehaviour
   {
     public List<GameObject> items;
 
-    protected override void Awake()
+    private void Awake()
     {
-      base.Awake();
       items = FindObjectsOfType<GameObject>().Where(tmp => tmp.name.Contains('$')).ToList();
     }
 

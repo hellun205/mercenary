@@ -1,3 +1,4 @@
+using System;
 using Item;
 using Player;
 using Pool;
@@ -12,7 +13,7 @@ using Weapon;
 
 namespace Manager
 {
-  public sealed class GameManager : MonoBehaviourSingleTon<GameManager>
+  public sealed class GameManager : MonoBehaviour
   {
     public static KeyManager Key { get; private set; }
     public static ObjectCollection Weapons { get; private set; }
@@ -26,17 +27,20 @@ namespace Manager
     public static WaveManager Wave { get; private set; }
     public static ScriptableObjectCollection Items { get; private set; }
     public static Status StatusUI { get; private set; }
+    public static GameManager Manager { get; private set; }
+    public static CameraManager Camera { get; private set; }
 
     public State<int> coin;
 
     [SerializeField]
     private Sprite m_emptySprite;
 
-    public static Sprite emptySprite => Instance.m_emptySprite;
+    public static Sprite emptySprite => Manager.m_emptySprite;
     
     private void Init()
     {
-      Key = KeyManager.Instance;
+      Manager = this;
+      Key = new KeyManager();
       Weapons = transform.Find("@weapon_objects").GetComponent<ObjectCollection>();
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
       Prefabs = transform.Find("@prefab_objects").GetComponent<ObjectCollection>();
@@ -44,18 +48,23 @@ namespace Manager
       Map = FindObjectOfType<MapManager>();
       Spawn = FindObjectOfType<SpawnManager>();
       UI = FindObjectOfType<UIManager>();
-      Pool = PoolManager.Instance;
+      Pool = new PoolManager();
       Wave = FindObjectOfType<WaveManager>();
       Items = transform.Find("@item_data").GetComponent<ScriptableObjectCollection>();
       StatusUI = FindObjectOfType<Status>();
+      Camera = new CameraManager();
     }
     
-    protected override void Awake()
+    private void Awake()
     {
-      base.Awake();
       Init();
         
-      coin = new State<int>(3277770, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));;
+      coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));;
+    }
+
+    private void Start()
+    {
+      coin.value = 999999;
     }
 
     public static IPossessible GetItem(string itemName)

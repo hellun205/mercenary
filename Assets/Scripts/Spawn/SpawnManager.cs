@@ -5,7 +5,7 @@ using Util;
 
 namespace Spawn
 {
-  public class SpawnManager : MonoBehaviourSingleTon<SpawnManager>
+  public class SpawnManager : MonoBehaviour
   {
     public bool spawn;
     public int spawnCount;

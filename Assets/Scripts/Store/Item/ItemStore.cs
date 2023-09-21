@@ -31,9 +31,9 @@ namespace Store.Item
 
     private void OnRefreshButtonClick()
     {
-      if (refreshPrice.value > GameManager.Instance.coin.value) return;
+      if (refreshPrice.value > GameManager.Manager.coin.value) return;
 
-      GameManager.Instance.coin.value -= refreshPrice.value;
+      GameManager.Manager.coin.value -= refreshPrice.value;
       RefreshItems();
       refreshPrice.value += plus;
     }
