@@ -104,7 +104,8 @@ namespace Weapon
       }
 
       if (weaponData.needFlipY)
-        sr.flipY = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+        transform.localScale =
+          transform.localScale.Setter(y: (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270) ? -1 : 1);
       if (weaponData.needFlipX)
         sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
     }

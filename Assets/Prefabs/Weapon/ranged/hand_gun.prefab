@@ -82,11 +82,9 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: d2855c02fc01c6941bb08792af6ab404, type: 2}
   target: {fileID: 0}
   hasTarget: 0
-  col: {fileID: 3393872150850634041}
-  isAttacking: 0
   sr: {fileID: 4840581707139024584}
+  col: {fileID: 3393872150850634041}
   firePosition: {fileID: 2288425711461438533}
-  bullet: weapon/testgun/bullet
 --- !u!58 &3393872150850634041
 CircleCollider2D:
   m_ObjectHideFlags: 0

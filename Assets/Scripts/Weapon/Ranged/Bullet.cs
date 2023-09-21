@@ -3,15 +3,13 @@ using Interact;
 using Pool;
 using UnityEngine;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace Weapon.Ranged
 {
   [RequireComponent(typeof(PoolObject))]
   public class Bullet : AttackableObject, IUsePool
   {
-    [NonSerialized]
-    public Transform target;
-
     [NonSerialized]
     public float speed = 10f;
 
@@ -58,10 +56,11 @@ namespace Weapon.Ranged
       transform.Translate(Vector3.right * (Time.deltaTime * speed));
     }
 
-    public void SetTarget(TargetableObject targetableObject)
+    public void SetTarget(TargetableObject targetableObject, float errorRange)
     {
-      target = targetableObject.transform;
-      transform.rotation = transform.GetRotationOfLookAtObject(target);
+      var z = transform.GetRotationOfLookAtObject(targetableObject.transform);
+      var rotation = Random.Range(z.eulerAngles.z - errorRange, z.eulerAngles.z + errorRange);
+      transform.rotation = Quaternion.Euler(0, 0, rotation);
       isEnabled = true;
     }
 

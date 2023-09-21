@@ -13,7 +13,7 @@ namespace Weapon.Ranged
       var bulletObj = GameManager.Pool.Summon<Bullet>(GetPObj(weaponData.bullet), firePosition.position);
       ApplyDamage(bulletObj);
       bulletObj.maxPenetrateCount = weaponData.penetrate;
-      bulletObj.SetTarget(target);
+      bulletObj.SetTarget(target, weaponData.errorRange);
     }
   }
 }

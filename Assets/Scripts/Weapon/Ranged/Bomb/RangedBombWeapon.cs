@@ -18,7 +18,7 @@ namespace Weapon.Ranged.Bomb
         bulletObj.maxPenetrateCount = 0;
         bulletObj.explosionTimer.duration = weaponData.explosionDelay;
         bulletObj.mainCtrler = this;
-        bulletObj.SetTarget(target);
+        bulletObj.SetTarget(target, weaponData.errorRange);
         bulletObj.SetRange(weaponData.explosionRange);
         bulletObj.OnStart();
       }
@@ -29,7 +29,7 @@ namespace Weapon.Ranged.Bomb
         bulletObj.targetPosition = target.transform.position;
         bulletObj.maxPenetrateCount = 0;
         bulletObj.mainCtrler = this;
-        bulletObj.SetTarget(target);
+        bulletObj.SetTarget(target, weaponData.errorRange);
         bulletObj.SetRange(weaponData.explosionRange);
         bulletObj.OnStart();
       }

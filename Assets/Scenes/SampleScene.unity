@@ -1814,7 +1814,7 @@ MonoBehaviour:
       Value: {fileID: 1297951790826436554, guid: 48c9d0f0f1c90114080330abd49250ab, type: 3}
     - Key: lazer_gun
       Value: {fileID: 1297951790826436554, guid: 00ae9cfe2b1e3ae4b9d3b25596d75252, type: 3}
-    - Key: min_gun
+    - Key: mini_gun
       Value: {fileID: 1297951790826436554, guid: fee0f40fdbd08a842b936132fc37d83a, type: 3}
     - Key: rocket_launcher
       Value: {fileID: 1297951790826436554, guid: d9492c620ccc22145b869584f6b8ca74, type: 3}
@@ -6786,6 +6786,8 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: mini_gun
+      Value: {fileID: 11400000, guid: d4b992b9dabe3ab4d8951d31d84487af, type: 2}
     - Key: bamboo_spear
       Value: {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
     - Key: rocket_launcher
@@ -7333,6 +7335,8 @@ MonoBehaviour:
       Value: {fileID: -640458343421406574, guid: 1d869638afb7e2e4b9a5377cd4edc978, type: 3}
     - Key: weapon/granade_launcher/effect_explosion
       Value: {fileID: 3049430774011418386, guid: e2f1f5461a4931d4b8ce091e037caec4, type: 3}
+    - Key: weapon/mini_gun/bullet
+      Value: {fileID: -640458343421406574, guid: ee311cd7459ab10478d925a2fd11142e, type: 3}
     - Key: weapon/ranged/testbomb/effect_explosion
       Value: {fileID: 3049430774011418386, guid: 33574d0dbb91a0e4396d465f4cca5a7e, type: 3}
     - Key: weapon/ranged/testbomb/throwing

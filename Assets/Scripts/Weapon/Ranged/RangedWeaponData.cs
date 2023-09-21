@@ -10,7 +10,8 @@ namespace Weapon.Ranged
     public int penetrate;
 
     public string bullet;
-    
-    // public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
+
+    public float errorRange;
+
   }
 }

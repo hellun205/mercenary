@@ -4,11 +4,9 @@ using UnityEngine.Serialization;
 namespace Weapon.Ranged.Bomb
 {
   [CreateAssetMenu(fileName = "Ranged Bomb Weapon", menuName = "Weapon/Ranged/Bomb", order = 0)]
-  public class RangedBombWeaponData : WeaponData
+  public class RangedBombWeaponData : RangedWeaponData
   {
     [Header("Ranged - Bomb")]
-    public string bullet;
-
     public string effectObj;
     
     public float explosionDelay;
