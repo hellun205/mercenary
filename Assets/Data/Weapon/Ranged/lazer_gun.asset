@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab6173d41c4b9ebcd7f640fec47716, type: 3}
   m_Name: lazer_gun
   m_EditorClassIdentifier: 
-  _name: "\uAD8C\uCD1D"
+  _name: "\uB808\uC774\uC800\uAC74"
   m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
   descriptions: 
   status:
     type: 1
-    attackDamage: 1
-    attackSpeed: 1
-    fireRange: 5
-    multipleCritical: 1
-    knockback: 0
+    attackDamage: 18
+    attackSpeed: 1.25
+    fireRange: 50
+    multipleCritical: 1.5
+    knockback: 5
     bleedingDamage: 0
   m_price: 0
   needFlipY: 1
