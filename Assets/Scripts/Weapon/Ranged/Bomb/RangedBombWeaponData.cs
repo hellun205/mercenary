@@ -16,7 +16,9 @@ namespace Weapon.Ranged.Bomb
     public float explosionRange;
 
     public bool fireOnContact;
-    
+
+    public bool isFixedTargetPosition;
+
     // public override float GetAttackDamage() => status.attackDamage + GameManager.Player.status.rangedDamage;
   }
 }

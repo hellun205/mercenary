@@ -6788,6 +6788,8 @@ MonoBehaviour:
     _serializedList:
     - Key: bamboo_spear
       Value: {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
+    - Key: rocket_launcher
+      Value: {fileID: 11400000, guid: a181ba2921ed00948b0e46b73632e7f2, type: 2}
     - Key: knife
       Value: {fileID: 11400000, guid: 50c8f4f423149c040804e6745eac068b, type: 2}
     - Key: lance
@@ -7337,6 +7339,10 @@ MonoBehaviour:
       Value: {fileID: 1661175724558311153, guid: 1e231a997b1962e43af0d0314e453bb6, type: 3}
     - Key: weapon/ranged/testgun/bullet
       Value: {fileID: -640458343421406574, guid: d6015797444ac7344a411a09301ec416, type: 3}
+    - Key: weapon/rocket_launcher/bullet
+      Value: {fileID: -640458343421406574, guid: 822500529e125a041bf62d7f2d532261, type: 3}
+    - Key: weapon/rocket_launcher/effect_explosion
+      Value: {fileID: 3049430774011418386, guid: 0d978a8a39695f54a9efdb1e7f4e4a61, type: 3}
 --- !u!1 &1552714099
 GameObject:
   m_ObjectHideFlags: 0

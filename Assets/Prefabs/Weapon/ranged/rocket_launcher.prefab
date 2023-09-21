@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4385226275802180623}
-  - component: {fileID: 364575489335940281}
+  - component: {fileID: 3658083506177182072}
   - component: {fileID: 3393872150850634041}
   - component: {fileID: 911719469100006593}
   m_Layer: 0
@@ -67,7 +67,7 @@ Transform:
   - {fileID: 2288425711461438533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2187.878}
---- !u!114 &364575489335940281
+--- !u!114 &3658083506177182072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,17 +76,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1297951790826436554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6a17757c7b94d7ea65076889f87d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: c513a2aaa8cc4a63b5b09e7678d1563e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: d2855c02fc01c6941bb08792af6ab404, type: 2}
+  weaponData: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
-  col: {fileID: 3393872150850634041}
-  isAttacking: 0
   sr: {fileID: 4840581707139024584}
+  col: {fileID: 3393872150850634041}
   firePosition: {fileID: 2288425711461438533}
-  bullet: weapon/testgun/bullet
 --- !u!58 &3393872150850634041
 CircleCollider2D:
   m_ObjectHideFlags: 0

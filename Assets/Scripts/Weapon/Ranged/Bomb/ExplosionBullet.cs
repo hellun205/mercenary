@@ -71,6 +71,7 @@ namespace Weapon.Ranged.Bomb
 
     protected void Fire()
     {
+      isEnabled = false;
       currentCondition = InteractCondition.Attack;
       sr.color = sr.color.Setter(a: 0f);
 

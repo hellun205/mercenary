@@ -32,3 +32,4 @@ MonoBehaviour:
   explosionDelay: 2
   explosionRange: 20
   fireOnContact: 1
+  isFixedTargetPosition: 1

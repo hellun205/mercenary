@@ -13,22 +13,23 @@ MonoBehaviour:
   m_Name: rocket_launcher
   m_EditorClassIdentifier: 
   _name: "\uB85C\uCF13 \uB7F0\uCC98"
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
   descriptions: 
   status:
     type: 1
-    attackDamage: 0
-    attackSpeed: 0
-    fireRange: 0
-    multipleCritical: 1
-    knockback: 0
+    attackDamage: 24
+    attackSpeed: 1.87
+    fireRange: 60
+    multipleCritical: 1.5
+    knockback: 5
     bleedingDamage: 0
   m_price: 0
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
-  bullet: 
-  effectObj: 
-  damageDelay: 0
-  damageRange: 0
-  fireOnContact: 0
+  bullet: bullet
+  effectObj: effect_explosion
+  explosionDelay: 2
+  explosionRange: 20
+  fireOnContact: 1
+  isFixedTargetPosition: 0
