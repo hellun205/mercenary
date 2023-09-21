@@ -129,5 +129,9 @@ namespace Player
         Hit(ec.status.damage);
       }
     }
+
+    private void Start()
+    {
+    }
   }
 }

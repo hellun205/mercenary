@@ -127,10 +127,10 @@ namespace Weapon
       if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
 
       GameManager.Player.SuccessfulAttack();
-      Damage(ao.damage, ao.knockBack, ao.transform);
-
+      Damage(ao.isCritical ? ao.damage * ao.multipleDamage : ao.damage, ao.knockBack, ao.transform);
       if (ao.isCritical)
       {
+        
         for (var i = 0; i < AttackableObject.bleedingCount; i++)
           bleedingQueue.Enqueue(ao.bleeding / AttackableObject.bleedingCount);
       }

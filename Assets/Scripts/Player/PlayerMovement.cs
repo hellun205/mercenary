@@ -1,3 +1,4 @@
+using System;
 using Manager;
 using UnityEngine;
 
@@ -8,6 +9,13 @@ namespace Player
     public Vector2 currentMoveAmount = Vector2.zero;
 
     public float baseMoveSpeed = 4;
+
+    private Rigidbody2D rigid;
+
+    private void Awake()
+    {
+      rigid = GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
@@ -24,6 +32,8 @@ namespace Player
 
     private void FixedUpdate()
     {
+      // rigid.MovePosition(transform.position + (Vector3)currentMoveAmount *
+      //   (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
       transform.Translate(currentMoveAmount * (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
     }
   }

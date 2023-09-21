@@ -31,4 +31,4 @@ MonoBehaviour:
   effectObj: effect_explosion
   explosionDelay: 2
   explosionRange: 20
-  fireOnContact: 0
+  fireOnContact: 1

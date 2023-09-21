@@ -30,6 +30,16 @@ namespace Player
       onChanged += () => GameManager.StatusUI.Refresh();
     }
 
+    private void Update()
+    {
+      for (var i = 0; i < weapons.Count; i++)
+      {
+        if (weapons[i] == null) continue;
+
+        weaponSlots[i].transform.GetChild(0).position = weaponSlots[i].transform.position;
+      }
+    }
+
     public void SetWeapon(int slot, string weaponName)
     {
       if (weapons[slot] != null)
@@ -60,29 +70,21 @@ namespace Player
       }
       else
       {
-        if (weapons[to] == null)
-        {
-          SetWeapon(to, weapons[original].name);
-          RemoveWeapon(original);
-        }
-        else
-        {
-          var tmp = weapons[to].name;
-          RemoveWeapon(to);
-          SetWeapon(to, weapons[original].name);
-          RemoveWeapon(original);
-          SetWeapon(original, tmp);
-        }
+        var tmp = weapons[to].name;
+        RemoveWeapon(to);
+        SetWeapon(to, weapons[original].name);
+        RemoveWeapon(original);
+        SetWeapon(original, tmp);
       }
     }
 
     [ContextMenu("Set Weapon for test")]
     public void Test()
     {
-      // SetWeapon(0, "melee/testknife");
+      SetWeapon(0, "knife");
       // SetWeapon(1, "melee/testaxe");
       // SetWeapon(2, "ranged/testgun");
-      SetWeapon(3, "ranged/testbomb");
+      // SetWeapon(3, "ranged/testbomb");
     }
   }
 }

@@ -16,8 +16,8 @@ namespace Weapon
     public bool isCritical;
 
     public float knockBack;
-    
-    
+
+    public float multipleDamage;
 
     private void Reset()
     {

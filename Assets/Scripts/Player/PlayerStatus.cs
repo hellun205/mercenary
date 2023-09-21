@@ -24,14 +24,6 @@ namespace Player
     [Tooltip("피해 흡혈 (회복할 확률)")]
     [Range(-1f, 1f)]
     public float drainHp;
-
-    [Header("Invincibility")]
-    [Tooltip("무적")]
-    public bool isInvincibility;
-
-    [Tooltip("무적 시간")]
-    public float invincibilityTime;
-
     [Header("Attack")]
     [Tooltip("근거리 피해량")]
     public float meleeDamage;
@@ -129,8 +121,6 @@ namespace Player
       luck = other.luck;
       range = other.range;
       drainHp = other.drainHp;
-      invincibilityTime = other.invincibilityTime;
-      isInvincibility = other.isInvincibility;
       maxHp = other.maxHp;
       meleeDamage = other.meleeDamage;
       moveSpeed = other.moveSpeed;

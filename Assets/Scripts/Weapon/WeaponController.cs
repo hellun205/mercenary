@@ -50,19 +50,21 @@ namespace Weapon
 
     private void Start()
     {
-      weaponData = (T) GameManager.WeaponData[name];
+      weaponData = (T)GameManager.WeaponData[name];
       RefreshStatus();
     }
 
     private void RefreshStatus()
     {
-      weaponData = (T) GameManager.WeaponData[name];
+      weaponData = (T)GameManager.WeaponData[name];
       status = weaponData.status + GameManager.Player.GetStatus();
     }
 
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
+      if (status == null)
+        RefreshStatus();
       col.radius = status.fireRange / 10;
     }
 
@@ -133,11 +135,9 @@ namespace Weapon
     protected void ApplyDamage(AttackableObject ao)
     {
       ao.damage = status.attackDamage;
-      if (status.bleedingDamage > 0)
-      {
-        ao.isCritical = status.criticalPercent.ApplyPercentage();
-        ao.bleeding = status.bleedingDamage;
-      }
+      ao.multipleDamage = status.multipleCritical;
+      ao.isCritical = status.criticalPercent.ApplyPercentage();
+      ao.bleeding = status.bleedingDamage;
       ao.knockBack = status.knockback;
     }
   }

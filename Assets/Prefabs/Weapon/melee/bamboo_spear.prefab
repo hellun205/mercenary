@@ -273,6 +273,7 @@ MonoBehaviour:
   damage: 0
   bleeding: 0
   isCritical: 0
+  knockBack: 0
 --- !u!1 &8757700173094275166
 GameObject:
   m_ObjectHideFlags: 0
