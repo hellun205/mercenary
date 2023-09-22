@@ -27,9 +27,12 @@ namespace Weapon.Melee
       movingObj.DOLocalMoveX(status.fireRange / 10, 0.05f * Mathf.Min(status.attackSpeed, 1f))
        .OnComplete(() =>
         {
-          isAttacking = false;
           movingObj.DOLocalMoveX(0f, 0.15f * Mathf.Min(status.attackSpeed, 1f))
-           .OnComplete(() => attackableObject.currentCondition = InteractCondition.Normal);
+           .OnComplete(() =>
+           {
+             attackableObject.currentCondition = InteractCondition.Normal;
+             isAttacking = false;
+           });
         });
     }
   }

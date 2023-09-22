@@ -1,5 +1,6 @@
 using System;
 using Item;
+using Map;
 using Player;
 using Pool;
 using Spawn;
@@ -10,6 +11,7 @@ using UnityEngine;
 using Util;
 using Wave;
 using Weapon;
+using Transition = Transition.Transition;
 
 namespace Manager
 {
@@ -19,7 +21,7 @@ namespace Manager
     public static ObjectCollection Weapons { get; private set; }
     public static WeaponDataCollection WeaponData { get; private set; }
     public static ObjectCollection Prefabs { get; private set; }
-    public static PlayerController Player { get; private set; }
+    public static PlayerController Player { get; set; }
     public static MapManager Map { get; private set; }
     public static SpawnManager Spawn { get; private set; }
     public static UIManager UI { get; private set; }
@@ -29,9 +31,12 @@ namespace Manager
     public static Status StatusUI { get; private set; }
     public static GameManager Manager { get; private set; }
     public static CameraManager Camera { get; private set; }
+    public static global::Transition.Transition Transition { get; private set; }
 
     public State<int> coin;
 
+    public static event Action onLoaded;
+    
     [SerializeField]
     private Sprite m_emptySprite;
 
@@ -45,7 +50,7 @@ namespace Manager
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
       Prefabs = transform.Find("@prefab_objects").GetComponent<ObjectCollection>();
       Player = FindObjectOfType<PlayerController>();
-      Map = FindObjectOfType<MapManager>();
+      Map = new MapManager();
       Spawn = FindObjectOfType<SpawnManager>();
       UI = FindObjectOfType<UIManager>();
       Pool = new PoolManager();
@@ -53,6 +58,7 @@ namespace Manager
       Items = transform.Find("@item_data").GetComponent<ScriptableObjectCollection>();
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
+      Transition = new global::Transition.Transition();
     }
     
     private void Awake()
@@ -64,6 +70,7 @@ namespace Manager
 
     private void Start()
     {
+      onLoaded?.Invoke();
       coin.value = 999999;
     }
 

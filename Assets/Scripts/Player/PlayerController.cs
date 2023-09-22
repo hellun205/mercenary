@@ -47,6 +47,8 @@ namespace Player
     
     private void Awake()
     {
+      if (GameManager.Player == null) GameManager.Player = this;
+      
       inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
       io = GetComponent<InteractiveObject>();

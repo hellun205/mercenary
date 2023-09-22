@@ -15,16 +15,16 @@ namespace Wave
 
     public int currentWave;
 
-    public float time;
-
     private TextMeshProUGUI timerText;
     private TextMeshProUGUI waveText;
     private Image storePanel;
 
-    private Coroutiner timerCrt;
+    private Timer waveTimer = new();
 
     public event Action onWaveEnd;
     public event Action onWaveStart;
+
+    private WaveData waveData;
     
     public bool state { get; private set; }
 
@@ -33,7 +33,8 @@ namespace Wave
       waveText = GameManager.UI.Find<TextMeshProUGUI>("$wave");
       timerText = GameManager.UI.Find<TextMeshProUGUI>("$timer");
       storePanel = GameManager.UI.Find<Image>("$store", obj => obj.gameObject.SetActive(false));
-      timerCrt = new Coroutiner(TimerRoutine);
+      waveTimer.onTick += OnTimerTick;
+      waveTimer.onEnd += OnTimerEnd;
       GameManager.UI.Find<Button>("$btn_nextwave").onClick.AddListener(() =>
       {
         Time.timeScale = 1f;
@@ -42,22 +43,20 @@ namespace Wave
       });
     }
 
-    private IEnumerator TimerRoutine()
+    private void OnTimerEnd(Timer sender)
     {
-      while (time > 0)
-      {
-        time -= Time.deltaTime;
-        timerText.text = $"{Math.Max(0, Mathf.CeilToInt(time))}초";
-        yield return new WaitForEndOfFrame();
-      }
-
       EndWave();
+    }
+
+    private void OnTimerTick(Timer sender)
+    {
+      timerText.text = $"{Math.Max(0, waveData.waveTime - Mathf.FloorToInt(sender.elapsedTime))}초";
     }
 
     public void StartWave()
     {
-      var waveData = currentSetting.GetData(currentWave);
-      time = waveData.waveTime;
+      waveData = currentSetting.GetData(currentWave);
+      waveTimer.duration = waveData.waveTime;
       GameManager.Spawn.spawnCount = waveData.count;
       GameManager.Spawn.spawnDelay = waveData.delay;
       GameManager.Spawn.spawnTarget = waveData.enemy;
@@ -66,12 +65,11 @@ namespace Wave
       onWaveStart?.Invoke();
 
       state = true;
-      timerCrt.Start();
+      waveTimer.Start();
     }
 
     public void EndWave()
     {
-      timerCrt.Stop();
       GameManager.Spawn.spawn = false;
       KillEnemies();
       state = false;
@@ -92,7 +90,7 @@ namespace Wave
 
     private void Start()
     {
-      StartWave();
+      // StartWave();
     }
 
     private void KillEnemies()

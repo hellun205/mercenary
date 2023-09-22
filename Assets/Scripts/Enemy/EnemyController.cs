@@ -36,7 +36,11 @@ namespace Enemy
       to = GetComponent<TargetableObject>();
       movableObject = GetComponent<MovableObject>();
       attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
-      attackCooldownTimer.onEnd += _ => currentCondition = InteractCondition.Attack;
+      attackCooldownTimer.onEnd += _ =>
+      {
+        currentCondition = InteractCondition.Attack;
+        RemoveDetection();
+      };
       movableObject.moveSpeed = () => status.moveSpeed;
       to.onDead += OnDead;
     }

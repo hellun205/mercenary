@@ -24,34 +24,53 @@ namespace Weapon.Ranged
     public Timer despawnTimer = new();
 
     public PoolObject poolObject { get; set; }
-    
+
     [SerializeField]
     protected InteractiveObject detectEnemy;
 
+    [SerializeField]
+    private SpriteRenderer sr;
+
+    private bool isDead;
+
     protected virtual void Awake()
     {
-      despawnTimer.onEnd += t => poolObject.Release();
+      despawnTimer.onEnd += t => Kill();
       detectEnemy.onInteract += OnDetect;
     }
 
     protected virtual void OnDetect(Interacter obj)
     {
       if (curPenetrateCount >= maxPenetrateCount)
-        poolObject.Release();
+        Kill();
       else curPenetrateCount++;
     }
 
     public virtual void OnSummon()
     {
       isEnabled = true;
+      detectEnemy.enabled = true;
       despawnTimer.Start();
+      sr.color = sr.color.Setter(a: 1f);
+      currentCondition = InteractCondition.Attack;
     }
 
     public virtual void OnKilled()
     {
+      isDead = false;
       isEnabled = false;
       curPenetrateCount = 0;
       despawnTimer.Stop();
+      currentCondition = InteractCondition.Normal;
+    }
+
+    protected void Kill()
+    {
+      if (isDead) return;
+      isDead = true;
+      isEnabled = false;
+      sr.color = sr.color.Setter(a: 0f);
+      CoroutineUtility.Wait(0.1f, () => poolObject.Release());
     }
 
     private void Update()

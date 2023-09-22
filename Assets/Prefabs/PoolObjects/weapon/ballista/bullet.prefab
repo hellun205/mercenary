@@ -133,6 +133,7 @@ MonoBehaviour:
   isCritical: 0
   knockBack: 0
   multipleDamage: 0
+  speed: 10
   maxPenetrateCount: 0
   curPenetrateCount: 0
   despawnTimer:
@@ -144,6 +145,7 @@ MonoBehaviour:
     m_type: 0
     m_isPlaying: 0
   detectEnemy: {fileID: 2601082141163383864}
+  sr: {fileID: 1109187027350855757}
 --- !u!114 &2601082141163383864
 MonoBehaviour:
   m_ObjectHideFlags: 0

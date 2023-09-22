@@ -1,11 +1,17 @@
 using UnityEngine;
 
-namespace Manager
+namespace Map
 {
-  public class MapManager : MonoBehaviour
+  public class MapManager
   {
     public Transform start;
     public Transform end;
+
+    public void SetMap(Transform startTr, Transform endTr)
+    {
+      start = startTr;
+      end = endTr;
+    }
 
     public Vector2 GetRandom()
     {

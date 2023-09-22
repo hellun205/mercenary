@@ -52,5 +52,10 @@ namespace Store.Item
         items[i].SetItem(item);
       }
     }
+
+    private void Start()
+    {
+      RefreshItems();
+    }
   }
 }

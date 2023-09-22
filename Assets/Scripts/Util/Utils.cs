@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Manager;
 using UnityEditor;
 using UnityEngine;
@@ -99,6 +102,36 @@ namespace Util
       foreach (var add in additive)
         percentage += add;
       return Mathf.Min(1f, Mathf.Max(0,percentage)) > random;
+    }
+    
+    public static void ExitGame()
+    {
+#if UNITY_EDITOR
+      UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    private static TweenerCore<float, float, FloatOptions> timeScaleTweener;
+
+    public static void Pause(bool smooth = false, float duration = 1f)
+    {
+      timeScaleTweener.Kill();
+
+      if (smooth)
+        timeScaleTweener = DOTween.To(() => Time.timeScale, v => Time.timeScale = v, 0f, duration);
+      else
+        Time.timeScale = 0f;
+    }
+
+    public static void UnPause(bool smooth = false, float duration = 1f)
+    {
+      timeScaleTweener.Kill();
+      if (smooth)
+        timeScaleTweener = DOTween.To(() => Time.timeScale, v => Time.timeScale = v, 1f, duration);
+      else
+        Time.timeScale = 1f;
     }
   }
 }

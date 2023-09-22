@@ -20,9 +20,9 @@ namespace Weapon.Ranged.Bomb
       moveTimer.onTick += OnMoveTimerTick;
     }
 
-    protected override void OnDetect()
+    public override void OnKilled()
     {
-      base.OnDetect();
+      base.OnKilled();
       moveTimer.Stop();
       explosionTimer.Stop();
     }

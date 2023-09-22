@@ -10,8 +10,8 @@ namespace Weapon.Ranged.Bomb
   public class ExplosionBullet : Bullet
   {
     [Header("Bomb")]
-    [SerializeField]
-    private SpriteRenderer sr;
+    // [SerializeField]
+    // private SpriteRenderer sr;
 
     [NonSerialized]
     public Vector2 targetPosition;
@@ -42,7 +42,9 @@ namespace Weapon.Ranged.Bomb
     public override void OnSummon()
     {
       base.OnSummon();
-      sr.color = sr.color.Setter(a: 1f);
+      currentCondition = InteractCondition.Normal;
+      // sr.color = sr.color.Setter(a: 1f);
+      OnStart();
     }
 
     protected virtual void OnDetect()
@@ -52,12 +54,7 @@ namespace Weapon.Ranged.Bomb
     public virtual void OnStart()
     {
     }
-
-    public override void OnKilled()
-    {
-      base.OnKilled();
-      currentCondition = InteractCondition.Normal;
-    }
+    
 
     public void SetRange(float range)
     {
@@ -69,7 +66,7 @@ namespace Weapon.Ranged.Bomb
     {
       isEnabled = false;
       currentCondition = InteractCondition.Attack;
-      sr.color = sr.color.Setter(a: 0f);
+      // sr.color = sr.color.Setter(a: 0f);
 
       GameManager.Pool.Summon<ExplosionEffectController>
       (
@@ -77,7 +74,8 @@ namespace Weapon.Ranged.Bomb
         transform.position,
         obj => obj.SetRange(explosionRange)
       );
-      CoroutineUtility.Wait(0.2f, () => poolObject.Release());
+      // CoroutineUtility.Wait(0.2f, () => poolObject.Release());
+      Kill();
     }
   }
 }

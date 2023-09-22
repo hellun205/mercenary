@@ -28,7 +28,7 @@ namespace Store.Item
 
     [SerializeField]
     private Sprite lockImage;
-    
+
     [SerializeField]
     private Sprite unlockImage;
 
@@ -86,7 +86,8 @@ namespace Store.Item
 
     private void RefreshButtonEnabled()
     {
-      purchaseButton.interactable = GameManager.Manager.coin.value >= itemData.price;
+      if (itemData != null)
+        purchaseButton.interactable = GameManager.Manager.coin.value >= itemData.price;
     }
   }
 }
