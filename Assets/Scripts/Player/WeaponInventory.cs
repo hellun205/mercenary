@@ -40,13 +40,13 @@ namespace Player
       }
     }
 
-    public void SetWeapon(int slot, string weaponName)
+    public void SetWeapon(int slot, string weaponName, int tier)
     {
       if (weapons[slot] != null)
         RemoveWeapon(slot);
       var data = GameManager.WeaponData[weaponName];
 
-      weapons[slot] = data;
+      weapons[slot] = data.weapons[tier];
       var obj = Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position,
         Quaternion.identity,
         weaponSlots[slot]);
@@ -65,23 +65,25 @@ namespace Player
     {
       if (weapons[to] != null)
       {
-        SetWeapon(to, weapons[original].name);
+        var o = weapons[original].information;
+        SetWeapon(to, o.name, o.tier);
         RemoveWeapon(original);
       }
       else
       {
-        var tmp = weapons[to].name;
+        var t = weapons[to].information;
+        var o = weapons[original].information;
         RemoveWeapon(to);
-        SetWeapon(to, weapons[original].name);
+        SetWeapon(to, o.name, o.tier);
         RemoveWeapon(original);
-        SetWeapon(original, tmp);
+        SetWeapon(original, t.name, t.tier);
       }
     }
 
     [ContextMenu("Set Weapon for test")]
     public void Test()
     {
-      SetWeapon(0, "knife");
+      SetWeapon(0, "knife", 0);
       // SetWeapon(1, "melee/testaxe");
       // SetWeapon(2, "ranged/testgun");
       // SetWeapon(3, "ranged/testbomb");

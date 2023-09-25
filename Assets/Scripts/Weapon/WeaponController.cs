@@ -37,6 +37,9 @@ namespace Weapon
 
     public string GetPObj(string objName) => $"weapon/{name}/{objName}";
 
+    public int tier { get; set; }
+    public string dataName => $"{name}.{tier}";
+    
     protected virtual void Reset()
     {
       col = GetComponent<CircleCollider2D>();
@@ -50,7 +53,7 @@ namespace Weapon
 
     private void Start()
     {
-      weaponData = (T)GameManager.WeaponData[name];
+      weaponData = (T)(GameManager.WeaponData[name].weapons[tier]);
       RefreshStatus();
     }
 
@@ -58,7 +61,7 @@ namespace Weapon
     {
       try
       {
-        weaponData = (T)GameManager.WeaponData[name];
+        weaponData = (T)(GameManager.WeaponData[name].weapons[tier]);
       }
       catch(Exception ex)
       {

@@ -35,6 +35,15 @@ namespace Weapon
     public Sprite icon => m_icon;
     public int price => m_price;
     
+    public (string name, int tier) information
+    {
+      get
+      {
+        var split = name.Split('.');
+        return (split[0], int.Parse(split[1]));
+      }
+    }
+    
     private string GetDescription()
     {
       var sb = new StringBuilder();

@@ -14000,7 +14000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960921706409211758}
-  - component: {fileID: 4811525155372265527}
+  - component: {fileID: 1871500315724107815}
   m_Layer: 0
   m_Name: '@weapon_data'
   m_TagString: Untagged
@@ -14023,7 +14023,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6059598998525568732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4811525155372265527
+--- !u!114 &1871500315724107815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14035,37 +14035,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff18537d07445bfa34f6cddcd3de968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: Data/Weapon
+  root: Data/Weapon/Bundles
   exts: asset
-  isPath: 0
+  isPath: 1
   items:
     _serializedList:
-    - Key: sniper_gun
-      Value: {fileID: 11400000, guid: 2ec369c28dc248243b2df01bd6d26df6, type: 2}
-    - Key: submachine_gun
-      Value: {fileID: 11400000, guid: bc65368f42fa57342bd265589a689450, type: 2}
+    - Key: ballista
+      Value: {fileID: 11400000, guid: ec18f4698b038b440a131de0e8e7112d, type: 2}
     - Key: bow
-      Value: {fileID: 11400000, guid: e6a2457d8c704a74bb56123652f7fec5, type: 2}
-    - Key: hand_gun
-      Value: {fileID: 11400000, guid: ace35243b1c9137428020795e1123d01, type: 2}
-    - Key: shot_gun
-      Value: {fileID: 11400000, guid: a6d631e1f4cdeaf46b48bc232ccbed6d, type: 2}
-    - Key: mini_gun
-      Value: {fileID: 11400000, guid: d4b992b9dabe3ab4d8951d31d84487af, type: 2}
-    - Key: bamboo_spear
-      Value: {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
-    - Key: rocket_launcher
-      Value: {fileID: 11400000, guid: a181ba2921ed00948b0e46b73632e7f2, type: 2}
-    - Key: knife
-      Value: {fileID: 11400000, guid: 50c8f4f423149c040804e6745eac068b, type: 2}
-    - Key: lance
-      Value: {fileID: 11400000, guid: 19d6168dfd7ee3443811f1b21c25d611, type: 2}
-    - Key: rapier
-      Value: {fileID: 11400000, guid: f24f8a68e3048a544b449d49cb36e0be, type: 2}
-    - Key: spear
-      Value: {fileID: 11400000, guid: ca84a766132bdbb41b0ccb4e7aae454d, type: 2}
+      Value: {fileID: 11400000, guid: 35b9ec308b70f7548be21dcb4863a6b8, type: 2}
     - Key: granade_launcher
-      Value: {fileID: 11400000, guid: b7eaee7292a35f341aae48c9695dc145, type: 2}
+      Value: {fileID: 11400000, guid: 0672cff949d230444b61e4b92d45557e, type: 2}
+    - Key: knife
+      Value: {fileID: 11400000, guid: 21fa7e5ec3f2ab44282c43f4aa75baee, type: 2}
+    - Key: lance
+      Value: {fileID: 11400000, guid: e87b89ffe72bca94fbb92891aa13cc48, type: 2}
+    - Key: lazer_gun
+      Value: {fileID: 11400000, guid: 244d093e232b4614282f28600a494695, type: 2}
+    - Key: mini_gun
+      Value: {fileID: 11400000, guid: 3667256399b56484dadb6dfe3f20e27d, type: 2}
+    - Key: rapier
+      Value: {fileID: 11400000, guid: abbf3e45201e2c344b39d663b2d76c96, type: 2}
+    - Key: rocket_launcher
+      Value: {fileID: 11400000, guid: 8cdba55f7ec64934da5f8eae092551df, type: 2}
+    - Key: shot_gun
+      Value: {fileID: 11400000, guid: 9a45d9de3c337f44fbda0598e72384e4, type: 2}
+    - Key: sniper_gun
+      Value: {fileID: 11400000, guid: e479e3cdf3cd7d246980db36e4f9415c, type: 2}
+    - Key: spear
+      Value: {fileID: 11400000, guid: afc5fc35990c7d54d803ee05f7cce8c7, type: 2}
+    - Key: submachine_gun
+      Value: {fileID: 11400000, guid: 6148d414f3808e64c832c5661be2a344, type: 2}
 --- !u!1 &7024174278012727996
 GameObject:
   m_ObjectHideFlags: 0
@@ -17877,7 +17877,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSetting: {fileID: 11400000, guid: 468fb9cc9092baa4180ea6af66c06840, type: 2}
   currentWave: 0
-  time: 30
 --- !u!1 &9038332960196008509
 GameObject:
   m_ObjectHideFlags: 0

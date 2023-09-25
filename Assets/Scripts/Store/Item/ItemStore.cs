@@ -42,7 +42,7 @@ namespace Store.Item
     {
       var list = new List<IPossessible>();
       list.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
-      list.AddRange(GameManager.WeaponData.items.Values);
+      list.AddRange(GameManager.WeaponData.items.Values.Select(x => x.weapons[0]));
         
       for (var i = 0; i < 3; i++)
       {
