@@ -14042,16 +14042,30 @@ MonoBehaviour:
     _serializedList:
     - Key: ballista
       Value: {fileID: 11400000, guid: ec18f4698b038b440a131de0e8e7112d, type: 2}
+    - Key: bamboo_spear
+      Value: {fileID: 11400000, guid: 8eb772b08a77fd94b895f98c3c5e523c, type: 2}
+    - Key: baseball_bat
+      Value: {fileID: 11400000, guid: 5f3ce638843ca6145b208ade63c96d62, type: 2}
     - Key: bow
       Value: {fileID: 11400000, guid: 35b9ec308b70f7548be21dcb4863a6b8, type: 2}
+    - Key: frying_pan
+      Value: {fileID: 11400000, guid: 13717dcdd5fa7084d91347322f250845, type: 2}
     - Key: granade_launcher
       Value: {fileID: 11400000, guid: 0672cff949d230444b61e4b92d45557e, type: 2}
+    - Key: hand_gun
+      Value: {fileID: 11400000, guid: ab1bf73d1a4251e40929365c0cba59be, type: 2}
+    - Key: katana
+      Value: {fileID: 11400000, guid: e999f23935cccdb48aa73fc59951101c, type: 2}
     - Key: knife
       Value: {fileID: 11400000, guid: 21fa7e5ec3f2ab44282c43f4aa75baee, type: 2}
     - Key: lance
       Value: {fileID: 11400000, guid: e87b89ffe72bca94fbb92891aa13cc48, type: 2}
     - Key: lazer_gun
       Value: {fileID: 11400000, guid: 244d093e232b4614282f28600a494695, type: 2}
+    - Key: lazer_sword
+      Value: {fileID: 11400000, guid: bdf9dd57f627a7f4fb7f6f471d429a6b, type: 2}
+    - Key: long_sword
+      Value: {fileID: 11400000, guid: 393c25e2c96318945b621cb9964fc01d, type: 2}
     - Key: mini_gun
       Value: {fileID: 11400000, guid: 3667256399b56484dadb6dfe3f20e27d, type: 2}
     - Key: rapier

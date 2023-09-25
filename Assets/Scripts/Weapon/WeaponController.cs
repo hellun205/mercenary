@@ -7,7 +7,7 @@ using Util;
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public abstract class WeaponController<T> : MonoBehaviour where T : WeaponData
+  public abstract class WeaponController<T> : MonoBehaviour, ITier where T : WeaponData
   {
     public T weaponData;
 

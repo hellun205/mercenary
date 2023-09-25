@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: ballista
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 11400000, guid: f46e19d14b068a648bb0bf4a77e77cd9, type: 2}
+  - {fileID: 11400000, guid: 6a27ad179bc3c83489cee2e363184a7a, type: 2}
+  - {fileID: 11400000, guid: 97441c99c16c92c4c93209753c9d8a9f, type: 2}
+  - {fileID: 11400000, guid: 6992a1d9a93f51f46a9fe8c0ad96219a, type: 2}
+  - {fileID: 11400000, guid: 4abe7cfe2e1563848bcbda5f6fc95d9c, type: 2}

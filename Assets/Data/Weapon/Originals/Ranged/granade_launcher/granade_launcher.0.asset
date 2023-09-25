@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: granade_launcher.0
   m_EditorClassIdentifier: 
   _name: "\uC720\uD0C4 \uBC1C\uC0AC\uAE30"
+  attribute: 256
   m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
-  descriptions: 
+  descriptions: "\uD3ED\uBC1C\uD558\uB294 \uC720\uD0C4\uC744 \uBC1C\uC0AC"
   status:
     type: 1
     attackDamage: 17
@@ -29,7 +30,7 @@ MonoBehaviour:
   rotate: 1
   penetrate: 0
   bullet: bullet
-  errorRange: 0
+  errorRange: 2
   bulletCount: 1
   bulletSpeed: 10
   effectObj: effect_explosion

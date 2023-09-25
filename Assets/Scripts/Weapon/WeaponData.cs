@@ -10,7 +10,9 @@ namespace Weapon
   {
     [Header("Weapon Desc"), SerializeField]
     private string _name;
-    
+
+    public Attribute attribute;
+
     [SerializeField]
     private Sprite m_icon;
 

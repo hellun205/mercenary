@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Manager;
 using Store.Status;
 using UnityEngine;
+using Weapon;
 
 namespace Player
 {
@@ -51,6 +52,7 @@ namespace Player
         Quaternion.identity,
         weaponSlots[slot]);
       obj.name = weaponName;
+      (obj.GetComponent(typeof(ITier)) as ITier).tier = tier;
       onChanged?.Invoke();
     }
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: hand_gun.0
   m_EditorClassIdentifier: 
   _name: "\uAD8C\uCD1D"
+  attribute: 64
   m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
   descriptions: 
   status:
@@ -29,6 +30,6 @@ MonoBehaviour:
   rotate: 1
   penetrate: 0
   bullet: bullet
-  errorRange: 5
+  errorRange: 1
   bulletCount: 1
-  bulletSpeed: 18
+  bulletSpeed: 20
