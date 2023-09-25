@@ -12,7 +12,7 @@ namespace Manager
     Press
   }
 
-  public class KeyManager : SingleTon<KeyManager>
+  public class KeyManager 
   {
     public Dictionary<string, KeyCode[]> items = new();
 

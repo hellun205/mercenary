@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Manager;
 using UnityEditor;
 using UnityEngine;
@@ -45,14 +48,6 @@ namespace Util
       return new Vector2(x ?? original.x, y ?? original.y);
     }
 
-    public static void Wait(float second, Action fn) => GameManager.Instance.StartCoroutine(WaitRoutine(second, fn));
-
-    private static IEnumerator WaitRoutine(float second, Action fn)
-    {
-      yield return new WaitForSecondsRealtime(second);
-      fn.Invoke();
-    }
-
     public static Vector3 WorldToScreenSpace(this RectTransform canvas, Vector3 worldPos)
     {
       var screenPoint = Camera.main.WorldToScreenPoint(worldPos);
@@ -62,6 +57,32 @@ namespace Util
         return screenPos;
 
       return screenPoint;
+    }
+    
+    public static Vector3 WorldToCanvasPosition(this Canvas canvas, Vector3 worldPosition, Camera camera = null)
+    {
+      if (camera == null)
+      {
+        camera = GameManager.Camera.camera;
+      }
+      var viewportPosition = camera.WorldToViewportPoint(worldPosition);
+      return canvas.ViewportToCanvasPosition(viewportPosition);
+    }
+
+    public static Vector3 ScreenToCanvasPosition(this Canvas canvas, Vector3 screenPosition)
+    {
+      var viewportPosition = new Vector3(screenPosition.x / Screen.width,
+        screenPosition.y / Screen.height,
+        0);
+      return canvas.ViewportToCanvasPosition(viewportPosition);
+    }
+
+    public static Vector3 ViewportToCanvasPosition(this Canvas canvas, Vector3 viewportPosition)
+    {
+      var centerBasedViewPortPosition = viewportPosition - new Vector3(0.5f, 0.5f, 0);
+      var canvasRect = canvas.GetComponent<RectTransform>();
+      var scale = canvasRect.sizeDelta;
+      return Vector3.Scale(centerBasedViewPortPosition, scale);
     }
 
     public static bool ApproximatelyEqual(this float a, float b, float errorRange = 0.3f)
@@ -81,6 +102,47 @@ namespace Util
       foreach (var add in additive)
         percentage += add;
       return Mathf.Min(1f, Mathf.Max(0,percentage)) > random;
+    }
+    
+    public static void ExitGame()
+    {
+#if UNITY_EDITOR
+      UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    private static TweenerCore<float, float, FloatOptions> timeScaleTweener;
+
+    public static void Pause(bool smooth = false, float duration = 1f)
+    {
+      timeScaleTweener.Kill();
+
+      if (smooth)
+        timeScaleTweener = DOTween.To(() => Time.timeScale, v => Time.timeScale = v, 0f, duration);
+      else
+        Time.timeScale = 0f;
+    }
+
+    public static void UnPause(bool smooth = false, float duration = 1f)
+    {
+      timeScaleTweener.Kill();
+      if (smooth)
+        timeScaleTweener = DOTween.To(() => Time.timeScale, v => Time.timeScale = v, 1f, duration);
+      else
+        Time.timeScale = 1f;
+    }
+    
+    
+    public static IEnumerable<Enum> GetFlags(this Enum input)
+    {
+      return Enum.GetValues(input.GetType()).Cast<Enum>().Where(value => input.HasFlag(value));
+    }
+    
+    public static IEnumerable<T> GetFlags<T>(this T input) where T: Enum
+    {
+      return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
     }
   }
 }

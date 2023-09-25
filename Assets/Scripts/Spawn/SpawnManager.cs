@@ -1,3 +1,4 @@
+using System;
 using Manager;
 using Pool;
 using UnityEngine;
@@ -5,7 +6,7 @@ using Util;
 
 namespace Spawn
 {
-  public class SpawnManager : MonoBehaviourSingleTon<SpawnManager>
+  public class SpawnManager : MonoBehaviour
   {
     public bool spawn;
     public int spawnCount;
@@ -14,18 +15,17 @@ namespace Spawn
 
     private float time;
 
-    public PoolObject SpawnRandomPos(string targetPrefab)
+    public void SpawnRandomPos(string targetPrefab, Action<PoolObject> setter = null)
       => SpawnRandomPos<PoolObject>(targetPrefab);
 
-    public T SpawnRandomPos<T>(string targetPrefab) where T : Component
-    {
-      return Spawn<T>(GameManager.Map.GetRandom(), targetPrefab);
-    }
+    public void SpawnRandomPos<T>(string targetPrefab, Action<T> setter = null) where T : Component
+      => Spawn(GameManager.Map.GetRandom(), targetPrefab, setter);
 
-    public PoolObject Spawn(Vector2 position, string targetPrefab)
-      => Spawn<PoolObject>(position, targetPrefab);
 
-    public T Spawn<T>(Vector2 position, string targetPrefab) where T : Component
+    public void Spawn(Vector2 position, string targetPrefab, Action<PoolObject> setter = null)
+      => Spawn<PoolObject>(position, targetPrefab, setter);
+
+    public void Spawn<T>(Vector2 position, string targetPrefab, Action<T> setter = null) where T : Component
     {
       // Debug.Log(position);
       // if (
@@ -37,8 +37,15 @@ namespace Spawn
       //   throw new Exception("The position are out of bounds on the map.");
 
       // var go = Instantiate(GameManager.Prefab.Get(targetPrefab), position, Quaternion.identity);
-      var go = GameManager.Pool.Summon<T>(targetPrefab, position);
-      return go;
+
+      var warning = GameManager.Pool.Summon("ui/warning", position);
+      warning.GetComponent<Animator>().SetFloat("speed", 2f);
+      CoroutineUtility.Wait(1f, () =>
+      {
+        warning.Release();
+        if (GameManager.Wave.state)
+          GameManager.Pool.Summon(targetPrefab, position, setter);
+      });
     }
 
     private void Update()

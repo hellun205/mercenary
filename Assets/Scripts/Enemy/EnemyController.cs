@@ -1,5 +1,7 @@
+using Interact;
 using Manager;
-using Pool.Extensions;
+using Player;
+using Pool;
 using UnityEngine;
 using Util;
 using Weapon;
@@ -7,34 +9,56 @@ using Weapon;
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : UsePool
+  public class EnemyController : Interacter, IUsePool
   {
-    [Header("Base Status")]
+    public PoolObject poolObject { get; set; }
+
+    [Header("Enemy Controller")]
     public EnemyStatus status;
 
-    private bool isEnabled = true;
+    // private bool isEnabled = true;
 
     private Transform target;
 
     private TargetableObject to;
+    private MovableObject movableObject;
 
-    protected override void OnSummon()
+    [SerializeField]
+    private Timer attackCooldownTimer = new ();
+
+    private void Reset()
     {
-      isEnabled = true;
+      caster = InteractCaster.Others;
     }
 
-    protected override void Awake()
+    private void Awake()
     {
       to = GetComponent<TargetableObject>();
-      base.Awake();
+      movableObject = GetComponent<MovableObject>();
+      attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
+      attackCooldownTimer.onEnd += _ =>
+      {
+        currentCondition = InteractCondition.Attack;
+        RemoveDetection();
+      };
+      movableObject.moveSpeed = () => status.moveSpeed;
+      to.onDead += OnDead;
     }
 
-    protected override void OnKilled()
+    private void OnDead()
     {
       if (to.playerAttacked)
         ThrowCoin();
+    }
 
-      isEnabled = false;
+    public void OnSummon()
+    {
+      movableObject.canMove = true;
+    }
+
+    public void OnKilled()
+    {
+      movableObject.canMove = false;
     }
 
     private void ThrowCoin()
@@ -44,27 +68,28 @@ namespace Enemy
         count++;
 
       for (var i = 0; i < count; i++)
-        GameManager.Spawn.Spawn(transform.position, "object/coin");
+        GameManager.Pool.Summon("object/coin", transform.position);
     }
 
     private void Start()
     {
       target = GameManager.Player.transform;
     }
-
-    private void Update()
+    
+    protected override void OnInteract(InteractiveObject target)
     {
-      if (!isEnabled || !to.canTarget) return;
-
-      transform.rotation = transform.GetRotationOfLookAtObject(target.transform);
-      transform.Translate(Vector3.right * (Time.deltaTime * status.moveSpeed));
+      base.OnInteract(target);
+      if (target.TryGetComponent<PlayerController>(out var pc))
+      {
+        attackCooldownTimer.Start();
+      }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-      if (!other.CompareTag("Player") || !to.canTarget) return;
-
-      GameManager.Player.Hit(status.damage, po.index);
-    }
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //   if (!other.CompareTag("Player") || !to.canTarget) return;
+    //
+    //   GameManager.Player.Hit(status.damage, poolObject.index);
+    // }
   }
 }

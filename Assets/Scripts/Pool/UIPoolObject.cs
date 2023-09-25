@@ -20,8 +20,9 @@ namespace Pool
       set
       {
         _position = value;
-        rectTransform.anchoredPosition =
-          GameManager.Pool.uiParent.GetComponent<RectTransform>().WorldToScreenSpace(_position);
+        // rectTransform.anchoredPosition =
+        //   GameManager.Pool.uiParent.GetComponent<RectTransform>().WorldToScreenSpace(_position);
+        transform.position = GameManager.Pool.uiParent.GetComponent<Canvas>().WorldToCanvasPosition(value);
       }
     }
   }
