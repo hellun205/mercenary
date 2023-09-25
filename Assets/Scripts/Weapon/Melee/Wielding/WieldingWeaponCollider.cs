@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Weapon.Melee.Wielding
@@ -6,13 +7,13 @@ namespace Weapon.Melee.Wielding
   public class WieldingWeaponCollider : MonoBehaviour
   {
     [SerializeField]
-    private WieldingWeaponController mainCtrler;
+    private WieldingWeapon mainCtrler;
 
     private void OnTriggerStay2D(Collider2D col)
     {
       if (!mainCtrler.ready)
       {
-        mainCtrler.moveCrt.Stop();
+        mainCtrler.tweener.Kill();
         mainCtrler.ready = true;
         mainCtrler.StartWielding();
       }

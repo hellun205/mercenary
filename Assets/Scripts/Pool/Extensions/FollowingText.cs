@@ -7,10 +7,8 @@ namespace Pool.Extensions
   {
     public Follower follower;
 
-    protected override void Awake()
+    private void Awake()
     {
-      base.Awake();
-      
       follower = GetComponent<Follower>();
     }
   }

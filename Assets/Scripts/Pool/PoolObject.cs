@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Manager;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace Pool
   {
     [Header("Pool Object")]
     public int index;
+
     public string type;
 
     public virtual Vector2 position
@@ -16,6 +19,7 @@ namespace Pool
     }
 
     public delegate void PoolObjectEventListener();
+
     public event PoolObjectEventListener onGet;
     public event PoolObjectEventListener onReleased;
 
@@ -30,5 +34,19 @@ namespace Pool
     }
 
     public void Release() => GameManager.Pool.pools[type].Release(this);
+
+    private void Awake()
+    {
+      var components = GetComponents(typeof(IUsePool));
+      if (!components.Any()) return;
+
+      foreach (var component in components)
+      {
+        var usePool = component as IUsePool;
+        usePool.poolObject = this;
+        onGet += usePool.OnSummon;
+        onReleased += usePool.OnKilled;
+      }
+    }
   }
 }

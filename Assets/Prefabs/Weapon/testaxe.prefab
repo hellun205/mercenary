@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 4181827904235362178}
   - component: {fileID: 526793127105151571}
   - component: {fileID: 2845893574330423690}
+  - component: {fileID: 1017507255919469927}
   m_Layer: 0
   m_Name: testaxe
   m_TagString: Untagged
@@ -128,13 +129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf3c08f9ebc40c4a547d508c189877b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 835311814787891203}
   col: {fileID: 4181827904235362178}
   movingObj: {fileID: 2222215273383787293}
+  attackableObject: {fileID: 8728203121397632685}
   cRotate: {fileID: 5791073417348056907}
-  animName: 
   ready: 0
   lr: {fileID: 2465106281717248869}
 --- !u!95 &2845893574330423690
@@ -158,6 +160,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &1017507255919469927
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928209057720957025}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &2278223991200525121
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,14 +347,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6152167978488241675}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -336,7 +365,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!58 &6903988173802326109
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -371,7 +400,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.9}
   serializedVersion: 2
-  m_Radius: 1.43
+  m_Radius: 0.63
 --- !u!114 &1426879713626349018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,8 +424,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1996123363648742002}
   - component: {fileID: 6083896480729868161}
-  - component: {fileID: 1022007352668873280}
   - component: {fileID: 1972040999252541202}
+  - component: {fileID: 8728203121397632685}
   m_Layer: 0
   m_Name: collider
   m_TagString: Untagged
@@ -427,14 +456,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8203002434305269630}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -445,20 +474,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &1022007352668873280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8203002434305269630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9126810abfa945f9aa7df42ccd8eb83d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCtrler: {fileID: 526793127105151571}
+  m_Constraints: 4
 --- !u!58 &1972040999252541202
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -494,3 +510,21 @@ CircleCollider2D:
   m_Offset: {x: 0.36, y: 0.33}
   serializedVersion: 2
   m_Radius: 1.19
+--- !u!114 &8728203121397632685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8203002434305269630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a889d616a3ad489bbe852a648aa4a792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  caster: 2
+  currentCondition: 2
+  ignoreOpponentAttack: 1
+  damage: 0
+  bleeding: 0
+  isCritical: 0
