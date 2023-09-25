@@ -12,7 +12,7 @@ using Pool.Extensions;
 using UI;
 using UnityEngine;
 using Util;
-using Util.Text;
+using Attribute = Weapon.Attribute;
 
 namespace Player
 {
@@ -44,19 +44,29 @@ namespace Player
     private InteractiveObject io;
 
     public PlayerStatus currentStatus { get; private set; }
-    
+
     private void Awake()
     {
       if (GameManager.Player == null) GameManager.Player = this;
-      
+
       inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
       io = GetComponent<InteractiveObject>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
       io.onInteract += OnDamage;
-      GameManager.Wave.onWaveStart += () => currentStatus = GetStatus();
+      weaponInventory.onChanged += RefreshStatus;
+      GameManager.Wave.onWaveStart += RefreshStatus;
+      foreach (var partnerWeaponInventory in partnerWeaponInventories)
+      {
+        partnerWeaponInventory.onChanged += RefreshStatus;
+      }
       RefreshHpBar();
+    }
+
+    private void RefreshStatus()
+    {
+      currentStatus = GetStatus();
     }
 
     private void OnDamage(Interacter obj)
@@ -135,9 +145,38 @@ namespace Player
       foreach (var (item, count) in items.Where(x => x.Key is ItemData))
         res += (item as ItemData).increaseStatus * count;
 
+      res += GetChemistryStatus(out var _);
+      
       return res;
     }
-    
+
+    public IncreaseStatus GetChemistryStatus(out Dictionary<Attribute, int> counts)
+    {
+      var res = new IncreaseStatus();
+      var dict = new Dictionary<Attribute, int>();
+
+      void Add(Attribute att)
+      {
+        if (!dict.TryAdd(att, 1))
+          dict[att]++;
+      }
+
+      foreach (var weapon in weaponInventory.weapons.Where(x => x != null))
+        foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+          Add(flag);
+
+      foreach (var partnerWeaponInventory in partnerWeaponInventories)
+        foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null))
+          foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+            Add(flag);
+      
+      foreach (var (att, count) in dict)
+        res += GameManager.Manager.attributeChemistry.GetIncrease(att, count);
+
+      counts = dict;
+      return res;
+    }
+
     // protected override void OnInteract(Interacter caster)
     // {
     //   base.OnInteract(caster);

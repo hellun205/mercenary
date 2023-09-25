@@ -47,6 +47,9 @@ namespace Player
     [Tooltip("넉백")]
     public float knockback;
 
+    [Tooltip("폭발 범위")]
+    public float explosionRange;
+
     [Header("Other")]
     [Tooltip("방어 %")]
     [Range(-1f, 1f)]
@@ -64,31 +67,31 @@ namespace Player
       var sb = new StringBuilder();
 
       if (maxHp != 0)
-        sb.Append(GetTextViaValue("최대 체력", maxHp)).Append("\n");
+        sb.Append(GetTextViaValue("최대 체력: ", maxHp)).Append("\n");
       if (regeneration != 0)
-        sb.Append(GetTextViaValue("체력 재생", regeneration)).Append("\n");
+        sb.Append(GetTextViaValue("체력 재생: ", regeneration)).Append("\n");
       if (drainHp != 0)
-        sb.Append(GetTextViaValue("흡혈", drainHp)).Append("\n");
+        sb.Append(GetTextViaValue("흡혈: ", drainHp)).Append("\n");
       if (meleeDamage != 0)
-        sb.Append(GetTextViaValue("근거리 피해량", meleeDamage)).Append("\n");
+        sb.Append(GetTextViaValue("근거리 피해량: ", meleeDamage)).Append("\n");
       if (rangedDamage != 0)
-        sb.Append(GetTextViaValue("원거리 피해량", rangedDamage)).Append("\n");
+        sb.Append(GetTextViaValue("원거리 피해량: ", rangedDamage)).Append("\n");
       if (criticalPercent != 0)
-        sb.Append(GetTextViaValue("치명타 확률", criticalPercent)).Append("\n");
+        sb.Append(GetTextViaValue("치명타 확률: ", criticalPercent)).Append("\n");
       if (bleedingDamage != 0)
-        sb.Append(GetTextViaValue("출혈 피해량", bleedingDamage)).Append("\n");
+        sb.Append(GetTextViaValue("출혈 피해량: ", bleedingDamage)).Append("\n");
       if (attackSpeed != 0)
-        sb.Append(GetTextViaValue("공격 속도", attackSpeed)).Append("\n");
+        sb.Append(GetTextViaValue("공격 속도: ", attackSpeed)).Append("\n");
       if (range != 0)
-        sb.Append(GetTextViaValue("범위", range)).Append("\n");
+        sb.Append(GetTextViaValue("범위: ", range)).Append("\n");
       if (knockback != 0)
-        sb.Append(GetTextViaValue("넉백", knockback)).Append("\n");
+        sb.Append(GetTextViaValue("넉백: ", knockback)).Append("\n");
       if (armor != 0)
-        sb.Append(GetTextViaValue("방어력", armor)).Append("\n");
+        sb.Append(GetTextViaValue("방어력: ", armor)).Append("\n");
       if (moveSpeed != 0)
-        sb.Append(GetTextViaValue("이동 속도", moveSpeed)).Append("\n");
+        sb.Append(GetTextViaValue("이동 속도: ", moveSpeed)).Append("\n");
       if (luck != 0)
-        sb.Append(GetTextViaValue("행운", luck)).Append("\n");
+        sb.Append(GetTextViaValue("행운: ", luck)).Append("\n");
 
       return sb.ToString();
     }
@@ -100,8 +103,8 @@ namespace Player
       float multiple = 1f,
       string prefix = "",
       string subfix = "",
-      char plus = '+',
-      char minus = '-'
+      string plus = "+",
+      string minus = "-"
     )
     {
       var color = value > 0 ? new Color32(47, 157, 39, 255) : new Color32(152, 0, 0, 255);
@@ -125,6 +128,7 @@ namespace Player
       meleeDamage = other.meleeDamage;
       moveSpeed = other.moveSpeed;
       rangedDamage = other.rangedDamage;
+      explosionRange = other.explosionRange;
     }
 
     public static PlayerStatus operator +(PlayerStatus a, IncreaseStatus b)
@@ -144,6 +148,8 @@ namespace Player
       res.knockback += b.knockback;
       res.moveSpeed += b.moveSpeed;
       res.luck += b.luck;
+      res.explosionRange += b.explosionRange;
+      res.attackSpeed += res.attackSpeed * b.attackSpeedPercent;
 
       return res;
     }

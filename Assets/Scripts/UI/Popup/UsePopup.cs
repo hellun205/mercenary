@@ -43,7 +43,7 @@ namespace UI.Popup
     }
 
     public virtual void OnEntered() =>
-      popupPanel.ShowPopup("", "");
+      popupPanel.ShowPopup();
 
     public virtual void OnExited() => 
       popupPanel.HidePopup();

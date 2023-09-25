@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using Manager;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Text;
+using Weapon;
 
 namespace Store.Equipment
 {
-  public class WeaponSlot : UsePopup<PopupPanel>
+  public class WeaponSlot : UsePopup<ListPopup>
   {
     [SerializeField]
     private Image targetImg;
@@ -50,7 +54,7 @@ namespace Store.Equipment
     private void OnDrop(ItemRequest data)
     {
       if (data.item is not Weapon.WeaponData weapon) return;
-     
+
       switch (data.beginDragType)
       {
         case DragType.Inventory:
@@ -69,6 +73,7 @@ namespace Store.Equipment
             (GetWrapperIndex(wrapper), slotIndex)
           );
           break;
+
         default:
           throw new ArgumentOutOfRangeException();
       }
@@ -89,9 +94,9 @@ namespace Store.Equipment
     {
       return wrapper.type switch
       {
-        EquipmentType.Player => 0,
+        EquipmentType.Player  => 0,
         EquipmentType.Partner => wrapper.partnerIndex + 1,
-        _ => 0
+        _                     => 0
       };
     }
 
@@ -99,7 +104,31 @@ namespace Store.Equipment
     public override void OnEntered()
     {
       if (weapon == null) return;
-      popupPanel.ShowPopup(weapon.itemName, weapon.description);
+      var sb = new StringBuilder();
+
+      sb.Append
+        (
+          weapon.itemName
+           .SetSizePercent(1.5f)
+           .SetAlign(TextAlign.Center)
+        )
+       .Append("\n")
+       .Append
+        (
+          weapon.attribute.GetTexts()
+           .SetSizePercent(1.25f)
+           .AddColor(new Color32(72, 156, 255, 255))
+           .SetLineHeight(1.25f)
+           .SetAlign(TextAlign.Center)
+        )
+       .Append("\n")
+       .Append
+        (
+          weapon.description
+           .SetAlign(TextAlign.Left)
+        );
+
+      popupPanel.ShowPopup(sb.ToString(), GameManager.Manager.attributeChemistry.GetDescriptions(weapon.attribute));
     }
   }
 }

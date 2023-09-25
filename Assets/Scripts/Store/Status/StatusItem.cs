@@ -8,7 +8,7 @@ using Util.Text;
 
 namespace Store.Status
 {
-  public class StatusItem : UsePopup<PopupPanel>
+  public class StatusItem : UsePopup<PopupPanelWithTitle>
   {
     [Header("Bind")]
     [SerializeField]

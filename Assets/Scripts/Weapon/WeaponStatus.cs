@@ -16,6 +16,7 @@ namespace Weapon
     public float multipleCritical = 1;
     public float knockback;
     public float bleedingDamage;
+
     [NonSerialized]
     public float criticalPercent;
 
@@ -47,17 +48,17 @@ namespace Weapon
       var sb = new StringBuilder();
 
       if (attackDamage != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("공격력", attackDamage)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("공격력: ", attackDamage, plus: "")).Append("\n");
       if (multipleCritical != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("치명타 대미지", multipleCritical, plus: 'x', minus: 'x')).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("치명타 대미지: ", multipleCritical, plus: "x")).Append("\n");
       if (bleedingDamage != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("출혈 대미지", bleedingDamage)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("출혈 대미지: ", bleedingDamage, plus: "")).Append("\n");
       if (attackSpeed != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("공격 속도", attackSpeed)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("공격 속도: ", attackSpeed, plus: "")).Append("\n");
       if (knockback != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("넉백", knockback)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("넉백: ", knockback, plus: "")).Append("\n");
       if (fireRange != 0)
-        sb.Append(PlayerStatus.GetTextViaValue("범위", fireRange)).Append("\n");
+        sb.Append(PlayerStatus.GetTextViaValue("범위: ", fireRange, plus: "")).Append("\n");
 
       return sb.ToString();
     }

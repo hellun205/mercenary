@@ -1,3 +1,4 @@
+using System.Text;
 using Item;
 using Manager;
 using Store.Equipment;
@@ -6,10 +7,12 @@ using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Text;
+using Weapon;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<PopupPanel>
+  public class InventoryItem : UsePopup<ListPopup>
   {
     public IPossessible itemData;
 
@@ -20,7 +23,7 @@ namespace Store.Inventory
     private Image icon;
 
     public InventoryUI parentUI;
-      
+
     public override string popupName => "$popup_item";
 
     private ItemDrop useDrop;
@@ -41,7 +44,7 @@ namespace Store.Inventory
         draggingImage = itemData.icon,
         weaponInventoryUI = FindObjectOfType<WeaponInventoryUI>()
       };
-      
+
       useDrop.onGetRequest += OnDrop;
     }
 
@@ -64,7 +67,46 @@ namespace Store.Inventory
 
     public override void OnEntered()
     {
-      popupPanel.ShowPopup(itemData.itemName, itemData.description);
+      popupPanel.ShowPopup
+      (
+        itemData.itemName,
+        itemData is WeaponData weapon ? weapon.attribute.GetTexts() : "",
+        itemData.description
+      );
+
+      var sb = new StringBuilder();
+
+      sb.Append
+        (
+          itemData.itemName
+           .SetSizePercent(1.5f)
+           .SetAlign(TextAlign.Center)
+        )
+       .Append("\n");
+      if (itemData is WeaponData weaponData)
+      {
+        sb.Append
+          (
+            weaponData.attribute.GetTexts()
+             .SetSizePercent(1.25f)
+             .AddColor(new Color32(72, 156, 255, 255))
+             .SetLineHeight(1.25f)
+             .SetAlign(TextAlign.Center)
+          )
+         .Append("\n");
+      }
+
+      sb.Append
+      (
+        itemData.description
+         .SetAlign(TextAlign.Left)
+      );
+
+      if (itemData is WeaponData weaponData2)
+        popupPanel.ShowPopup(sb.ToString(),
+          GameManager.Manager.attributeChemistry.GetDescriptions(weaponData2.attribute));
+      else
+        popupPanel.ShowPopup(text: sb.ToString());
     }
   }
 }

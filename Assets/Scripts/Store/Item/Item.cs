@@ -3,6 +3,7 @@ using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Weapon;
 
 namespace Store.Item
 {
@@ -10,6 +11,9 @@ namespace Store.Item
   {
     [SerializeField]
     private TextMeshProUGUI itemName;
+    
+    [SerializeField]
+    private TextMeshProUGUI attribute;
 
     [SerializeField]
     private TextMeshProUGUI itemDescriptions;
@@ -74,6 +78,8 @@ namespace Store.Item
       itemDescriptions.text = item.description;
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
+      attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : ""; 
+      
       RefreshButtonEnabled();
       SetEnabled(true);
     }

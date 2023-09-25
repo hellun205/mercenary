@@ -1,36 +1,34 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+using Util;
 
 namespace UI.Popup
 {
   public class PopupPanel : MonoBehaviour
   {
-    [NonSerialized]
-    public RectTransform rectTransform;
+    public RectTransform rectTransform { get; private set; }
     
+    [FormerlySerializedAs("nameText")]
     [SerializeField]
-    private TextMeshProUGUI nameText;
-
-    [SerializeField]
-    private TextMeshProUGUI descriptionText;
-
+    protected TextMeshProUGUI valueText;
+    
     private void Awake()
     {
       rectTransform = GetComponent<RectTransform>();
       gameObject.SetActive(false);
     }
 
-    public void ShowPopup(string name, string desc)
+    public void ShowPopup(string text)
     {
-      nameText.text = name;
-      descriptionText.text = desc;
-      gameObject.SetActive(true);
+      ShowPopup();
+      valueText.text = text;
+      this.RebuildLayout(20);
     }
 
-    public void HidePopup()
-    {
-      gameObject.SetActive(false);
-    }
+    public void ShowPopup() => gameObject.SetActive(true);
+    public void HidePopup() => gameObject.SetActive(false);
   }
 }

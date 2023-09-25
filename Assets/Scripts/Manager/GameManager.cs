@@ -41,6 +41,8 @@ namespace Manager
     private Sprite m_emptySprite;
 
     public static Sprite emptySprite => Manager.m_emptySprite;
+
+    public AttributeChemistry attributeChemistry;
     
     private void Init()
     {
@@ -65,7 +67,7 @@ namespace Manager
     {
       Init();
         
-      coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));;
+      coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
     }
 
     private void Start()

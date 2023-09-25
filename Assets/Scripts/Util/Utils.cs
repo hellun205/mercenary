@@ -133,5 +133,16 @@ namespace Util
       else
         Time.timeScale = 1f;
     }
+    
+    
+    public static IEnumerable<Enum> GetFlags(this Enum input)
+    {
+      return Enum.GetValues(input.GetType()).Cast<Enum>().Where(value => input.HasFlag(value));
+    }
+    
+    public static IEnumerable<T> GetFlags<T>(this T input) where T: Enum
+    {
+      return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
+    }
   }
 }
