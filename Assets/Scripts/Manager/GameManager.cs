@@ -44,6 +44,8 @@ namespace Manager
 
     public AttributeChemistry attributeChemistry;
     
+    public AttributeChemistry
+    
     private void Init()
     {
       Manager = this;
@@ -66,7 +68,7 @@ namespace Manager
     private void Awake()
     {
       Init();
-        
+      
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
     }
 

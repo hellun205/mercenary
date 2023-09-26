@@ -14,8 +14,16 @@ namespace Weapon
   [CreateAssetMenu(fileName = "Attribute Chemistry", menuName = "Weapon/Attribute Chemistry", order = 0)]
   public class AttributeChemistry : ScriptableObject
   {
+    public AttributeChemistryData _data;
+    
     public SerializedDictionary<Attribute, SerializedDictionary<string, SerializedDictionary<ApplyStatus, float>>> data;
 
+    [ContextMenu("TO Josn")]
+    public void ToJson()
+    {
+      Debug.Log(JsonUtility.ToJson(data, true));
+    }
+    
     public IncreaseStatus GetIncrease(Attribute attribute, int count)
     {
       var d = data[attribute];
