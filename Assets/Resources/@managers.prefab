@@ -6240,7 +6240,33 @@ MonoBehaviour:
   exts: asset
   isPath: 0
   items:
-    _serializedList: []
+    _serializedList:
+    - Key: barbell
+      Value: {fileID: 11400000, guid: 704e799d5ae5e6942b5559cbd11ab0e9, type: 2}
+    - Key: boxing_gloves
+      Value: {fileID: 11400000, guid: 46424d8f0d09e6a4f96553a83eec2a28, type: 2}
+    - Key: bullet
+      Value: {fileID: 11400000, guid: c38f254fe525374489db24e5bfba6e99, type: 2}
+    - Key: canine
+      Value: {fileID: 11400000, guid: ab86a9c44beae844a87680e4fe7050ae, type: 2}
+    - Key: chocolate
+      Value: {fileID: 11400000, guid: 330612b7a42cad94eb7ec7c442eadba7, type: 2}
+    - Key: fortune_cookies
+      Value: {fileID: 11400000, guid: a7291cacbd302674da23e191822009fe, type: 2}
+    - Key: glasses
+      Value: {fileID: 11400000, guid: 9f3f1c715d7cceb418b2b625fdd0f133, type: 2}
+    - Key: iron_ingot
+      Value: {fileID: 11400000, guid: 89c6c208f3e954f469e19f73047558e7, type: 2}
+    - Key: leather_gloves
+      Value: {fileID: 11400000, guid: 3a49de72e093a1a44b4d4612187144a3, type: 2}
+    - Key: lens
+      Value: {fileID: 11400000, guid: 7f70589d413d6c94098c320bd56c7edd, type: 2}
+    - Key: needle
+      Value: {fileID: 11400000, guid: 7f297e901d3e7c04babdfe64f52287bf, type: 2}
+    - Key: paper_cup
+      Value: {fileID: 11400000, guid: eb17e5a67522e914ba37fda324ebc285, type: 2}
+    - Key: rainboots
+      Value: {fileID: 11400000, guid: b65df28df36d14e479d5e0cee94d3c40, type: 2}
 --- !u!1 &3552993907498577243
 GameObject:
   m_ObjectHideFlags: 0

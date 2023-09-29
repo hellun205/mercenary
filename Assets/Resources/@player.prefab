@@ -947,6 +947,7 @@ MonoBehaviour:
     attackSpeed: 0
     range: 0
     knockback: 0
+    explosionRange: 0
     armor: 0.122
     moveSpeed: 0
     luck: 0
