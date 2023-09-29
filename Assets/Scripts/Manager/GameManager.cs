@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Item;
 using Map;
 using Player;
@@ -36,7 +37,8 @@ namespace Manager
     public static global::Transition.Transition Transition { get; private set; }
 
     public AttributeChemistry attributeChemistry { get; private set; }
-    
+    public Spawn.Spawn spawn { get; private set; }
+
     public State<int> coin;
 
     public static event Action onLoaded;
@@ -45,11 +47,14 @@ namespace Manager
     private Sprite m_emptySprite;
 
     public static Sprite emptySprite => Manager.m_emptySprite;
-    
+
     // public AttributeChemistry attributeChemistry;
 
     public TextAsset attributeChemistryData;
-    
+    public TextAsset spawnData;
+
+    public bool isTestMode;
+
     private void Init()
     {
       Manager = this;
@@ -68,13 +73,39 @@ namespace Manager
       Camera = new CameraManager();
       Transition = new global::Transition.Transition();
     }
-    
+
     private void Awake()
     {
       Init();
-      
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
-      attributeChemistry = new AttributeChemistry(attributeChemistryData.text);
+
+      string acJson;
+      string spawnJson;
+
+      if (isTestMode)
+      {
+        using (var sr = new StreamReader(Directory.GetCurrentDirectory() + @"\Data\AttributeChemistryData.json"))
+        {
+          acJson = sr.ReadToEnd();
+          sr.Close();
+        }
+        
+        using (var sr = new StreamReader(Directory.GetCurrentDirectory() + @"\Data\SpawnData.json"))
+        {
+          spawnJson = sr.ReadToEnd();
+          sr.Close();
+        }
+        
+      }
+      else
+      {
+        acJson = attributeChemistryData.text;
+        spawnJson = spawnData.text;
+      }
+      
+      attributeChemistry = new AttributeChemistry(acJson);
+      spawn = new Spawn.Spawn(spawnJson);
+      
     }
 
     private void Start()

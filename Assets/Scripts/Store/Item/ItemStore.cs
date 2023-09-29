@@ -37,6 +37,7 @@ namespace Store.Item
 
     private void OnRefreshButtonClick()
     {
+      if(GameManager.Manager.isTestMode) GameManager.Manager.coin.value = 999999;
       if (refreshPrice.value > GameManager.Manager.coin.value) return;
 
       GameManager.Manager.coin.value -= refreshPrice.value;

@@ -157,5 +157,11 @@ namespace Util
       for (int i = 0; i < enumerable.Length; i++)
         fn?.Invoke(i);
     }
+
+    public static void For(this int count, Action<int> fn)
+    {
+      for (var i = 0; i < count; i++)
+        fn?.Invoke(i);
+    }
   }
 }

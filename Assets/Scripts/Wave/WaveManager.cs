@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Manager;
+using Spawn;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +13,6 @@ namespace Wave
 {
   public class WaveManager : MonoBehaviour
   {
-    public WaveSetting currentSetting;
-
     public int currentWave;
 
     private TextMeshProUGUI timerText;
@@ -24,7 +24,10 @@ namespace Wave
     public event Action onWaveEnd;
     public event Action onWaveStart;
 
-    private WaveData waveData;
+    public SpawnData.Spawns.Spawn[] spawns { get; private set; }
+    public float[] times { get; private set; }
+
+    private List<Timer> spawnTimers = new List<Timer>();
     
     public bool state { get; private set; }
 
@@ -41,6 +44,7 @@ namespace Wave
         storePanel.gameObject.SetActive(false);
         NextWave();
       });
+      times = GameManager.Manager.spawn.data.waveTime;
     }
 
     private void OnTimerEnd(Timer sender)
@@ -50,27 +54,39 @@ namespace Wave
 
     private void OnTimerTick(Timer sender)
     {
-      timerText.text = $"{Math.Max(0, waveData.waveTime - Mathf.FloorToInt(sender.elapsedTime))}초";
+      timerText.text = $"{Math.Max(0, times[currentWave] - Mathf.FloorToInt(sender.elapsedTime))}초";
     }
 
     public void StartWave()
     {
-      waveData = currentSetting.GetData(currentWave);
-      waveTimer.duration = waveData.waveTime;
-      GameManager.Spawn.spawnCount = waveData.count;
-      GameManager.Spawn.spawnDelay = waveData.delay;
-      GameManager.Spawn.spawnTarget = waveData.enemy;
-      GameManager.Spawn.spawn = true;
-      waveText.text = $"웨이브 {currentWave + 1}";
+      spawnTimers.Clear();
+      spawns = GameManager.Manager.spawn.GetSpawnData(currentWave);
+      waveTimer.duration = times[currentWave];
       onWaveStart?.Invoke();
-
+      for (int i = 0; i < spawns.Length; i++)
+      {
+        var timer = new Timer();
+        timer.duration = times[currentWave] / spawns[i].count + 1;
+        var i1 = i;
+        timer.onEnd += t =>
+        {
+          GameManager.Spawn.SpawnRandomPos($"enemy/{spawns[i1].name}");
+          t.Start();  
+        };
+        timer.Start();
+        spawnTimers.Add(timer);
+      }
+      waveText.text = $"웨이브 {currentWave + 1}";
+      
       state = true;
       waveTimer.Start();
     }
 
     public void EndWave()
     {
-      GameManager.Spawn.spawn = false;
+      foreach (var spawnTimer in spawnTimers)
+        spawnTimer.Stop();
+      spawnTimers.Clear();
       KillEnemies();
       state = false;
       onWaveEnd?.Invoke();
@@ -90,7 +106,7 @@ namespace Wave
 
     private void Start()
     {
-      // StartWave();
+      
     }
 
     private void KillEnemies()

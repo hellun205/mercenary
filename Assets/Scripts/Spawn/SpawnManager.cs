@@ -21,7 +21,6 @@ namespace Spawn
     public void SpawnRandomPos<T>(string targetPrefab, Action<T> setter = null) where T : Component
       => Spawn(GameManager.Map.GetRandom(), targetPrefab, setter);
 
-
     public void Spawn(Vector2 position, string targetPrefab, Action<PoolObject> setter = null)
       => Spawn<PoolObject>(position, targetPrefab, setter);
 

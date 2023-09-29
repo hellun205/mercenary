@@ -1,7 +1,9 @@
 namespace Data
 {
-  public interface IData<out T>
+  public interface IData<TSource, TSimplyData>
   {
-    public T ToSimply();
+    public TSimplyData ToSimply();
+
+    public TSource Parse(TSimplyData simplyData);
   }
 }

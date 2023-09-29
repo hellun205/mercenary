@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Weapon
 {
   [Serializable]
-  public class AttributeChemistryData : IData<Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>>>
+  public class AttributeChemistryData :
+    IData<AttributeChemistryData, Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>>>
   {
     [Serializable]
     public class AttributeItem
@@ -47,5 +48,24 @@ namespace Weapon
           )
         )
       );
+
+    public AttributeChemistryData Parse
+    (
+      Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>> simplyData
+    )
+    {
+      data = simplyData.Select(x => new AttributeItem()
+      {
+        type = x.Key,
+        status = x.Value.Select(y => new AttributeItem.StatusItem()
+        {
+          count = y.Key,
+          apply = y.Value.Select(z => new AttributeItem.StatusItem.ApplyItem() { type = z.Key, value = z.Value })
+           .ToArray()
+        }).ToArray()
+      }).ToArray();
+
+      return this;
+    }
   }
 }

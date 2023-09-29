@@ -2,6 +2,7 @@ using Interact;
 using Manager;
 using Player;
 using Pool;
+using Spawn;
 using UnityEngine;
 using Util;
 using Weapon;
@@ -13,8 +14,7 @@ namespace Enemy
   {
     public PoolObject poolObject { get; set; }
 
-    [Header("Enemy Controller")]
-    public EnemyStatus status;
+    public SpawnData.Enemy.Status status { get; private set; }
 
     // private bool isEnabled = true;
 
@@ -23,8 +23,9 @@ namespace Enemy
     private TargetableObject to;
     private MovableObject movableObject;
 
+    [Header("Enemy Controller")]
     [SerializeField]
-    private Timer attackCooldownTimer = new ();
+    private Timer attackCooldownTimer = new();
 
     private void Reset()
     {
@@ -53,6 +54,7 @@ namespace Enemy
 
     public void OnSummon()
     {
+      status = GameManager.Manager.spawn.GetEnemyStatus(name, GameManager.Wave.currentWave);
       movableObject.canMove = true;
     }
 
@@ -75,7 +77,7 @@ namespace Enemy
     {
       target = GameManager.Player.transform;
     }
-    
+
     protected override void OnInteract(InteractiveObject target)
     {
       base.OnInteract(target);

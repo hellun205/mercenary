@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0cee0bd9f4cbb8ce0630da1ab1e04, type: 3}
   m_Name: fortune_cookies
   m_EditorClassIdentifier: 
-  m_itemName: "\uC548\uACBD"
+  m_itemName: "\uD3EC\uCE08 \uCFE0\uD0A4"
   m_description: 
   m_icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
   m_price: 0
@@ -31,4 +31,4 @@ MonoBehaviour:
     explosionRange: 0
     armor: 0
     moveSpeed: 0
-    luck: 0
+    luck: 0.02

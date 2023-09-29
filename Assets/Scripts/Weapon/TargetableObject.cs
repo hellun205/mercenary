@@ -36,10 +36,9 @@ namespace Weapon
 
     private MovableObject movableObject;
 
-    [Header("Targetable Object")]
-    public TargetableStatus status;
+    public float maxHp => GameManager.Manager.spawn.GetEnemyStatus(name, GameManager.Wave.currentWave).hp;
 
-    [SerializeField]
+    [Header("Targetable Object"), SerializeField]
     private Timer bleedingTimer = new();
 
     [SerializeField]
@@ -90,7 +89,7 @@ namespace Weapon
     public void OnSummon()
     {
       deadTweener.Kill();
-      hp = status.maxHp;
+      hp = maxHp;
       detectCaster = InteractCaster.Player;
       isDead = false;
       playerAttacked = false;

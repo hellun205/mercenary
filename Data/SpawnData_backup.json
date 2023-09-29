@@ -1,0 +1,178 @@
+{
+  "enemyData": [
+    {
+      "name": "normal",
+      "defaultStatus": {
+        "hp": 5,
+        "damage": 1,
+        "moveSpeed": 2,
+        "dropCoin": 1
+      },
+      "increaseStatus": {
+        "hp": 3,
+        "damage": 0.6,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    },
+    {
+      "name": "speedy",
+      "defaultStatus": {
+        "hp": 2,
+        "damage": 1,
+        "moveSpeed": 4,
+        "dropCoin": 1
+      },
+      "increaseStatus": {
+        "hp": 1.5,
+        "damage": 0.6,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    },
+    {
+      "name": "handgun",
+      "defaultStatus": {
+        "hp": 5,
+        "damage": 1,
+        "moveSpeed": 1.5,
+        "dropCoin": 2
+      },
+      "increaseStatus": {
+        "hp": 1.5,
+        "damage": 0.6,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    },
+    {
+      "name": "giant",
+      "defaultStatus": {
+        "hp": 25,
+        "damage": 2,
+        "moveSpeed": 1.5,
+        "dropCoin": 5
+      },
+      "increaseStatus": {
+        "hp": 12,
+        "damage": 0.8,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    },
+    {
+      "name": "sniper",
+      "defaultStatus": {
+        "hp": 10,
+        "damage": 2,
+        "moveSpeed": 1,
+        "dropCoin": 5
+      },
+      "increaseStatus": {
+        "hp": 8,
+        "damage": 0.8,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    },
+    {
+      "name": "acceleration",
+      "defaultStatus": {
+        "hp": 15,
+        "damage": 1,
+        "moveSpeed": 2,
+        "dropCoin": 8
+      },
+      "increaseStatus": {
+        "hp": 15,
+        "damage": 1,
+        "moveSpeed": 0,
+        "dropCoin": 0
+      }
+    }
+  ],
+
+  "spawns": [
+    [{ "name": "normal", "count": 50 }],
+    [{ "name": "speedy", "count": 60 }],
+    [
+      { "name": "normal", "count": 50 },
+      { "name": "speedy", "count": 30 }
+    ],
+    [
+      { "name": "normal", "count": 30 },
+      { "name": "speedy", "count": 20 },
+      { "name": "handgun", "count": 15 }
+    ],
+    [
+      { "name": "normal", "count": 50 },
+      { "name": "speedy", "count": 20 },
+      { "name": "handgun", "count": 20 }
+    ],
+    [
+      { "name": "normal", "count": 50 },
+      { "name": "speedy", "count": 20 },
+      { "name": "handgun", "count": 20 },
+      { "name": "giant", "count": 5 }
+    ],
+    [
+      { "name": "normal", "count": 50 },
+      { "name": "handgun", "count": 30 },
+      { "name": "giant", "count": 10 }
+    ],
+    [
+      { "name": "normal", "count": 60 },
+      { "name": "handgun", "count": 20 },
+      { "name": "giant", "count": 20 }
+    ],
+    [
+      { "name": "normal", "count": 60 },
+      { "name": "speedy", "count": 30 },
+      { "name": "handgun", "count": 20 },
+      { "name": "giant", "count": 10 },
+      { "name": "sniper", "count": 10 }
+    ],
+    [
+      { "name": "normal", "count": 60 },
+      { "name": "speedy", "count": 60 },
+      { "name": "giant", "count": 10 },
+      { "name": "sniper", "count": 20 }
+    ],
+    [
+      { "name": "normal", "count": 70 },
+      { "name": "giant", "count": 30 },
+      { "name": "sniper", "count": 15 }
+    ],
+    [
+      { "name": "normal", "count": 100 },
+      { "name": "speedy", "count": 40 },
+      { "name": "handgun", "count": 40 },
+      { "name": "giant", "count": 20 }
+    ],
+    [
+      { "name": "normal", "count": 80 },
+      { "name": "speedy", "count": 30 },
+      { "name": "giant", "count": 25 },
+      { "name": "sniper", "count": 20 }
+    ],
+    [
+      { "name": "normal", "count": 80 },
+      { "name": "speedy", "count": 70 },
+      { "name": "sniper", "count": 40 }
+    ],
+    [
+      { "name": "normal", "count": 70 },
+      { "name": "handgun", "count": 25 },
+      { "name": "giant", "count": 20 },
+      { "name": "sniper", "count": 15 },
+      { "name": "acceleration", "count": 10 }
+    ],
+    [
+      { "name": "normal", "count": 70 },
+      { "name": "handgun", "count": 25 },
+      { "name": "giant", "count": 20 },
+      { "name": "sniper", "count": 15 },
+      { "name": "acceleration", "count": 10 }
+    ]
+  ]
+}

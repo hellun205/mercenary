@@ -1,0 +1,205 @@
+{
+  "data": [
+    {
+      "type": 1,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 0, "value": 3.0 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 0, "value": 5.0 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 0, "value": 9.0 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 0, "value": 15.0 }]
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 1, "value": 0.05 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 1, "value": 0.12 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 1, "value": 0.2 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 1, "value": 0.3 }]
+        }
+      ]
+    },
+    {
+      "type": 4,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 2, "value": 4 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 2, "value": 8 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 2, "value": 14 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 2, "value": 22 }]
+        }
+      ]
+    },
+    {
+      "type": 8,
+      "status": [
+        {
+          "count": 2,
+          "apply": [
+            { "type": 2, "value": 2 },
+            { "type": 3, "value": 1 }
+          ]
+        },
+        {
+          "count": 4,
+          "apply": [
+            { "type": 2, "value": 4 },
+            { "type": 3, "value": 2 }
+          ]
+        },
+        {
+          "count": 7,
+          "apply": [
+            { "type": 2, "value": 8 },
+            { "type": 3, "value": 4 }
+          ]
+        },
+        {
+          "count": 10,
+          "apply": [
+            { "type": 2, "value": 14 },
+            { "type": 3, "value": 7 }
+          ]
+        }
+      ]
+    },
+    {
+      "type": 16,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 4, "value": 5 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 4, "value": 10 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 4, "value": 15 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 4, "value": 25 }]
+        }
+      ]
+    },
+    {
+      "type": 32,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 5, "value": 0.04 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 5, "value": 0.08 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 5, "value": 0.12 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 5, "value": 0.2 }]
+        }
+      ]
+    },
+    {
+      "type": 64,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 6, "value": 10 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 6, "value": 20 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 6, "value": 30 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 6, "value": 50 }]
+        }
+      ]
+    },
+    {
+      "type": 128,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 7, "value": 0.05 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 7, "value": 0.12 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 7, "value": 0.2 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 7, "value": 0.3 }]
+        }
+      ]
+    },
+    {
+      "type": 256,
+      "status": [
+        {
+          "count": 2,
+          "apply": [{ "type": 8, "value": 8 }]
+        },
+        {
+          "count": 4,
+          "apply": [{ "type": 8, "value": 15 }]
+        },
+        {
+          "count": 7,
+          "apply": [{ "type": 8, "value": 25 }]
+        },
+        {
+          "count": 10,
+          "apply": [{ "type": 8, "value": 40 }]
+        }
+      ]
+    }
+  ]
+}
