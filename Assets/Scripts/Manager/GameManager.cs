@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Item;
 using Map;
 using Player;
@@ -11,6 +12,7 @@ using UnityEngine;
 using Util;
 using Wave;
 using Weapon;
+using Attribute = Weapon.Attribute;
 using Transition = Transition.Transition;
 
 namespace Manager
@@ -33,18 +35,20 @@ namespace Manager
     public static CameraManager Camera { get; private set; }
     public static global::Transition.Transition Transition { get; private set; }
 
+    public AttributeChemistry attributeChemistry { get; private set; }
+    
     public State<int> coin;
 
     public static event Action onLoaded;
-    
+
     [SerializeField]
     private Sprite m_emptySprite;
 
     public static Sprite emptySprite => Manager.m_emptySprite;
-
-    public AttributeChemistry attributeChemistry;
     
-    public AttributeChemistry
+    // public AttributeChemistry attributeChemistry;
+
+    public TextAsset attributeChemistryData;
     
     private void Init()
     {
@@ -70,6 +74,7 @@ namespace Manager
       Init();
       
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
+      attributeChemistry = new AttributeChemistry(attributeChemistryData.text);
     }
 
     private void Start()

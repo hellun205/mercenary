@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AYellowpaper.SerializedCollections;
 using Manager;
 using Player;
 using UnityEngine;
@@ -11,23 +10,19 @@ using Util.Text;
 
 namespace Weapon
 {
-  [CreateAssetMenu(fileName = "Attribute Chemistry", menuName = "Weapon/Attribute Chemistry", order = 0)]
-  public class AttributeChemistry : ScriptableObject
+  public class AttributeChemistry
   {
-    public AttributeChemistryData _data;
-    
-    public SerializedDictionary<Attribute, SerializedDictionary<string, SerializedDictionary<ApplyStatus, float>>> data;
+    public Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>> data;
 
-    [ContextMenu("TO Josn")]
-    public void ToJson()
+    public AttributeChemistry(string jsonData)
     {
-      Debug.Log(JsonUtility.ToJson(data, true));
+      data = JsonUtility.FromJson<AttributeChemistryData>(jsonData).ToSimply();
     }
     
-    public IncreaseStatus GetIncrease(Attribute attribute, int count)
+     public IncreaseStatus GetIncrease(Attribute attribute, int count)
     {
       var d = data[attribute];
-      var c = d.Keys.LastOrDefault(x => int.Parse(x) <= count);
+      var c = d.Keys.LastOrDefault(x => x <= count);
 
       if (c == default)
         return new IncreaseStatus();
@@ -90,7 +85,7 @@ namespace Weapon
       var d = data[attribute];
       GameManager.Player.GetChemistryStatus(out var counts);
 
-      var i = counts.ContainsKey(attribute) ? d.Keys.LastOrDefault(x => int.Parse(x) <= counts[attribute]) : "0";
+      var i = counts.ContainsKey(attribute) ? d.Keys.LastOrDefault(x => x <= counts[attribute]) : 0;
 
       sb.Append
         (
