@@ -41,7 +41,9 @@ namespace Store.Item
     [SerializeField]
     private TextMeshProUGUI purchaseButtonText;
 
-    private IPossessible itemData;
+    public IPossessible itemData;
+
+    public bool hasItem;
 
     private void Awake()
     {
@@ -63,6 +65,7 @@ namespace Store.Item
       GameManager.Manager.coin.value -= itemData.price;
       GameManager.Player.inventory.GainItem(itemData);
       SetLock(false);
+      hasItem = false;
     }
 
     public void SetLock(bool value)
@@ -79,6 +82,7 @@ namespace Store.Item
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
       attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : ""; 
+      hasItem = true;
       
       RefreshButtonEnabled();
       SetEnabled(true);

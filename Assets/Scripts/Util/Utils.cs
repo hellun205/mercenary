@@ -144,7 +144,18 @@ namespace Util
     {
       return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
     }
-    
-    
+
+    public static void ForEach<T>(this IEnumerable<T> source, Action<T> fn)
+    {
+      foreach (var item in source)
+        fn?.Invoke(item);
+    }
+
+    public static void For<T>(this IEnumerable<T> source, Action<int> fn)
+    {
+      var enumerable = source as T[] ?? source.ToArray();
+      for (int i = 0; i < enumerable.Length; i++)
+        fn?.Invoke(i);
+    }
   }
 }
