@@ -11,7 +11,7 @@ namespace Player
   {
     public int weaponMaxCount;
 
-    public List<Weapon.WeaponData> weapons;
+    public List<(string name, int tier)?> weapons = new();
 
     public List<Transform> weaponSlots;
 
@@ -45,14 +45,13 @@ namespace Player
     {
       if (weapons[slot] != null)
         RemoveWeapon(slot);
-      var data = GameManager.WeaponData[weaponName];
 
-      weapons[slot] = data.weapons[tier];
-      var obj = Instantiate(GameManager.Weapons.Get(data.name), weaponSlots[slot].transform.position,
+      weapons[slot] = (weaponName, tier);
+      var obj = Instantiate(GameManager.Weapons.Get(weaponName), weaponSlots[slot].transform.position,
         Quaternion.identity,
         weaponSlots[slot]);
       obj.name = weaponName;
-      (obj.GetComponent(typeof(ITier)) as ITier).tier = tier;
+      ((ITier) obj.GetComponent(typeof(ITier))).tier = tier;
       onChanged?.Invoke();
     }
 
@@ -67,16 +66,14 @@ namespace Player
     {
       if (weapons[to] != null)
       {
-        var o = weapons[original].information;
-        SetWeapon(to, o.name, o.tier);
+        SetWeapon(to, weapons[original]!.Value.name, weapons[original].Value.tier);
         RemoveWeapon(original);
       }
       else
       {
-        var t = weapons[to].information;
-        var o = weapons[original].information;
+        var t = (weapons[to]!.Value.name, weapons[to].Value.tier);
         RemoveWeapon(to);
-        SetWeapon(to, o.name, o.tier);
+        SetWeapon(to, weapons[original]!.Value.name, weapons[original].Value.tier);
         RemoveWeapon(original);
         SetWeapon(original, t.name, t.tier);
       }

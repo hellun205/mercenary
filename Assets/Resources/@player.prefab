@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponMaxCount: 3
-  weapons: []
   weaponSlots: []
   weaponParent: {fileID: 0}
 --- !u!1 &1250932297456877536
@@ -383,8 +382,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05104983, y: 0.18803048}
-  m_Size: {x: 1.4136493, y: 2.0466666}
+  m_Offset: {x: 0.0666163, y: 0.10204363}
+  m_Size: {x: 0.6895509, y: 1.150594}
   m_Direction: 0
 --- !u!1 &4291603712116591120
 GameObject:
@@ -644,7 +643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponMaxCount: 3
-  weapons: []
   weaponSlots: []
   weaponParent: {fileID: 0}
 --- !u!1 &6848955669167779077
@@ -896,8 +894,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05104983, y: 0.18803048}
-  m_Size: {x: 1.4136493, y: 2.0466666}
+  m_Offset: {x: 0.025885582, y: -0.08322215}
+  m_Size: {x: 0.84342194, y: 0.8705752}
   m_Direction: 0
 --- !u!95 &3733037444849688993
 Animator:
@@ -955,6 +953,7 @@ MonoBehaviour:
   - {fileID: 993454152066851997}
   - {fileID: 6235879728510256653}
   sr: {fileID: 7017366670704864859}
+  coinExplorer: {fileID: 8270564702977236776}
 --- !u!114 &4510700715106182781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,10 +980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14355c47597c4eef8061ef1cba44687b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-    _serializedList: []
-  uiItems:
-    _serializedList: []
 --- !u!114 &4298291211561169618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,7 +993,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponMaxCount: 4
-  weapons: []
   weaponSlots: []
   weaponParent: {fileID: 0}
 --- !u!114 &1128228602100766944

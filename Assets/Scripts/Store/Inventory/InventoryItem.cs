@@ -1,4 +1,5 @@
 using System.Text;
+using Data;
 using Item;
 using Manager;
 using Store.Equipment;
@@ -14,7 +15,7 @@ namespace Store.Inventory
 {
   public class InventoryItem : UsePopup<ListPopup>
   {
-    public IPossessible itemData;
+    public (string name, int tier)? itemData;
 
     [SerializeField]
     private TextMeshProUGUI count;
@@ -40,8 +41,9 @@ namespace Store.Inventory
       useDrag.getter = () => new ItemRequest()
       {
         beginDragType = DragType.Inventory,
-        item = itemData,
-        draggingImage = itemData.icon,
+        item = itemData!.Value.name,
+        tier = itemData!.Value.tier,
+        draggingImage = GameManager.GetItem(itemData!.Value.name).icon,
         weaponInventoryUI = FindObjectOfType<WeaponInventoryUI>()
       };
 
@@ -53,10 +55,10 @@ namespace Store.Inventory
       parentUI.OnDrop(data);
     }
 
-    public void SetItem(IPossessible item, ushort count)
+    public void SetItem((string name, int tier)? item, ushort count)
     {
       itemData = item;
-      icon.sprite = itemData.icon;
+      icon.sprite = GameManager.GetIPossessible(itemData!.Value.name).icon;
       SetCount(count);
     }
 
@@ -67,23 +69,25 @@ namespace Store.Inventory
 
     public override void OnEntered()
     {
-      popupPanel.ShowPopup
-      (
-        itemData.itemName,
-        itemData is WeaponData weapon ? weapon.attribute.GetTexts() : "",
-        itemData.description
-      );
+      popupPanel.HidePopup();
+      // popupPanel.ShowPopup
+      // (
+      //   itemData.itemName,
+      //   itemData is WeaponData weapon ? weapon.attribute.GetTexts() : "",
+      //   itemData.description
+      // );
 
       var sb = new StringBuilder();
-
+      var item = GameManager.GetIPossessible(itemData!.Value.name);
+      
       sb.Append
         (
-          itemData.itemName
+          item.itemName
            .SetSizePercent(1.5f)
            .SetAlign(TextAlign.Center)
         )
        .Append("\n");
-      if (itemData is WeaponData weaponData)
+      if (item is Weapon.WeaponData weaponData)
       {
         sb.Append
           (
@@ -98,13 +102,13 @@ namespace Store.Inventory
 
       sb.Append
       (
-        itemData.description
+        item.GetDescription(itemData.Value.tier)
          .SetAlign(TextAlign.Left)
       );
 
-      if (itemData is WeaponData weaponData2)
+      if (item is Weapon.WeaponData weaponData2)
         popupPanel.ShowPopup(sb.ToString(),
-          GameManager.Manager.attributeChemistry.GetDescriptions(weaponData2.attribute));
+          GameManager.Data.data.GetAttributeChemistryDescriptions(weaponData2.attribute));
       else
         popupPanel.ShowPopup(text: sb.ToString());
     }

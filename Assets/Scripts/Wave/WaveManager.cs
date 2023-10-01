@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Data;
 using Manager;
-using Spawn;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +43,7 @@ namespace Wave
         storePanel.gameObject.SetActive(false);
         NextWave();
       });
-      times = GameManager.Manager.spawn.data.waveTime;
+      times = GameManager.Data.data.spawns.waves;
     }
 
     private void OnTimerEnd(Timer sender)
@@ -60,7 +59,7 @@ namespace Wave
     public void StartWave()
     {
       spawnTimers.Clear();
-      spawns = GameManager.Manager.spawn.GetSpawnData(currentWave);
+      spawns = GameManager.Data.data.GetSpawnData(currentWave);
       waveTimer.duration = times[currentWave];
       onWaveStart?.Invoke();
       for (int i = 0; i < spawns.Length; i++)

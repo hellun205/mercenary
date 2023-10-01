@@ -8,7 +8,9 @@ namespace Store
   {
     public DragType beginDragType { get; set; }
     public WeaponInventoryUI weaponInventoryUI { get; set; } 
-    public IPossessible item { get; set; }
+    public string item { get; set; }
+    public int tier { get; set; }
     public (int wrapperId, int slotId) weaponSlotData { get; set; }
+    
   }
 }

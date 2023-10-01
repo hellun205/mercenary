@@ -1,0 +1,190 @@
+{
+  "items": [
+    {
+      "name": "barbell",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 3,
+              "value": 2.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "boxing_gloves",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 10,
+              "value": 1.0
+            },
+            {
+              "type": 14,
+              "value": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bullet",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 4,
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "canine",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 2,
+              "value": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chocolate",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 0,
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fortune_cookies",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 12,
+              "value": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "glasses",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 5,
+              "value": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "iron_ingot",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 9,
+              "value": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leather_gloves",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 7,
+              "value": 0.02
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lens",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 8,
+              "value": 5.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "needle",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 6,
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "paper_cup",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 1,
+              "value": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rainboots",
+      "tiers": [
+        {
+          "tier": 0,
+          "status": [
+            {
+              "type": 11,
+              "value": 0.02
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

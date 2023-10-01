@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using Data;
+using Manager;
 using Player;
 using UnityEngine;
 
@@ -16,24 +19,28 @@ namespace Item
     [SerializeField]
     private Sprite m_icon;
 
-    [SerializeField]
-    private int m_price;
+    [NonSerialized]
+    public IncreaseStatus[] status;
 
-    public IncreaseStatus increaseStatus;
-
+    public string specfiedName => name;
     public string itemName => $"[아이템] {m_itemName}";
-    public string description => GetDescription();
 
     public Sprite icon => m_icon;
 
-    public int price => m_price;
+    public int price { get; private set; }
 
-    private string GetDescription()
+    public string GetDescription(int tier)
     {
       var sb = new StringBuilder();
-      sb.Append(increaseStatus.GetDescription());
+      sb.Append(status[tier].GetDescription());
       sb.Append($"{m_description}");
       return sb.ToString();
+    }
+
+    public void Refresh()
+    {
+      price = GameManager.Data.data.GetItemPrice(specfiedName);
+      status = GameManager.Data.data.GetItemStatus(specfiedName);
     }
   }
 }

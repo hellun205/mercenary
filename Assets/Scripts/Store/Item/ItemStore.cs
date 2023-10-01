@@ -27,7 +27,7 @@ namespace Store.Item
 
       cacheItems = new List<IPossessible>();
       cacheItems.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
-      cacheItems.AddRange(GameManager.WeaponData.items.Values.Select(x => x.weapons[0]));
+      cacheItems.AddRange(GameManager.WeaponData.items.Values);
       
       items = container.GetComponentsInChildren<Item>();
       refreshPrice = new State<int>(2, value => refreshBtnText.text = $"<sprite=0> ${value}");
@@ -37,7 +37,7 @@ namespace Store.Item
 
     private void OnRefreshButtonClick()
     {
-      if(GameManager.Manager.isTestMode) GameManager.Manager.coin.value = 999999;
+      // if(GameManager.Manager.isTestMode) GameManager.Manager.coin.value = 999999;
       if (refreshPrice.value > GameManager.Manager.coin.value) return;
 
       GameManager.Manager.coin.value -= refreshPrice.value;
@@ -59,7 +59,7 @@ namespace Store.Item
           item = cacheItems.GetRandom();
         } while (items.Any(x => x.itemData == item));
 
-        items[i].SetItem(item);
+        items[i].SetItem(item.specfiedName, 0);
       }
     }
 

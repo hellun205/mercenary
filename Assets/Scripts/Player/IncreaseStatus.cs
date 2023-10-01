@@ -32,6 +32,8 @@ namespace Player
     public float moveSpeed;
     public float luck;
 
+    public float evasionRate;
+
     public static IncreaseStatus operator *(IncreaseStatus a, int b)
       => new()
       {
@@ -91,6 +93,8 @@ namespace Player
         sb.Append(PlayerStatus.GetTextViaValue("출혈 피해량: ", bleedingDamage, plus: "")).Append("\n");
       if (attackSpeed != 0)
         sb.Append(PlayerStatus.GetTextViaValue("공격 속도: ", attackSpeed, plus: "")).Append("\n");
+      if (attackSpeedPercent != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("공격 속도: ", attackSpeed, plus: "")).Append("%\n");
       if (range != 0)
         sb.Append(PlayerStatus.GetTextViaValue("범위: ", range, plus: "")).Append("\n");
       if (knockback != 0)
@@ -101,7 +105,9 @@ namespace Player
         sb.Append(PlayerStatus.GetTextViaValue("이동 속도: ", moveSpeed, plus: "")).Append("\n");
       if (luck != 0)
         sb.Append(PlayerStatus.GetTextViaValue("행운: ", luck, plus: "")).Append("\n");
-
+      if (explosionRange != 0)
+        sb.Append(PlayerStatus.GetTextViaValue("폭발 범위: ", explosionRange, plus: "")).Append("\n");
+      
       return sb.ToString();
     }
   }

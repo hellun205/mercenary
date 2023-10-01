@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -36,7 +37,8 @@ namespace Weapon
 
     private MovableObject movableObject;
 
-    public float maxHp => GameManager.Manager.spawn.GetEnemyStatus(name, GameManager.Wave.currentWave).hp;
+    public float maxHp =>
+      GameManager.Data.data.GetEnemyStatus(poolObject.originalName, GameManager.Wave.currentWave).maxHp;
 
     [Header("Targetable Object"), SerializeField]
     private Timer bleedingTimer = new();
@@ -132,7 +134,6 @@ namespace Weapon
       Damage(ao.isCritical ? ao.damage * ao.multipleDamage : ao.damage, ao.knockBack, ao.transform);
       if (ao.isCritical)
       {
-        
         for (var i = 0; i < AttackableObject.bleedingCount; i++)
           bleedingQueue.Enqueue(ao.bleeding / AttackableObject.bleedingCount);
       }
@@ -148,7 +149,7 @@ namespace Weapon
       if (knockBack > 0 && attacker != null)
       {
         knockBackStartPosition = transform.position;
-        knockBackEndPosition = 
+        knockBackEndPosition =
           transform.position + (transform.position - attacker.position).normalized * (knockBack / 10);
         knockBackTimer.Start();
       }

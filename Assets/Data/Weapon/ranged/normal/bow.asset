@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cd0dca55214e8abc4b962ce4523d59, type: 3}
+  m_Name: bow
+  m_EditorClassIdentifier: 
+  _name: "\uD65C"
+  m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
+  descriptions: 
+  needFlipY: 0
+  needFlipX: 0
+  rotate: 1
+  bullet: bullet
+  fireOnContact: 0
+  isFixedTargetPosition: 0
+  effectObj: effect_explosion
+  explosionDelay: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Weapon.Melee
 {
-  public class MeleeWeapon : WeaponController<MeleeWeaponData>
+  public class MeleeWeapon : WeaponController
   {
     [SerializeField]
     protected Transform movingObj;

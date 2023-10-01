@@ -85,7 +85,8 @@ namespace Pool
       obj = Object.Instantiate(o, o is UIPoolObject ? uiParent : parent);
       obj.position = tmpPos;
       obj.type = name;
-
+      obj.originalName = o.name;
+      
       return obj;
     }
     

@@ -276,7 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 8413568816534658453}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &5277922510004216838
 MonoBehaviour:
@@ -1366,7 +1365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 6908123999156949568}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &5328079673000026500
 MonoBehaviour:
@@ -6032,7 +6030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 2846633266830383061}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &2613760879245321824
 MonoBehaviour:
@@ -6434,7 +6431,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 5342906920548027353}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &9145942972340067118
 MonoBehaviour:
@@ -6584,8 +6580,14 @@ MonoBehaviour:
   isPath: 1
   items:
     _serializedList:
+    - Key: enemy/handgun/bullet
+      Value: {fileID: 2187926657819148137, guid: 4de38d6251821114c93e08573f2324a7, type: 3}
+    - Key: enemy/handgun
+      Value: {fileID: 940086527808425985, guid: 89399f08cc626b747914b96948777cef, type: 3}
     - Key: enemy/normal
       Value: {fileID: 940086527808425985, guid: 4d0644b602939e3478498abcd2332daa, type: 3}
+    - Key: enemy/speedy
+      Value: {fileID: 940086527808425985, guid: dcd144fec35772d4995e19dc92e0d84f, type: 3}
     - Key: enemy/test
       Value: {fileID: 940086527808425985, guid: 5e3545603a6ea0348a9abc6f94cb8d18, type: 3}
     - Key: object/coin
@@ -7593,9 +7595,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_emptySprite: {fileID: 21300000, guid: a30b7e5b236ef6c4492236fef986ea9e, type: 3}
-  attributeChemistryData: {fileID: 4900000, guid: 43f50c71b59945eab2f813174f2d5431, type: 3}
-  spawnData: {fileID: 4900000, guid: 6c44cf3ad7d70d8408e5ff26844d1e18, type: 3}
   isTestMode: 1
+  dataJsons:
+    items: {fileID: 0}
+    partner: {fileID: 0}
+    player: {fileID: 0}
+    weapons: {fileID: 0}
+    spawns: {fileID: 0}
+    attributeChemistry: {fileID: 0}
 --- !u!114 &3282096191795630451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8763,7 +8770,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 1048980421045972366}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &119929202184207046
 MonoBehaviour:
@@ -9805,7 +9811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 9205337456367983822}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &2373076992131394015
 MonoBehaviour:
@@ -9923,7 +9928,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 5969144339846659996}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &6388036533949217329
 MonoBehaviour:
@@ -10175,7 +10179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 204621303530718227}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &8934620450500720823
 MonoBehaviour:
@@ -11497,51 +11500,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff18537d07445bfa34f6cddcd3de968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: Data/Weapon/Bundles
+  root: Data/Weapon
   exts: asset
-  isPath: 1
+  isPath: 0
   items:
     _serializedList:
-    - Key: ballista
-      Value: {fileID: 11400000, guid: ec18f4698b038b440a131de0e8e7112d, type: 2}
     - Key: bamboo_spear
-      Value: {fileID: 11400000, guid: 8eb772b08a77fd94b895f98c3c5e523c, type: 2}
-    - Key: baseball_bat
-      Value: {fileID: 11400000, guid: 5f3ce638843ca6145b208ade63c96d62, type: 2}
-    - Key: bow
-      Value: {fileID: 11400000, guid: 35b9ec308b70f7548be21dcb4863a6b8, type: 2}
-    - Key: frying_pan
-      Value: {fileID: 11400000, guid: 13717dcdd5fa7084d91347322f250845, type: 2}
-    - Key: granade_launcher
-      Value: {fileID: 11400000, guid: 0672cff949d230444b61e4b92d45557e, type: 2}
-    - Key: hand_gun
-      Value: {fileID: 11400000, guid: ab1bf73d1a4251e40929365c0cba59be, type: 2}
-    - Key: katana
-      Value: {fileID: 11400000, guid: e999f23935cccdb48aa73fc59951101c, type: 2}
+      Value: {fileID: 11400000, guid: 92d27364b75d08d4d969f745a59f1d55, type: 2}
     - Key: knife
-      Value: {fileID: 11400000, guid: 21fa7e5ec3f2ab44282c43f4aa75baee, type: 2}
+      Value: {fileID: 11400000, guid: a88da5c26a9f8c14698363ded7d1d3c8, type: 2}
     - Key: lance
-      Value: {fileID: 11400000, guid: e87b89ffe72bca94fbb92891aa13cc48, type: 2}
-    - Key: lazer_gun
-      Value: {fileID: 11400000, guid: 244d093e232b4614282f28600a494695, type: 2}
-    - Key: lazer_sword
-      Value: {fileID: 11400000, guid: bdf9dd57f627a7f4fb7f6f471d429a6b, type: 2}
-    - Key: long_sword
-      Value: {fileID: 11400000, guid: 393c25e2c96318945b621cb9964fc01d, type: 2}
-    - Key: mini_gun
-      Value: {fileID: 11400000, guid: 3667256399b56484dadb6dfe3f20e27d, type: 2}
+      Value: {fileID: 11400000, guid: c844944592bfc064584a5c2c1815c9e2, type: 2}
     - Key: rapier
-      Value: {fileID: 11400000, guid: abbf3e45201e2c344b39d663b2d76c96, type: 2}
-    - Key: rocket_launcher
-      Value: {fileID: 11400000, guid: 8cdba55f7ec64934da5f8eae092551df, type: 2}
-    - Key: shot_gun
-      Value: {fileID: 11400000, guid: 9a45d9de3c337f44fbda0598e72384e4, type: 2}
-    - Key: sniper_gun
-      Value: {fileID: 11400000, guid: e479e3cdf3cd7d246980db36e4f9415c, type: 2}
+      Value: {fileID: 11400000, guid: e3282fb7d4e0c184ca43a5ec639c3b4d, type: 2}
     - Key: spear
-      Value: {fileID: 11400000, guid: afc5fc35990c7d54d803ee05f7cce8c7, type: 2}
+      Value: {fileID: 11400000, guid: 99cb30cb2da04cc4e8684a0131a76e00, type: 2}
+    - Key: baseball_bat
+      Value: {fileID: 11400000, guid: 9768efdaf8350114b810b27985240795, type: 2}
+    - Key: frying_pan
+      Value: {fileID: 11400000, guid: 5e32c7b9ef0cbe948b0fc320bbf47f21, type: 2}
+    - Key: katana
+      Value: {fileID: 11400000, guid: 0da60488b54074c4ca79c8b447110ba6, type: 2}
+    - Key: lazer_sword
+      Value: {fileID: 11400000, guid: 1a2e050193d654f49b95b5bd07cbe414, type: 2}
+    - Key: long_sword
+      Value: {fileID: 11400000, guid: 6da1b8b4cd5be644cad9cd37ce416c78, type: 2}
+    - Key: granade_launcher
+      Value: {fileID: 11400000, guid: 8b4d6bb89f60eec4692e90c36000422f, type: 2}
+    - Key: rocket_launcher
+      Value: {fileID: 11400000, guid: 7a8c47b278120da4ba2061dea9baa251, type: 2}
+    - Key: ballista
+      Value: {fileID: 11400000, guid: 4e1e01af4309d504dbade11e650e3f02, type: 2}
+    - Key: bow
+      Value: {fileID: 11400000, guid: c1f71405b470fa34a9d9e548c6f02802, type: 2}
+    - Key: hand_gun
+      Value: {fileID: 11400000, guid: 58769ee47ef8f144d9ceb3878093692e, type: 2}
+    - Key: lazer_gun
+      Value: {fileID: 11400000, guid: 34e563b119b1ffb40bbd25f109339301, type: 2}
+    - Key: mini_gun
+      Value: {fileID: 11400000, guid: d2694efe33e97f04aa47dc43ea840cad, type: 2}
+    - Key: shot_gun
+      Value: {fileID: 11400000, guid: ec23bbd439f42e944b3a5f9c67a34574, type: 2}
+    - Key: sniper_gun
+      Value: {fileID: 11400000, guid: cd50a0edf0894a441a11316ce051f11f, type: 2}
     - Key: submachine_gun
-      Value: {fileID: 11400000, guid: 6148d414f3808e64c832c5661be2a344, type: 2}
+      Value: {fileID: 11400000, guid: dbe687c01fe913d4d977a071b3800293, type: 2}
 --- !u!1 &7024174278012727996
 GameObject:
   m_ObjectHideFlags: 0
@@ -11891,7 +11894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 1165766364620674446}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &2084119929949447043
 MonoBehaviour:
@@ -14843,7 +14845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 6714616684499204099}
-  weapon: {fileID: 0}
   slotIndex: 0
 --- !u!114 &5608203587181181522
 MonoBehaviour:

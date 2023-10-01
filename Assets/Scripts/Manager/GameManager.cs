@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Data;
 using Item;
 using Map;
 using Player;
@@ -14,6 +16,7 @@ using Util;
 using Wave;
 using Weapon;
 using Attribute = Weapon.Attribute;
+using ItemData = Item.ItemData;
 using Transition = Transition.Transition;
 
 namespace Manager
@@ -35,9 +38,7 @@ namespace Manager
     public static GameManager Manager { get; private set; }
     public static CameraManager Camera { get; private set; }
     public static global::Transition.Transition Transition { get; private set; }
-
-    public AttributeChemistry attributeChemistry { get; private set; }
-    public Spawn.Spawn spawn { get; private set; }
+    public static DataManager Data { get; private set; }
 
     public State<int> coin;
 
@@ -48,12 +49,9 @@ namespace Manager
 
     public static Sprite emptySprite => Manager.m_emptySprite;
 
-    // public AttributeChemistry attributeChemistry;
-
-    public TextAsset attributeChemistryData;
-    public TextAsset spawnData;
-
     public bool isTestMode;
+
+    public DataManager.Input dataJsons;
 
     private void Init()
     {
@@ -72,49 +70,63 @@ namespace Manager
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
       Transition = new global::Transition.Transition();
+
+      Data = Manager.isTestMode switch
+      {
+        true => new DataManager(new DataManager.Paths
+        {
+          dir = Directory.GetCurrentDirectory() + @"\Data",
+          spawns = "SpawnData",
+          items = "ItemData",
+          partner = "PartnerData",
+          weapons = "WeaponData",
+          player = "PlayerData",
+          attributeChemistry = "AttributeChemistryData",
+        }),
+        false => new DataManager(dataJsons),
+      };
     }
 
     private void Awake()
     {
       Init();
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
-
-      string acJson;
-      string spawnJson;
-
-      if (isTestMode)
-      {
-        using (var sr = new StreamReader(Directory.GetCurrentDirectory() + @"\Data\AttributeChemistryData.json"))
-        {
-          acJson = sr.ReadToEnd();
-          sr.Close();
-        }
-        
-        using (var sr = new StreamReader(Directory.GetCurrentDirectory() + @"\Data\SpawnData.json"))
-        {
-          spawnJson = sr.ReadToEnd();
-          sr.Close();
-        }
-        
-      }
-      else
-      {
-        acJson = attributeChemistryData.text;
-        spawnJson = spawnData.text;
-      }
       
-      attributeChemistry = new AttributeChemistry(acJson);
-      spawn = new Spawn.Spawn(spawnJson);
+      foreach (var item in WeaponData.items.Values)
+        item.Refresh();
       
+      foreach (var item in Items.items.Values.Cast<ItemData>())
+        item.Refresh();
     }
 
     private void Start()
     {
       onLoaded?.Invoke();
-      coin.value = 999999;
+      // coin.value = 999999;
     }
 
     public static IPossessible GetItem(string itemName)
       => Items.Get(itemName) as IPossessible;
+
+    public static IPossessible GetIPossessible(string name)
+    {
+      IPossessible res = null;
+      try
+      {
+        res = Items.Get(name) as IPossessible;
+      }
+      catch
+      {
+      }
+      try
+      {
+        res = WeaponData.Get(name) as IPossessible;
+      }
+      catch
+      {
+      }
+
+      return res ?? throw new Exception($"can't find IPossessble object: {name}");
+    }
   }
 }

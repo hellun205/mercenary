@@ -63,7 +63,7 @@ namespace Store.Item
 
       SetEnabled(false);
       GameManager.Manager.coin.value -= itemData.price;
-      GameManager.Player.inventory.GainItem(itemData);
+      GameManager.Player.inventory.GainItem(itemData.specfiedName, 0);
       SetLock(false);
       hasItem = false;
     }
@@ -74,11 +74,12 @@ namespace Store.Item
       lockButtonImage.sprite = isLocking ? lockImage : unlockImage;
     }
 
-    public void SetItem(IPossessible item)
+    public void SetItem(string name, int tier)
     {
+      var item = GameManager.GetIPossessible(name);
       itemData = item;
       itemName.text = item.itemName;
-      itemDescriptions.text = item.description;
+      itemDescriptions.text = item.GetDescription(tier);
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
       attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : ""; 

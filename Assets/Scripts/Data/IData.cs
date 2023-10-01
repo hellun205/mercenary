@@ -6,4 +6,9 @@ namespace Data
 
     public TSource Parse(TSimplyData simplyData);
   }
+
+  public interface ILoadable
+  {
+    
+  }
 }

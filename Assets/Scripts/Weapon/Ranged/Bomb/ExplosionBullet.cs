@@ -2,8 +2,6 @@ using System;
 using Interact;
 using Manager;
 using UnityEngine;
-using Util;
-using Weapon.Ranged.Throwing;
 
 namespace Weapon.Ranged.Bomb
 {

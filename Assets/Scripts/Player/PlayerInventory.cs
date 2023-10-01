@@ -1,9 +1,8 @@
 using System;
-using AYellowpaper.SerializedCollections;
+using System.Collections.Generic;
 using Item;
 using Manager;
 using Store.Inventory;
-using Store.Status;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -11,14 +10,12 @@ namespace Player
 {
   public class PlayerInventory : MonoBehaviour
   {
-    [SerializedDictionary("Item", "Count")]
-    public SerializedDictionary<IPossessible, ushort> items;
+    public Dictionary<(string name, int tier), ushort> items = new();
 
-    [SerializedDictionary("Item", "UI")]
-    public SerializedDictionary<IPossessible, InventoryItem> uiItems;
+    public Dictionary<(string name, int tier), InventoryItem> uiItems = new();
 
     private IObjectPool<InventoryItem> pool;
-    private (IPossessible item, ushort count) temp;
+    private (string item, int tier, ushort count) temp;
     private Transform inventoryItemsParent;
 
     public event Action onChanged;
@@ -27,7 +24,7 @@ namespace Player
     {
       pool = new ObjectPool<InventoryItem>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
       inventoryItemsParent = GameManager.UI.Find("$inventory_items").transform;
-      onChanged += () =>  GameManager.StatusUI.Refresh();
+      onChanged += () => GameManager.StatusUI.Refresh();
     }
 
     private void ActionOnDestroy(InventoryItem obj)
@@ -40,47 +37,47 @@ namespace Player
 
     private void ActionOnGet(InventoryItem obj)
     {
-      obj.SetItem(temp.item, temp.count);
+      obj.SetItem((temp.item, temp.tier), temp.count);
       obj.gameObject.SetActive(true);
     }
 
     private InventoryItem CreateFunc()
       => Instantiate(GameManager.Prefabs.Get<InventoryItem>("inventory_item"), inventoryItemsParent);
 
-    public void GainItem(IPossessible item, ushort count = 1)
+    public void GainItem(string item, int tier, ushort count = 1)
     {
-      if (items.ContainsKey(item))
+      if (items.ContainsKey((item, tier)))
       {
-        items[item] += count;
-        uiItems[item].SetCount(items[item]);
+        items[(item, tier)] += count;
+        uiItems[(item, tier)].SetCount(items[(item, tier)]);
       }
       else
       {
-        items.Add(item, count);
-        temp = (item, count);
-        uiItems.Add(item, pool.Get());
+        items.Add((item, tier), count);
+        temp = (item, tier, count);
+        uiItems.Add((item, tier), pool.Get());
       }
+
       onChanged?.Invoke();
     }
 
-    public void LoseItem(IPossessible item, ushort count = 1)
+    public void LoseItem(string item, int tier, ushort count = 1)
     {
-      if (!items.ContainsKey(item)) return;
+      if (!items.ContainsKey((item, tier))) return;
 
-      if (items[item] <= count)
+      if (items[(item, tier)] <= count)
       {
-        items.Remove(item);
-        pool.Release(uiItems[item]);
-        uiItems.Remove(item);
+        items.Remove((item, tier));
+        pool.Release(uiItems[(item, tier)]);
+        uiItems.Remove((item, tier));
       }
       else
       {
-        items[item] -= count;
-        uiItems[item].SetCount(items[item]);
+        items[(item, tier)] -= count;
+        uiItems[(item, tier)].SetCount(items[(item, tier)]);
       }
+
       onChanged?.Invoke();
     }
-    
-    
   }
 }

@@ -167,7 +167,6 @@ MonoBehaviour:
   caster: 4
   currentCondition: 4
   ignoreOpponentAttack: 1
-  status: {fileID: 11400000, guid: 774c9b6c3643a034ea9b072788991468, type: 2}
   attackCooldownTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0
@@ -193,11 +192,10 @@ MonoBehaviour:
   condition: 4
   hp: 3
   playerAttacked: 0
-  status: {fileID: 11400000, guid: 774c9b6c3643a034ea9b072788991468, type: 2}
   bleedingTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0
-    m_duration: 1
+    m_duration: 0.7
     m_easePower: 2
     m_value: 0
     m_type: 0
@@ -224,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   type: 
+  originalName: 
 --- !u!114 &2591159464132609659
 MonoBehaviour:
   m_ObjectHideFlags: 0

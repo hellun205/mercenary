@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Pool
 {
@@ -11,6 +12,8 @@ namespace Pool
     public int index;
 
     public string type;
+
+    public string originalName;
 
     public virtual Vector2 position
     {
