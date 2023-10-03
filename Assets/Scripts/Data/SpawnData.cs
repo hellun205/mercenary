@@ -25,6 +25,9 @@ namespace Data
     public struct Spawn
     {
       public int count;
+      public int simultaneousSpawnCount;
+      public float delay;
+      public float range;
     }
 
     public Dictionary<string, Enemy> enemies;
@@ -77,6 +80,9 @@ namespace Data
       {
         public string name;
         public int count;
+        public int simultaneousSpawnCount;
+        public float delay;
+        public float range;
       }
 
       public Spawn[] spawns;
@@ -120,7 +126,10 @@ namespace Data
             y => y.name,
             y => new SpawnDataSimply.Spawn
             {
-              count = y.count
+              count = y.count,
+              delay = y.delay,
+              range = y.range,
+              simultaneousSpawnCount = y.simultaneousSpawnCount
             }
           )
         ).ToArray(),
@@ -168,7 +177,10 @@ namespace Data
             y => new Spawns.Spawn
             {
               name = y.Key,
-              count = y.Value.count
+              count = y.Value.count,
+              delay = y.Value.delay,
+              range = y.Value.range,
+              simultaneousSpawnCount = y.Value.simultaneousSpawnCount
             }
           ).ToArray()
         }

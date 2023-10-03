@@ -65,7 +65,7 @@ namespace Data
 
     public struct Data
     {
-      public Dictionary<string, Dictionary<ItemStatusItem, float>[]> items { get; set; }
+      public Dictionary<string, (int tier, Dictionary<ItemStatusItem, float> apply)> items { get; set; }
 
       public Dictionary<string, Dictionary<Attribute, Dictionary<int, Dictionary<PartnerData.Status, string>>>>
         partner { get; set; }

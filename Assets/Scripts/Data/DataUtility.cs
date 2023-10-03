@@ -15,11 +15,6 @@ namespace Data
 {
   public static class DataUtility
   {
-    public static float GetPlayerStatus(this DataManager.Data data, PlayerStatusItem statusType)
-    {
-      return data.player.TryGetValue(statusType, out var value) ? value : statusType.GetMinValue();
-    }
-
     private static (Attribute attribute, Dictionary<WeaponStatusItem, float>[] tiers) GetWeaponData
     (
       this DataManager.Data data,
@@ -81,7 +76,7 @@ namespace Data
       ).ToArray();
     }
 
-    private static Dictionary<ItemStatusItem, float>[] GetItemData
+    private static (int tier, Dictionary<ItemStatusItem, float> apply) GetItemData
     (
       this DataManager.Data data,
       string itemName
@@ -92,52 +87,50 @@ namespace Data
         : throw new Exception($"Item({itemName}) data does not exist.");
     }
 
-    public static float GetItemStatusData
-    (
-      this DataManager.Data data,
-      string itemName,
-      int tier,
-      ItemStatusItem statusType
-    )
+    public static int GetItemTier(this DataManager.Data data, string itemName)
     {
       var value = data.GetItemData(itemName);
-      if (value.Length <= tier)
-        throw new Exception($"$Weapon({itemName})'s tier({tier}) data does not exist.");
-      return value[tier].TryGetValue(statusType, out var res) ? res : statusType.GetMinValue();
+      return value.tier;
+    }
+
+    public static float GetItemStatusData(this DataManager.Data data, string itemName, ItemStatusItem statusType)
+    {
+      var value = data.GetItemData(itemName);
+      return value.apply.TryGetValue(statusType, out var res) ? res : statusType.GetMinValue();
     }
 
     public static int GetItemPrice(this DataManager.Data data, string itemName)
-      => Convert.ToInt32(data.GetItemStatusData(itemName, 0, ItemStatusItem.Price));
+      => Convert.ToInt32(data.GetItemStatusData(itemName, ItemStatusItem.Price));
 
     public static IncreaseStatus[] GetItemStatus(this DataManager.Data data, string itemName)
     {
       var item = data.GetItemData(itemName);
 
-      float GetValue(int tier, ItemStatusItem statusType)
+      float GetValue(ItemStatusItem statusType)
       {
-        return data.GetItemStatusData(itemName, tier, statusType);
+        return data.GetItemStatusData(itemName, statusType);
       }
 
-      return item.Select
+      return item.apply.Select
       (
-        (_, i) => new IncreaseStatus
+        _ => new IncreaseStatus
         {
           attackSpeed = 0,
-          bleedingDamage = GetValue(i, ItemStatusItem.BleedingDamage),
-          knockback = GetValue(i, ItemStatusItem.KnockBack),
-          armor = GetValue(i, ItemStatusItem.Armor),
+          bleedingDamage = GetValue(ItemStatusItem.BleedingDamage),
+          knockback = GetValue(ItemStatusItem.KnockBack),
+          armor = GetValue(ItemStatusItem.Armor),
           explosionRange = 0,
-          criticalPercent = GetValue(i, ItemStatusItem.CriticalPercent),
-          moveSpeed = GetValue(i, ItemStatusItem.MoveSpeed),
-          range = GetValue(i, ItemStatusItem.Range),
-          luck = GetValue(i, ItemStatusItem.Luck),
-          attackSpeedPercent = GetValue(i, ItemStatusItem.AttackSpeed),
-          meleeDamage = GetValue(i, ItemStatusItem.MeleeDamage),
-          rangedDamage = GetValue(i, ItemStatusItem.RangedDamage),
-          maxHp = GetValue(i, ItemStatusItem.Hp),
-          regeneration = GetValue(i, ItemStatusItem.Regenaration),
-          drainHp = GetValue(i, ItemStatusItem.DrainHp),
-          evasionRate = GetValue(i, ItemStatusItem.EvasionRate)
+          criticalPercent = GetValue(ItemStatusItem.CriticalPercent),
+          moveSpeed = GetValue(ItemStatusItem.MoveSpeed),
+          range = GetValue(ItemStatusItem.Range),
+          luck = GetValue(ItemStatusItem.Luck),
+          attackSpeedPercent = GetValue(ItemStatusItem.AttackSpeed),
+          meleeDamage = GetValue(ItemStatusItem.MeleeDamage),
+          rangedDamage = GetValue(ItemStatusItem.RangedDamage),
+          maxHp = GetValue(ItemStatusItem.Hp),
+          regeneration = GetValue(ItemStatusItem.Regenaration),
+          drainHp = GetValue(ItemStatusItem.DrainHp),
+          evasionRate = GetValue(ItemStatusItem.EvasionRate)
         }
       ).ToArray();
     }
@@ -326,7 +319,10 @@ namespace Data
       return data.spawns.spawns[wave].Select(x => new SpawnData.Spawns.Spawn
         {
           name = x.Key,
-          count = x.Value.count
+          count = x.Value.count,
+          range = x.Value.range,
+          delay = x.Value.delay,
+          simultaneousSpawnCount = x.Value.simultaneousSpawnCount
         })
        .ToArray();
     }
@@ -335,10 +331,10 @@ namespace Data
     {
       return data.player.TryGetValue(statusType, out var value) ? value : statusType.GetMinValue();
     }
-    
+
     public static PlayerStatus GetPlayerStatus(this DataManager.Data data)
     {
-      return new PlayerStatus 
+      return new PlayerStatus
       {
         maxHp = data.GetPlayerStatusData(PlayerStatusItem.MaxHp),
         hp = data.GetPlayerStatusData(PlayerStatusItem.Hp),

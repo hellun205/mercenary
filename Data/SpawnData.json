@@ -137,7 +137,10 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         }
       ]
     },
@@ -145,7 +148,10 @@
       "spawns": [
         {
           "name": "speedy",
-          "count": 60
+          "count": 60,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         }
       ]
     },
@@ -153,11 +159,17 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         }
       ]
     },
@@ -165,15 +177,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 2,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 15
+          "count": 15,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -181,15 +202,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -197,19 +227,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 5
+          "count": 5,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -217,15 +259,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 10
+          "count": 10,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -233,15 +284,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 60
+          "count": 60,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -249,23 +309,38 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 60
+          "count": 60,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 10
+          "count": 10,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 10
+          "count": 10,
+          "simultaneousSpawnCount": 1,
+          "delay": 18.0,
+          "range": 4.0
         }
       ]
     },
@@ -273,19 +348,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 60
+          "count": 60,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 60
+          "count": 60,
+          "simultaneousSpawnCount": 3,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 10
+          "count": 10,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -293,15 +380,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 70
+          "count": 70,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 1,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 15
+          "count": 15,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -309,19 +405,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 100
+          "count": 100,
+          "simultaneousSpawnCount": 5,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 2,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -329,19 +437,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 80
+          "count": 80,
+          "simultaneousSpawnCount": 4,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 25
+          "count": 25,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -349,15 +469,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 80
+          "count": 80,
+          "simultaneousSpawnCount": 4,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 70
+          "count": 70,
+          "simultaneousSpawnCount": 3,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -365,23 +494,38 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 70
+          "count": 70,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 25
+          "count": 25,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 12.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 15
+          "count": 15,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         },
         {
           "name": "acceleration",
-          "count": 10
+          "count": 10,
+          "simultaneousSpawnCount": 1,
+          "delay": 20.0,
+          "range": 4.0
         }
       ]
     },
@@ -389,15 +533,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 70
+          "count": 70,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 1,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "acceleration",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -405,19 +558,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 80
+          "count": 80,
+          "simultaneousSpawnCount": 4,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 2,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -425,19 +590,31 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 70
+          "count": 70,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 15
+          "count": 15,
+          "simultaneousSpawnCount": 1,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "acceleration",
-          "count": 25
+          "count": 25,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         }
       ]
     },
@@ -445,15 +622,24 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 90
+          "count": 90,
+          "simultaneousSpawnCount": 4,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "acceleration",
-          "count": 40
+          "count": 40,
+          "simultaneousSpawnCount": 2,
+          "delay": 10.0,
+          "range": 4.0
         }
       ]
     },
@@ -461,27 +647,45 @@
       "spawns": [
         {
           "name": "normal",
-          "count": 100
+          "count": 100,
+          "simultaneousSpawnCount": 5,
+          "delay": 0.0,
+          "range": 4.0
         },
         {
           "name": "speedy",
-          "count": 50
+          "count": 50,
+          "simultaneousSpawnCount": 2,
+          "delay": 2.0,
+          "range": 4.0
         },
         {
           "name": "handgun",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 2,
+          "delay": 5.0,
+          "range": 4.0
         },
         {
           "name": "giant",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 1,
+          "delay": 10.0,
+          "range": 4.0
         },
         {
           "name": "sniper",
-          "count": 30
+          "count": 30,
+          "simultaneousSpawnCount": 1,
+          "delay": 15.0,
+          "range": 4.0
         },
         {
           "name": "acceleration",
-          "count": 20
+          "count": 20,
+          "simultaneousSpawnCount": 1,
+          "delay": 20.0,
+          "range": 4.0
         }
       ]
     }

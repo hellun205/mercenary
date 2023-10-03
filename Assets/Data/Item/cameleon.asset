@@ -10,25 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72f0cee0bd9f4cbb8ce0630da1ab1e04, type: 3}
-  m_Name: fortune_cookies
+  m_Name: cameleon
   m_EditorClassIdentifier: 
-  m_itemName: "\uD3EC\uCE08 \uCFE0\uD0A4"
+  m_itemName: "\uCE74\uBA5C\uB808\uC628"
   m_description: 
   m_icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
-  m_price: 0
-  increaseStatus:
-    maxHp: 0
-    regeneration: 0
-    drainHp: 0
-    meleeDamage: 0
-    rangedDamage: 0
-    bleedingDamage: 0
-    criticalPercent: 0
-    attackSpeed: 0
-    attackSpeedPercent: 0
-    range: 0
-    knockback: 0
-    explosionRange: 0
-    armor: 0
-    moveSpeed: 0
-    luck: 0.02

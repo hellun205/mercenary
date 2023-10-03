@@ -7105,32 +7105,116 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
+    - Key: anvil
+      Value: {fileID: 11400000, guid: eac08a63a95f8694984c72fbb6dc55ec, type: 2}
+    - Key: apple
+      Value: {fileID: 11400000, guid: 14c517c774383e6458b27da288d77819, type: 2}
     - Key: barbell
       Value: {fileID: 11400000, guid: 704e799d5ae5e6942b5559cbd11ab0e9, type: 2}
+    - Key: bat
+      Value: {fileID: 11400000, guid: 07add6feaa9c6df4da47bfb993c1e4cd, type: 2}
+    - Key: baton
+      Value: {fileID: 11400000, guid: 7c0b881482783994db552a88f8e62456, type: 2}
+    - Key: bean_sprout
+      Value: {fileID: 11400000, guid: 422c045ea53c8fb4f97d3605843b1a18, type: 2}
+    - Key: bill
+      Value: {fileID: 11400000, guid: b07540fde5070714e8cc06492e1951ce, type: 2}
+    - Key: blade
+      Value: {fileID: 11400000, guid: e86662eb5f10b064f8175001b8a11f49, type: 2}
+    - Key: blueberry
+      Value: {fileID: 11400000, guid: 94eecccefd7c76843ba5f0e1bdcca120, type: 2}
+    - Key: boots
+      Value: {fileID: 11400000, guid: b65df28df36d14e479d5e0cee94d3c40, type: 2}
     - Key: boxing_gloves
       Value: {fileID: 11400000, guid: 46424d8f0d09e6a4f96553a83eec2a28, type: 2}
     - Key: bullet
       Value: {fileID: 11400000, guid: c38f254fe525374489db24e5bfba6e99, type: 2}
+    - Key: bulletproof_vest
+      Value: {fileID: 11400000, guid: 6cf5eb29e058b614e8be5ed5db0f7015, type: 2}
+    - Key: cameleon
+      Value: {fileID: 11400000, guid: eb0645a64b2a52941b27ee82abf5b657, type: 2}
     - Key: canine
       Value: {fileID: 11400000, guid: ab86a9c44beae844a87680e4fe7050ae, type: 2}
+    - Key: cctv
+      Value: {fileID: 11400000, guid: c5f141a3b1023374d9c8f3784f31de01, type: 2}
+    - Key: chicken_breast
+      Value: {fileID: 11400000, guid: 5396f233b7394bd42bd48572aee86fa6, type: 2}
     - Key: chocolate
       Value: {fileID: 11400000, guid: 330612b7a42cad94eb7ec7c442eadba7, type: 2}
-    - Key: fortune_cookies
+    - Key: cloak
+      Value: {fileID: 11400000, guid: 4af34134f4bd4d94ba04f62ce45859eb, type: 2}
+    - Key: compensator
+      Value: {fileID: 11400000, guid: 10472b12fc62936499a6be950ce2e5dd, type: 2}
+    - Key: computer
+      Value: {fileID: 11400000, guid: d6d07fe7933e23d41aa459043edcb5a5, type: 2}
+    - Key: dice
+      Value: {fileID: 11400000, guid: 8538b37e8bc96a84f9d0dfefc1313f0e, type: 2}
+    - Key: fortune_cookie
       Value: {fileID: 11400000, guid: a7291cacbd302674da23e191822009fe, type: 2}
-    - Key: glasses
-      Value: {fileID: 11400000, guid: 9f3f1c715d7cceb418b2b625fdd0f133, type: 2}
+    - Key: four_leaf_clover
+      Value: {fileID: 11400000, guid: 89a50aad34706924f86bbda15795ef55, type: 2}
+    - Key: gamepad
+      Value: {fileID: 11400000, guid: bcfbe74ae322c754e8e98c9bd6f0b259, type: 2}
+    - Key: garlic
+      Value: {fileID: 11400000, guid: a912183747c242943b53a41bb45d3519, type: 2}
+    - Key: guitar
+      Value: {fileID: 11400000, guid: 39394b888cbdf494bbc96907692ff53b, type: 2}
+    - Key: heart_of_vampire
+      Value: {fileID: 11400000, guid: 247ad6fa525662044bbacd54065fece1, type: 2}
     - Key: iron_ingot
       Value: {fileID: 11400000, guid: 89c6c208f3e954f469e19f73047558e7, type: 2}
+    - Key: kettlebell
+      Value: {fileID: 11400000, guid: 22e66ce0e9b71e04aade20ae311588b7, type: 2}
     - Key: leather_gloves
       Value: {fileID: 11400000, guid: 3a49de72e093a1a44b4d4612187144a3, type: 2}
     - Key: lens
       Value: {fileID: 11400000, guid: 7f70589d413d6c94098c320bd56c7edd, type: 2}
+    - Key: lychee
+      Value: {fileID: 11400000, guid: 1cc0058bae59e52449f9052d22ec38a8, type: 2}
+    - Key: magazine
+      Value: {fileID: 11400000, guid: 7f21855b37506ea4dac8728a13c6727a, type: 2}
+    - Key: magnet
+      Value: {fileID: 11400000, guid: 8d13236aef7090540bfd286cdaada098, type: 2}
+    - Key: mosquito
+      Value: {fileID: 11400000, guid: b272424b9255c5248889379739c2f8b5, type: 2}
     - Key: needle
       Value: {fileID: 11400000, guid: 7f297e901d3e7c04babdfe64f52287bf, type: 2}
+    - Key: octopus
+      Value: {fileID: 11400000, guid: c0132227ab0f61142b8955ca1350e89e, type: 2}
     - Key: paper_cup
       Value: {fileID: 11400000, guid: eb17e5a67522e914ba37fda324ebc285, type: 2}
-    - Key: rainboots
-      Value: {fileID: 11400000, guid: b65df28df36d14e479d5e0cee94d3c40, type: 2}
+    - Key: pork
+      Value: {fileID: 11400000, guid: 418eef01e73284c4ba9b318c4d35a9aa, type: 2}
+    - Key: potato
+      Value: {fileID: 11400000, guid: 10de0cad90878de49a00dd42fd3eb0b3, type: 2}
+    - Key: ruler
+      Value: {fileID: 11400000, guid: beacede90b34eb647a5e29cf9c259e81, type: 2}
+    - Key: sandbag
+      Value: {fileID: 11400000, guid: 00bc029c04931204ab92d8d238a08a47, type: 2}
+    - Key: scissors
+      Value: {fileID: 11400000, guid: 61bd57f2f16093a4b87d10029e2dcd1a, type: 2}
+    - Key: scope
+      Value: {fileID: 11400000, guid: a0cfe867b9fc7554e8d4365ce97c86b0, type: 2}
+    - Key: sneakers
+      Value: {fileID: 11400000, guid: 05efff70d7b08564f8c182e980115643, type: 2}
+    - Key: sunglasses
+      Value: {fileID: 11400000, guid: b4cf56ccb68cfbc489e69ebc14136a56, type: 2}
+    - Key: t_shirt
+      Value: {fileID: 11400000, guid: 437b15aace2500140be29aec53230811, type: 2}
+    - Key: telescope
+      Value: {fileID: 11400000, guid: 9683bb04ceb3d8a40b23bfa089423785, type: 2}
+    - Key: tire
+      Value: {fileID: 11400000, guid: 94d6c084b785e0b4680d4af617ab658c, type: 2}
+    - Key: tree
+      Value: {fileID: 11400000, guid: ce11de96f467f7742b2f083c9968023f, type: 2}
+    - Key: whetstone
+      Value: {fileID: 11400000, guid: 08801eced6f23f445b9593181a553c90, type: 2}
+    - Key: wing
+      Value: {fileID: 11400000, guid: 5732ec74c64be4349a8e05915107391c, type: 2}
+    - Key: wolf
+      Value: {fileID: 11400000, guid: 5f1742b272311f2489228ce0e249e61e, type: 2}
+    - Key: wrench
+      Value: {fileID: 11400000, guid: d5094b5be09d45a40bd35da10ebb2cbf, type: 2}
 --- !u!1 &3552993907498577243
 GameObject:
   m_ObjectHideFlags: 0

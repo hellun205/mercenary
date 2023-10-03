@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Util;
 using Util.UI;
 using Weapon;
+using Random = UnityEngine.Random;
 
 namespace Wave
 {
@@ -27,6 +28,7 @@ namespace Wave
     public SpawnData.Spawns.Spawn[] spawns { get; private set; }
 
     private List<Timer> spawnTimers = new List<Timer>();
+    private Dictionary<string, int> leftCount = new Dictionary<string, int>();
 
     public bool state { get; private set; }
 
@@ -71,21 +73,36 @@ namespace Wave
     {
       SetUIEnabled(true);
       spawnTimers.Clear();
+      leftCount.Clear();
       spawns = GameManager.Data.data.GetSpawnData(currentWave);
       waveTimer.duration = GameManager.Data.data.GetWaveTime(currentWave);
       onWaveStart?.Invoke();
-      for (int i = 0; i < spawns.Length; i++)
+
+      foreach (var spawn in spawns)
       {
         var timer = new Timer();
-        timer.duration = GameManager.Data.data.GetWaveTime(currentWave) / spawns[i].count + 1;
-        var i1 = i;
+        
+        timer.duration = (GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay) *
+                          spawn.simultaneousSpawnCount / spawn.count;
+        timer.onStart += t =>
+        {
+          var spawnPosition = GameManager.Map.GetRandom();
+          for (var i = 0; i < spawn.simultaneousSpawnCount; i++)
+          {
+            if (leftCount[spawn.name] <= 0) break;
+            var pos = Random.insideUnitCircle * (spawn.range / 10);
+            GameManager.Spawn.Spawn(spawnPosition + pos, $"enemy/{spawn.name}");
+            leftCount[spawn.name]--;
+          }
+        };
         timer.onEnd += t =>
         {
-          GameManager.Spawn.SpawnRandomPos($"enemy/{spawns[i1].name}");
           t.Start();
         };
-        timer.Start();
         spawnTimers.Add(timer);
+        leftCount.Add(spawn.name, spawn.count);
+
+        CoroutineUtility.Wait(spawn.delay, () => timer.Start());
       }
 
       waveText.text = $"웨이브 {currentWave + 1}";

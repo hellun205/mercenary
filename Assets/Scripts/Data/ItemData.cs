@@ -24,51 +24,43 @@ namespace Data
 
   [Serializable]
   public class ItemData
-    : IData<ItemData, Dictionary<string, Dictionary<ItemStatusItem, float>[]>>,
+    : IData<ItemData, Dictionary<string, (int tier, Dictionary<ItemStatusItem, float> apply)>>,
       ILoadable
   {
     [Serializable]
     public class Item
     {
       [Serializable]
-      public class Tier
+      public class Apply
       {
-        [Serializable]
-        public class Apply
-        {
-          public ItemStatusItem type;
-          public float value;
-        }
-
-        public int tier;
-        public Apply[] status;
+        public ItemStatusItem type;
+        public float value;
       }
 
       public string name;
-      public Tier[] tiers;
+      public int tier;
+      public Apply[] applies;
     }
 
     public Item[] items;
 
-    public Dictionary<string, Dictionary<ItemStatusItem, float>[]>
+    public Dictionary<string, (int tier, Dictionary<ItemStatusItem, float> apply)>
       ToSimply()
       => items.ToDictionary
       (
         x => x.name,
         x =>
-          x.tiers.OrderBy(y => y.tier).Select
+          (x.tier, x.applies.ToDictionary
           (
-            y => y.status.ToDictionary
-            (
-              z => z.type,
-              z => z.value
-            )
-          ).ToArray()
+            y => y.type,
+            y => y.value
+          ))
       );
+
 
     public ItemData Parse
     (
-      Dictionary<string, Dictionary<ItemStatusItem, float>[]> simplyData
+      Dictionary<string, (int tier, Dictionary<ItemStatusItem, float> apply)> simplyData
     )
     {
       items = simplyData.Select
@@ -76,19 +68,13 @@ namespace Data
         x => new Item()
         {
           name = x.Key,
-          tiers = x.Value.Select
+          tier = x.Value.tier,
+          applies = x.Value.apply.Select
           (
-            (y, i) => new Item.Tier()
+            y => new Item.Apply()
             {
-              tier = i,
-              status = y.Select
-              (
-                z => new Item.Tier.Apply()
-                {
-                  type = z.Key,
-                  value = z.Value
-                }
-              ).ToArray()
+              type = y.Key,
+              value = y.Value
             }
           ).ToArray()
         }
