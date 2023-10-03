@@ -3,6 +3,7 @@ using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.UI;
 using Weapon;
 
 namespace Store.Item
@@ -41,7 +42,9 @@ namespace Store.Item
     [SerializeField]
     private TextMeshProUGUI purchaseButtonText;
 
-    private IPossessible itemData;
+    public IPossessible itemData;
+
+    public bool hasItem;
 
     private void Awake()
     {
@@ -61,8 +64,9 @@ namespace Store.Item
 
       SetEnabled(false);
       GameManager.Manager.coin.value -= itemData.price;
-      GameManager.Player.inventory.GainItem(itemData);
+      GameManager.Player.inventory.GainItem(itemData.specfiedName, 0);
       SetLock(false);
+      hasItem = false;
     }
 
     public void SetLock(bool value)
@@ -71,14 +75,16 @@ namespace Store.Item
       lockButtonImage.sprite = isLocking ? lockImage : unlockImage;
     }
 
-    public void SetItem(IPossessible item)
+    public void SetItem(string name, int tier)
     {
+      var item = GameManager.GetIPossessible(name);
       itemData = item;
       itemName.text = item.itemName;
-      itemDescriptions.text = item.description;
+      itemDescriptions.text = item.GetDescription(tier);
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
       attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : ""; 
+      hasItem = true;
       
       RefreshButtonEnabled();
       SetEnabled(true);
@@ -87,7 +93,7 @@ namespace Store.Item
     public void SetEnabled(bool value)
     {
       purchaseButton.interactable = value;
-      gameObject.SetActive(value);
+      gameObject.SetVisible(value);
     }
 
     private void RefreshButtonEnabled()

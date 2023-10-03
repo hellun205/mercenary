@@ -28,7 +28,7 @@ namespace Map
       GameManager.Camera.SetCamera(confinerCollider);
       GameManager.Player.transform.position = startPosition.position;
 
-      CoroutineUtility.WaitUnscaled(1f, () =>
+      CoroutineUtility.Wait(1f, () =>
       {
         GameManager.Transition.Play(Transitions.FADEIN, 0.7f);
         GameManager.Wave.StartWave();

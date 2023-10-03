@@ -134,7 +134,6 @@ namespace Util
         Time.timeScale = 1f;
     }
     
-    
     public static IEnumerable<Enum> GetFlags(this Enum input)
     {
       return Enum.GetValues(input.GetType()).Cast<Enum>().Where(value => input.HasFlag(value));
@@ -143,6 +142,25 @@ namespace Util
     public static IEnumerable<T> GetFlags<T>(this T input) where T: Enum
     {
       return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
+    }
+
+    public static void ForEach<T>(this IEnumerable<T> source, Action<T> fn)
+    {
+      foreach (var item in source)
+        fn?.Invoke(item);
+    }
+
+    public static void For<T>(this IEnumerable<T> source, Action<int> fn)
+    {
+      var enumerable = source as T[] ?? source.ToArray();
+      for (int i = 0; i < enumerable.Length; i++)
+        fn?.Invoke(i);
+    }
+
+    public static void For(this int count, Action<int> fn)
+    {
+      for (var i = 0; i < count; i++)
+        fn?.Invoke(i);
     }
   }
 }

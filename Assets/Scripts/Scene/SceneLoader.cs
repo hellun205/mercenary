@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
+using System.Linq;
+using System.Reflection;
 using Manager;
 using Transition;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Util;
+using Object = UnityEngine.Object;
 
 namespace Scene
 {
@@ -32,13 +35,16 @@ namespace Scene
 
     private bool isPause = false;
 
-    private string sceneName;
+    private string beforeSceneName;
+
+    private string afterSceneName;
 
     public Coroutine coroutine;
 
-    public SceneLoader(string sceneName)
+    public SceneLoader(string afterSceneName)
     {
-      this.sceneName = sceneName;
+      beforeSceneName = SceneManager.GetActiveScene().name;
+      this.afterSceneName = afterSceneName;
     }
 
     public SceneLoader In(TransitionOption value)
@@ -106,14 +112,24 @@ namespace Scene
     public SceneLoader Load()
     {
       if (isLoading) return this;
+      SceneManager.activeSceneChanged += SceneManagerOnactiveSceneChanged;
       coroutine = GameManager.Manager.StartCoroutine(LoadRoutine());
       return this;
+    }
+
+    private void SceneManagerOnactiveSceneChanged
+    (
+      UnityEngine.SceneManagement.Scene arg0,
+      UnityEngine.SceneManagement.Scene arg1
+    )
+    {
+      HandleSceneChanged();
     }
 
     private IEnumerator LoadRoutine()
     {
       isLoading = true;
-      var load = SceneManager.LoadSceneAsync(sceneName);
+      var load = SceneManager.LoadSceneAsync(afterSceneName);
       load.allowSceneActivation = false;
 
       yield return new WaitForSecondsRealtime(outTransition.delay);
@@ -137,6 +153,16 @@ namespace Scene
 
       isLoading = false;
       callbackOnComplete?.Invoke();
+      SceneManager.activeSceneChanged -= SceneManagerOnactiveSceneChanged;
+    }
+
+    public void HandleSceneChanged()
+    {
+      var p = typeof(GameManager).GetProperties(BindingFlags.Public | BindingFlags.Instance |
+                                                BindingFlags.Static | BindingFlags.DeclaredOnly);
+
+      foreach (var property in p.Select(x => x.GetValue(GameManager.Manager)).OfType<ISceneChangeEventHandler>())
+        property.OnSceneChanged(beforeSceneName, afterSceneName);
     }
   }
 }

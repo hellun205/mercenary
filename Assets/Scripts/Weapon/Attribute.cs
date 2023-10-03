@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -58,34 +59,13 @@ namespace Weapon
     {
       var sb = new StringBuilder();
 
-      if ((attribute & Attribute.Sword) != 0)
-        sb.Append(Attribute.Sword.GetText()).Append(", ");
+      foreach (var attr in Enum.GetValues(typeof(Attribute)).OfType<Attribute>().Where(x => x != Attribute.None))
+      {
+        if (attribute.HasFlag(attr))
+          sb.Append(attr.GetText()).Append(", ");
+      }
       
-      if ((attribute & Attribute.Sharpness) != 0)
-        sb.Append(Attribute.Sharpness.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Spear) != 0)
-        sb.Append(Attribute.Spear.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Lazer) != 0)
-        sb.Append(Attribute.Lazer.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Bluntness) != 0)
-        sb.Append(Attribute.Bluntness.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Heavy) != 0)
-        sb.Append(Attribute.Heavy.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Gun) != 0)
-        sb.Append(Attribute.Gun.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.AutomaticFire) != 0)
-        sb.Append(Attribute.AutomaticFire.GetText()).Append(", ");
-      
-      if ((attribute & Attribute.Explosion) != 0)
-        sb.Append(Attribute.Explosion.GetText()).Append(", ");
-
-      sb.Remove(sb.ToString().LastIndexOf(", "), 2);
+      sb.Remove(sb.ToString().LastIndexOf(", ", StringComparison.Ordinal), 2);
       
       return sb.ToString();
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Util;
+using Util.UI;
 
 namespace UI.Popup
 {
@@ -18,7 +19,7 @@ namespace UI.Popup
     private void Awake()
     {
       rectTransform = GetComponent<RectTransform>();
-      gameObject.SetActive(false);
+      gameObject.SetVisible(false);
     }
 
     public void ShowPopup(string text)
@@ -28,7 +29,7 @@ namespace UI.Popup
       this.RebuildLayout(20);
     }
 
-    public void ShowPopup() => gameObject.SetActive(true);
-    public void HidePopup() => gameObject.SetActive(false);
+    public void ShowPopup() => gameObject.SetVisible(true);
+    public void HidePopup() => gameObject.SetVisible(false);
   }
 }

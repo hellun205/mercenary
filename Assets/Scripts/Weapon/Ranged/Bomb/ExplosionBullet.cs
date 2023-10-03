@@ -2,8 +2,6 @@ using System;
 using Interact;
 using Manager;
 using UnityEngine;
-using Util;
-using Weapon.Ranged.Throwing;
 
 namespace Weapon.Ranged.Bomb
 {
@@ -16,8 +14,7 @@ namespace Weapon.Ranged.Bomb
     [NonSerialized]
     public Vector2 targetPosition;
 
-    [NonSerialized]
-    public float explosionRange;
+    public float explosionRange { get; set; }
 
     private CircleCollider2D col;
 
@@ -33,7 +30,6 @@ namespace Weapon.Ranged.Bomb
 
     protected override void OnDetect(Interacter obj)
     {
-      base.OnDetect(obj);
       if (!mainCtrler.weaponData.fireOnContact) return;
       OnDetect();
       Fire();

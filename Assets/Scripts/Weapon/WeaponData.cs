@@ -1,4 +1,6 @@
+using System;
 using System.Text;
+using Data;
 using Item;
 using Manager;
 using UnityEngine;
@@ -6,11 +8,13 @@ using UnityEngine.Serialization;
 
 namespace Weapon
 {
-  public abstract class WeaponData : ScriptableObject, IPossessible
+  [CreateAssetMenu(menuName = "Weapon Data")]
+  public class WeaponData : ScriptableObject, IPossessible
   {
     [Header("Weapon Desc"), SerializeField]
     private string _name;
 
+    [NonSerialized]
     public Attribute attribute;
 
     [SerializeField]
@@ -19,12 +23,9 @@ namespace Weapon
     [Multiline]
     public string descriptions;
 
-    public WeaponStatus status;
+    [NonSerialized]
+    public WeaponStatus[] status;
 
-    [SerializeField]
-    public int m_price;
-    
-    [FormerlySerializedAs("needFlip")]
     [Header("Sprite Setting")]
     public bool needFlipY;
 
@@ -32,26 +33,33 @@ namespace Weapon
 
     public bool rotate = true;
 
+    [Header("Ranged")]
+    public string bullet = "bullet";
+
+    [Header("Explosion")]
+    public bool fireOnContact;
+    public bool isFixedTargetPosition;
+    public string effectObj = "effect_explosion";
+    public float explosionDelay;
+
+    public string specfiedName => name;
     public string itemName => $"[무기] {_name}";
-    public string description => GetDescription();
+    public string description => GetDescription(0);
     public Sprite icon => m_icon;
-    public int price => m_price;
-    
-    public (string name, int tier) information
-    {
-      get
-      {
-        var split = name.Split('.');
-        return (split[0], int.Parse(split[1]));
-      }
-    }
-    
-    private string GetDescription()
+    public int price => status[0].price;
+
+    public string GetDescription(int tier)
     {
       var sb = new StringBuilder();
-      sb.Append(status.GetDescription());
+      sb.Append(status[tier].GetDescription());
       sb.Append($"{descriptions}");
       return sb.ToString();
+    }
+
+    public void Refresh()
+    {
+      attribute = GameManager.Data.data.GetWeaponAttribute(specfiedName);
+      status = GameManager.Data.data.GetWeaponStatus(specfiedName);
     }
   }
 }

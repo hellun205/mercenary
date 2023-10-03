@@ -1,17 +1,26 @@
 using System;
+using System.Linq;
+using Data;
 using Item;
 using Map;
 using Player;
 using Pool;
+using Scene;
 using Spawn;
 using Store.Status;
 using TMPro;
+using Transition;
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Util;
+using Util.UI;
 using Wave;
 using Weapon;
-using Transition = Transition.Transition;
+using Window;
+using Window.Contents;
+using ItemData = Item.ItemData;
 
 namespace Manager
 {
@@ -32,21 +41,35 @@ namespace Manager
     public static GameManager Manager { get; private set; }
     public static CameraManager Camera { get; private set; }
     public static global::Transition.Transition Transition { get; private set; }
+    public static DataManager Data { get; private set; }
+    public static WindowManager Window { get; private set; }
+    public static SpriteCollection Sprites { get; private set; }
 
     public State<int> coin;
 
     public static event Action onLoaded;
-    
+
     [SerializeField]
     private Sprite m_emptySprite;
 
     public static Sprite emptySprite => Manager.m_emptySprite;
 
-    public AttributeChemistry attributeChemistry;
-    
+    public bool isTestMode;
+
+    public DataManager.Input dataJsons;
+
+    public bool isMenuOpened { get; private set; }
+
+    public string startWeaponName { get; set; }
+
     private void Init()
     {
       Manager = this;
+      Data = Manager.isTestMode switch
+      {
+        true  => new DataManager(),
+        false => new DataManager(dataJsons),
+      };
       Key = new KeyManager();
       Weapons = transform.Find("@weapon_objects").GetComponent<ObjectCollection>();
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
@@ -61,22 +84,98 @@ namespace Manager
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
       Transition = new global::Transition.Transition();
+      Window = new WindowManager();
+      Sprites = transform.Find("@sprites").GetComponent<SpriteCollection>();
     }
-    
+
     private void Awake()
     {
       Init();
-        
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
+
+      foreach (var item in WeaponData.items.Values)
+        item.Refresh();
+
+      foreach (var item in Items.items.Values.Cast<ItemData>())
+        item.Refresh();
+      
+      new SceneLoader(SceneManager.GetActiveScene().name).HandleSceneChanged();
     }
 
     private void Start()
     {
       onLoaded?.Invoke();
-      coin.value = 999999;
+      UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
+      UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
+      UI.Find<Button>("$menu_gotomain_btn").onClick.AddListener(AskGotoMain);
+      UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
+      UI.Find("$menu_panel").SetVisible(false);
+      
+      coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
     }
 
     public static IPossessible GetItem(string itemName)
       => Items.Get(itemName) as IPossessible;
+
+    public static IPossessible GetIPossessible(string name)
+    {
+      IPossessible res = null;
+      try
+      {
+        res = Items.Get(name) as IPossessible;
+      }
+      catch
+      {
+      }
+
+      try
+      {
+        res = WeaponData.Get(name) as IPossessible;
+      }
+      catch
+      {
+      }
+
+      return res ?? throw new Exception($"can't find IPossessble object: {name}");
+    }
+
+    private void Update()
+    {
+      Key.KeyMap(GetKeyType.Down, (Keys.MenuToggle, ToggleGameMenu));
+    }
+
+    private void ToggleGameMenu()
+    {
+      isMenuOpened = !isMenuOpened;
+      GameManager.UI.Find("$menu_panel").SetVisible(isMenuOpened, 0.2f);
+      if (isMenuOpened) Utils.Pause();
+      else Utils.UnPause();
+    }
+    
+    public void AskGotoMain()
+    {
+      var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
+      askBox.window.title = "메인 화면으로 이동";
+      askBox.message = "메인 화면으로 이동하시겠습니까?";
+      askBox.onReturn = res =>
+      {
+        if (res == AskBoxResult.Yes)
+          new SceneLoader("Main")
+           .Out(Transitions.FADEOUT)
+           .In(Transitions.FADEIN)
+           .Load();
+      };
+    }
+    
+    public void AskExit()
+    {
+      var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
+      askBox.window.title = "종료";
+      askBox.message = "진짜로 종료하시겠습니까?";
+      askBox.onReturn = res =>
+      {
+        if (res == AskBoxResult.Yes) Utils.ExitGame();
+      };
+    }
   }
 }

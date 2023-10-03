@@ -62,6 +62,8 @@ namespace Player
     [Range(-1f, 1f)]
     public float luck;
 
+    public float evasionRate;
+
     public string GetDescription()
     {
       var sb = new StringBuilder();
@@ -129,6 +131,7 @@ namespace Player
       moveSpeed = other.moveSpeed;
       rangedDamage = other.rangedDamage;
       explosionRange = other.explosionRange;
+      evasionRate = other.evasionRate;
     }
 
     public static PlayerStatus operator +(PlayerStatus a, IncreaseStatus b)
@@ -142,14 +145,14 @@ namespace Player
       res.rangedDamage += b.rangedDamage;
       res.criticalPercent += b.criticalPercent;
       res.bleedingDamage += b.bleedingDamage;
-      res.attackSpeed += b.attackSpeed;
+      res.attackSpeed += res.attackSpeed * b.attackSpeed;
       res.range += b.range;
       res.armor = Mathf.Min(a.armor + b.armor, 0.6f);
       res.knockback += b.knockback;
       res.moveSpeed += b.moveSpeed;
       res.luck += b.luck;
       res.explosionRange += b.explosionRange;
-      res.attackSpeed += res.attackSpeed * b.attackSpeedPercent;
+      res.evasionRate += b.evasionRate;
 
       return res;
     }

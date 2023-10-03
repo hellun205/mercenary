@@ -26,14 +26,14 @@ namespace Store.Equipment
       }
     }
 
-    public void SetWeapon(int index, Weapon.WeaponData weapon)
+    public void SetWeapon(int index, (string name, int tier)? weapon)
     {
       if (type == EquipmentType.Player)
       {
         if (weapon == null)
           GameManager.Player.weaponInventory.RemoveWeapon(index);
         else
-          GameManager.Player.weaponInventory.SetWeapon(index, weapon.information.name, weapon.information.tier);
+          GameManager.Player.weaponInventory.SetWeapon(index, weapon!.Value.name, weapon.Value.tier);
       }
       else
       {
@@ -41,7 +41,7 @@ namespace Store.Equipment
           GameManager.Player.partnerWeaponInventories[partnerIndex].RemoveWeapon(index);
         else
           GameManager.Player.partnerWeaponInventories[partnerIndex]
-           .SetWeapon(index, weapon.information.name, weapon.information.tier);
+           .SetWeapon(index, weapon.Value.name, weapon.Value.tier);
       }
     }
 

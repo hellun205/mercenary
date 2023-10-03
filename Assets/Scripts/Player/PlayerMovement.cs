@@ -21,7 +21,7 @@ namespace Player
     {
       float v = 0f, h = 0f;
 
-      GameManager.Key.KeyMap(KeyType.Press,
+      GameManager.Key.KeyMap(GetKeyType.Press,
         (Keys.PlayerMovementUp, () => v = 1f),
         (Keys.PlayerMovementDown, () => v = -1f),
         (Keys.PlayerMovementLeft, () => h = -1f),

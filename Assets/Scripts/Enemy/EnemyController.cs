@@ -1,3 +1,4 @@
+using Data;
 using Interact;
 using Manager;
 using Player;
@@ -9,12 +10,11 @@ using Weapon;
 namespace Enemy
 {
   [RequireComponent(typeof(TargetableObject))]
-  public class EnemyController : Interacter, IUsePool
+  public class EnemyController : Interacter, IUsePool, IAttacker
   {
     public PoolObject poolObject { get; set; }
 
-    [Header("Enemy Controller")]
-    public EnemyStatus status;
+    public EnemyStatus status { get; private set; }
 
     // private bool isEnabled = true;
 
@@ -22,9 +22,13 @@ namespace Enemy
 
     private TargetableObject to;
     private MovableObject movableObject;
+    private RangedAttacker rangedAttacker;
 
+    public float damage => status.damage;
+
+    [Header("Enemy Controller")]
     [SerializeField]
-    private Timer attackCooldownTimer = new ();
+    private Timer attackCooldownTimer = new();
 
     private void Reset()
     {
@@ -35,14 +39,31 @@ namespace Enemy
     {
       to = GetComponent<TargetableObject>();
       movableObject = GetComponent<MovableObject>();
+      rangedAttacker = GetComponent<RangedAttacker>();
+      to.onDead += OnDead;
       attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
       attackCooldownTimer.onEnd += _ =>
       {
         currentCondition = InteractCondition.Attack;
         RemoveDetection();
       };
-      movableObject.moveSpeed = () => status.moveSpeed;
-      to.onDead += OnDead;
+
+      if (movableObject != null)
+      {
+        movableObject.moveSpeedGetter = () => status.moveSpeed;
+        movableObject.increaseAmountGetter = () => status.increaseMoveSpeedPerSecond;
+        movableObject.maxMoveSpeedGetter = () => status.maxMoveSpeed;
+      }
+
+      if (rangedAttacker != null)
+      {
+        rangedAttacker.bulletSpeedGetter = () => status.bulletSpeed;
+        rangedAttacker.fireDurationGetter = () => status.attackSpeed;
+        rangedAttacker.damageGetter = () => status.damage;
+        rangedAttacker.detectRangeGetter = () => status.fireRange;
+      }
+
+      currentCondition = rangedAttacker == null ? InteractCondition.Attack : InteractCondition.Normal;
     }
 
     private void OnDead()
@@ -53,7 +74,13 @@ namespace Enemy
 
     public void OnSummon()
     {
+      status = GameManager.Data.data.GetEnemyStatus(poolObject.originalName, GameManager.Wave.currentWave);
       movableObject.canMove = true;
+
+      if (rangedAttacker != null)
+      {
+        rangedAttacker.Ready();
+      }
     }
 
     public void OnKilled()
@@ -63,9 +90,9 @@ namespace Enemy
 
     private void ThrowCoin()
     {
-      var count = 1;
+      var count = status.drop;
       if (GameManager.Player.status.luck.ApplyPercentage())
-        count++;
+        count *= 2;
 
       for (var i = 0; i < count; i++)
         GameManager.Pool.Summon("object/coin", transform.position);
@@ -75,21 +102,28 @@ namespace Enemy
     {
       target = GameManager.Player.transform;
     }
-    
+
     protected override void OnInteract(InteractiveObject target)
     {
       base.OnInteract(target);
+      if (rangedAttacker != null) return;
       if (target.TryGetComponent<PlayerController>(out var pc))
       {
         attackCooldownTimer.Start();
       }
     }
 
+
     // private void OnTriggerStay2D(Collider2D other)
+
     // {
+
     //   if (!other.CompareTag("Player") || !to.canTarget) return;
+
     //
+
     //   GameManager.Player.Hit(status.damage, poolObject.index);
+
     // }
   }
 }

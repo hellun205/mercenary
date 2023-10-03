@@ -9,17 +9,31 @@ namespace Weapon
   [Serializable]
   public class WeaponStatus
   {
+    [Header("Base")]
     public WeaponType type;
+    public int price;
+    
+    [Header("Attack")]
     public float attackDamage;
     public float attackSpeed;
     public float fireRange;
     public float multipleCritical = 1;
     public float knockback;
     public float bleedingDamage;
-
-    [NonSerialized]
     public float criticalPercent;
 
+    // Ranged
+    [Header("Ranged")]
+    public int penetrate;
+    public float errorRange;
+    public int bulletCount;
+    public float bulletSpeed;
+
+    // Explosion
+    [Header("Explosion")]
+
+    public float explosionRange;
+    
     public static WeaponStatus operator +(WeaponStatus a, PlayerStatus b)
       => new()
       {

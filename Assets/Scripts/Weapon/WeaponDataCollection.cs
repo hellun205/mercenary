@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Weapon
 {
-  public class WeaponDataCollection : ObjectCollection<WeaponBundle>
+  public class WeaponDataCollection : ObjectCollection<WeaponData>
   {
 #if UNITY_EDITOR
     private void Reset()

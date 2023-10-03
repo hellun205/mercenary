@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Data;
 using Manager;
 using UI.DragNDrop;
 using UI.Popup;
@@ -8,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Util.Text;
 using Weapon;
+using WeaponData = Weapon.WeaponData;
 
 namespace Store.Equipment
 {
@@ -16,7 +18,7 @@ namespace Store.Equipment
     [SerializeField]
     private Image targetImg;
 
-    public Weapon.WeaponData weapon;
+    public (string name, int tier)? weapon;
 
     public int slotIndex;
 
@@ -42,10 +44,11 @@ namespace Store.Equipment
       useDrag.getter = () => new ItemRequest()
       {
         beginDragType = DragType.WeaponSlot,
-        item = weapon,
+        item = weapon!.Value.name,
+        tier = weapon!.Value.tier,
         weaponSlotData = (GetWrapperIndex(wrapper), slotIndex),
-        draggingImage = weapon.icon,
-        weaponInventoryUI = parentUI
+        draggingImage = GameManager.WeaponData.Get(weapon?.name).icon ,
+        weaponInventoryUI = parentUI,
       };
 
       useDrop.onGetRequest += OnDrop;
@@ -53,15 +56,17 @@ namespace Store.Equipment
 
     private void OnDrop(ItemRequest data)
     {
-      if (data.item is not Weapon.WeaponData weapon) return;
+      var item = GameManager.GetIPossessible(data.item);
+      if (item is not WeaponData) return;
+      var weapon = item as WeaponData;
 
       switch (data.beginDragType)
       {
         case DragType.Inventory:
           if (this.weapon != null)
-            GameManager.Player.inventory.GainItem(this.weapon);
-          GameManager.Player.inventory.LoseItem(weapon);
-          Set(weapon);
+            GameManager.Player.inventory.GainItem(this.weapon.Value.name, this.weapon.Value.tier);
+          GameManager.Player.inventory.LoseItem(weapon.name, data.tier);
+          Set((weapon.name, data.tier));
           break;
 
         case DragType.WeaponSlot:
@@ -81,10 +86,10 @@ namespace Store.Equipment
       OnEntered();
     }
 
-    public void Set(Weapon.WeaponData weapon, bool setWeaponInventory = true)
+    public void Set((string name, int tier)? weapon, bool setWeaponInventory = true)
     {
       this.weapon = weapon;
-      targetImg.sprite = weapon == null ? null : weapon.icon;
+      targetImg.sprite = weapon == null ? null : GameManager.WeaponData.Get(weapon.Value.name).icon;
       targetImg.color = weapon == null ? Color.clear : Color.white;
       if (setWeaponInventory)
         wrapper.SetWeapon(slotIndex, weapon);
@@ -105,17 +110,18 @@ namespace Store.Equipment
     {
       if (weapon == null) return;
       var sb = new StringBuilder();
+      var item = GameManager.WeaponData.Get(weapon.Value.name);
 
       sb.Append
         (
-          weapon.itemName
+          item.itemName
            .SetSizePercent(1.5f)
            .SetAlign(TextAlign.Center)
         )
        .Append("\n")
        .Append
         (
-          weapon.attribute.GetTexts()
+          item.attribute.GetTexts()
            .SetSizePercent(1.25f)
            .AddColor(new Color32(72, 156, 255, 255))
            .SetLineHeight(1.25f)
@@ -124,11 +130,11 @@ namespace Store.Equipment
        .Append("\n")
        .Append
         (
-          weapon.description
+          item.description
            .SetAlign(TextAlign.Left)
         );
 
-      popupPanel.ShowPopup(sb.ToString(), GameManager.Manager.attributeChemistry.GetDescriptions(weapon.attribute));
+      popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(item.attribute));
     }
   }
 }

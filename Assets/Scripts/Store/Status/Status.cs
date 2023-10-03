@@ -18,11 +18,6 @@ namespace Store.Status
       items = content.GetComponentsInChildren<StatusItem>().ToDictionary(x => x.name, x => x);
     }
 
-    private void Start()
-    {
-      Refresh();
-    }
-
     public void SetValue(string key, float value)
     {
       var item = items[key];

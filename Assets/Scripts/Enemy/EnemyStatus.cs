@@ -1,15 +1,30 @@
+﻿using System;
 using UnityEngine;
-using Weapon;
 
 namespace Enemy
 {
-  [CreateAssetMenu(fileName = "Enemy Status", menuName = "Status/Attackable/Enemy", order = 0)]
-  public class EnemyStatus : TargetableStatus
+  [Serializable]
+  public struct EnemyStatus
   {
-    [Tooltip("공격력")]
+    [Header("Base")]
+    public float maxHp;
+    
     public float damage;
     
-    [Tooltip("이동 속도")]
     public float moveSpeed;
+    
+    public int drop;
+
+    [Header("Detail")]
+    public float fireRange;
+
+    public float bulletSpeed;
+
+    public float attackSpeed;
+
+    public float increaseMoveSpeedPerSecond;
+
+    public float maxMoveSpeed;
+
   }
 }

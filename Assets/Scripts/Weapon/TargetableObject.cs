@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -24,6 +25,7 @@ namespace Weapon
 
     public int index => poolObject.index;
 
+    [SerializeField]
     private SpriteRenderer sr;
 
     private bool isDead;
@@ -36,10 +38,10 @@ namespace Weapon
 
     private MovableObject movableObject;
 
-    [Header("Targetable Object")]
-    public TargetableStatus status;
+    public float maxHp =>
+      GameManager.Data.data.GetEnemyStatus(poolObject.originalName, GameManager.Wave.currentWave).maxHp;
 
-    [SerializeField]
+    [Header("Targetable Object"), SerializeField]
     private Timer bleedingTimer = new();
 
     [SerializeField]
@@ -54,7 +56,6 @@ namespace Weapon
 
     private void Awake()
     {
-      sr = GetComponent<SpriteRenderer>();
       movableObject = GetComponent<MovableObject>();
       bleedingTimer.duration = bleedingDelay;
       bleedingTimer.onEnd += OnBleedingTimerEnd;
@@ -90,7 +91,7 @@ namespace Weapon
     public void OnSummon()
     {
       deadTweener.Kill();
-      hp = status.maxHp;
+      hp = maxHp;
       detectCaster = InteractCaster.Player;
       isDead = false;
       playerAttacked = false;
@@ -116,15 +117,14 @@ namespace Weapon
       sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime * 5f);
     }
 
+
     public void Kill(bool throwCoin = false)
     {
       isDead = true;
+      onDead?.Invoke();
       detectCaster = InteractCaster.Nothing;
-      deadTweener = sr.DOFade(0f, 0.3f).OnComplete(() => onDead?.Invoke());
-      // onDead?.Invoke();
-      CoroutineUtility.Wait(0.4f, () => poolObject.Release());
+      deadTweener = sr.DOFade(0f, 0.3f).OnComplete(poolObject.Release);
     }
-
     protected override void OnInteract(Interacter caster)
     {
       if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
@@ -133,7 +133,6 @@ namespace Weapon
       Damage(ao.isCritical ? ao.damage * ao.multipleDamage : ao.damage, ao.knockBack, ao.transform);
       if (ao.isCritical)
       {
-        
         for (var i = 0; i < AttackableObject.bleedingCount; i++)
           bleedingQueue.Enqueue(ao.bleeding / AttackableObject.bleedingCount);
       }
@@ -149,7 +148,7 @@ namespace Weapon
       if (knockBack > 0 && attacker != null)
       {
         knockBackStartPosition = transform.position;
-        knockBackEndPosition = 
+        knockBackEndPosition =
           transform.position + (transform.position - attacker.position).normalized * (knockBack / 10);
         knockBackTimer.Start();
       }

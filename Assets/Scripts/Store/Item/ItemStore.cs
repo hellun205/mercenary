@@ -17,11 +17,17 @@ namespace Store.Item
     public State<int> refreshPrice;
     public int plus = 2;
 
+    private List<IPossessible> cacheItems;
+
     private void Awake()
     {
       var container = GameManager.UI.Find("$item_items");
       var refreshBtn = GameManager.UI.Find<Button>("$item_refresh_button");
       var refreshBtnText = GameManager.UI.Find<TextMeshProUGUI>("$item_refresh_button_text");
+
+      cacheItems = new List<IPossessible>();
+      cacheItems.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
+      cacheItems.AddRange(GameManager.WeaponData.items.Values);
       
       items = container.GetComponentsInChildren<Item>();
       refreshPrice = new State<int>(2, value => refreshBtnText.text = $"<sprite=0> ${value}");
@@ -31,25 +37,29 @@ namespace Store.Item
 
     private void OnRefreshButtonClick()
     {
+      // if(GameManager.Manager.isTestMode) GameManager.Manager.coin.value = 999999;
       if (refreshPrice.value > GameManager.Manager.coin.value) return;
 
       GameManager.Manager.coin.value -= refreshPrice.value;
       RefreshItems();
       refreshPrice.value += plus;
     }
-      
+
     public void RefreshItems()
     {
-      var list = new List<IPossessible>();
-      list.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
-      list.AddRange(GameManager.WeaponData.items.Values.Select(x => x.weapons[0]));
-        
-      for (var i = 0; i < 3; i++)
+      items.ForEach(i => i.hasItem = false);
+      
+      for (var i = 0; i < items.Length; i++)
       {
         if (items[i].isLocking) continue;
-        var item = list.GetRandom();
-        
-        items[i].SetItem(item);
+
+        IPossessible item;
+        do
+        {
+          item = cacheItems.GetRandom();
+        } while (items.Any(x => x.itemData == item));
+
+        items[i].SetItem(item.specfiedName, 0);
       }
     }
 

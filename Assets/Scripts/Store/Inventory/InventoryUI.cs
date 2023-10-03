@@ -18,7 +18,7 @@ namespace Store.Inventory
       if (data.beginDragType != DragType.WeaponSlot) return;
 
       data.weaponInventoryUI.list[data.weaponSlotData.wrapperId].slots[data.weaponSlotData.slotId].Set(null);
-      GameManager.Player.inventory.GainItem(data.item);
+      GameManager.Player.inventory.GainItem(data.item, data.tier);
     }
   }
 }

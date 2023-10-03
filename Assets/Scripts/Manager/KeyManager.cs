@@ -1,46 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Data;
 using UnityEngine;
 
 namespace Manager
 {
-  public enum KeyType
+  public enum GetKeyType
   {
-    Down,
-    Up,
-    Press
+    Down, Up, Press
   }
 
-  public class KeyManager 
+  public class KeyManager
   {
-    public Dictionary<string, KeyCode[]> items = new();
-
     private delegate bool KeyDelegate(KeyCode key);
 
-    public KeyManager()
+    public static Dictionary<string, KeyCode[]> InitalDefaultData(string path)
     {
-      items.Add(Keys.PlayerMovementUp, new[] { KeyCode.W, KeyCode.UpArrow });
-      items.Add(Keys.PlayerMovementDown, new[] { KeyCode.S, KeyCode.DownArrow });
-      items.Add(Keys.PlayerMovementLeft, new[] { KeyCode.A, KeyCode.LeftArrow });
-      items.Add(Keys.PlayerMovementRight, new[] { KeyCode.D, KeyCode.RightArrow });
+      var res = new Dictionary<string, KeyCode[]>()
+      {
+        { Keys.PlayerMovementUp, new[] { KeyCode.W, KeyCode.UpArrow } },
+        { Keys.PlayerMovementDown, new[] { KeyCode.S, KeyCode.DownArrow } },
+        { Keys.PlayerMovementLeft, new[] { KeyCode.A, KeyCode.LeftArrow } },
+        { Keys.PlayerMovementRight, new[] { KeyCode.D, KeyCode.RightArrow } },
+        { Keys.MenuToggle, new[] { KeyCode.Escape } }
+      };
+
+      using var sw = new StreamWriter(path);
+      sw.Write(JsonUtility.ToJson(new KeyData().Parse(res), true));
+
+      return res;
     }
 
-    private KeyDelegate GetKeyFn(KeyType type) => type switch
+    private KeyDelegate GetKeyFn(GetKeyType type) => type switch
     {
-      KeyType.Down => Input.GetKeyDown,
-      KeyType.Up => Input.GetKeyUp,
-      KeyType.Press => Input.GetKey,
-      _ => throw new Exception("invalid get key type")
+      GetKeyType.Down  => Input.GetKeyDown,
+      GetKeyType.Up    => Input.GetKeyUp,
+      GetKeyType.Press => Input.GetKey,
+      _                => throw new Exception("invalid get key type")
     };
 
-    public void KeyMap(KeyType inputType, params (string name, Action fn)[] fns)
+    public void KeyMap(GetKeyType inputType, params (string name, Action fn)[] fns)
     {
       var getKey = GetKeyFn(inputType);
-      
+
       foreach (var (name, fn) in fns)
       {
-        if (!items[name].Any(keyCode => getKey.Invoke(keyCode))) continue;
+        if (!GameManager.Data.data.keys[name].Any(keyCode => getKey.Invoke(keyCode))) continue;
         fn.Invoke();
       }
     }
@@ -52,5 +59,6 @@ namespace Manager
     public const string PlayerMovementDown = "player_movement_down";
     public const string PlayerMovementRight = "player_movement_right";
     public const string PlayerMovementLeft = "player_movement_left";
+    public const string MenuToggle = "menu_toggle";
   }
 }

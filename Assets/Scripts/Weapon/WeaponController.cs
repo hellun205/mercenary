@@ -7,9 +7,9 @@ using Util;
 namespace Weapon
 {
   [RequireComponent(typeof(CircleCollider2D))]
-  public abstract class WeaponController<T> : MonoBehaviour, ITier where T : WeaponData
+  public class WeaponController : MonoBehaviour, ITier
   {
-    public T weaponData;
+    public WeaponData weaponData;
 
     [NonSerialized]
     public WeaponStatus status;
@@ -39,7 +39,7 @@ namespace Weapon
 
     public int tier { get; set; }
     public string dataName => $"{name}.{tier}";
-    
+
     protected virtual void Reset()
     {
       col = GetComponent<CircleCollider2D>();
@@ -53,28 +53,30 @@ namespace Weapon
 
     private void Start()
     {
-      weaponData = (T)(GameManager.WeaponData[name].weapons[tier]);
       RefreshStatus();
     }
 
     private void RefreshStatus()
     {
-      try
+      while (weaponData == null)
       {
-        weaponData = (T)(GameManager.WeaponData[name].weapons[tier]);
+        try
+        {
+          weaponData = GameManager.WeaponData[name];
+        }
+        catch (Exception ex)
+        {
+          Debug.Log(ex);
+        }
       }
-      catch(Exception ex)
-      {
-        Debug.Log(ex);
-      }
-      status = weaponData.status + GameManager.Player.GetStatus();
+
+      status = weaponData.status[tier] + GameManager.Player.GetStatus();
     }
 
     [ContextMenu("Refresh Range")]
     private void RefreshRange()
     {
-      if (status == null)
-        RefreshStatus();
+      RefreshStatus();
       col.radius = status.fireRange / 10;
     }
 

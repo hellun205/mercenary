@@ -1,0 +1,788 @@
+{
+  "items": [
+    {
+      "name": "chocolate",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 0,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "paper_cup",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 1,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "canine",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 2,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "blade",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 3,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "arrow",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 4,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "sunglasses",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 5,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "needle",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 6,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "leather_gloves",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 7,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "lens",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 8,
+          "value": 5.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "iron_ingot",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 9,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "cloak",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 14,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "boxing_gloves",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 10,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "boots",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 11,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "fortune_cookie",
+      "tier": 0,
+      "applies": [
+        {
+          "type": 12,
+          "value": 1.0
+        },
+        {
+          "type": 13,
+          "value": 20.0
+        }
+      ]
+    },
+    {
+      "name": "apple",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 0,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 1,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "bat",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 2,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "barbell",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 3,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "bullet",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 4,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "ruler",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 5,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "lychee",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 6,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "gamepad",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 7,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "blueberry",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 8,
+          "value": 10.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "bulletproof_vest",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 9,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "t_shirt",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 14,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "bean_sprout",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 10,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "sneakers",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 11,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "bill",
+      "tier": 1,
+      "applies": [
+        {
+          "type": 12,
+          "value": 2.0
+        },
+        {
+          "type": 13,
+          "value": 50.0
+        }
+      ]
+    },
+    {
+      "name": "pork",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 0,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "wolf",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 1,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "heart_of_vampire",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 2,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "kettlebell",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 3,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "magazine",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 4,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "compensator",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 5,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "whetstone",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 6,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "computer",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 7,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "cctv",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 8,
+          "value": 20.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "wrench",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 9,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "cameleon",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 14,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "baton",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 10,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "tire",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 11,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "dice",
+      "tier": 2,
+      "applies": [
+        {
+          "type": 12,
+          "value": 4.0
+        },
+        {
+          "type": 13,
+          "value": 120.0
+        }
+      ]
+    },
+    {
+      "name": "potato",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 0,
+          "value": 16.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "garlic",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 1,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "mosquito",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 2,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "chicken_breast",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 3,
+          "value": 16.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "scope",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 4,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "anvil",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 5,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "scissors",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 6,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "guitar",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 7,
+          "value": 16.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "telescope",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 8,
+          "value": 40.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "sandbag",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 9,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "octopus",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 14,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "magnet",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 10,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "wing",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 11,
+          "value": 16.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    },
+    {
+      "name": "four_leaf_clover",
+      "tier": 3,
+      "applies": [
+        {
+          "type": 12,
+          "value": 8.0
+        },
+        {
+          "type": 13,
+          "value": 250.0
+        }
+      ]
+    }
+  ]
+}
