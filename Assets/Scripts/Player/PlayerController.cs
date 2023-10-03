@@ -91,7 +91,7 @@ namespace Player
       {
         time -= 1f;
 
-        curRegenerationHp += status.regeneration;
+        curRegenerationHp += currentStatus.regeneration / 10;
         if (curRegenerationHp >= 1f)
         {
           var value = Mathf.FloorToInt(curRegenerationHp);
@@ -110,13 +110,18 @@ namespace Player
 
     private void RefreshHpBar()
     {
-      hpBar.maxValue = status.maxHp;
+      hpBar.maxValue = currentStatus.maxHp;
       hpBar.value = status.hp;
     }
 
     private void Hit(float damage)
     {
-      var dmg = damage * (1 - status.armor);
+      if (currentStatus.evasionRate.ApplyPercentage())
+      {
+        GameManager.Pool.Summon("ui/miss", transform.GetAroundRandom(0.4f));
+        return;
+      }
+      var dmg = damage * (1 - currentStatus.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
       colorTweener.Kill();
       sr.color = Color.red;
@@ -129,7 +134,7 @@ namespace Player
     public void Heal(int amount)
     {
       var tmp = status.hp;
-      status.hp = Mathf.Min(status.maxHp, status.hp + amount);
+      status.hp = Mathf.Min(currentStatus.maxHp, status.hp + amount);
 
       var healed = status.hp - tmp;
       if (healed >= 1)
@@ -139,7 +144,7 @@ namespace Player
 
     public void SuccessfulAttack()
     {
-      if (status.drainHp.ApplyPercentage())
+      if (currentStatus.drainHp.ApplyPercentage())
       {
         Heal(1);
       }

@@ -25,6 +25,7 @@ namespace Weapon
 
     public int index => poolObject.index;
 
+    [SerializeField]
     private SpriteRenderer sr;
 
     private bool isDead;
@@ -55,7 +56,6 @@ namespace Weapon
 
     private void Awake()
     {
-      sr = GetComponent<SpriteRenderer>();
       movableObject = GetComponent<MovableObject>();
       bleedingTimer.duration = bleedingDelay;
       bleedingTimer.onEnd += OnBleedingTimerEnd;

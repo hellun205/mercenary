@@ -91,8 +91,8 @@ namespace Enemy
     private void ThrowCoin()
     {
       var count = status.drop;
-      // if (GameManager.Player.status.luck.ApplyPercentage())
-      //   count++;
+      if (GameManager.Player.status.luck.ApplyPercentage())
+        count *= 2;
 
       for (var i = 0; i < count; i++)
         GameManager.Pool.Summon("object/coin", transform.position);

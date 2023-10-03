@@ -22,7 +22,7 @@ namespace Weapon.Ranged.Bomb
           bulletObj.maxPenetrateCount = 0;
           bulletObj.explosionTimer.duration = weaponData.explosionDelay;
           bulletObj.mainCtrler = this;
-          bulletObj.SetTarget(target, weaponData.status[tier].errorRange);
+          bulletObj.SetTarget(target, stat.errorRange);
           bulletObj.SetRange(stat.explosionRange + GameManager.Player.currentStatus.explosionRange);
           bulletObj.OnStart();
         }

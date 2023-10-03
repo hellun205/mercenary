@@ -84,6 +84,8 @@ namespace Wave
         
         timer.duration = (GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay) *
                           spawn.simultaneousSpawnCount / spawn.count;
+        
+        Debug.Log($"{GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay} * {spawn.simultaneousSpawnCount} / {spawn.count} = { timer.duration}");
         timer.onStart += t =>
         {
           var spawnPosition = GameManager.Map.GetRandom();

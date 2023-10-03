@@ -7531,24 +7531,30 @@ MonoBehaviour:
   isPath: 1
   items:
     _serializedList:
+    - Key: enemy/giant
+      Value: {fileID: 940086527808425985, guid: 48e0d3a8808d9324186ec974af620cc1, type: 3}
     - Key: enemy/handgun/bullet
       Value: {fileID: 2187926657819148137, guid: 4de38d6251821114c93e08573f2324a7, type: 3}
     - Key: enemy/handgun
       Value: {fileID: 940086527808425985, guid: 89399f08cc626b747914b96948777cef, type: 3}
     - Key: enemy/normal
       Value: {fileID: 940086527808425985, guid: 4d0644b602939e3478498abcd2332daa, type: 3}
+    - Key: enemy/sniper/bullet
+      Value: {fileID: 2187926657819148137, guid: 8c21de780cdedc64da0cde239677d1b7, type: 3}
+    - Key: enemy/sniper
+      Value: {fileID: 940086527808425985, guid: ff40d22bae6ee9f499d1ef07ebebe31d, type: 3}
     - Key: enemy/speedy
       Value: {fileID: 940086527808425985, guid: dcd144fec35772d4995e19dc92e0d84f, type: 3}
-    - Key: enemy/test
-      Value: {fileID: 940086527808425985, guid: 5e3545603a6ea0348a9abc6f94cb8d18, type: 3}
     - Key: object/coin
       Value: {fileID: 7279768655807220559, guid: e34d1ca73e8320f49a913a514a226b54, type: 3}
     - Key: ui/damage
-      Value: {fileID: 1489425705252346965, guid: 888924f33230a584ca5477ddfdf7bcab, type: 3}
+      Value: {fileID: 1489425705252346965, guid: b2b1c33708d515c4c8ee565b3f819552, type: 3}
     - Key: ui/followingtext
       Value: {fileID: 1489425705252346965, guid: 160db1491d02f3148a89109f5beea144, type: 3}
     - Key: ui/heal
       Value: {fileID: 1489425705252346965, guid: 0b865fc2ab556a64fa12ca8e98601fdf, type: 3}
+    - Key: ui/miss
+      Value: {fileID: 1489425705252346965, guid: 888924f33230a584ca5477ddfdf7bcab, type: 3}
     - Key: ui/text
       Value: {fileID: 1489425705252346965, guid: d30d22e1c90aba342a8f5e83f2439ef9, type: 3}
     - Key: ui/warning
@@ -7567,12 +7573,6 @@ MonoBehaviour:
       Value: {fileID: -640458343421406574, guid: c7e18885523eb7845afdf2776c799bb8, type: 3}
     - Key: weapon/mini_gun/bullet
       Value: {fileID: -640458343421406574, guid: ee311cd7459ab10478d925a2fd11142e, type: 3}
-    - Key: weapon/ranged/testbomb/effect_explosion
-      Value: {fileID: 3049430774011418386, guid: 33574d0dbb91a0e4396d465f4cca5a7e, type: 3}
-    - Key: weapon/ranged/testbomb/throwing
-      Value: {fileID: 1661175724558311153, guid: 1e231a997b1962e43af0d0314e453bb6, type: 3}
-    - Key: weapon/ranged/testgun/bullet
-      Value: {fileID: -640458343421406574, guid: d6015797444ac7344a411a09301ec416, type: 3}
     - Key: weapon/rocket_launcher/bullet
       Value: {fileID: -640458343421406574, guid: 822500529e125a041bf62d7f2d532261, type: 3}
     - Key: weapon/rocket_launcher/effect_explosion

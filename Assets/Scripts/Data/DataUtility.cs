@@ -115,7 +115,7 @@ namespace Data
       (
         _ => new IncreaseStatus
         {
-          attackSpeed = 0,
+          attackSpeed = GetValue(ItemStatusItem.AttackSpeed),
           bleedingDamage = GetValue(ItemStatusItem.BleedingDamage),
           knockback = GetValue(ItemStatusItem.KnockBack),
           armor = GetValue(ItemStatusItem.Armor),
@@ -124,7 +124,6 @@ namespace Data
           moveSpeed = GetValue(ItemStatusItem.MoveSpeed),
           range = GetValue(ItemStatusItem.Range),
           luck = GetValue(ItemStatusItem.Luck),
-          attackSpeedPercent = GetValue(ItemStatusItem.AttackSpeed),
           meleeDamage = GetValue(ItemStatusItem.MeleeDamage),
           rangedDamage = GetValue(ItemStatusItem.RangedDamage),
           maxHp = GetValue(ItemStatusItem.Hp),
@@ -221,7 +220,7 @@ namespace Data
               break;
 
             case ApplyStatus.AttackSpeed:
-              res.attackSpeedPercent += value;
+              res.attackSpeed += value;
               break;
 
             case ApplyStatus.CriticalPercent:
@@ -351,6 +350,7 @@ namespace Data
         luck = data.GetPlayerStatusData(PlayerStatusItem.Luck),
         range = data.GetPlayerStatusData(PlayerStatusItem.Range),
         drainHp = data.GetPlayerStatusData(PlayerStatusItem.DrainHp),
+        evasionRate =  data.GetPlayerStatusData(PlayerStatusItem.EvasionRate)
       };
     }
   }
