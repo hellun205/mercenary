@@ -417,6 +417,8 @@ GameObject:
   - component: {fileID: 4925082085263834672}
   - component: {fileID: 2586374701539739814}
   - component: {fileID: 8233510390846096789}
+  - component: {fileID: 8766928292815372124}
+  - component: {fileID: 7279521649187472165}
   m_Layer: 0
   m_Name: ItemStore_Item
   m_TagString: Untagged
@@ -510,6 +512,32 @@ MonoBehaviour:
   unlockImage: {fileID: 21300000, guid: 2e3e62bc865931746b4ce4dbaf60fa5f, type: 3}
   isLocking: 0
   purchaseButtonText: {fileID: 7381205233366576743}
+  hasItem: 0
+--- !u!225 &8766928292815372124
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2247840683350191128}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &7279521649187472165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2247840683350191128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9cdab5e6a444971b67ac9c6e4fbb7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 8766928292815372124}
 --- !u!1 &2577063163614265085
 GameObject:
   m_ObjectHideFlags: 0

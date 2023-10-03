@@ -10,6 +10,8 @@ using Enemy;
 using Interact;
 using Manager;
 using Pool.Extensions;
+using Store.Equipment;
+using Store.Status;
 using UI;
 using UnityEngine;
 using Util;
@@ -197,11 +199,10 @@ namespace Player
     private void Start()
     {
       status = GameManager.Data.data.GetPlayerStatus();
-      GameManager.Manager.coin.value =
-        Convert.ToInt32(GameManager.Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
       coinExplorer.GetComponent<CircleCollider2D>().radius =
         GameManager.Data.data.GetPlayerStatusData(PlayerStatusItem.CoinDetectRange) / 10;
-      weaponInventory.SetWeapon(0, "knife", 0);
+      FindObjectOfType<WeaponInventoryUI>().SetWeapon(0, 0, (GameManager.Manager.startWeaponName, 0));
+      FindObjectOfType<Status>().Refresh();
     }
   }
 }

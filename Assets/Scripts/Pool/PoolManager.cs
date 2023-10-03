@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Manager;
+using Scene;
 using UnityEngine;
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
 namespace Pool
 {
-  public sealed class PoolManager
+  public sealed class PoolManager : ISceneChangeEventHandler
   {
     public PoolObjectCollection objects;
 
@@ -103,5 +104,10 @@ namespace Pool
 
     public PoolObject Get(string path)
       => Get<PoolObject>(path);
+
+    public void OnSceneChanged(string before, string after)
+    {
+      ClearPools();
+    }
   }
 }

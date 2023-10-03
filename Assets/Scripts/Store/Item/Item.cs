@@ -3,6 +3,7 @@ using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.UI;
 using Weapon;
 
 namespace Store.Item
@@ -92,7 +93,7 @@ namespace Store.Item
     public void SetEnabled(bool value)
     {
       purchaseButton.interactable = value;
-      gameObject.SetActive(value);
+      gameObject.SetVisible(value);
     }
 
     private void RefreshButtonEnabled()

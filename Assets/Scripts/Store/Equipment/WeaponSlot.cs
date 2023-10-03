@@ -58,14 +58,15 @@ namespace Store.Equipment
     {
       var item = GameManager.GetIPossessible(data.item);
       if (item is not WeaponData) return;
+      var weapon = item as WeaponData;
 
       switch (data.beginDragType)
       {
         case DragType.Inventory:
           if (this.weapon != null)
             GameManager.Player.inventory.GainItem(this.weapon.Value.name, this.weapon.Value.tier);
-          GameManager.Player.inventory.LoseItem(weapon!.Value.name, data.tier);
-          Set(weapon);
+          GameManager.Player.inventory.LoseItem(weapon.name, data.tier);
+          Set((weapon.name, data.tier));
           break;
 
         case DragType.WeaponSlot:

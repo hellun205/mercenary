@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Util.UI;
 
 namespace UI.DragNDrop
 {
@@ -16,13 +17,13 @@ namespace UI.DragNDrop
     {
       targetImage.sprite = icon;
       isDragging = true;
-      gameObject.SetActive(true);
+      gameObject.SetVisible(true);
     }
 
     public void EndDrag()
     {
       isDragging = false;
-      gameObject.SetActive(false);
+      gameObject.SetVisible(false);
     }
 
     private void Awake()
@@ -32,7 +33,7 @@ namespace UI.DragNDrop
 
     private void Start()
     {
-      gameObject.SetActive(false);
+      gameObject.SetVisible(false);
     }
   }
 }

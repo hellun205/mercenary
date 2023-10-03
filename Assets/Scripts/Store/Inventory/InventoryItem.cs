@@ -43,7 +43,7 @@ namespace Store.Inventory
         beginDragType = DragType.Inventory,
         item = itemData!.Value.name,
         tier = itemData!.Value.tier,
-        draggingImage = GameManager.GetItem(itemData!.Value.name).icon,
+        draggingImage = GameManager.GetIPossessible(itemData!.Value.name).icon,
         weaponInventoryUI = FindObjectOfType<WeaponInventoryUI>()
       };
 

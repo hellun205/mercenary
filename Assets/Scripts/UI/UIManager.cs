@@ -2,16 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using Scene;
 using UnityEngine;
 
 namespace UI
 {
-  public class UIManager : MonoBehaviour
+  public class UIManager : MonoBehaviour, ISceneChangeEventHandler
   {
     public List<GameObject> items;
-
-    private void Awake()
+    
+    private void Load()
     {
+      items.Clear();
       items = FindObjectsOfType<GameObject>().Where(tmp => tmp.name.Contains('$')).ToList();
     }
 
@@ -63,6 +65,11 @@ namespace UI
           setter.Invoke(obj);
 
       return objs;
+    }
+
+    public void OnSceneChanged(string before, string after)
+    {
+      Load();
     }
   }
 }
