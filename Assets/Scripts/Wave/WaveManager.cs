@@ -24,7 +24,6 @@ namespace Wave
     public event Action onWaveStart;
 
     public SpawnData.Spawns.Spawn[] spawns { get; private set; }
-    public float[] times { get; private set; }
 
     private List<Timer> spawnTimers = new List<Timer>();
     
@@ -43,7 +42,6 @@ namespace Wave
         storePanel.gameObject.SetActive(false);
         NextWave();
       });
-      times = GameManager.Data.data.spawns.waves;
     }
 
     private void OnTimerEnd(Timer sender)
@@ -53,19 +51,20 @@ namespace Wave
 
     private void OnTimerTick(Timer sender)
     {
-      timerText.text = $"{Math.Max(0, times[currentWave] - Mathf.FloorToInt(sender.elapsedTime))}초";
+      timerText.text = 
+        $"{Math.Max(0, GameManager.Data.data.GetWaveTime(currentWave) - Mathf.FloorToInt(sender.elapsedTime))}초";
     }
 
     public void StartWave()
     {
       spawnTimers.Clear();
       spawns = GameManager.Data.data.GetSpawnData(currentWave);
-      waveTimer.duration = times[currentWave];
+      waveTimer.duration = GameManager.Data.data.GetWaveTime(currentWave);
       onWaveStart?.Invoke();
       for (int i = 0; i < spawns.Length; i++)
       {
         var timer = new Timer();
-        timer.duration = times[currentWave] / spawns[i].count + 1;
+        timer.duration = GameManager.Data.data.GetWaveTime(currentWave) / spawns[i].count + 1;
         var i1 = i;
         timer.onEnd += t =>
         {
@@ -102,12 +101,7 @@ namespace Wave
       currentWave++;
       StartWave();
     }
-
-    private void Start()
-    {
-      
-    }
-
+    
     private void KillEnemies()
     {
       var objs = FindObjectsOfType<TargetableObject>();

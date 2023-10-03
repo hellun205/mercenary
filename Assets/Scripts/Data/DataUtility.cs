@@ -338,7 +338,7 @@ namespace Data
     
     public static PlayerStatus GetPlayerStatus(this DataManager.Data data)
     {
-      return new PlayerStatus
+      return new PlayerStatus 
       {
         maxHp = data.GetPlayerStatusData(PlayerStatusItem.MaxHp),
         hp = data.GetPlayerStatusData(PlayerStatusItem.Hp),

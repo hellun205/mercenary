@@ -6,7 +6,7 @@ using Util;
 
 namespace Enemy
 {
-  public class RangedAttacker : MonoBehaviour ,IUsePool
+  public class RangedAttacker : MonoBehaviour, IUsePool
   {
     public PoolObject poolObject { get; set; }
 
@@ -14,8 +14,8 @@ namespace Enemy
     private Detector detector;
 
     [SerializeField]
-    private Timer fireTimer = new ();
-    
+    private Timer fireTimer = new();
+
     public Func<float> bulletSpeedGetter { private get; set; }
     public Func<float> damageGetter { private get; set; }
     public Func<float> fireDurationGetter { private get; set; }

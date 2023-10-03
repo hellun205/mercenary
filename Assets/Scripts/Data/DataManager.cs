@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using Manager;
 using UnityEngine;
 using Weapon;
 using Attribute = Weapon.Attribute;
@@ -18,6 +20,13 @@ namespace Data
       public string weapons { get; set; }
       public string spawns { get; set; }
       public string attributeChemistry { get; set; }
+      public string key { get; set; }
+
+      public string GetPath(string type)
+      {
+        var property = typeof(Paths).GetProperty(type, BindingFlags.Public | BindingFlags.Instance);
+        return $"{dir}\\{property?.GetValue(this)}.json";
+      }
     }
 
     public struct Jsons
@@ -28,6 +37,7 @@ namespace Data
       public string weapons { get; set; }
       public string spawns { get; set; }
       public string attributeChemistry { get; set; }
+      public string key { get; set; }
     }
 
     [Serializable]
@@ -39,6 +49,7 @@ namespace Data
       public TextAsset weapons;
       public TextAsset spawns;
       public TextAsset attributeChemistry;
+      public TextAsset key;
 
       public static implicit operator Jsons(Input i) => new Jsons()
       {
@@ -48,6 +59,7 @@ namespace Data
         weapons = i.weapons.text,
         spawns = i.spawns.text,
         attributeChemistry = i.attributeChemistry.text,
+        key = i.key.text
       };
     }
 
@@ -60,43 +72,55 @@ namespace Data
 
       public Dictionary<PlayerStatusItem, float> player { get; set; }
 
-      public Dictionary<string, (Attribute attribute, Dictionary<WeaponStatusItem, float>[] tiers)> weapons { get; set; }
+      public Dictionary<string, (Attribute attribute, Dictionary<WeaponStatusItem, float>[] tiers)> weapons
+      {
+        get;
+        set;
+      }
 
       public SpawnDataSimply spawns { get; set; }
 
       public Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>> attributeChemistry { get; set; }
+      public Dictionary<string, KeyCode[]> keys { get; set; }
     }
 
-    public Paths? paths { get; }
+    public Paths paths { get; }
     public Jsons jsons { get; private set; }
     public Data data { get; private set; }
 
-    public DataManager(Paths paths)
+    public DataManager(Jsons? jsonData = null)
     {
-      this.paths = paths;
-      Load();
-    }
-
-    public DataManager(Jsons jsonData)
-    {
-      this.jsons = jsonData;
-      Load();
-    }
-
-    private void Load()
-    {
-      jsons = paths.HasValue switch
+      this.paths = new Paths
       {
-        true => new Jsons
+        dir = Directory.GetCurrentDirectory() + @"\Data",
+        spawns = "SpawnData",
+        items = "ItemData",
+        partner = "PartnerData",
+        weapons = "WeaponData",
+        player = "PlayerData",
+        attributeChemistry = "AttributeChemistryData",
+        key = "KeyData"
+      };
+      if (jsonData != null)
+        this.jsons = jsonData.Value;
+      Load(jsonData.HasValue);
+    }
+
+    private void Load(bool loadWithJson)
+    {
+      jsons = loadWithJson switch
+      {
+        false => new Jsons
         {
-          items = LoadJson($"{paths.Value.dir}\\{paths.Value.items}.json"),
-          partner = LoadJson($"{paths.Value.dir}\\{paths.Value.partner}.json"),
-          player = LoadJson($"{paths.Value.dir}\\{paths.Value.player}.json"),
-          weapons = LoadJson($"{paths.Value.dir}\\{paths.Value.weapons}.json"),
-          spawns = LoadJson($"{paths.Value.dir}\\{paths.Value.spawns}.json"),
-          attributeChemistry = LoadJson($"{paths.Value.dir}\\{paths.Value.attributeChemistry}.json"),
+          items = LoadJson(paths.GetPath("items")),
+          partner = LoadJson(paths.GetPath("partner")),
+          player = LoadJson(paths.GetPath("player")),
+          weapons = LoadJson(paths.GetPath("weapons")),
+          spawns = LoadJson(paths.GetPath("spawns")),
+          attributeChemistry = LoadJson(paths.GetPath("attributeChemistry")),
+          key = LoadJson(paths.GetPath("key")),
         },
-        false => jsons!
+        true => jsons
       };
 
       data = new Data
@@ -107,13 +131,21 @@ namespace Data
         weapons = LoadData<WeaponData>(jsons.weapons).ToSimply(),
         spawns = LoadData<SpawnData>(jsons.spawns).ToSimply(),
         attributeChemistry = LoadData<AttributeChemistryData>(jsons.attributeChemistry).ToSimply(),
+        keys = string.IsNullOrEmpty(jsons.key)
+          ? KeyManager.InitalDefaultData(paths.GetPath("key"))
+          : LoadData<KeyData>(jsons.key).ToSimply()
       };
     }
 
     public static string LoadJson(string path)
     {
-      using var sr = new StreamReader(path);
-      return sr.ReadToEnd();
+      if (File.Exists(path))
+      {
+        using var sr = new StreamReader(path);
+        return sr.ReadToEnd();
+      }
+      else
+        return null;
     }
 
     public static T LoadData<T>(string json) where T : ILoadable

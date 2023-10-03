@@ -12,9 +12,12 @@ using Store.Status;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 using Wave;
 using Weapon;
+using Window;
+using Window.Contents;
 using Attribute = Weapon.Attribute;
 using ItemData = Item.ItemData;
 using Transition = Transition.Transition;
@@ -39,6 +42,7 @@ namespace Manager
     public static CameraManager Camera { get; private set; }
     public static global::Transition.Transition Transition { get; private set; }
     public static DataManager Data { get; private set; }
+    public static WindowManager Window { get; private set; }
 
     public State<int> coin;
 
@@ -53,9 +57,16 @@ namespace Manager
 
     public DataManager.Input dataJsons;
 
+    public bool isMenuOpened { get; private set; }
+
     private void Init()
     {
       Manager = this;
+      Data = Manager.isTestMode switch
+      {
+        true  => new DataManager(),
+        false => new DataManager(dataJsons),
+      };
       Key = new KeyManager();
       Weapons = transform.Find("@weapon_objects").GetComponent<ObjectCollection>();
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
@@ -70,31 +81,17 @@ namespace Manager
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
       Transition = new global::Transition.Transition();
-
-      Data = Manager.isTestMode switch
-      {
-        true => new DataManager(new DataManager.Paths
-        {
-          dir = Directory.GetCurrentDirectory() + @"\Data",
-          spawns = "SpawnData",
-          items = "ItemData",
-          partner = "PartnerData",
-          weapons = "WeaponData",
-          player = "PlayerData",
-          attributeChemistry = "AttributeChemistryData",
-        }),
-        false => new DataManager(dataJsons),
-      };
+      Window = new WindowManager();
     }
 
     private void Awake()
     {
       Init();
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
-      
+
       foreach (var item in WeaponData.items.Values)
         item.Refresh();
-      
+
       foreach (var item in Items.items.Values.Cast<ItemData>())
         item.Refresh();
     }
@@ -102,7 +99,10 @@ namespace Manager
     private void Start()
     {
       onLoaded?.Invoke();
-      // coin.value = 999999;
+      GameManager.UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
+      GameManager.UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
+      GameManager.UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
+      GameManager.UI.Find("$menu_panel").SetActive(false);
     }
 
     public static IPossessible GetItem(string itemName)
@@ -118,6 +118,7 @@ namespace Manager
       catch
       {
       }
+
       try
       {
         res = WeaponData.Get(name) as IPossessible;
@@ -127,6 +128,30 @@ namespace Manager
       }
 
       return res ?? throw new Exception($"can't find IPossessble object: {name}");
+    }
+
+    private void Update()
+    {
+      Key.KeyMap(GetKeyType.Down, (Keys.MenuToggle, ToggleGameMenu));
+    }
+
+    private void ToggleGameMenu()
+    {
+      isMenuOpened = !isMenuOpened;
+      GameManager.UI.Find("$menu_panel").SetActive(isMenuOpened);
+      if (isMenuOpened) Utils.Pause();
+      else Utils.UnPause();
+    }
+
+    public void AskExit()
+    {
+      var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
+      askBox.window.title = "종료";
+      askBox.message = "진짜로 종료하시겠습니까?";
+      askBox.onReturn = res =>
+      {
+        if (res == AskBoxResult.Yes) Utils.ExitGame();
+      };
     }
   }
 }
