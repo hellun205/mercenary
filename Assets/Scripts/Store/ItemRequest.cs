@@ -11,6 +11,7 @@ namespace Store
     public string item { get; set; }
     public int tier { get; set; }
     public (int wrapperId, int slotId) weaponSlotData { get; set; }
-    
+    public int partnerData { get; set; }
+    public PartnerSlot partnerSlot { get; set; }
   }
 }

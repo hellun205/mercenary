@@ -311,7 +311,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: {fileID: 5391273332371425813}
-  attribute: {fileID: 884051971607568908}
+  addtive: {fileID: 884051971607568908}
   itemDescriptions: {fileID: 5315503723672484518}
   itemIcon: {fileID: 748919715438063944}
   purchaseButton: {fileID: 2879846353742375349}
@@ -511,10 +511,7 @@ MonoBehaviour:
   lockImage: {fileID: 21300000, guid: 53757b6cb00bc134c85e84b30a8682d5, type: 3}
   unlockImage: {fileID: 21300000, guid: 2e3e62bc865931746b4ce4dbaf60fa5f, type: 3}
   panel: {fileID: 2586374701539739814}
-  isLocking: 0
   purchaseButtonText: {fileID: 7381205233366576743}
-  tier: 0
-  hasItem: 0
 --- !u!225 &8766928292815372124
 CanvasGroup:
   m_ObjectHideFlags: 0

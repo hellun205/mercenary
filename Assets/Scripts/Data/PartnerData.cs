@@ -5,6 +5,16 @@ using Attribute = Weapon.Attribute;
 
 namespace Data
 {
+  public static class PartnerDataUtility
+  {
+    public static string GetMinValue(this PartnerData.Status status)
+      => status switch
+      {
+        
+        _ => "0"
+      };
+  }
+
   [Serializable]
   public class PartnerData
     : IData<PartnerData,
@@ -17,7 +27,7 @@ namespace Data
       Damage = 1 << 0, AttackSpeed = 1 << 1, MultipleCritical = 1 << 2,
       Range = 1 << 3, BleedingDamage = 1 << 4, Knockback = 1 << 5,
       PenetrateCount = 1 << 6, ErrorRange = 1 << 7, ExplosionRange = 1 << 8,
-      CriticalPercent = 1 << 9
+      CriticalPercent = 1 << 9, Price = 1 << 10
     }
 
     [Serializable]

@@ -91,7 +91,7 @@ namespace Enemy
     private void ThrowCoin()
     {
       var count = status.drop;
-      if (GameManager.Player.status.luck.ApplyPercentage())
+      if (GameManager.Player.status.luck.ApplyProbability())
         count *= 2;
 
       for (var i = 0; i < count; i++)

@@ -21,6 +21,7 @@ using Weapon;
 using Window;
 using Window.Contents;
 using ItemData = Item.ItemData;
+using PartnerData = Player.Partner.PartnerData;
 
 namespace Manager
 {
@@ -44,10 +45,25 @@ namespace Manager
     public static DataManager Data { get; private set; }
     public static WindowManager Window { get; private set; }
     public static SpriteCollection Sprites { get; private set; }
+    public static ScriptableObjectCollection Partners { get; private set; }
 
     public State<int> coin;
 
     public static event Action onLoaded;
+    public static bool isLoaded { get; private set; }
+
+    public static Color GetTierColor(int tier)
+      => tier switch
+      {
+        0 => new Color32(72, 72, 72, 255),
+        1 => new Color32(39, 101, 45, 255),
+        2 => new Color32(109, 27, 108, 255),
+        3 => new Color32(115, 26, 45, 255),
+        _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
+      };
+
+    public static Color GetAttributeColor() 
+      => new Color32(72, 156, 255, 255);
 
     [SerializeField]
     private Sprite m_emptySprite;
@@ -74,6 +90,7 @@ namespace Manager
       Weapons = transform.Find("@weapon_objects").GetComponent<ObjectCollection>();
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
       Prefabs = transform.Find("@prefab_objects").GetComponent<ObjectCollection>();
+      Partners = transform.Find("@partner_data").GetComponent<ScriptableObjectCollection>();
       Player = FindObjectOfType<PlayerController>();
       Map = new MapManager();
       Spawn = FindObjectOfType<SpawnManager>();
@@ -98,19 +115,20 @@ namespace Manager
 
       foreach (var item in Items.items.Values.Cast<ItemData>())
         item.Refresh();
-      
+
       new SceneLoader(SceneManager.GetActiveScene().name).HandleSceneChanged();
     }
 
     private void Start()
     {
+      isLoaded = true;
       onLoaded?.Invoke();
       UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_gotomain_btn").onClick.AddListener(AskGotoMain);
       UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
       UI.Find("$menu_panel").SetVisible(false);
-      
+
       coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
     }
 
@@ -120,22 +138,14 @@ namespace Manager
     public static IPossessible GetIPossessible(string name)
     {
       IPossessible res = null;
-      try
-      {
-        res = Items.Get(name) as IPossessible;
-      }
-      catch
-      {
-      }
 
-      try
-      {
-        res = WeaponData.Get(name) as IPossessible;
-      }
-      catch
-      {
-      }
-
+      if (Items.items.TryGetValue(name, out var item))
+        res = (IPossessible)item;
+      else if (WeaponData.items.TryGetValue(name, out var weapon))
+        res = (IPossessible)weapon;
+      else if (Partners.items.TryGetValue(name, out var partner))
+        res = (IPossessible)partner;
+        
       return res ?? throw new Exception($"can't find IPossessble object: {name}");
     }
 
@@ -151,7 +161,7 @@ namespace Manager
       if (isMenuOpened) Utils.Pause();
       else Utils.UnPause();
     }
-    
+
     public void AskGotoMain()
     {
       var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
@@ -166,7 +176,7 @@ namespace Manager
            .Load();
       };
     }
-    
+
     public void AskExit()
     {
       var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();

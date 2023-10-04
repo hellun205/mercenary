@@ -12,7 +12,8 @@ namespace Util.UI
     private CanvasGroup canvasGroup;
 
     private Timer timer = new Timer();
-    private int multiple;
+    private int end;
+    private int start => end == 1 ? 0 : 1;
 
     private void Reset()
     {
@@ -28,7 +29,7 @@ namespace Util.UI
 
     private void TimerOnTick(Timer sender)
     {
-      canvasGroup.alpha = sender.value * multiple;
+      canvasGroup.alpha = Mathf.Lerp(start, end, sender.value);
     }
 
     public void SetVisible(bool visible, float? duration = null, TimerType type = TimerType.Normal)
@@ -40,7 +41,7 @@ namespace Util.UI
       {
         timer.duration = duration.Value;
         timer.type = type;
-        multiple = visible ? 1 : -1;
+        end = visible ? 1 : 0;
         timer.Start();
       }
       else

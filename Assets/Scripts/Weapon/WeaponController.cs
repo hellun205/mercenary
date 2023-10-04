@@ -9,10 +9,9 @@ namespace Weapon
   [RequireComponent(typeof(CircleCollider2D))]
   public class WeaponController : MonoBehaviour, ITier
   {
-    public WeaponData weaponData;
+    public WeaponData weaponData { get; set; }
 
-    [NonSerialized]
-    public WeaponStatus status;
+    public WeaponStatus status { get; set; }
 
     [Header("Target")]
     public TargetableObject target;
@@ -149,7 +148,7 @@ namespace Weapon
     {
       ao.damage = status.attackDamage;
       ao.multipleDamage = status.multipleCritical;
-      ao.isCritical = status.criticalPercent.ApplyPercentage();
+      ao.isCritical = status.criticalPercent.ApplyProbability();
       ao.bleeding = status.bleedingDamage;
       ao.knockBack = status.knockback;
     }

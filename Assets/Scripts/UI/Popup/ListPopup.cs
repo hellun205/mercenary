@@ -10,13 +10,13 @@ namespace UI.Popup
       base.ShowPopup();
       valueText.text = originalValue;
       for (var i = 0; i < value.Length; i++)
-        list[i].ShowPopup(value[i]);
+        list[i].ShowPopup(value[i], true);
     }
 
-    public new void HidePopup()
+    public void HidePopup()
     {
       foreach (var popupPanel in list)
-        popupPanel.HidePopup();
+        popupPanel.HidePopup(true);
 
       base.HidePopup();
     }

@@ -23,8 +23,7 @@ namespace Weapon
     [Multiline]
     public string descriptions;
 
-    [NonSerialized]
-    public WeaponStatus[] status;
+    public WeaponStatus[] status { get; set; }
 
     [Header("Sprite Setting")]
     public bool needFlipY;
@@ -38,17 +37,15 @@ namespace Weapon
 
     [Header("Explosion")]
     public bool fireOnContact;
+
     public bool isFixedTargetPosition;
     public string effectObj = "effect_explosion";
     public float explosionDelay;
 
     public string specfiedName => name;
     public string itemName => $"[무기] {_name}";
-    public string description => GetDescription(0);
     public Sprite icon => m_icon;
-    public int price => status[0].price;
     public bool hasTier => false;
-    
     public int tier { get; set; }
 
     public string GetDescription(int tier)
@@ -58,6 +55,9 @@ namespace Weapon
       sb.Append($"{descriptions}");
       return sb.ToString();
     }
+
+    public int GetPrice(int tier)
+      => Convert.ToInt32(GameManager.Data.data.GetWeaponStatusData(specfiedName, tier, WeaponStatusItem.Price));
 
     public void Refresh()
     {

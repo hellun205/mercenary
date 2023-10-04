@@ -116,7 +116,7 @@ namespace Player
 
     private void Hit(float damage)
     {
-      if (currentStatus.evasionRate.ApplyPercentage())
+      if (currentStatus.evasionRate.ApplyProbability())
       {
         GameManager.Pool.Summon("ui/miss", transform.GetAroundRandom(0.4f));
         return;
@@ -144,7 +144,7 @@ namespace Player
 
     public void SuccessfulAttack()
     {
-      if (currentStatus.drainHp.ApplyPercentage())
+      if (currentStatus.drainHp.ApplyProbability())
       {
         Heal(1);
       }

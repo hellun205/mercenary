@@ -15,10 +15,18 @@ namespace Store.Inventory
 
     public void OnDrop(ItemRequest data)
     {
-      if (data.beginDragType != DragType.WeaponSlot) return;
+      switch (data.beginDragType)
+      {
+        case DragType.WeaponSlot:
+          data.weaponInventoryUI.list[data.weaponSlotData.wrapperId].slots[data.weaponSlotData.slotId].Set(null);
+          GameManager.Player.inventory.GainItem(data.item, data.tier);
+          break;
 
-      data.weaponInventoryUI.list[data.weaponSlotData.wrapperId].slots[data.weaponSlotData.slotId].Set(null);
-      GameManager.Player.inventory.GainItem(data.item, data.tier);
+        case DragType.PartnerSlot:
+          data.partnerSlot.SetPartner(null);
+          GameManager.Player.inventory.GainItem(data.item, data.tier);
+          break;
+      }
     }
   }
 }

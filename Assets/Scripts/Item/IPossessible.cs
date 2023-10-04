@@ -1,3 +1,4 @@
+using Store;
 using UnityEngine;
 
 namespace Item
@@ -9,12 +10,12 @@ namespace Item
 
     public Sprite icon { get; }
     
-    public int price { get; }
-    
     public bool hasTier { get; }
     
     public int tier { get; }
 
-    public string GetDescription(int tier);
+    public string GetDescription(int tier = 0);
+
+    public int GetPrice(int tier = 0);
   }
 }

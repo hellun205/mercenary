@@ -110,18 +110,18 @@ namespace Store.Equipment
     {
       if (weapon == null) return;
       var sb = new StringBuilder();
-      var item = GameManager.WeaponData.Get(weapon.Value.name);
+      var data = GameManager.WeaponData.Get(weapon.Value.name);
 
       sb.Append
         (
-          item.itemName
+          data.itemName
            .SetSizePercent(1.5f)
            .SetAlign(TextAlign.Center)
         )
        .Append("\n")
        .Append
         (
-          item.attribute.GetTexts()
+          data.attribute.GetTexts()
            .SetSizePercent(1.25f)
            .AddColor(new Color32(72, 156, 255, 255))
            .SetLineHeight(1.25f)
@@ -130,11 +130,11 @@ namespace Store.Equipment
        .Append("\n")
        .Append
         (
-          item.description
+          data.GetDescription(weapon.Value.tier)
            .SetAlign(TextAlign.Left)
         );
 
-      popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(item.attribute));
+      popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(data.attribute));
     }
   }
 }

@@ -58,13 +58,14 @@ namespace Util
 
       return screenPoint;
     }
-    
+
     public static Vector3 WorldToCanvasPosition(this Canvas canvas, Vector3 worldPosition, Camera camera = null)
     {
       if (camera == null)
       {
         camera = GameManager.Camera.camera;
       }
+
       var viewportPosition = camera.WorldToViewportPoint(worldPosition);
       return canvas.ViewportToCanvasPosition(viewportPosition);
     }
@@ -96,20 +97,35 @@ namespace Util
       return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
     }
 
-    public static bool ApplyPercentage(this float percentage, params float[] additive)
+    public static bool ApplyProbability(this float probability, params float[] additive)
     {
-      var random = Random.Range(0f, 1f);
-      foreach (var add in additive)
-        percentage += add;
-      return Mathf.Min(1f, Mathf.Max(0,percentage)) > random;
+      return ApplyProbability(probability, out var _, additive);
     }
-    
+
+    public static bool ApplyProbability(this float probability, out float randomValue, params float[] additive)
+    {
+      return ApplyProbability(probability, out randomValue, out var _, additive);
+    }
+
+    public static bool ApplyProbability
+    (
+      this float probability,
+      out float randomValue,
+      out float finalProbability,
+      params float[] additive
+    )
+    {
+      randomValue = Random.Range(0f, 1f);
+      finalProbability = probability + additive.Sum();
+      return Mathf.Min(1f, Mathf.Max(0f, finalProbability)) >= randomValue;
+    }
+
     public static void ExitGame()
     {
 #if UNITY_EDITOR
       UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit();
+      Application.Quit();
 #endif
     }
 
@@ -133,13 +149,13 @@ namespace Util
       else
         Time.timeScale = 1f;
     }
-    
+
     public static IEnumerable<Enum> GetFlags(this Enum input)
     {
       return Enum.GetValues(input.GetType()).Cast<Enum>().Where(value => input.HasFlag(value));
     }
-    
-    public static IEnumerable<T> GetFlags<T>(this T input) where T: Enum
+
+    public static IEnumerable<T> GetFlags<T>(this T input) where T : Enum
     {
       return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
     }
@@ -162,5 +178,21 @@ namespace Util
       for (var i = 0; i < count; i++)
         fn?.Invoke(i);
     }
+
+    public static string ToRomanNumeral(this int number)
+      => number switch
+      {
+        1 => "Ⅰ", 
+        2 => "Ⅱ", 
+        3 => "Ⅲ", 
+        4 => "Ⅳ", 
+        5 => "Ⅴ", 
+        6 => "Ⅵ", 
+        7 => "Ⅶ", 
+        8 => "Ⅷ", 
+        9 => "Ⅸ", 
+        10 => "Ⅹ", 
+        _ => number.ToString()
+      };
   }
 }

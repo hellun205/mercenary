@@ -8,6 +8,7 @@ using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 using Util.Text;
 using Weapon;
 
@@ -25,6 +26,8 @@ namespace Store.Inventory
 
     public InventoryUI parentUI;
 
+    private Image img;
+
     public override string popupName => "$popup_item";
 
     private ItemDrop useDrop;
@@ -33,6 +36,7 @@ namespace Store.Inventory
     protected override void Awake()
     {
       base.Awake();
+      img = GetComponent<Image>();
       parentUI = FindObjectOfType<InventoryUI>();
       useDrag = GetComponent<ItemDrag>();
       useDrop = GetComponent<ItemDrop>();
@@ -59,6 +63,7 @@ namespace Store.Inventory
     {
       itemData = item;
       icon.sprite = GameManager.GetIPossessible(itemData!.Value.name).icon;
+      img.color = GameManager.GetTierColor(itemData.Value.tier);
       SetCount(count);
     }
 
@@ -82,7 +87,7 @@ namespace Store.Inventory
       
       sb.Append
         (
-          item.itemName
+          $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral()}"
            .SetSizePercent(1.5f)
            .SetAlign(TextAlign.Center)
         )
