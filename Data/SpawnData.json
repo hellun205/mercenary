@@ -21,7 +21,7 @@
       "defaultStatus": {
         "hp": 2.0,
         "damage": 1.0,
-        "moveSpeed": 4.0,
+        "moveSpeed": 3.6,
         "dropCoin": 1.0
       },
       "increaseStatus": {

@@ -20,7 +20,7 @@ namespace Item
     private Sprite m_icon;
 
     [NonSerialized]
-    public IncreaseStatus[] status;
+    public IncreaseStatus status;
 
     public string specfiedName => name;
     public string itemName => $"[아이템] {m_itemName}";
@@ -28,11 +28,13 @@ namespace Item
     public Sprite icon => m_icon;
 
     public int price { get; private set; }
+    public bool hasTier => true;
+    public int tier { get; set; }
 
     public string GetDescription(int tier)
     {
       var sb = new StringBuilder();
-      sb.Append(status[tier].GetDescription());
+      sb.Append(status.GetDescription());
       sb.Append($"{m_description}");
       return sb.ToString();
     }
@@ -41,6 +43,7 @@ namespace Item
     {
       price = GameManager.Data.data.GetItemPrice(specfiedName);
       status = GameManager.Data.data.GetItemStatus(specfiedName);
+      tier = GameManager.Data.data.GetItemTier(specfiedName);
     }
   }
 }

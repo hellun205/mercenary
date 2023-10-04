@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using Item;
 using Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace Store.Item
 {
@@ -28,7 +30,7 @@ namespace Store.Item
       cacheItems = new List<IPossessible>();
       cacheItems.AddRange(GameManager.Items.items.Values.Cast<IPossessible>());
       cacheItems.AddRange(GameManager.WeaponData.items.Values);
-      
+
       items = container.GetComponentsInChildren<Item>();
       refreshPrice = new State<int>(2, value => refreshBtnText.text = $"<sprite=0> ${value}");
       refreshBtn.onClick.AddListener(OnRefreshButtonClick);
@@ -48,24 +50,40 @@ namespace Store.Item
     public void RefreshItems()
     {
       items.ForEach(i => i.hasItem = false);
-      
+
       for (var i = 0; i < items.Length; i++)
       {
         if (items[i].isLocking) continue;
 
         IPossessible item;
+        int tier;
+        var hasValue = false;
         do
         {
           item = cacheItems.GetRandom();
-        } while (items.Any(x => x.itemData == item));
+          tier = item.hasTier ? item.tier : Random.Range(0, GameManager.Data.data.store.tierProbabilities.Length);
+          if (items.Any(x => x.itemData == item))
+            continue;
 
-        items[i].SetItem(item.specfiedName, 0);
+          var increaseProbability = GameManager.Data.data.GetIncreaseProbabilityByWaveWithoutMultiple(tier);
+
+          hasValue = GameManager.Data.data.GetProbabilityOfPossessibleObject(tier)
+            .ApplyPercentage
+            (
+              increaseProbability * GameManager.Wave.currentWave,
+              increaseProbability * Mathf.FloorToInt(GameManager.Player.currentStatus.luck * 100f)
+            );
+          
+          Debug.Log($"[{i}] {item.specfiedName}({tier}) {hasValue}");
+        } while (!hasValue);
+
+        items[i].SetItem(item.specfiedName, tier);
       }
     }
 
     private void Start()
     {
-      RefreshItems();
+      // RefreshItems();
     }
   }
 }

@@ -10,6 +10,10 @@ namespace Item
     public Sprite icon { get; }
     
     public int price { get; }
+    
+    public bool hasTier { get; }
+    
+    public int tier { get; }
 
     public string GetDescription(int tier);
   }

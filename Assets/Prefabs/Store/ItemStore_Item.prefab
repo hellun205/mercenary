@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_Color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -510,8 +510,10 @@ MonoBehaviour:
   lockButtonImage: {fileID: 2323213329197399083}
   lockImage: {fileID: 21300000, guid: 53757b6cb00bc134c85e84b30a8682d5, type: 3}
   unlockImage: {fileID: 21300000, guid: 2e3e62bc865931746b4ce4dbaf60fa5f, type: 3}
+  panel: {fileID: 2586374701539739814}
   isLocking: 0
   purchaseButtonText: {fileID: 7381205233366576743}
+  tier: 0
   hasItem: 0
 --- !u!225 &8766928292815372124
 CanvasGroup:
@@ -827,12 +829,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 20
-  m_fontSizeMax: 72
+  m_fontSizeMax: 35
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 4096

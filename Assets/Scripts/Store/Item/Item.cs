@@ -1,4 +1,5 @@
-﻿using Item;
+﻿using System;
+using Item;
 using Manager;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Store.Item
   {
     [SerializeField]
     private TextMeshProUGUI itemName;
-    
+
     [SerializeField]
     private TextMeshProUGUI attribute;
 
@@ -37,12 +38,17 @@ namespace Store.Item
     [SerializeField]
     private Sprite unlockImage;
 
+    [SerializeField]
+    private Image panel;
+
     public bool isLocking;
 
     [SerializeField]
     private TextMeshProUGUI purchaseButtonText;
 
     public IPossessible itemData;
+
+    public int tier;
 
     public bool hasItem;
 
@@ -79,13 +85,30 @@ namespace Store.Item
     {
       var item = GameManager.GetIPossessible(name);
       itemData = item;
-      itemName.text = item.itemName;
+      this.tier = tier;
+      var t = tier switch
+      {
+        0 => 'Ⅰ',
+        1 => 'Ⅱ',
+        2 => 'Ⅲ',
+        3 => 'Ⅳ',
+        _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
+      };
+      itemName.text = $"{item.itemName} {t}";
       itemDescriptions.text = item.GetDescription(tier);
       itemIcon.sprite = item.icon;
       purchaseButtonText.text = $"${item.price}";
-      attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : ""; 
+      attribute.text = item is WeaponData weapon ? weapon.attribute.GetTexts() : "";
       hasItem = true;
-      
+      panel.color = tier switch
+      {
+        0 => new Color32(72, 72, 72, 255),
+        1 => new Color32(39, 101, 45, 255),
+        2 => new Color32(109, 27, 108, 255),
+        3 => new Color32(115, 26, 45, 255),
+        _ => throw new ArgumentOutOfRangeException()
+      };
+
       RefreshButtonEnabled();
       SetEnabled(true);
     }

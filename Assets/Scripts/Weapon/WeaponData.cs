@@ -47,6 +47,9 @@ namespace Weapon
     public string description => GetDescription(0);
     public Sprite icon => m_icon;
     public int price => status[0].price;
+    public bool hasTier => false;
+    
+    public int tier { get; set; }
 
     public string GetDescription(int tier)
     {

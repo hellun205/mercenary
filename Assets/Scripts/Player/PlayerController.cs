@@ -156,7 +156,7 @@ namespace Player
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
-        res += ((ItemData) GameManager.GetItem(item.name)).status[item.tier] * count;
+        res += ((ItemData) GameManager.GetItem(item.name)).status * count;
 
       res += GetChemistryStatus(out var _);
 

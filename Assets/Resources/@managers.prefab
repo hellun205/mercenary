@@ -8611,6 +8611,7 @@ MonoBehaviour:
     spawns: {fileID: 0}
     attributeChemistry: {fileID: 0}
     key: {fileID: 0}
+    store: {fileID: 0}
 --- !u!114 &3282096191795630451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17328,6 +17329,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: item3
       objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.42352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.105882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.42745098
+      objectReference: {fileID: 0}
     - target: {fileID: 4561362064131575241, guid: 80c431db95e000b438655125951b9c5e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -17429,6 +17442,18 @@ PrefabInstance:
     - target: {fileID: 2247840683350191128, guid: 80c431db95e000b438655125951b9c5e, type: 3}
       propertyPath: m_Name
       value: item2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.17445074
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.10196076
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586374701539739814, guid: 80c431db95e000b438655125951b9c5e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4509804
       objectReference: {fileID: 0}
     - target: {fileID: 4561362064131575241, guid: 80c431db95e000b438655125951b9c5e, type: 3}
       propertyPath: m_Pivot.x

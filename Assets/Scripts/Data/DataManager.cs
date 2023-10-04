@@ -21,6 +21,7 @@ namespace Data
       public string spawns { get; set; }
       public string attributeChemistry { get; set; }
       public string key { get; set; }
+      public string store { get; set;  }
 
       public string GetPath(string type)
       {
@@ -38,6 +39,7 @@ namespace Data
       public string spawns { get; set; }
       public string attributeChemistry { get; set; }
       public string key { get; set; }
+      public string store { get; set; }
     }
 
     [Serializable]
@@ -50,6 +52,7 @@ namespace Data
       public TextAsset spawns;
       public TextAsset attributeChemistry;
       public TextAsset key;
+      public TextAsset store;
 
       public static implicit operator Jsons(Input i) => new Jsons()
       {
@@ -59,7 +62,8 @@ namespace Data
         weapons = i.weapons.text,
         spawns = i.spawns.text,
         attributeChemistry = i.attributeChemistry.text,
-        key = i.key.text
+        key = i.key.text,
+        store = i.store.text
       };
     }
 
@@ -82,6 +86,7 @@ namespace Data
 
       public Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>> attributeChemistry { get; set; }
       public Dictionary<string, KeyCode[]> keys { get; set; }
+      public StoreData store { get; set; }
     }
 
     public Paths paths { get; }
@@ -99,7 +104,8 @@ namespace Data
         weapons = "WeaponData",
         player = "PlayerData",
         attributeChemistry = "AttributeChemistryData",
-        key = "KeyData"
+        key = "KeyData",
+        store = "StoreData"
       };
       if (jsonData != null)
         this.jsons = jsonData.Value;
@@ -119,6 +125,7 @@ namespace Data
           spawns = LoadJson(paths.GetPath("spawns")),
           attributeChemistry = LoadJson(paths.GetPath("attributeChemistry")),
           key = LoadJson(paths.GetPath("key")),
+          store = LoadJson(paths.GetPath("store"))
         },
         true => jsons
       };
@@ -133,7 +140,8 @@ namespace Data
         attributeChemistry = LoadData<AttributeChemistryData>(jsons.attributeChemistry).ToSimply(),
         keys = string.IsNullOrEmpty(jsons.key)
           ? KeyManager.InitalDefaultData(paths.GetPath("key"))
-          : LoadData<KeyData>(jsons.key).ToSimply()
+          : LoadData<KeyData>(jsons.key).ToSimply(),
+        store = LoadData<StoreData>(jsons.store)
       };
     }
 
