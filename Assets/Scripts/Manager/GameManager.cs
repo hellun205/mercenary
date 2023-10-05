@@ -173,6 +173,7 @@ namespace Manager
           new SceneLoader("Main")
            .Out(Transitions.FADEOUT)
            .In(Transitions.FADEIN)
+           .OnEndOut(ToggleGameMenu)
            .Load();
       };
     }

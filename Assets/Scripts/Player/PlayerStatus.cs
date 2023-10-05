@@ -118,7 +118,7 @@ namespace Player
       var res = a;
 
       res.maxHp = b.ToValue("maxHp", res.maxHp, (o, v) => o + v);
-      res.regeneration = b.ToValue("regeneration", res.maxHp, (o, v) => o + v);
+      res.regeneration = b.ToValue("regeneration", res.regeneration, (o, v) => o + v);
       res.meleeDamage = b.ToValue("meleeDamage", res.meleeDamage, (o, v) => o + v);
       res.rangedDamage = b.ToValue("rangedDamage", res.rangedDamage, (o, v) => o + v);
       res.criticalPercent = b.ToValue("criticalPercent", res.criticalPercent, (o, v) => o + v);

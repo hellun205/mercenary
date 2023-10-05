@@ -93,7 +93,7 @@ namespace Weapon
         return;
       }
 
-      // RefreshRange();
+      RefreshRange();
       if (hasTarget && target && target.canTarget)
       {
         var r = transform.GetRotationOfLookAtObject(target.transform);
