@@ -38,6 +38,8 @@ namespace Weapon
 
     public int tier { get; set; }
     public string dataName => $"{name}.{tier}";
+    public bool isAdditionalStatus { get; set; }
+    public Func<IncreaseStatus> additionalStatusGetter { get; set; }
 
     protected virtual void Reset()
     {
@@ -70,6 +72,8 @@ namespace Weapon
       }
 
       status = weaponData.status[tier] + GameManager.Player.GetStatus();
+      if (isAdditionalStatus)
+        status += additionalStatusGetter.Invoke();
     }
 
     [ContextMenu("Refresh Range")]
@@ -89,7 +93,7 @@ namespace Weapon
         return;
       }
 
-      RefreshRange();
+      // RefreshRange();
       if (hasTarget && target && target.canTarget)
       {
         var r = transform.GetRotationOfLookAtObject(target.transform);

@@ -32,7 +32,6 @@ namespace Data
     public static float GetMinValue(this WeaponStatusItem statusType)
       => statusType switch
       {
-        WeaponStatusItem.ExplosionRange => 10,
         WeaponStatusItem.BulletSpeed => 7,
         WeaponStatusItem.BulletCount => 1,
         _ => 0,

@@ -5695,7 +5695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5750,6 +5750,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shielder: {fileID: 7592897952947410420}
   index: 1
+  panelImg: {fileID: 7077630504147262603}
+  iconImg: {fileID: 6666704165165085925}
 --- !u!1 &2497584374065531676
 GameObject:
   m_ObjectHideFlags: 0
@@ -17859,7 +17861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17914,6 +17916,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shielder: {fileID: 8260832434492642575}
   index: 0
+  panelImg: {fileID: 3679170487388377737}
+  iconImg: {fileID: 561512307176352504}
 --- !u!1 &8959374746883835986
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ using DG.Tweening.Plugins.Options;
 using Enemy;
 using Interact;
 using Manager;
+using Player.Partner;
 using Pool.Extensions;
 using Store.Equipment;
 using Store.Status;
@@ -38,7 +39,8 @@ namespace Player
 
     private float time;
 
-    public List<WeaponInventory> partnerWeaponInventories;
+    // public List<WeaponInventory> partnerWeaponInventories;
+    public PartnerController[] partners;
 
     [SerializeField]
     private SpriteRenderer sr;
@@ -61,13 +63,10 @@ namespace Player
       io = GetComponent<InteractiveObject>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
+      partners = GetComponentsInChildren<PartnerController>();
       io.onInteract += OnDamage;
       weaponInventory.onChanged += RefreshStatus;
       GameManager.Wave.onWaveStart += RefreshStatus;
-      foreach (var partnerWeaponInventory in partnerWeaponInventories)
-      {
-        partnerWeaponInventory.onChanged += RefreshStatus;
-      }
 
       RefreshHpBar();
     }
@@ -179,7 +178,7 @@ namespace Player
         foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
           Add(flag);
 
-      foreach (var partnerWeaponInventory in partnerWeaponInventories)
+      foreach (var partnerWeaponInventory in partners.Select(x => x.weaponInventory))
         foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
                   .Select(x => GameManager.WeaponData.Get(x.Value.name)))
           foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
@@ -203,6 +202,8 @@ namespace Player
 
     private void Start()
     {
+      foreach (var partner in partners)
+        partner.weaponInventory.onChanged += RefreshStatus;
       status = GameManager.Data.data.GetPlayerStatus();
       coinExplorer.GetComponent<CircleCollider2D>().radius =
         GameManager.Data.data.GetPlayerStatusData(PlayerStatusItem.CoinDetectRange) / 10;

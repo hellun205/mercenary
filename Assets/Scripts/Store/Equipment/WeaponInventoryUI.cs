@@ -53,9 +53,9 @@ namespace Store.Equipment
       else
       {
         if (weapon == null)
-          GameManager.Player.partnerWeaponInventories[wrapperIndex - 1].RemoveWeapon(slotIndex);
+          GameManager.Player.partners[wrapperIndex - 1].weaponInventory.RemoveWeapon(slotIndex);
         else
-          GameManager.Player.partnerWeaponInventories[wrapperIndex - 1]
+          GameManager.Player.partners[wrapperIndex - 1].weaponInventory
            .SetWeapon(slotIndex, weapon.Value.name, weapon.Value.tier);
       }
     }
@@ -69,11 +69,11 @@ namespace Store.Equipment
         list[0].slots[i].Set(playerWeapons[i], false);
       }
 
-      var partnerWeapons = GameManager.Player.partnerWeaponInventories;
+      var partner = GameManager.Player.partners;
 
-      for (var i = 0; i < partnerWeapons.Count; i++)
+      for (var i = 0; i < partner.Length; i++)
       {
-        var weapons = partnerWeapons[i].weapons;
+        var weapons = partner[i].weaponInventory.weapons;
         for (var j = 0; j < weapons.Count; j++)
         {
           if (weapons[j] == null) continue;

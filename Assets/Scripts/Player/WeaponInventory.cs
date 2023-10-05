@@ -19,6 +19,10 @@ namespace Player
 
     public event Action onChanged;
 
+    public bool isPartnerOwner { get; set; }
+
+    public Func<IncreaseStatus> statusGetter { get; set; }
+
     private void Awake()
     {
       weaponParent = transform.Find("@weapons");
@@ -51,7 +55,11 @@ namespace Player
         Quaternion.identity,
         weaponSlots[slot]);
       obj.name = weaponName;
+      var wc = obj.GetComponent<WeaponController>();
+      wc.additionalStatusGetter = statusGetter;
+      wc.isAdditionalStatus = isPartnerOwner;
       ((ITier) obj.GetComponent(typeof(ITier))).tier = tier;
+      
       onChanged?.Invoke();
     }
 

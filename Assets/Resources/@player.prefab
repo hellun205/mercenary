@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434143546964781454}
   - component: {fileID: 6235879728510256653}
+  - component: {fileID: 2753639836507628520}
   m_Layer: 8
   m_Name: test2
   m_TagString: Untagged
@@ -79,6 +80,18 @@ MonoBehaviour:
   weaponMaxCount: 3
   weaponSlots: []
   weaponParent: {fileID: 0}
+--- !u!114 &2753639836507628520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752007121741202707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea59c1f838e0415aab08e9e85dc340a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1250932297456877536
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604597599103225803}
   - component: {fileID: 993454152066851997}
+  - component: {fileID: 2220945625183765082}
   m_Layer: 8
   m_Name: test1
   m_TagString: Untagged
@@ -645,6 +659,18 @@ MonoBehaviour:
   weaponMaxCount: 3
   weaponSlots: []
   weaponParent: {fileID: 0}
+--- !u!114 &2220945625183765082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489193207659643543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea59c1f838e0415aab08e9e85dc340a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6848955669167779077
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +975,7 @@ MonoBehaviour:
     armor: 0.122
     moveSpeed: 0
     luck: 0
+    evasionRate: 0
   partnerWeaponInventories:
   - {fileID: 993454152066851997}
   - {fileID: 6235879728510256653}

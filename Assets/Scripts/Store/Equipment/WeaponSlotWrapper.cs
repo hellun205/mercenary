@@ -38,9 +38,9 @@ namespace Store.Equipment
       else
       {
         if (weapon == null)
-          GameManager.Player.partnerWeaponInventories[partnerIndex].RemoveWeapon(index);
+          GameManager.Player.partners[partnerIndex].weaponInventory.RemoveWeapon(index);
         else
-          GameManager.Player.partnerWeaponInventories[partnerIndex]
+          GameManager.Player.partners[partnerIndex].weaponInventory
            .SetWeapon(index, weapon.Value.name, weapon.Value.tier);
       }
     }
