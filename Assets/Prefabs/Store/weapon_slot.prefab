@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 6451543709537860960}
   - component: {fileID: 6288355803656664563}
   - component: {fileID: 5969649155433394608}
+  - component: {fileID: 9024936827529408830}
   m_Layer: 0
   m_Name: weapon_slot
   m_TagString: Untagged
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImg: {fileID: 9074638191835727696}
-  weapon: {fileID: 0}
+  panelImg: {fileID: 5525190764187870380}
   slotIndex: 0
 --- !u!114 &6288355803656664563
 MonoBehaviour:
@@ -193,3 +194,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4e5768ba864f9eb624f7b61cf8eb93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9024936827529408830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084873664098392029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1

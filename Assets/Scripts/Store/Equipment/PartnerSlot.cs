@@ -19,7 +19,7 @@ namespace Store.Equipment
     [SerializeField]
     private GameObject shielder;
 
-    private (string name, int tier)? partner;
+    public (string name, int tier)? partner;
 
     private ItemDrop useDrop;
     private ItemDrag useDrag;
@@ -58,20 +58,36 @@ namespace Store.Equipment
     private void OnDrop(ItemRequest obj)
     {
       var data = GameManager.GetIPossessible(obj.item);
-      if (obj.beginDragType != DragType.Inventory || data is not PartnerData) return;
+      if (data is not PartnerData) return;
+      if (obj.beginDragType == DragType.Inventory)
+      {
+        if (partner.HasValue)
+          GameManager.Player.inventory.GainItem(partner.Value.name, partner.Value.tier);
+        SetPartner((data.specfiedName, obj.tier));
+        GameManager.Player.inventory.LoseItem(obj.item, obj.tier);
+      }
+      else if (obj.beginDragType == DragType.PartnerSlot)
+      {
+        var tmp = (obj.partnerSlot.partner!.Value.name, obj.partnerSlot.partner.Value.tier);
 
-      SetPartner((data.specfiedName, obj.tier));
-      GameManager.Player.inventory.LoseItem(obj.item, obj.tier);
+        if (partner.HasValue)
+          obj.partnerSlot.SetPartner(partner);
+        else
+          obj.partnerSlot.SetPartner(null);
+
+        SetPartner(tmp);
+      }
+
       OnEntered();
     }
 
     public void SetPartner((string name, int tier)? data)
     {
       partner = data;
-      shielder.SetVisible(!data.HasValue, 0.1f);
+      shielder.SetVisible(!data.HasValue, 0.1f, ignoreEqual: true);
       GameManager.Player.partners[index].partner =
         data.HasValue ? GameManager.GetIPossessible(data.Value.name) as PartnerData : null;
-      GameManager.Player.partners[index].tier = data?.tier ?? -1;
+      GameManager.Player.partners[index].tier = data?.tier ?? 0;
       GameManager.Player.partners[index].weaponInventory.gameObject.SetActive(data.HasValue);
       panelImg.color = GameManager.GetTierColor(data?.tier ?? 0);
       iconImg.color = data.HasValue ? Color.white : Color.clear;

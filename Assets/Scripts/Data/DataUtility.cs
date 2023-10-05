@@ -117,7 +117,7 @@ namespace Data
       res.SetValue("armor", GetValue(ItemStatusItem.Armor));
       res.SetValue("criticalPercent", GetValue(ItemStatusItem.CriticalPercent));
       res.SetValue("moveSpeed", GetValue(ItemStatusItem.MoveSpeed));
-      res.SetValue("range", GetValue(ItemStatusItem.Range));
+      res.SetValue("fireRange", GetValue(ItemStatusItem.Range));
       res.SetValue("luck", GetValue(ItemStatusItem.Luck));
       res.SetValue("meleeDamage", GetValue(ItemStatusItem.MeleeDamage));
       res.SetValue("rangedDamage", GetValue(ItemStatusItem.RangedDamage));
@@ -211,7 +211,7 @@ namespace Data
               break;
 
             case ApplyStatus.Range:
-              res.range += value;
+              res.fireRange += value;
               break;
 
             case ApplyStatus.AttackSpeed:
@@ -417,20 +417,15 @@ namespace Data
       return new IncreaseStatus
       {
         attackSpeed = GetValue(PartnerData.Status.AttackSpeed),
-        armor = "0",
         knockback = GetValue(PartnerData.Status.Knockback),
         bleedingDamage = GetValue(PartnerData.Status.BleedingDamage),
-        luck = "0",
-        regeneration = "0",
         criticalPercent = GetValue(PartnerData.Status.CriticalPercent),
         explosionRange = GetValue(PartnerData.Status.ExplosionRange),
-        meleeDamage = GetValue(PartnerData.Status.Damage),
-        evasionRate = "0",
-        moveSpeed = "0",
-        rangedDamage = GetValue(PartnerData.Status.Damage),
-        range = GetValue(PartnerData.Status.Range),
-        drainHp ="0",
-        maxHp = "0",
+        attackDamage = GetValue(PartnerData.Status.Damage),
+        fireRange = GetValue(PartnerData.Status.Range),
+        multipleCritical = GetValue(PartnerData.Status.MultipleCritical),
+        penetrateCount = GetValue(PartnerData.Status.PenetrateCount),
+        errorRange = GetValue(PartnerData.Status.ErrorRange)
       };
     }
   }

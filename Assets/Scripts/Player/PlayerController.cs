@@ -68,6 +68,15 @@ namespace Player
       weaponInventory.onChanged += RefreshStatus;
       GameManager.Wave.onWaveStart += RefreshStatus;
 
+      partners.Length.For(i =>
+      {
+        partners[i].wrapper = FindObjectsOfType<WeaponSlotWrapper>()
+          .First
+          (
+            x => x.type == EquipmentType.Partner && x.partnerIndex == i
+          );
+      });
+
       RefreshHpBar();
     }
 
@@ -80,7 +89,7 @@ namespace Player
     {
       if (obj.TryGetComponent(typeof(IAttacker), out var component))
       {
-        Hit(((IAttacker) component).damage * (1 - currentStatus.armor));
+        Hit(((IAttacker)component).damage * (1 - currentStatus.armor));
       }
     }
 
@@ -120,6 +129,7 @@ namespace Player
         GameManager.Pool.Summon("ui/miss", transform.GetAroundRandom(0.4f));
         return;
       }
+
       var dmg = damage * (1 - currentStatus.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
       colorTweener.Kill();
@@ -155,7 +165,7 @@ namespace Player
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
-        res += ((ItemData) GameManager.GetItem(item.name)).status * count;
+        res += ((ItemData)GameManager.GetItem(item.name)).status * count;
 
       res += GetChemistryStatus(out var _);
 
@@ -174,15 +184,15 @@ namespace Player
       }
 
       foreach (var weapon in weaponInventory.weapons.Where(x => x != null)
-                .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-        foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-          Add(flag);
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
       foreach (var partnerWeaponInventory in partners.Select(x => x.weaponInventory))
-        foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
-                  .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-          foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-            Add(flag);
+      foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
       foreach (var (att, count) in dict)
         res += GameManager.Data.data.GetAttributeChemistryIncrease(att, count);

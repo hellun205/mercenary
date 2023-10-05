@@ -15,6 +15,8 @@ namespace Store.Equipment
     [NonSerialized]
     public WeaponSlot[] slots;
 
+    public PartnerSlot partnerSlot;
+
     private void Awake()
     {
       slots = transform.GetComponentsInChildren<WeaponSlot>();

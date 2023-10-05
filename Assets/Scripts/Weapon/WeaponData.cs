@@ -3,6 +3,7 @@ using System.Text;
 using Data;
 using Item;
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -52,6 +53,14 @@ namespace Weapon
     {
       var sb = new StringBuilder();
       sb.Append(status[tier].GetDescription());
+      sb.Append($"{descriptions}");
+      return sb.ToString();
+    }
+
+    public string GetDescriptionWithAdditionalStatus(int tier, IncreaseStatus additional)
+    {
+      var sb = new StringBuilder();
+      sb.Append(status[tier].GetDescription(additional));
       sb.Append($"{descriptions}");
       return sb.ToString();
     }

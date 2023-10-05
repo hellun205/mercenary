@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Data;
 using Manager;
+using Player;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 using Util.Text;
 using Weapon;
+using Attribute = Weapon.Attribute;
 using WeaponData = Weapon.WeaponData;
 
 namespace Store.Equipment
@@ -17,6 +19,11 @@ namespace Store.Equipment
   {
     [SerializeField]
     private Image targetImg;
+
+    [SerializeField]
+    private Image panelImg;
+
+    public Outline outline { get; private set; }
 
     public (string name, int tier)? weapon;
 
@@ -30,11 +37,19 @@ namespace Store.Equipment
 
     private WeaponInventoryUI parentUI;
 
+    public Attribute? highlightAttribute { get; set; } = null;
+    public Func<IncreaseStatus> highlightStatus { get; set; }
+
     public override string popupName => "$popup_weapon";
+
+    public bool isIncrease => weapon.HasValue &&
+                              highlightAttribute.HasValue &&
+                              GameManager.WeaponData.Get(weapon.Value.name).attribute.HasFlag(highlightAttribute.Value);
 
     protected override void Awake()
     {
       base.Awake();
+      outline = GetComponent<Outline>();
       parentUI = FindObjectOfType<WeaponInventoryUI>();
       useDrag = GetComponent<ItemDrag>();
       useDrop = GetComponent<ItemDrop>();
@@ -47,7 +62,7 @@ namespace Store.Equipment
         item = weapon!.Value.name,
         tier = weapon!.Value.tier,
         weaponSlotData = (GetWrapperIndex(wrapper), slotIndex),
-        draggingImage = GameManager.WeaponData.Get(weapon?.name).icon ,
+        draggingImage = GameManager.WeaponData.Get(weapon?.name).icon,
         weaponInventoryUI = parentUI,
       };
 
@@ -91,17 +106,26 @@ namespace Store.Equipment
       this.weapon = weapon;
       targetImg.sprite = weapon == null ? null : GameManager.WeaponData.Get(weapon.Value.name).icon;
       targetImg.color = weapon == null ? Color.clear : Color.white;
+      panelImg.color = GameManager.GetTierColor(weapon?.tier ?? 0);
+
+      RefreshAdditional();
+
       if (setWeaponInventory)
         wrapper.SetWeapon(slotIndex, weapon);
+    }
+
+    public void RefreshAdditional()
+    {
+      outline.effectColor = isIncrease ? Color.yellow : Color.black;
     }
 
     public static int GetWrapperIndex(WeaponSlotWrapper wrapper)
     {
       return wrapper.type switch
       {
-        EquipmentType.Player  => 0,
+        EquipmentType.Player => 0,
         EquipmentType.Partner => wrapper.partnerIndex + 1,
-        _                     => 0
+        _ => 0
       };
     }
 
@@ -115,23 +139,25 @@ namespace Store.Equipment
       sb.Append
         (
           data.itemName
-           .SetSizePercent(1.5f)
-           .SetAlign(TextAlign.Center)
+            .SetSizePercent(1.5f)
+            .SetAlign(TextAlign.Center)
         )
-       .Append("\n")
-       .Append
+        .Append("\n")
+        .Append
         (
           data.attribute.GetTexts()
-           .SetSizePercent(1.25f)
-           .AddColor(new Color32(72, 156, 255, 255))
-           .SetLineHeight(1.25f)
-           .SetAlign(TextAlign.Center)
+            .SetSizePercent(1.25f)
+            .AddColor(new Color32(72, 156, 255, 255))
+            .SetLineHeight(1.25f)
+            .SetAlign(TextAlign.Center)
         )
-       .Append("\n")
-       .Append
+        .Append("\n")
+        .Append
         (
-          data.GetDescription(weapon.Value.tier)
-           .SetAlign(TextAlign.Left)
+          (isIncrease
+            ? data.GetDescriptionWithAdditionalStatus(weapon.Value.tier, highlightStatus.Invoke())
+            : data.GetDescription(weapon.Value.tier))
+          .SetAlign(TextAlign.Left)
         );
 
       popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(data.attribute));

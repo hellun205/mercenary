@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Data;
 using Item;
@@ -7,6 +8,7 @@ using TMPro;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Util;
 using Util.Text;
@@ -14,7 +16,7 @@ using Weapon;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<ListPopup>
+  public class InventoryItem : UsePopup<ListPopup>, IPointerClickHandler
   {
     public (string name, int tier)? itemData;
 
@@ -33,9 +35,13 @@ namespace Store.Inventory
     private ItemDrop useDrop;
     private ItemDrag useDrag;
 
+    private Timer doubleClickTimer = new Timer { duration = 0.3f };
+    private bool isClicked;
+
     protected override void Awake()
     {
       base.Awake();
+      doubleClickTimer.onEnd += _ => isClicked = false;
       img = GetComponent<Image>();
       parentUI = FindObjectOfType<InventoryUI>();
       useDrag = GetComponent<ItemDrag>();
@@ -84,31 +90,31 @@ namespace Store.Inventory
 
       var sb = new StringBuilder();
       var item = GameManager.GetIPossessible(itemData!.Value.name);
-      
+
       sb.Append
         (
           $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral()}"
-           .SetSizePercent(1.5f)
-           .SetAlign(TextAlign.Center)
+            .SetSizePercent(1.5f)
+            .SetAlign(TextAlign.Center)
         )
-       .Append("\n");
+        .Append("\n");
       if (item is Weapon.WeaponData weaponData)
       {
         sb.Append
           (
             weaponData.attribute.GetTexts()
-             .SetSizePercent(1.25f)
-             .AddColor(new Color32(72, 156, 255, 255))
-             .SetLineHeight(1.25f)
-             .SetAlign(TextAlign.Center)
+              .SetSizePercent(1.25f)
+              .AddColor(new Color32(72, 156, 255, 255))
+              .SetLineHeight(1.25f)
+              .SetAlign(TextAlign.Center)
           )
-         .Append("\n");
+          .Append("\n");
       }
 
       sb.Append
       (
         item.GetDescription(itemData.Value.tier)
-         .SetAlign(TextAlign.Left)
+          .SetAlign(TextAlign.Left)
       );
 
       if (item is Weapon.WeaponData weaponData2)
@@ -116,6 +122,40 @@ namespace Store.Inventory
           GameManager.Data.data.GetAttributeChemistryDescriptions(weaponData2.attribute));
       else
         popupPanel.ShowPopup(text: sb.ToString());
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+      if (isClicked)
+      {
+        if (doubleClickTimer.isPlaying)
+        {
+          isClicked = false;
+          EquipAny();
+        }
+      }
+      else
+      {
+        isClicked = true;
+        doubleClickTimer.Start();
+      }
+    }
+
+    private void EquipAny()
+    {
+      var f = FindObjectsOfType<WeaponSlot>();
+
+      foreach (var weaponSlot in f)
+      {
+        if (weaponSlot.wrapper.type == EquipmentType.Partner && !weaponSlot.wrapper.partnerSlot.partner.HasValue
+            || weaponSlot.weapon.HasValue)
+          continue;
+
+        weaponSlot.Set(itemData);
+        if (itemData.HasValue)
+          GameManager.Player.inventory.LoseItem(itemData.Value.name, itemData.Value.tier);
+        break;
+      }
     }
   }
 }

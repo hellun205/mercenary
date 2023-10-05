@@ -104,10 +104,11 @@ namespace Player
       string prefix = "",
       string subfix = "",
       string plus = "+",
-      string minus = "-"
+      string minus = "-",
+      bool isReverse = false
     )
     {
-      var color = value > 0 ? new Color32(47, 157, 39, 255) : new Color32(152, 0, 0, 255);
+      var color = (isReverse ? value < 0 : value > 0) ? new Color32(47, 157, 39, 255) : new Color32(152, 0, 0, 255);
       var sign = value > 0 ? plus : minus;
       return $"{text} {$"{sign}{prefix}{Math.Abs(Math.Round(value, 2)) * multiple}{subfix}".AddColor(color)}";
     }

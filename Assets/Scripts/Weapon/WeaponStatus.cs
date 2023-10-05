@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using Player;
 using UnityEngine;
+using Util;
 using Util.Text;
 
 namespace Weapon
@@ -75,7 +76,7 @@ namespace Weapon
         res.type == WeaponType.Melee ? "meleeDamage" : "rangedDamage",
         res.attackDamage,
         (o, v) => o + v
-        );
+      );
       res.bulletSpeed = b.ToValue("bulletSpeed", res.bulletSpeed, (o, v) => o + v);
       res.criticalPercent = b.ToValue("criticalPercent", res.criticalPercent, (o, v) => o + v);
       res.errorRange = b.ToValue("errorRange", res.errorRange, (o, v) => o + v);
@@ -87,22 +88,23 @@ namespace Weapon
       return res;
     }
 
-    private static readonly Dictionary<string, (string displayName, Func<float, float> displayValue, string p)> setting
-      = new()
-      {
-        { "attackDamage", ("데미지", v => v, "") },
-        { "criticalPercent", ("치명타 확률", v => v * 100, "") },
-        { "bleedingDamage", ("출혈 피해량", v => v, "") },
-        { "attackSpeed", ("공격 속도", v => v, "") },
-        { "fireRange", ("범위", v => v, "") },
-        { "knockback", ("넉백", v => v, "") },
-        { "explosionRange", ("폭발 범위", v => v, "") },
-        { "penetrateCount", ("관통", v => v, "") },
-        { "errorRange", ("오차 범위", v => v, "") },
-        { "multipleCritical", ("치명타 데미지", v => v, "x") },
-      };
+    private static readonly
+      Dictionary<string, (string displayName, Func<float, float> displayValue, string p, bool reverse)> setting
+        = new()
+        {
+          { "attackDamage", ("데미지", v => v, "", false) },
+          { "criticalPercent", ("치명타 확률", v => v * 100, "", false) },
+          { "bleedingDamage", ("출혈 피해량", v => v, "", false) },
+          { "attackSpeed", ("공격 속도", v => v, "", false) },
+          { "fireRange", ("범위", v => v, "", false) },
+          { "knockback", ("넉백", v => v, "", false) },
+          { "explosionRange", ("폭발 범위", v => v, "", false) },
+          { "penetrateCount", ("관통", v => v, "", false) },
+          { "errorRange", ("오차 범위", v => v, "", false) },
+          { "multipleCritical", ("치명타 데미지", v => v, "x", false) },
+        };
 
-    public string GetDescription()
+    public string GetDescription(IncreaseStatus? additional = null)
     {
       var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
       var sb = new StringBuilder();
@@ -113,14 +115,25 @@ namespace Weapon
         var v = Convert.ToSingle(value);
         if (!setting.TryGetValue(field.Name, out var set)) continue;
         if (v != 0)
+        {
           sb.Append(PlayerStatus.GetTextViaValue
             (
               $"{set.displayName}: ",
               set.displayValue.Invoke(v),
               plus: "",
-              prefix: set.p
+              prefix: set.p,
+              isReverse: set.reverse
             )
-          ).Append("\n");
+          );
+          if (additional.HasValue)
+          {
+            var addV = additional.Value.ToValue(field.Name, v, (o, val) => o + val);
+            if (!addV.Approximately(v, 0.001f))
+              sb.Append($" ({addV})".AddColor(Color.yellow));
+          }
+
+          sb.Append("\n");
+        }
       }
 
       return sb.ToString();
