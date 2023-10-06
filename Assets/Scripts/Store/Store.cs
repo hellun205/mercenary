@@ -82,7 +82,7 @@ namespace Store
 
           hasValue = ProbabilityGetter(item).ApplyProbability();
         } while (!hasValue);
-
+        
         items[i].data = item;
       }
     }

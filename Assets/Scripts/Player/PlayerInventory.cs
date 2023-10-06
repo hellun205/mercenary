@@ -25,6 +25,9 @@ namespace Player
       pool = new ObjectPool<InventoryItem>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
       inventoryItemsParent = GameManager.UI.Find("$inventory_items").transform;
       onChanged += () => GameManager.StatusUI.Refresh();
+      
+      // TODO destroy this code
+      GainItem("gold_dust", 0, 3);
     }
 
     private void ActionOnDestroy(InventoryItem obj)
@@ -38,6 +41,7 @@ namespace Player
     private void ActionOnGet(InventoryItem obj)
     {
       obj.SetItem((temp.item, temp.tier), temp.count);
+      obj.transform.SetAsLastSibling();
       obj.gameObject.SetActive(true);
     }
 

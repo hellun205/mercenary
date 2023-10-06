@@ -13,5 +13,7 @@ namespace Store
     public (int wrapperId, int slotId) weaponSlotData { get; set; }
     public int partnerData { get; set; }
     public PartnerSlot partnerSlot { get; set; }
+    
+    public int consumableSlotIndex { get; set; }
   }
 }

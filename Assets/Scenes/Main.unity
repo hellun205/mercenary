@@ -1729,6 +1729,7 @@ MonoBehaviour:
     m_value: 0
     m_type: 2
     m_isPlaying: 0
+  lastToReverse: 0
 --- !u!114 &1389925263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,6 +1879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   valueText: {fileID: 2135777833}
+  perfectHide: 0
 --- !u!114 &1446018901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2195,7 +2197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2E4\uC74C"
+  m_text: "\uC2DC\uC791"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}

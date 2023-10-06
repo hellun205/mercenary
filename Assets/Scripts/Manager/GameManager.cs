@@ -46,6 +46,7 @@ namespace Manager
     public static WindowManager Window { get; private set; }
     public static SpriteCollection Sprites { get; private set; }
     public static ScriptableObjectCollection Partners { get; private set; }
+    public static ScriptableObjectCollection Consumables { get; private set; }
 
     public State<int> coin;
 
@@ -91,6 +92,7 @@ namespace Manager
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
       Prefabs = transform.Find("@prefab_objects").GetComponent<ObjectCollection>();
       Partners = transform.Find("@partner_data").GetComponent<ScriptableObjectCollection>();
+      Consumables = transform.Find("@consumable_data").GetComponent<ScriptableObjectCollection>();
       Player = FindObjectOfType<PlayerController>();
       Map = new MapManager();
       Spawn = FindObjectOfType<SpawnManager>();
@@ -145,6 +147,8 @@ namespace Manager
         res = (IPossessible)weapon;
       else if (Partners.items.TryGetValue(name, out var partner))
         res = (IPossessible)partner;
+      else if (Consumables.items.TryGetValue(name, out var consumable))
+        res = (IPossessible)consumable;
         
       return res ?? throw new Exception($"can't find IPossessble object: {name}");
     }

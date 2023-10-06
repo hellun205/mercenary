@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Data;
+using DG.Tweening;
 using Manager;
 using Player;
 using UI.DragNDrop;
@@ -37,6 +38,8 @@ namespace Store.Equipment
 
     private WeaponInventoryUI parentUI;
 
+    private Color defColor;
+
     public Attribute? highlightAttribute { get; set; } = null;
     public Func<IncreaseStatus> highlightStatus { get; set; }
 
@@ -67,6 +70,7 @@ namespace Store.Equipment
       };
 
       useDrop.onGetRequest += OnDrop;
+      defColor = panelImg.color;
     }
 
     private void OnDrop(ItemRequest data)
@@ -106,7 +110,7 @@ namespace Store.Equipment
       this.weapon = weapon;
       targetImg.sprite = weapon == null ? null : GameManager.WeaponData.Get(weapon.Value.name).icon;
       targetImg.color = weapon == null ? Color.clear : Color.white;
-      panelImg.color = GameManager.GetTierColor(weapon?.tier ?? 0);
+      panelImg.DOColor(weapon.HasValue ? GameManager.GetTierColor(weapon.Value.tier) : defColor, 0.2f);
 
       RefreshAdditional();
 
@@ -116,7 +120,7 @@ namespace Store.Equipment
 
     public void RefreshAdditional()
     {
-      outline.effectColor = isIncrease ? Color.yellow : Color.black;
+      outline.DOColor(isIncrease ? Color.yellow : Color.black, .2f);
     }
 
     public static int GetWrapperIndex(WeaponSlotWrapper wrapper)

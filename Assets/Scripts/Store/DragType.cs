@@ -4,6 +4,7 @@ namespace Store
   {
     Inventory,
     WeaponSlot,
-    PartnerSlot
+    PartnerSlot,
+    ConsumableSlot,
   }
 }

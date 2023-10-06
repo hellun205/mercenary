@@ -258,11 +258,11 @@ namespace Data
       sb.Append
         (
           attribute.GetText()
-           .SetSizePercent(1.25f)
-           .AddColor(new Color32(72, 156, 255, 255))
-           .SetLineHeight(1.3f)
+            .SetSizePercent(1.25f)
+            .AddColor(new Color32(72, 156, 255, 255))
+            .SetLineHeight(1.3f)
         )
-       .Append("\n");
+        .Append("\n");
 
       foreach (var (count, value) in attr)
       {
@@ -270,17 +270,17 @@ namespace Data
 
         foreach (var (status, f) in value)
           sb2.Append(status.GetText())
-           .Append(' ')
-           .Append(status.GetValue(f).GetViaValue())
-           .Append("\n");
+            .Append(' ')
+            .Append(status.GetValue(f).GetViaValue())
+            .Append("\n");
 
         sb2.Remove(sb2.ToString().LastIndexOf("\n", StringComparison.Ordinal), 1);
         sb.Append
           (
             $"({count}){sb2.ToString().SetIndent(0.2f)}"
-             .AddColor(i != default && i == count ? Color.white : Color.gray)
+              .AddColor(i != default && i == count ? Color.white : Color.gray)
           )
-         .Append("\n");
+          .Append("\n");
       }
 
       return sb.ToString();
@@ -318,7 +318,7 @@ namespace Data
           delay = x.Value.delay,
           simultaneousSpawnCount = x.Value.simultaneousSpawnCount
         })
-       .ToArray();
+        .ToArray();
     }
 
     public static float GetPlayerStatusData(this DataManager.Data data, PlayerStatusItem statusType)
@@ -426,6 +426,52 @@ namespace Data
         multipleCritical = GetValue(PartnerData.Status.MultipleCritical),
         penetrateCount = GetValue(PartnerData.Status.PenetrateCount),
         errorRange = GetValue(PartnerData.Status.ErrorRange)
+      };
+    }
+
+    public static Dictionary<ConsumableApplyStatus, string> GetConsumableData
+    (
+      this DataManager.Data data, string consumableName
+    )
+    {
+      if (!data.consumables.TryGetValue(consumableName, out var value))
+        throw new Exception($"Consumable({consumableName}) data does not exist.");
+
+      return value;
+    }
+
+    public static string GetConsumableStatusData
+    (
+      this DataManager.Data data, string consumableName, ConsumableApplyStatus statusType
+    )
+    {
+      var consumable = data.GetConsumableData(consumableName);
+
+      return consumable.TryGetValue(statusType, out var value) ? value : statusType.GetMinValue();
+    }
+
+    public static IncreaseStatus GetConsumableStatus(this DataManager.Data data, string consumableName)
+    {
+      string GetValue(ConsumableApplyStatus status)
+      {
+        return data.GetConsumableStatusData(consumableName, status);
+      }
+
+      return new IncreaseStatus
+      {
+        maxHp = GetValue(ConsumableApplyStatus.Hp),
+        regeneration = GetValue(ConsumableApplyStatus.Regeneration),
+        drainHp = GetValue(ConsumableApplyStatus.Regeneration),
+        meleeDamage = GetValue(ConsumableApplyStatus.Regeneration),
+        rangedDamage = GetValue(ConsumableApplyStatus.Regeneration),
+        criticalPercent = GetValue(ConsumableApplyStatus.Regeneration),
+        bleedingDamage = GetValue(ConsumableApplyStatus.Regeneration),
+        fireRange = GetValue(ConsumableApplyStatus.Regeneration),
+        armor = GetValue(ConsumableApplyStatus.Regeneration),
+        evasionRate = GetValue(ConsumableApplyStatus.Regeneration),
+        knockback = GetValue(ConsumableApplyStatus.Regeneration),
+        moveSpeed = GetValue(ConsumableApplyStatus.Regeneration),
+        luck = GetValue(ConsumableApplyStatus.Regeneration)
       };
     }
   }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Coin;
+using Consumable;
 using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
@@ -11,6 +13,7 @@ using Interact;
 using Manager;
 using Player.Partner;
 using Pool.Extensions;
+using Store.Consumable;
 using Store.Equipment;
 using Store.Status;
 using UI;
@@ -53,6 +56,8 @@ namespace Player
     private CoinExplorer coinExplorer;
 
     public PlayerStatus currentStatus { get; private set; }
+
+    public Dictionary<BuffData, BuffInformationItem> buffs { get; } = new();
 
     private void Awake()
     {
@@ -109,6 +114,23 @@ namespace Player
       }
 
       time += Time.deltaTime;
+
+      if (GameManager.Wave.state)
+        GameManager.Key.KeyMap(GetKeyType.Down,
+          (Keys.UseItem1, () => UseItem(0)),
+          (Keys.UseItem2, () => UseItem(1)),
+          (Keys.UseItem3, () => UseItem(2))
+        );
+    }
+
+    private void UseItem(int index)
+    {
+      var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
+      var slot = wrapper.slots[index];
+
+      if (string.IsNullOrEmpty(slot.itemData)) return;
+
+      UseConsumableItem(slot.itemData);
     }
 
     private void LateUpdate()
@@ -201,14 +223,34 @@ namespace Player
       return res;
     }
 
-    // protected override void OnInteract(Interacter caster)
-    // {
-    //   base.OnInteract(caster);
-    //   if (caster.TryGetComponent<EnemyController>(out var ec))
-    //   {
-    //     Hit(ec.status.damage);
-    //   }
-    // }
+    public void UseConsumableItem(string consumableItemName)
+    {
+      var consumable = GameManager.Consumables.Get(consumableItemName) as ConsumableItem;
+      var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
+      var descSb = new StringBuilder();
+
+      var buff = new BuffData(consumable)
+      {
+        onEnd = OnBuffEnd,
+        onTick = OnBuffTick
+      };
+
+      buffs.Add(buff, buffWrapper.Add(consumable!.icon, descSb.ToString()));
+      buff.StartTimer();
+    }
+
+    private void OnBuffTick(BuffData targetBuffData)
+    {
+      buffs[targetBuffData].timerImage.fillAmount = targetBuffData.timer.value;
+    }
+
+    private void OnBuffEnd(BuffData targetBuffData)
+    {
+      var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
+      buffWrapper.Remove(buffs[targetBuffData]);
+      buffs.Remove(targetBuffData);
+    }
+
 
     private void Start()
     {

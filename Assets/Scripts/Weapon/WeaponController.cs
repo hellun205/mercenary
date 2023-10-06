@@ -59,17 +59,17 @@ namespace Weapon
 
     private void RefreshStatus()
     {
-      while (weaponData == null)
+      // while (weaponData == null)
+      // {
+      try
       {
-        try
-        {
-          weaponData = GameManager.WeaponData[name];
-        }
-        catch (Exception ex)
-        {
-          Debug.Log(ex);
-        }
+        weaponData = GameManager.WeaponData[name];
       }
+      catch (Exception ex)
+      {
+        Debug.Log(ex);
+      }
+      // }
 
       status = weaponData.status[tier] + GameManager.Player.GetStatus();
       if (isAdditionalStatus)

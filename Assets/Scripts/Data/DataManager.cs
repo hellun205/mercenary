@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Manager;
 using UnityEngine;
@@ -21,7 +22,8 @@ namespace Data
       public string spawns { get; set; }
       public string attributeChemistry { get; set; }
       public string key { get; set; }
-      public string store { get; set;  }
+      public string store { get; set; }
+      public string consumables { get; set; }
 
       public string GetPath(string type)
       {
@@ -40,6 +42,7 @@ namespace Data
       public string attributeChemistry { get; set; }
       public string key { get; set; }
       public string store { get; set; }
+      public string consumables { get; set; }
     }
 
     [Serializable]
@@ -53,18 +56,28 @@ namespace Data
       public TextAsset attributeChemistry;
       public TextAsset key;
       public TextAsset store;
+      public TextAsset consumables;
 
-      public static implicit operator Jsons(Input i) => new Jsons()
+      public static implicit operator Jsons(Input i)
       {
-        items = i.items.text,
-        partner = i.partner.text,
-        player = i.player.text,
-        weapons = i.weapons.text,
-        spawns = i.spawns.text,
-        attributeChemistry = i.attributeChemistry.text,
-        key = i.key.text,
-        store = i.store.text
-      };
+        var res = new Jsons();
+
+        var fields = i.GetType().GetFields
+        (
+          BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly
+        );
+
+        foreach (var field in fields)
+        {
+          var f = res.GetType().GetField
+          (
+            field.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly
+          );
+          f!.SetValueDirect(__makeref(res), field.GetValue(i));
+        }
+
+        return res;
+      }
     }
 
     public struct Data
@@ -87,6 +100,7 @@ namespace Data
       public Dictionary<Attribute, Dictionary<int, Dictionary<ApplyStatus, float>>> attributeChemistry { get; set; }
       public Dictionary<string, KeyCode[]> keys { get; set; }
       public StoreData store { get; set; }
+      public Dictionary<string, Dictionary<ConsumableApplyStatus, string>> consumables { get; set; }
     }
 
     public Paths paths { get; }
@@ -105,7 +119,8 @@ namespace Data
         player = "PlayerData",
         attributeChemistry = "AttributeChemistryData",
         key = "KeyData",
-        store = "StoreData"
+        store = "StoreData",
+        consumables = "ConsumableData"
       };
       if (jsonData != null)
         this.jsons = jsonData.Value;
@@ -125,7 +140,8 @@ namespace Data
           spawns = LoadJson(paths.GetPath("spawns")),
           attributeChemistry = LoadJson(paths.GetPath("attributeChemistry")),
           key = LoadJson(paths.GetPath("key")),
-          store = LoadJson(paths.GetPath("store"))
+          store = LoadJson(paths.GetPath("store")),
+          consumables = LoadJson(paths.GetPath("consumables"))
         },
         true => jsons
       };
@@ -141,7 +157,8 @@ namespace Data
         keys = string.IsNullOrEmpty(jsons.key)
           ? KeyManager.InitalDefaultData(paths.GetPath("key"))
           : LoadData<KeyData>(jsons.key).ToSimply(),
-        store = LoadData<StoreData>(jsons.store)
+        store = LoadData<StoreData>(jsons.store),
+        consumables = LoadData<ConsumableData>(jsons.consumables).ToSimply()
       };
     }
 

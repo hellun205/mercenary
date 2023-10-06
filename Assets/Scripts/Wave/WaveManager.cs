@@ -32,7 +32,7 @@ namespace Wave
 
     public bool state { get; private set; }
 
-    private readonly string[] uiNames = { "$coin_display", "$hp", "$timer", "$wave", "$menu_btn" };
+    // private readonly string[] uiNames = { "$coin_display", "$hp", "$timer", "$wave", "$menu_btn" };
 
     private void Awake()
     {
@@ -54,8 +54,8 @@ namespace Wave
 
     private void SetUIEnabled(bool value)
     {
-      foreach (var uiName in uiNames)
-        GameManager.UI.Find(uiName).SetVisible(value, 0.3f);
+      // foreach (var uiName in uiNames)
+      GameManager.UI.Find($"$game_display").SetVisible(value, 0.3f);
     }
 
     private void OnTimerEnd(Timer sender)
@@ -81,10 +81,10 @@ namespace Wave
       foreach (var spawn in spawns)
       {
         var timer = new Timer();
-        
+
         timer.duration = (GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay) *
-                          spawn.simultaneousSpawnCount / spawn.count;
-        
+          spawn.simultaneousSpawnCount / spawn.count;
+
         timer.onStart += t =>
         {
           var spawnPosition = GameManager.Map.GetRandom();
@@ -96,10 +96,7 @@ namespace Wave
             leftCount[spawn.name]--;
           }
         };
-        timer.onEnd += t =>
-        {
-          t.Start();
-        };
+        timer.onEnd += t => { t.Start(); };
         spawnTimers.Add(timer);
         leftCount.Add(spawn.name, spawn.count);
 

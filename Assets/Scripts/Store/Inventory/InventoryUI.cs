@@ -1,4 +1,5 @@
 using Manager;
+using Store.Consumable;
 using UnityEngine;
 
 namespace Store.Inventory
@@ -25,6 +26,12 @@ namespace Store.Inventory
         case DragType.PartnerSlot:
           data.partnerSlot.SetPartner(null);
           GameManager.Player.inventory.GainItem(data.item, data.tier);
+          break;
+        
+        case DragType.ConsumableSlot:
+          var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
+          GameManager.Player.inventory.GainItem(data.item, 0);
+          wrapper.slots[data.consumableSlotIndex].SetItem(null);
           break;
       }
     }

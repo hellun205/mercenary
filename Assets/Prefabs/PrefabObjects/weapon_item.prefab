@@ -106,11 +106,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 5922952963596503401}
+  panel: {fileID: 6748818345274506607}
   icon: {fileID: 542275656944156121}
-  defaultColor: {r: 0, g: 0, b: 0, a: 1}
-  selectColor: {r: 0.02180491, g: 0.48695785, b: 0.9245283, a: 1}
-  defaultBold: 1
-  selectBold: 3
+  defaultColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+  defaultOutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  selectColor: {r: 0.4481132, g: 0.73125505, b: 1, a: 1}
+  selectOutlineColor: {r: 0.24056602, g: 0.5462238, b: 1, a: 1}
+  defaultOutlineBold: 1
+  selectOutlineBold: 3
   m_popupName: $select_popup
 --- !u!1 &8313960809274597194
 GameObject:

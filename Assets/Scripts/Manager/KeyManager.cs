@@ -24,7 +24,10 @@ namespace Manager
         { Keys.PlayerMovementDown, new[] { KeyCode.S, KeyCode.DownArrow } },
         { Keys.PlayerMovementLeft, new[] { KeyCode.A, KeyCode.LeftArrow } },
         { Keys.PlayerMovementRight, new[] { KeyCode.D, KeyCode.RightArrow } },
-        { Keys.MenuToggle, new[] { KeyCode.Escape } }
+        { Keys.MenuToggle, new[] { KeyCode.Escape } },
+        { Keys.UseItem1, new[] { KeyCode.Alpha1 } },
+        { Keys.UseItem2, new[] { KeyCode.Alpha2 } },
+        { Keys.UseItem3, new[] { KeyCode.Alpha3 } },
       };
 
       using var sw = new StreamWriter(path);
@@ -60,5 +63,8 @@ namespace Manager
     public const string PlayerMovementRight = "player_movement_right";
     public const string PlayerMovementLeft = "player_movement_left";
     public const string MenuToggle = "menu_toggle";
+    public const string UseItem1 = "use_item_0";
+    public const string UseItem2 = "use_item_1";
+    public const string UseItem3 = "use_item_2";
   }
 }
