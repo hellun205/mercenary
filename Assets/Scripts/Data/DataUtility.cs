@@ -461,17 +461,19 @@ namespace Data
       {
         maxHp = GetValue(ConsumableApplyStatus.Hp),
         regeneration = GetValue(ConsumableApplyStatus.Regeneration),
-        drainHp = GetValue(ConsumableApplyStatus.Regeneration),
-        meleeDamage = GetValue(ConsumableApplyStatus.Regeneration),
-        rangedDamage = GetValue(ConsumableApplyStatus.Regeneration),
-        criticalPercent = GetValue(ConsumableApplyStatus.Regeneration),
-        bleedingDamage = GetValue(ConsumableApplyStatus.Regeneration),
-        fireRange = GetValue(ConsumableApplyStatus.Regeneration),
-        armor = GetValue(ConsumableApplyStatus.Regeneration),
-        evasionRate = GetValue(ConsumableApplyStatus.Regeneration),
-        knockback = GetValue(ConsumableApplyStatus.Regeneration),
-        moveSpeed = GetValue(ConsumableApplyStatus.Regeneration),
-        luck = GetValue(ConsumableApplyStatus.Regeneration)
+        drainHp = GetValue(ConsumableApplyStatus.DrainHp),
+        meleeDamage = GetValue(ConsumableApplyStatus.MeleeDamage),
+        rangedDamage = GetValue(ConsumableApplyStatus.RangedDamage),
+        criticalPercent = GetValue(ConsumableApplyStatus.CriticalPercent),
+        bleedingDamage = GetValue(ConsumableApplyStatus.BleedingDamage),
+        fireRange = GetValue(ConsumableApplyStatus.Range),
+        armor = GetValue(ConsumableApplyStatus.Armor),
+        evasionRate = GetValue(ConsumableApplyStatus.EvasionRate),
+        knockback = GetValue(ConsumableApplyStatus.Knockback),
+        moveSpeed = GetValue(ConsumableApplyStatus.MoveSpeed),
+        luck = GetValue(ConsumableApplyStatus.Luck),
+        killEnemy = GetValue(ConsumableApplyStatus.KillEnemy),
+        resurrection = GetValue(ConsumableApplyStatus.Resurrection),
       };
     }
   }

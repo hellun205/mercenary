@@ -30,7 +30,7 @@ namespace Store.Inventory
         
         case DragType.ConsumableSlot:
           var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
-          GameManager.Player.inventory.GainItem(data.item, 0);
+          GameManager.Player.inventory.GainItem(data.item, -1);
           wrapper.slots[data.consumableSlotIndex].SetItem(null);
           break;
       }

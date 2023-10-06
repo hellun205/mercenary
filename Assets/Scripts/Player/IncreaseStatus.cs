@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,9 +11,8 @@ namespace Player
 {
   public enum StatusValueType
   {
-    Normal,
-    Fixed,
-    PercentPlus
+    Normal, Fixed, PercentPlus,
+    All
   }
 
   public struct IncreaseStatus
@@ -45,6 +45,20 @@ namespace Player
     public string multipleCritical;
     public string attackDamage;
 
+    public string resurrection;
+    public string killEnemy;
+
+    public readonly static Dictionary<string, (float min, float max)> limit = new()
+    {
+      { "evasionRate", (0f, 0.7f) },
+      { "drainHp", (0f, 1f) },
+      { "criticalPercent", (0f, 1f) },
+      { "armor", (0f, 0.6f) }
+    };
+
+    public static (float min, float max) GetLimit(string field)
+      => limit.TryGetValue(field, out var value) ? value : (float.MinValue, float.MaxValue);
+
     public float GetValue(string fieldName)
       => GetValue(fieldName, out _, out _);
 
@@ -61,7 +75,7 @@ namespace Player
         BindingFlags.DeclaredOnly
       );
 
-      var value = (string)(fieldInfo?.GetValue(this) ?? "0");
+      var value = (string) (fieldInfo?.GetValue(this) ?? "0");
 
       if (value.Contains(GetTypeChar(StatusValueType.PercentPlus)))
       {
@@ -73,6 +87,11 @@ namespace Player
         type = StatusValueType.Fixed;
         value = value.Replace(GetTypeChar(StatusValueType.Fixed), "");
       }
+      else if (value.Contains(GetTypeChar(StatusValueType.All)))
+      {
+        type = StatusValueType.All;
+        value = float.MaxValue.ToString(CultureInfo.InvariantCulture);
+      }
       else type = StatusValueType.Normal;
 
       return Convert.ToSingle(value);
@@ -81,10 +100,11 @@ namespace Player
     private string GetTypeChar(StatusValueType type)
       => type switch
       {
-        StatusValueType.Normal => "",
-        StatusValueType.Fixed => "=",
+        StatusValueType.Normal      => "",
+        StatusValueType.Fixed       => "=",
         StatusValueType.PercentPlus => "%+",
-        _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        StatusValueType.All         => "all",
+        _                           => throw new ArgumentOutOfRangeException(nameof(type), type, null)
       };
 
     public void SetValue(string fieldName, float value)
@@ -96,10 +116,10 @@ namespace Player
 
       var res = type switch
       {
-        StatusValueType.Normal => setter.Invoke(field),
-        StatusValueType.Fixed => field,
+        StatusValueType.Normal      => setter.Invoke(field),
+        StatusValueType.Fixed       => field,
         StatusValueType.PercentPlus => setter.Invoke(field),
-        _ => throw new ArgumentOutOfRangeException()
+        _                           => throw new ArgumentOutOfRangeException()
       };
 
       fieldInfo.SetValueDirect(__makeref(this), $"{GetTypeChar(type)}{res}");
@@ -116,58 +136,27 @@ namespace Player
     public float ToValue(string fieldName, float originalValue, Func<float, float, float> setValueGetter)
     {
       var fieldValue = GetValue(fieldName, out var type);
-      return type switch
+      var lim = GetLimit(fieldName);
+      return Mathf.Clamp(type switch
       {
-        StatusValueType.Normal => setValueGetter.Invoke(originalValue, fieldValue),
-        StatusValueType.Fixed => fieldValue,
+        StatusValueType.Normal      => setValueGetter.Invoke(originalValue, fieldValue),
+        StatusValueType.Fixed       => fieldValue,
         StatusValueType.PercentPlus => originalValue * (1 + fieldValue),
-        _ => throw new ArgumentOutOfRangeException()
-      };
+        _                           => throw new ArgumentOutOfRangeException()
+      }, lim.min, lim.max);
     }
 
     public static IncreaseStatus operator *(IncreaseStatus a, int b)
     {
       var res = a;
-
       res.SetValues((n, v) => v * b);
-      // res.SetValue("armor", v => v * b);
-      // res.SetValue("knockback", v => v * b);
-      // res.SetValue("criticalPercent", v => v * b);
-      // res.SetValue("bleedingDamage", v => v * b);
-      // res.SetValue("regeneration", v => v * b);
-      // res.SetValue("luck", v => v * b);
-      // res.SetValue("range", v => v * b);
-      // res.SetValue("drainHp", v => v * b);
-      // res.SetValue("meleeDamage", v => v * b);
-      // res.SetValue("moveSpeed", v => v * b);
-      // res.SetValue("rangedDamage", v => v * b);
-      // res.SetValue("explosionRange", v => v * b);
-      // res.SetValue("rangedDamage", v => v * b);
-      // res.SetValue("evasionRate", v => v * b);
-
       return res;
     }
 
     public static IncreaseStatus operator +(IncreaseStatus a, IncreaseStatus b)
     {
       var res = a;
-
       res.SetValues((n, v) => v + b.GetValue(n));
-      // res.SetValue("armor", v => v + b.GetValue("armor"));
-      // res.SetValue("knockback", v => v + b.GetValue("knockback"));
-      // res.SetValue("criticalPercent", v => v + b.GetValue("criticalPercent"));
-      // res.SetValue("bleedingDamage", v => v + b.GetValue("bleedingDamage"));
-      // res.SetValue("regeneration", v => v + b.GetValue("regeneration"));
-      // res.SetValue("luck", v => v + b.GetValue("luck"));
-      // res.SetValue("range", v => v + b.GetValue("range"));
-      // res.SetValue("drainHp", v => v + b.GetValue("drainHp"));
-      // res.SetValue("meleeDamage", v => v + b.GetValue("meleeDamage"));
-      // res.SetValue("moveSpeed", v => v + b.GetValue("moveSpeed"));
-      // res.SetValue("rangedDamage", v => v + b.GetValue("rangedDamage"));
-      // res.SetValue("explosionRange", v => v + b.GetValue("explosionRange"));
-      // res.SetValue("rangedDamage", v => v + b.GetValue("rangedDamage"));
-      // res.SetValue("evasionRate", v => v + b.GetValue("evasionRate"));
-
       return res;
     }
 
@@ -192,11 +181,10 @@ namespace Player
           { "explosionRange", ("폭발 범위", v => v, "", false) },
           { "evasionRate", ("회피율", v => v * 100, "", false) },
           { "penetrateCount", ("관통", v => v * 100, "", false) },
-          { "errorRange", ("오차 범위", v => v * 100, "", false) },
           { "multipleCritical", ("치명타 데미지", v => v * 100, "x", false) },
         };
 
-    public string GetDescription()
+    public string GetDescription(bool useReverse = true)
     {
       var sb = new StringBuilder();
       var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
@@ -204,7 +192,9 @@ namespace Player
       foreach (var field in fields.Select(x => x.Name))
       {
         var v = GetValue(field, out var type);
-        var set = setting[field];
+        if (!setting.TryGetValue(field, out var set))
+          continue;
+
         if (v != 0)
         {
           switch (type)
@@ -218,7 +208,7 @@ namespace Player
                   v * 100,
                   plus: "",
                   subfix: "%",
-                  isReverse: set.reverse
+                  isReverse: useReverse && set.reverse
                 )
               );
               break;
@@ -232,7 +222,7 @@ namespace Player
                   set.displayValue.Invoke(v),
                   plus: "",
                   prefix: set.p,
-                  isReverse: set.reverse
+                  isReverse: useReverse && set.reverse
                 )
               );
               break;

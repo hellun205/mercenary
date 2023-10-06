@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace Pool
 {
-  public sealed class PoolManager : ISceneChangeEventHandler
+  public sealed class PoolManager : ISceneChangeEventHandler, IBeforeSceneChangeEventHandler
   {
     public PoolObjectCollection objects;
 
@@ -21,6 +21,8 @@ namespace Pool
     public Transform parent = GameObject.Find("@summoned_objects").transform;
 
     public Transform uiParent = GameObject.Find("@summoned_objects_ui").transform;
+    
+    public bool canGet { get; private set; }
 
     public PoolManager()
     {
@@ -30,6 +32,7 @@ namespace Pool
 
     public PoolObject Summon(string name, Vector2 pos, Action<PoolObject> setter = null)
     {
+      if (!canGet) return null;
       CreateObjectPool(name);
 
       tmpPos = pos;
@@ -40,6 +43,7 @@ namespace Pool
 
     public T Summon<T>(string name, Vector2 pos, Action<T> setter = null) where T : Component
     {
+      if (!canGet) return null;
       var summon = Summon(name, pos, o => setter?.Invoke(o.GetComponent<T>()));
       return summon.GetComponent<T>();
     }
@@ -61,7 +65,7 @@ namespace Pool
 
     private void ActionOnDestroy(PoolObject obj)
     {
-      Object.Destroy(obj);
+      Object.Destroy(obj.gameObject);
     }
 
     private void ActionOnRelease(PoolObject obj)
@@ -87,15 +91,16 @@ namespace Pool
       obj.position = tmpPos;
       obj.type = name;
       obj.originalName = o.name;
-      
+
       return obj;
     }
-    
+
     public void ClearPools()
     {
       foreach (var (name, obj) in pools)
         obj.Clear();
       pools.Clear();
+
       index = 0;
     }
 
@@ -107,7 +112,13 @@ namespace Pool
 
     public void OnSceneChanged(string before, string after)
     {
+      canGet = true;
+    }
+
+    public void OnBeforeSceneChange(string before, string after)
+    {
       ClearPools();
+      canGet = false;
     }
   }
 }

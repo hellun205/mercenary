@@ -13,12 +13,16 @@ using Interact;
 using Manager;
 using Player.Partner;
 using Pool.Extensions;
+using Scene;
 using Store.Consumable;
 using Store.Equipment;
 using Store.Status;
+using Transition;
 using UI;
 using UnityEngine;
 using Util;
+using Weapon;
+using Weapon.Ranged.Bomb;
 using Attribute = Weapon.Attribute;
 using ItemData = Item.ItemData;
 
@@ -55,9 +59,17 @@ namespace Player
     [SerializeField]
     private CoinExplorer coinExplorer;
 
-    public PlayerStatus currentStatus { get; private set; }
+    public PlayerStatus currentStatus;
 
     public Dictionary<BuffData, BuffInformationItem> buffs { get; } = new();
+
+    public Dictionary<string, Action<float>> activeConsumable;
+    public Dictionary<string, Action<float>> endActiveConsumable;
+
+    private Timer invincibilityTimer = new Timer();
+    private bool isInvincibility;
+
+    public bool isResurrection { get; private set; }
 
     private void Awake()
     {
@@ -70,13 +82,25 @@ namespace Player
       anim = GetComponent<Animator>();
       partners = GetComponentsInChildren<PartnerController>();
       io.onInteract += OnDamage;
-      weaponInventory.onChanged += RefreshStatus;
-      GameManager.Wave.onWaveStart += RefreshStatus;
+      weaponInventory.onChanged += () => RefreshStatus();
+      GameManager.Wave.onWaveStart += () => RefreshStatus();
+      GameManager.Wave.onWaveEnd += WaveOnonWaveEnd;
+      activeConsumable = new()
+      {
+        { "resurrection", OnUseResurrection },
+        { "killEnemy", OnUseKillEnemy }
+      };
+      endActiveConsumable = new()
+      {
+        { "resurrection", OnEndResurrection }
+      };
+      invincibilityTimer.onEnd += _ => isInvincibility = false;
+      invincibilityTimer.onStart += _ => isInvincibility = true;
 
       partners.Length.For(i =>
       {
         partners[i].wrapper = FindObjectsOfType<WeaponSlotWrapper>()
-          .First
+         .First
           (
             x => x.type == EquipmentType.Partner && x.partnerIndex == i
           );
@@ -85,16 +109,17 @@ namespace Player
       RefreshHpBar();
     }
 
-    private void RefreshStatus()
+    public PlayerStatus RefreshStatus()
     {
       currentStatus = GetStatus();
+      return currentStatus;
     }
 
     private void OnDamage(Interacter obj)
     {
       if (obj.TryGetComponent(typeof(IAttacker), out var component))
       {
-        Hit(((IAttacker)component).damage * (1 - currentStatus.armor));
+        Hit(((IAttacker) component).damage * (1 - currentStatus.armor));
       }
     }
 
@@ -131,6 +156,7 @@ namespace Player
       if (string.IsNullOrEmpty(slot.itemData)) return;
 
       UseConsumableItem(slot.itemData);
+      slot.SetItem(null);
     }
 
     private void LateUpdate()
@@ -146,6 +172,8 @@ namespace Player
 
     private void Hit(float damage)
     {
+      if (isInvincibility) return;
+
       if (currentStatus.evasionRate.ApplyProbability())
       {
         GameManager.Pool.Summon("ui/miss", transform.GetAroundRandom(0.4f));
@@ -160,6 +188,38 @@ namespace Player
 
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(damage));
+
+      if (status.hp <= 0)
+        if (isResurrection)
+          Resurrection();
+        else
+          Dead();
+    }
+
+    private void Resurrection()
+    {
+      Debug.Log("resurrection!");
+      status.hp = currentStatus.maxHp;
+      var buff = buffs
+       .Where(x => x.Key.status.GetValue("resurrection") > 0)
+       .OrderByDescending(x => x.Key.timer.elapsedTime)
+       .First()
+       .Key;
+
+      invincibilityTimer.duration = buff.status.GetValue("resurrection");
+      invincibilityTimer.Start();
+
+      OnBuffEnd(buff);
+    }
+
+    public void Dead()
+    {
+      Debug.Log("Dead");
+      GameManager.Wave.EndWave(false);
+      new SceneLoader("Main")
+       .Out(Transitions.OUT)
+       .In(Transitions.FADEIN, delay: 1.25f)
+       .Load();
     }
 
     public void Heal(int amount)
@@ -181,17 +241,21 @@ namespace Player
       }
     }
 
-    public PlayerStatus GetStatus()
+    private PlayerStatus GetStatus()
     {
       var res = status;
+      var increases = new IncreaseStatus();
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
-        res += ((ItemData)GameManager.GetItem(item.name)).status * count;
+        increases += ((ItemData) GameManager.GetItem(item.name)).status * count;
 
-      res += GetChemistryStatus(out var _);
+      foreach (var (data, ui) in buffs)
+        increases += data.status;
 
-      return res;
+      increases += GetChemistryStatus(out var _);
+
+      return res + increases;
     }
 
     public IncreaseStatus GetChemistryStatus(out Dictionary<Attribute, int> counts)
@@ -206,15 +270,15 @@ namespace Player
       }
 
       foreach (var weapon in weaponInventory.weapons.Where(x => x != null)
-                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-        Add(flag);
+                .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+        foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+          Add(flag);
 
       foreach (var partnerWeaponInventory in partners.Select(x => x.weaponInventory))
-      foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
-                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-        Add(flag);
+        foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
+                  .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+          foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+            Add(flag);
 
       foreach (var (att, count) in dict)
         res += GameManager.Data.data.GetAttributeChemistryIncrease(att, count);
@@ -223,20 +287,40 @@ namespace Player
       return res;
     }
 
+    private void WaveOnonWaveEnd()
+    {
+      foreach (var (data, ui) in buffs)
+      {
+        OnBuffEnd(data);
+      }
+    }
+
     public void UseConsumableItem(string consumableItemName)
     {
       var consumable = GameManager.Consumables.Get(consumableItemName) as ConsumableItem;
       var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
-      var descSb = new StringBuilder();
+      var stat = consumable.GetStatus();
 
-      var buff = new BuffData(consumable)
+      if (consumable.GetDuration() > 0)
       {
-        onEnd = OnBuffEnd,
-        onTick = OnBuffTick
-      };
+        var buff = new BuffData(consumable)
+        {
+          onEnd = OnBuffEnd,
+          onTick = OnBuffTick
+        };
 
-      buffs.Add(buff, buffWrapper.Add(consumable!.icon, descSb.ToString()));
-      buff.StartTimer();
+        buffs.Add(buff, buffWrapper.Add(buff.name, buff.icon, stat.GetDescription()));
+        buff.StartTimer();
+      }
+
+      foreach (var (fieldName, action) in activeConsumable)
+      {
+        var value = stat.GetValue(fieldName);
+        if (value > 0)
+          action.Invoke(value);
+      }
+
+      RefreshStatus();
     }
 
     private void OnBuffTick(BuffData targetBuffData)
@@ -247,15 +331,51 @@ namespace Player
     private void OnBuffEnd(BuffData targetBuffData)
     {
       var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
+      targetBuffData.timer.Stop();
       buffWrapper.Remove(buffs[targetBuffData]);
       buffs.Remove(targetBuffData);
+
+      foreach (var (fieldName, action) in endActiveConsumable)
+      {
+        var value = targetBuffData.status.GetValue(fieldName);
+        if (value > 0)
+          action.Invoke(value);
+      }
+
+      RefreshStatus();
     }
 
+    private void OnUseResurrection(float value)
+    {
+      isResurrection = true;
+    }
+
+    private void OnEndResurrection(float obj)
+    {
+      isResurrection = false;
+    }
+
+    private void OnUseKillEnemy(float value)
+    {
+      var enemies = FindObjectsOfType<TargetableObject>();
+      var count = value > 9999 ? 9999 : Mathf.FloorToInt(value);
+      Debug.Log(count);
+      var i = 0;
+
+      foreach (var targetableObject in enemies)
+      {
+        if (i >= count) break;
+        GameManager.Pool.Summon<ExplosionEffectController>("effect/explosion", targetableObject.transform.position,
+          obj => { obj.SetRange(2f); });
+        targetableObject.Kill(true);
+        i++;
+      }
+    }
 
     private void Start()
     {
       foreach (var partner in partners)
-        partner.weaponInventory.onChanged += RefreshStatus;
+        partner.weaponInventory.onChanged += () => RefreshStatus();
       status = GameManager.Data.data.GetPlayerStatus();
       coinExplorer.GetComponent<CircleCollider2D>().radius =
         GameManager.Data.data.GetPlayerStatusData(PlayerStatusItem.CoinDetectRange) / 10;

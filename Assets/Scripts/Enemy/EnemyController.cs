@@ -90,6 +90,7 @@ namespace Enemy
 
     private void ThrowCoin()
     {
+      if (!GameManager.Wave.state) return;
       var count = status.drop;
       if (GameManager.Player.status.luck.ApplyProbability())
         count *= 2;

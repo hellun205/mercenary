@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Consumable
 {
-  public class BuffInformationItem : UsePopup<BuffPopupPanel>
+  public class BuffInformationItem : UsePopup<BuffPopupPanel>, IPoolableUI<BuffInformationItem>
   {
     public override string popupName => "$popup_buff";
 
@@ -21,5 +21,6 @@ namespace Consumable
     {
       popupPanel.ShowPopup(title, description, icon);
     }
+    public BuffInformationItem component => this;
   }
 }

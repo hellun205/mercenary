@@ -18,6 +18,8 @@ namespace Manager
       confiner = virtualCamera.GetComponent<CinemachineConfiner2D>();
 
       virtualCamera.Follow = GameManager.Player.transform;
+      virtualCamera.LookAt = GameManager.Player.transform;
+      
       confiner.m_BoundingShape2D = confinerCollider;
     }
   }

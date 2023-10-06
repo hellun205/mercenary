@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Consumable;
 using Item;
 using Manager;
@@ -6,6 +7,9 @@ using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
+using Util.Text;
+using Weapon;
 
 namespace Store.Consumable
 {
@@ -51,7 +55,7 @@ namespace Store.Consumable
       switch (data.beginDragType)
       {
         case DragType.Inventory:
-          GameManager.Player.inventory.LoseItem(data.item, 0);
+          GameManager.Player.inventory.LoseItem(data.item, -1);
           SetItem(data.item);
           break;
         case DragType.ConsumableSlot:
@@ -82,8 +86,24 @@ namespace Store.Consumable
     public override void OnEntered()
     {
       if (string.IsNullOrEmpty(itemData)) return;
+      var sb = new StringBuilder();
+      var item = GameManager.GetIPossessible(itemData);
+
+      sb.Append
+        (
+          $"{item.itemName}"
+           .SetSizePercent(1.25f)
+           .SetAlign(TextAlign.Center)
+        )
+       .Append("\n");
+
+      sb.Append
+      (
+        item.GetDescription()
+         .SetAlign(TextAlign.Left)
+      );
       
-      popupPanel.ShowPopup(GameManager.GetIPossessible(itemData).GetDescription());
+      popupPanel.ShowPopup(sb.ToString());
     }
   }
 }

@@ -104,7 +104,7 @@ namespace Store.Equipment
       sb.Append
         (
           $"{data.itemName} {(partner.Value.tier + 1).ToRomanNumeral()}"
-            .SetSizePercent(1.5f)
+            .SetSizePercent(1.25f)
             .SetAlign(TextAlign.Center)
         )
         .Append("\n")
@@ -112,7 +112,7 @@ namespace Store.Equipment
         (
           data.GetAttribute().GetTexts()
             .SetSizePercent(1.25f)
-            .AddColor(new Color32(72, 156, 255, 255))
+            .AddColor(GameManager.GetAttributeColor())
             .SetLineHeight(1.25f)
             .SetAlign(TextAlign.Center)
         )

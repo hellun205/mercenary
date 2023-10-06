@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Consumable
 {
-  public class BuffInformation : PoolableWrapper<BuffInformationItem>
+  public class BuffInformation : PoolableWrapper<BuffInformationItem, BuffInformationItem>
   {
     protected override void Awake()
     {
@@ -12,13 +12,14 @@ namespace Consumable
       instantiateFunc = () => GameManager.Prefabs.Get<BuffInformationItem>("buff_item");
     }
 
-    public BuffInformationItem Add(Sprite icon, string description)
+    public BuffInformationItem Add(string title, Sprite icon, string description)
     {
-      return Get(item =>
-      {
-        item.iconImage.sprite = icon;
-        item.description = description;
-      });
+      var obj = Get();
+      obj.component.title = title;
+      obj.component.iconImage.sprite = icon;
+      obj.component.description = description;
+      
+      return obj.component;
     }
 
     public void Remove(BuffInformationItem item)

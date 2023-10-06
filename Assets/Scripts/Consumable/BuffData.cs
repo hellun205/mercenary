@@ -29,6 +29,7 @@ namespace Consumable
       };
 
       timer.onEnd += _ => onEnd?.Invoke(this);
+      timer.onTick += _ => onTick?.Invoke(this);
     }
 
     public BuffData(ConsumableItem consumableItem)

@@ -18,6 +18,7 @@ namespace Weapon
     public float knockBack;
 
     public float multipleDamage;
+    public bool canAttack = true;
 
     private void Reset()
     {

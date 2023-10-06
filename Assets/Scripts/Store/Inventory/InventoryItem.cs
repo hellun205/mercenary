@@ -5,6 +5,7 @@ using Item;
 using Manager;
 using Store.Equipment;
 using TMPro;
+using UI;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
@@ -16,7 +17,7 @@ using Weapon;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<ListPopup>, IPointerClickHandler
+  public class InventoryItem : UsePopup<ListPopup>, IPointerClickHandler, IPoolableUI<InventoryItem>
   {
     public (string name, int tier)? itemData;
 
@@ -93,8 +94,8 @@ namespace Store.Inventory
 
       sb.Append
         (
-          $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral()}"
-            .SetSizePercent(1.5f)
+          $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral(true)}"
+            .SetSizePercent(1.25f)
             .SetAlign(TextAlign.Center)
         )
         .Append("\n");
@@ -104,7 +105,7 @@ namespace Store.Inventory
           (
             weaponData.attribute.GetTexts()
               .SetSizePercent(1.25f)
-              .AddColor(new Color32(72, 156, 255, 255))
+              .AddColor(GameManager.GetAttributeColor())
               .SetLineHeight(1.25f)
               .SetAlign(TextAlign.Center)
           )
@@ -157,5 +158,6 @@ namespace Store.Inventory
         break;
       }
     }
+    public InventoryItem component => this;
   }
 }

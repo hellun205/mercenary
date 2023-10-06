@@ -109,8 +109,9 @@ namespace Wave
       waveTimer.Start();
     }
 
-    public void EndWave()
+    public void EndWave(bool start = true)
     {
+      if (!state) return;
       foreach (var spawnTimer in spawnTimers)
         spawnTimer.Stop();
       spawnTimers.Clear();
@@ -118,7 +119,9 @@ namespace Wave
       state = false;
       onWaveEnd?.Invoke();
       SetUIEnabled(false);
+      waveTimer.Stop();
 
+      if (!start) return;
       CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>
       {
         Time.timeScale = 0f;
@@ -137,7 +140,7 @@ namespace Wave
       var objs = FindObjectsOfType<TargetableObject>();
       foreach (var obj in objs)
       {
-        obj.Kill();
+        obj.Kill(false);
       }
     }
   }

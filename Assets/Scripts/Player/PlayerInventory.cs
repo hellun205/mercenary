@@ -3,50 +3,54 @@ using System.Collections.Generic;
 using Item;
 using Manager;
 using Store.Inventory;
+using UI;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace Player
 {
-  public class PlayerInventory : MonoBehaviour
+  public class PlayerInventory : PoolableWrapper<InventoryItem, InventoryItem>
   {
     public Dictionary<(string name, int tier), ushort> items = new();
 
     public Dictionary<(string name, int tier), InventoryItem> uiItems = new();
 
-    private IObjectPool<InventoryItem> pool;
-    private (string item, int tier, ushort count) temp;
-    private Transform inventoryItemsParent;
-
     public event Action onChanged;
 
-    private void Awake()
+    protected override void Awake()
     {
-      pool = new ObjectPool<InventoryItem>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
-      inventoryItemsParent = GameManager.UI.Find("$inventory_items").transform;
+      base.Awake();
+      parent = GameManager.UI.Find("$inventory_items").transform;
+      instantiateFunc = () => GameManager.Prefabs.Get<InventoryItem>("inventory_item");
       onChanged += () => GameManager.StatusUI.Refresh();
-      
-      // TODO destroy this code
-      GainItem("gold_dust", 0, 3);
     }
 
-    private void ActionOnDestroy(InventoryItem obj)
-      => Destroy(obj.gameObject);
-
-    private void ActionOnRelease(InventoryItem obj)
+    private void Start()
     {
-      obj.gameObject.SetActive(false);
+      GainItem("cross", -1, 3);
+      GainItem("thermonuclear_bomb", -1, 3);
+      GainItem("gold_dust", -1, 3);
+      GainItem("energy_drink", -1, 3);
+      GainItem("boiled_egg", -1, 3);
+      GainItem("kiwi", -1, 3);
     }
 
-    private void ActionOnGet(InventoryItem obj)
-    {
-      obj.SetItem((temp.item, temp.tier), temp.count);
-      obj.transform.SetAsLastSibling();
-      obj.gameObject.SetActive(true);
-    }
-
-    private InventoryItem CreateFunc()
-      => Instantiate(GameManager.Prefabs.Get<InventoryItem>("inventory_item"), inventoryItemsParent);
+    // private void ActionOnDestroy(InventoryItem obj)
+    //   => Destroy(obj.gameObject);
+    //
+    // private void ActionOnRelease(InventoryItem obj)
+    // {
+    //   obj.gameObject.SetActive(false);
+    // }
+    //
+    // private void ActionOnGet(InventoryItem obj)
+    // {
+    //   
+    //   obj.gameObject.SetActive(true);
+    // }
+    //
+    // private InventoryItem CreateFunc()
+    //   => Instantiate(, inventoryItemsParent);
 
     public void GainItem(string item, int tier, ushort count = 1)
     {
@@ -58,8 +62,11 @@ namespace Player
       else
       {
         items.Add((item, tier), count);
-        temp = (item, tier, count);
-        uiItems.Add((item, tier), pool.Get());
+        var obj = Get();
+        obj.component.SetItem((item, tier), count);
+        obj.transform.SetAsLastSibling();
+        obj.Ready();
+        uiItems.Add((item, tier), obj.component);
       }
 
       onChanged?.Invoke();
@@ -72,7 +79,7 @@ namespace Player
       if (items[(item, tier)] <= count)
       {
         items.Remove((item, tier));
-        pool.Release(uiItems[(item, tier)]);
+        Release(uiItems[(item, tier)]);
         uiItems.Remove((item, tier));
       }
       else

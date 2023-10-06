@@ -6,24 +6,12 @@ namespace Data
 {
   public enum ConsumableApplyStatus
   {
-    Hp,
-    Regeneration,
-    DrainHp,
-    MeleeDamage,
-    RangedDamage,
-    CriticalPercent,
-    BleedingDamage,
-    AttackSpeed,
-    Range,
-    Armor,
-    EvasionRate,
-    Knockback,
-    MoveSpeed,
-    Luck,
-    Price,
-    Duration,
-    Resurrection,
-    KillEnemy
+    Hp, Regeneration, DrainHp,
+    MeleeDamage, RangedDamage, CriticalPercent,
+    BleedingDamage, AttackSpeed, Range,
+    Armor, EvasionRate, Knockback,
+    MoveSpeed, Luck, Price,
+    Duration, Resurrection, KillEnemy
   }
 
   public static class ConsumableDataUtility
@@ -32,6 +20,30 @@ namespace Data
       => statusType switch
       {
         _ => "0"
+      };
+
+    public static string GetFieldName(this ConsumableApplyStatus statusType)
+      => statusType switch
+      {
+        ConsumableApplyStatus.Hp => "hp",
+        ConsumableApplyStatus.Regeneration => "regeneration",
+        ConsumableApplyStatus.DrainHp => "drainHp",
+        ConsumableApplyStatus.MeleeDamage => "meleeDamage",
+        ConsumableApplyStatus.RangedDamage => "rangedDamage",
+        ConsumableApplyStatus.CriticalPercent => "criticalPercent",
+        ConsumableApplyStatus.BleedingDamage => "bleedingDamage",
+        ConsumableApplyStatus.AttackSpeed => "attackSpeed",
+        ConsumableApplyStatus.Range => "fireRange",
+        ConsumableApplyStatus.Armor => "armor",
+        ConsumableApplyStatus.EvasionRate => "evasionRate",
+        ConsumableApplyStatus.Knockback => "knockback",
+        ConsumableApplyStatus.MoveSpeed => "moveSpeed",
+        ConsumableApplyStatus.Luck => "luck",
+        ConsumableApplyStatus.Price => "price",
+        ConsumableApplyStatus.Duration => "duration",
+        ConsumableApplyStatus.Resurrection => "resurrection",
+        ConsumableApplyStatus.KillEnemy => "killEnemy",
+        _ => throw new ArgumentOutOfRangeException(nameof(statusType), statusType, null)
       };
   }
 

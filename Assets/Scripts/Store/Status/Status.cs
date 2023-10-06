@@ -28,7 +28,7 @@ namespace Store.Status
 
     public void Refresh()
     {
-      var status = GameManager.Player.GetStatus();
+      var status = GameManager.Player.RefreshStatus();
       
       SetValue("max_hp", status.maxHp);
       SetValue("hp_regeneration", status.regeneration);

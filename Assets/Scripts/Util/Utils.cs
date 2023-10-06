@@ -179,7 +179,7 @@ namespace Util
         fn?.Invoke(i);
     }
 
-    public static string ToRomanNumeral(this int number)
+    public static string ToRomanNumeral(this int number, bool emptyOnOutOfRange = false)
       => number switch
       {
         1 => "Ⅰ", 
@@ -192,7 +192,7 @@ namespace Util
         8 => "Ⅷ", 
         9 => "Ⅸ", 
         10 => "Ⅹ", 
-        _ => number.ToString()
+        _ => emptyOnOutOfRange ? string.Empty :number.ToString()
       };
   }
 }

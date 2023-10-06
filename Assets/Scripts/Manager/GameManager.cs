@@ -53,16 +53,15 @@ namespace Manager
     public static event Action onLoaded;
     public static bool isLoaded { get; private set; }
 
+
     public static Color GetTierColor(int tier)
       => tier switch
       {
-        0 => new Color32(72, 72, 72, 255),
         1 => new Color32(39, 101, 45, 255),
         2 => new Color32(109, 27, 108, 255),
         3 => new Color32(115, 26, 45, 255),
-        _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
+        _ => new Color32(72, 72, 72, 255),
       };
-
     public static Color GetAttributeColor() 
       => new Color32(72, 156, 255, 255);
 
@@ -111,12 +110,6 @@ namespace Manager
     {
       Init();
       coin = new State<int>(0, v => UI.FindAll<TextMeshProUGUI>("$coin", t => t.text = $"{v}"));
-
-      foreach (var item in WeaponData.items.Values)
-        item.Refresh();
-
-      foreach (var item in Items.items.Values.Cast<ItemData>())
-        item.Refresh();
 
       new SceneLoader(SceneManager.GetActiveScene().name).HandleSceneChanged();
     }
@@ -177,7 +170,11 @@ namespace Manager
           new SceneLoader("Main")
            .Out(Transitions.FADEOUT)
            .In(Transitions.FADEIN)
-           .OnEndOut(ToggleGameMenu)
+           .OnEndOut(() =>
+            {
+              ToggleGameMenu();
+              GameManager.Wave.EndWave(false);
+            })
            .Load();
       };
     }

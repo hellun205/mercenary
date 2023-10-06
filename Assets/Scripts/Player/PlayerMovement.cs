@@ -8,8 +8,6 @@ namespace Player
   {
     public Vector2 currentMoveAmount = Vector2.zero;
 
-    public float baseMoveSpeed = 4;
-
     private Rigidbody2D rigid;
 
     private void Awake()
@@ -34,7 +32,7 @@ namespace Player
     {
       // rigid.MovePosition(transform.position + (Vector3)currentMoveAmount *
       //   (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
-      transform.Translate(currentMoveAmount * (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
+      transform.Translate(currentMoveAmount * (GameManager.Player.status.moveSpeed * Time.fixedDeltaTime));
     }
   }
 }

@@ -6,6 +6,7 @@ using Manager;
 using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Util.Text;
 
 namespace Weapon
 {
@@ -15,8 +16,7 @@ namespace Weapon
     [Header("Weapon Desc"), SerializeField]
     private string _name;
 
-    [NonSerialized]
-    public Attribute attribute;
+    public Attribute attribute => GameManager.Data.data.GetWeaponAttribute(specfiedName);
 
     [SerializeField]
     private Sprite m_icon;
@@ -24,7 +24,7 @@ namespace Weapon
     [Multiline]
     public string descriptions;
 
-    public WeaponStatus[] status { get; set; }
+    public WeaponStatus[] status => GameManager.Data.data.GetWeaponStatus(specfiedName);
 
     [Header("Sprite Setting")]
     public bool needFlipY;
@@ -46,14 +46,13 @@ namespace Weapon
     public string specfiedName => name;
     public string itemName => $"[무기] {_name}";
     public Sprite icon => m_icon;
-    public bool hasTier => false;
-    public int tier { get; set; }
 
     public string GetDescription(int tier)
     {
       var sb = new StringBuilder();
-      sb.Append(status[tier].GetDescription());
-      sb.Append($"{descriptions}");
+      sb.Append("무기 능력치\n".AddColor(GameManager.GetAttributeColor()))
+       .Append(status[tier].GetDescription())
+       .Append($"{descriptions}");
       return sb.ToString();
     }
 
@@ -67,11 +66,6 @@ namespace Weapon
 
     public int GetPrice(int tier)
       => Convert.ToInt32(GameManager.Data.data.GetWeaponStatusData(specfiedName, tier, WeaponStatusItem.Price));
-
-    public void Refresh()
-    {
-      attribute = GameManager.Data.data.GetWeaponAttribute(specfiedName);
-      status = GameManager.Data.data.GetWeaponStatus(specfiedName);
-    }
+    
   }
 }

@@ -9,6 +9,7 @@ using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 using Util.Text;
 using Weapon;
 using Attribute = Weapon.Attribute;
@@ -110,7 +111,7 @@ namespace Store.Equipment
       this.weapon = weapon;
       targetImg.sprite = weapon == null ? null : GameManager.WeaponData.Get(weapon.Value.name).icon;
       targetImg.color = weapon == null ? Color.clear : Color.white;
-      panelImg.DOColor(weapon.HasValue ? GameManager.GetTierColor(weapon.Value.tier) : defColor, 0.2f);
+      panelImg.DOColor(weapon.HasValue ? GameManager.GetTierColor(weapon.Value.tier) : defColor, 0.2f).SetUpdate(true);
 
       RefreshAdditional();
 
@@ -120,7 +121,7 @@ namespace Store.Equipment
 
     public void RefreshAdditional()
     {
-      outline.DOColor(isIncrease ? Color.yellow : Color.black, .2f);
+      outline.DOColor(isIncrease ? Color.yellow : Color.black, .2f).SetUpdate(true);
     }
 
     public static int GetWrapperIndex(WeaponSlotWrapper wrapper)
@@ -142,8 +143,8 @@ namespace Store.Equipment
 
       sb.Append
         (
-          data.itemName
-            .SetSizePercent(1.5f)
+          $"{data.itemName} {weapon.Value.tier.ToRomanNumeral()}"
+            .SetSizePercent(1.25f)
             .SetAlign(TextAlign.Center)
         )
         .Append("\n")
@@ -151,7 +152,7 @@ namespace Store.Equipment
         (
           data.attribute.GetTexts()
             .SetSizePercent(1.25f)
-            .AddColor(new Color32(72, 156, 255, 255))
+            .AddColor(GameManager.GetAttributeColor())
             .SetLineHeight(1.25f)
             .SetAlign(TextAlign.Center)
         )

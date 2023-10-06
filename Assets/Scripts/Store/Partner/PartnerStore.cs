@@ -31,7 +31,7 @@ namespace Store.Partner
       var increaseProbability = GameManager.Data.data.GetIncreaseProbabilityByWaveWithoutMultiple(data.tier);
       return GameManager.Data.data.GetProbabilityOfPossessibleObject(data.tier) +
              increaseProbability * GameManager.Wave.currentWave +
-             increaseProbability * Mathf.FloorToInt(GameManager.Player.GetStatus().luck * 100f);
+             increaseProbability * Mathf.FloorToInt(GameManager.Player.RefreshStatus().luck * 100f);
     }
   }
 }
