@@ -42,8 +42,8 @@ namespace Weapon
     public bool isAdditionalStatus { get; set; }
     public Func<IncreaseStatus> additionalStatusGetter { get; set; }
 
-    private Animator anim;
-    private bool hasAnimator;
+    protected Animator anim;
+    protected bool hasAnimator;
 
     protected virtual void Reset()
     {
@@ -70,7 +70,7 @@ namespace Weapon
 
       if (isAdditionalStatus)
         status += additionalStatusGetter.Invoke();
-      
+
       if (hasAnimator)
         anim.SetFloat("speed", 1 / status.attackSpeed);
     }
@@ -117,11 +117,24 @@ namespace Weapon
         // time = 0;
       }
 
-      if (weaponData.needFlipY)
-        transform.localScale =
-          transform.localScale.Setter(y: (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270) ? -1 : 1);
-      if (weaponData.needFlipX)
-        sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+      if (!isAttacking)
+      {
+        if (weaponData.needFlipY)
+          FlipY(transform.rotation.eulerAngles.z);
+        if (weaponData.needFlipX)
+          FlipX(transform.rotation.eulerAngles.z);
+      }
+    }
+
+    protected virtual void FlipY(float z)
+    {
+      transform.localScale =
+        transform.localScale.Setter(y: (z is < 90 and > -90 or >= 270) ? -1 : 1);
+    }
+
+    protected virtual void FlipX(float z)
+    {
+      sr.flipX = (z is < 90 and > -90 or >= 270);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -147,7 +160,7 @@ namespace Weapon
     {
     }
 
-    protected void StartAnimation()
+    protected virtual void StartAnimation()
     {
       if (hasAnimator)
         anim.SetTrigger("fire");

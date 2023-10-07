@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -182,17 +183,46 @@ namespace Util
     public static string ToRomanNumeral(this int number, bool emptyOnOutOfRange = false)
       => number switch
       {
-        1 => "Ⅰ", 
-        2 => "Ⅱ", 
-        3 => "Ⅲ", 
-        4 => "Ⅳ", 
-        5 => "Ⅴ", 
-        6 => "Ⅵ", 
-        7 => "Ⅶ", 
-        8 => "Ⅷ", 
-        9 => "Ⅸ", 
-        10 => "Ⅹ", 
-        _ => emptyOnOutOfRange ? string.Empty :number.ToString()
+        1  => "Ⅰ",
+        2  => "Ⅱ",
+        3  => "Ⅲ",
+        4  => "Ⅳ",
+        5  => "Ⅴ",
+        6  => "Ⅵ",
+        7  => "Ⅶ",
+        8  => "Ⅷ",
+        9  => "Ⅸ",
+        10 => "Ⅹ",
+        _  => emptyOnOutOfRange ? string.Empty : number.ToString()
+      };
+
+    public static string GetKeyString(this KeyCode keyCode)
+      => keyCode switch
+      {
+        KeyCode.Alpha0 => "0",
+        KeyCode.Alpha1 => "1",
+        KeyCode.Alpha2 => "2",
+        KeyCode.Alpha3 => "3",
+        KeyCode.Alpha4 => "4",
+        KeyCode.Alpha5 => "5",
+        KeyCode.Alpha6 => "6",
+        KeyCode.Alpha7 => "7",
+        KeyCode.Alpha8 => "8",
+        KeyCode.Alpha9 => "9",
+        KeyCode.LeftControl => "LCtrl",
+        KeyCode.RightControl => "RCtrl",
+        KeyCode.LeftShift => "LShift",
+        KeyCode.RightShift => "RShift",
+        KeyCode.Escape => "ESC",
+        KeyCode.Slash => "/",
+        KeyCode.Colon => ":",
+        KeyCode.Semicolon => ";",
+        KeyCode.Minus => "-",
+        KeyCode.Plus => "+",
+        KeyCode.BackQuote => "`",
+        KeyCode.LeftAlt => "LAlt",
+        KeyCode.RightAlt => "RAlt",
+        _ => keyCode.ToString()
       };
   }
 }

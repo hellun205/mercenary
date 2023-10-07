@@ -26,6 +26,8 @@ namespace Weapon
 
     public WeaponStatus[] status => GameManager.Data.data.GetWeaponStatus(specfiedName);
 
+    public IncreaseStatus[] increaseStatus => GameManager.Data.data.GetWeaponIncreaseStatus(specfiedName);
+
     [Header("Sprite Setting")]
     public bool needFlipY;
 
@@ -52,7 +54,7 @@ namespace Weapon
       var sb = new StringBuilder();
       sb.Append("무기 능력치\n".AddColor(GameManager.GetAttributeColor()))
        .Append(status[tier].GetDescription())
-       .Append($"{descriptions}");
+       .Append($"{string.Format(descriptions, status[tier].bulletCount)}");
       return sb.ToString();
     }
 
@@ -66,6 +68,5 @@ namespace Weapon
 
     public int GetPrice(int tier)
       => Convert.ToInt32(GameManager.Data.data.GetWeaponStatusData(specfiedName, tier, WeaponStatusItem.Price));
-    
   }
 }

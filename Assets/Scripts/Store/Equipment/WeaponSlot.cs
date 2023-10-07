@@ -128,9 +128,9 @@ namespace Store.Equipment
     {
       return wrapper.type switch
       {
-        EquipmentType.Player => 0,
+        EquipmentType.Player  => 0,
         EquipmentType.Partner => wrapper.partnerIndex + 1,
-        _ => 0
+        _                     => 0
       };
     }
 
@@ -143,26 +143,26 @@ namespace Store.Equipment
 
       sb.Append
         (
-          $"{data.itemName} {weapon.Value.tier.ToRomanNumeral()}"
-            .SetSizePercent(1.25f)
-            .SetAlign(TextAlign.Center)
+          $"{data.itemName} {(weapon.Value.tier + 1).ToRomanNumeral()}"
+           .SetSizePercent(1.25f)
+           .SetAlign(TextAlign.Center)
         )
-        .Append("\n")
-        .Append
+       .Append("\n")
+       .Append
         (
           data.attribute.GetTexts()
-            .SetSizePercent(1.25f)
-            .AddColor(GameManager.GetAttributeColor())
-            .SetLineHeight(1.25f)
-            .SetAlign(TextAlign.Center)
+           .SetSizePercent(1.25f)
+           .AddColor(GameManager.GetAttributeColor())
+           .SetLineHeight(1.25f)
+           .SetAlign(TextAlign.Center)
         )
-        .Append("\n")
-        .Append
+       .Append("\n")
+       .Append
         (
           (isIncrease
             ? data.GetDescriptionWithAdditionalStatus(weapon.Value.tier, highlightStatus.Invoke())
             : data.GetDescription(weapon.Value.tier))
-          .SetAlign(TextAlign.Left)
+         .SetAlign(TextAlign.Left)
         );
 
       popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(data.attribute));

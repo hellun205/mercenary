@@ -8,7 +8,7 @@ using PartnerData = Player.Partner.PartnerData;
 
 namespace Store.Partner
 {
-  public class PartnerStore : Store<Partner, PartnerItem>
+  public class PartnerStore : RefreshableStore<PartnerStoreItem, PartnerItem>
   {
     protected override IEnumerable<PartnerItem> LoadCache()
     {

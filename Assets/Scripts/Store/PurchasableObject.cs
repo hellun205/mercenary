@@ -45,6 +45,8 @@ namespace Store
     [SerializeField]
     protected TextMeshProUGUI purchaseButtonText;
 
+    public virtual bool isConsume => true;
+
     public bool isLocking { get; private set; }
 
     private T _data;
@@ -55,7 +57,7 @@ namespace Store
       set
       {
         _data = value;
-        itemName.text = data.name;
+        itemName.text = data.displayName;
         itemDescriptions.text = data.description;
         itemIcon.sprite = data.icon;
         purchaseButtonText.text = $"${price}";
@@ -89,11 +91,15 @@ namespace Store
     {
       if (GameManager.Manager.coin.value < price) return;
 
-      SetEnabled(false);
+      if (isConsume)
+      {
+        SetEnabled(false);
+        SetLock(false);
+        hasData = false;
+      }
+      
       GameManager.Manager.coin.value -= price;
       OnPurchase();
-      SetLock(false);
-      hasData = false;
     }
 
     protected abstract void OnPurchase();

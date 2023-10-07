@@ -13,7 +13,7 @@ namespace Store.Partner
   public struct PartnerItem : IPurchasable
   {
     public int price => partner != null ? partner.GetPrice(tier) : 0;
-    public string name => $"{partner.itemName} {(tier + 1).ToRomanNumeral()}";
+    public string displayName => $"{partner.itemName} {(tier + 1).ToRomanNumeral()}";
 
     public string description => partner.GetDescription(tier);
 

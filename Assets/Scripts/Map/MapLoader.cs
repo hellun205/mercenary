@@ -31,7 +31,7 @@ namespace Map
       CoroutineUtility.Wait(1f, () =>
       {
         GameManager.Transition.Play(Transitions.FADEIN, 0.7f);
-        GameManager.Wave.StartWave();
+        GameManager.Wave.StartWave(0);
       });
     }
   }

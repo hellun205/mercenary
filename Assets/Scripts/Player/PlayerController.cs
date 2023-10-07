@@ -25,6 +25,7 @@ using Weapon;
 using Weapon.Ranged.Bomb;
 using Attribute = Weapon.Attribute;
 using ItemData = Item.ItemData;
+using WeaponData = Weapon.WeaponData;
 
 namespace Player
 {
@@ -38,6 +39,7 @@ namespace Player
     public PlayerStatus status;
 
     private ProgressBar hpBar;
+    public PlayerMovement movement { get; private set; }
 
     [NonSerialized]
     public WeaponInventory weaponInventory;
@@ -75,6 +77,7 @@ namespace Player
     {
       if (GameManager.Player == null) GameManager.Player = this;
 
+      movement = GetComponent<PlayerMovement>();
       inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
       io = GetComponent<InteractiveObject>();
@@ -253,9 +256,19 @@ namespace Player
       foreach (var (data, ui) in buffs)
         increases += data.status;
 
+      foreach (var item in weaponInventory.weapons.Where(x => x.HasValue).Select
+                 (x => ((WeaponData) GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+        increases += item;
+
+      foreach (var partnerWI in partners.Select(x => x.weaponInventory.weapons))
+        foreach (var item in partnerWI.Where(x => x.HasValue).Select
+                   (x => ((WeaponData) GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+          increases += item;
+
       increases += GetChemistryStatus(out var _);
 
-      return res + increases;
+      res += increases;
+      return res;
     }
 
     public IncreaseStatus GetChemistryStatus(out Dictionary<Attribute, int> counts)

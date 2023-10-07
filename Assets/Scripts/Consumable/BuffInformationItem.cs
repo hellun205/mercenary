@@ -11,7 +11,12 @@ namespace Consumable
 
     public string title { get; set; }
     public string description { get; set; }
-    public Sprite icon { get; set; }
+
+    public Sprite icon
+    {
+      get => iconImage.sprite;
+      set => iconImage.sprite = value;
+    }
     
     public Image iconImage;
     public Image panelImage;
@@ -19,6 +24,7 @@ namespace Consumable
 
     public override void OnEntered()
     {
+      popupPanel.rectTransform.pivot = new Vector2(0.9f, 0.9f);
       popupPanel.ShowPopup(title, description, icon);
     }
     public BuffInformationItem component => this;

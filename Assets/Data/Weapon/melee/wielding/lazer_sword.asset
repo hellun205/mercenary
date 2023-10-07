@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: lazer_sword
   m_EditorClassIdentifier: 
   _name: "\uB808\uC774\uC800\uAC80"
-  m_icon: {fileID: 21300000, guid: 36bbd16f83df3254788a5e856b58f366, type: 3}
+  m_icon: {fileID: 21300000, guid: d063070bb25f8c64ebddb5bfb1552346, type: 3}
   descriptions: 
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
   bullet: bullet

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: lazer_gun
   m_EditorClassIdentifier: 
   _name: "\uB808\uC774\uC800\uAC74"
-  m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
+  m_icon: {fileID: 21300000, guid: 9f265897eeda80d498b17fc13625922b, type: 3}
   descriptions: 
   needFlipY: 1
   needFlipX: 0

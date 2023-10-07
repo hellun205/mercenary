@@ -1,3 +1,4 @@
+using Cinemachine;
 using Player;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Manager
       if (loadPlayer && FindObjectOfType<PlayerController>() == null)
         Instantiate(Resources.Load("@player"));
 
-      if (loadCamera && FindObjectOfType<Camera>() == null)
+      if (loadCamera && FindObjectOfType<CinemachineVirtualCamera>() == null)
         Instantiate(Resources.Load("@camera"));
       
       Destroy(gameObject);

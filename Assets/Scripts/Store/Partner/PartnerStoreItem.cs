@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Store.Partner
 {
-  public class Partner : PurchasableObject<PartnerItem>
+  public class PartnerStoreItem : PurchasableObject<PartnerItem>
   {
     protected override void OnPurchase()
     {

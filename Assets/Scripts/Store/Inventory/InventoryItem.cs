@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using System.Text;
+using Consumable;
 using Data;
 using Item;
 using Manager;
@@ -14,11 +16,35 @@ using UnityEngine.UI;
 using Util;
 using Util.Text;
 using Weapon;
+using ItemData = Item.ItemData;
+using PartnerData = Player.Partner.PartnerData;
+using WeaponData = Weapon.WeaponData;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<ListPopup>, IPointerClickHandler, IPoolableUI<InventoryItem>
+  public class InventoryItem
+    : UsePopup<ListPopup>,
+      IPointerClickHandler,
+      IPoolableUI<InventoryItem>,
+      IFilterable<InventoryItemType>
   {
+    public InventoryItemType filterType
+    {
+      get
+      {
+        var data = itemData!.Value;
+        var get = GameManager.GetIPossessible(data.name);
+        return get switch
+        {
+          ItemData       => InventoryItemType.StatusItem,
+          WeaponData     => InventoryItemType.Weapon,
+          ConsumableItem => InventoryItemType.ConsumableItem,
+          PartnerData    => InventoryItemType.Partner,
+          _ => throw new ArgumentOutOfRangeException()
+        };
+      }
+    }
+
     public (string name, int tier)? itemData;
 
     [SerializeField]
@@ -95,30 +121,30 @@ namespace Store.Inventory
       sb.Append
         (
           $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral(true)}"
-            .SetSizePercent(1.25f)
-            .SetAlign(TextAlign.Center)
+           .SetSizePercent(1.25f)
+           .SetAlign(TextAlign.Center)
         )
-        .Append("\n");
-      if (item is Weapon.WeaponData weaponData)
+       .Append("\n");
+      if (item is WeaponData weaponData)
       {
         sb.Append
           (
             weaponData.attribute.GetTexts()
-              .SetSizePercent(1.25f)
-              .AddColor(GameManager.GetAttributeColor())
-              .SetLineHeight(1.25f)
-              .SetAlign(TextAlign.Center)
+             .SetSizePercent(1.25f)
+             .AddColor(GameManager.GetAttributeColor())
+             .SetLineHeight(1.25f)
+             .SetAlign(TextAlign.Center)
           )
-          .Append("\n");
+         .Append("\n");
       }
 
       sb.Append
       (
         item.GetDescription(itemData.Value.tier)
-          .SetAlign(TextAlign.Left)
+         .SetAlign(TextAlign.Left)
       );
 
-      if (item is Weapon.WeaponData weaponData2)
+      if (item is WeaponData weaponData2)
         popupPanel.ShowPopup(sb.ToString(),
           GameManager.Data.data.GetAttributeChemistryDescriptions(weaponData2.attribute));
       else

@@ -4,13 +4,14 @@ using Data;
 using Item;
 using Manager;
 using Player;
+using Store;
 using UnityEngine;
 using Util.Text;
 
 namespace Consumable
 {
   [CreateAssetMenu(fileName = "Consumable Item", menuName = "Consumable Item", order = 0)]
-  public class ConsumableItem : ScriptableObject, IPossessible
+  public class ConsumableItem : ScriptableObject, IPossessible, IPurchasable
   {
     [SerializeField]
     private string _name;
@@ -23,7 +24,13 @@ namespace Consumable
 
     public string specfiedName => name;
     public string itemName => _name;
+    public int price => GetPrice();
+    public string description => GetDescription();
+    public string addtive => string.Empty;
     public Sprite icon => _icon;
+    public Color color => GameManager.GetTierColor(0);
+
+    public string displayName => _name;
 
     public IncreaseStatus GetStatus()
       => GameManager.Data.data.GetConsumableStatus(specfiedName);

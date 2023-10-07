@@ -50,8 +50,7 @@ namespace Manager
 
       foreach (var (name, fn) in fns)
       {
-        if (!GameManager.Data.data.keys.TryGetValue(name, out var key))
-          key = defaultData[name];
+        var key = GameManager.Data.data.GetKeyData(name);
 
         if (!key.Any(keyCode => getKey.Invoke(keyCode))) continue;
         fn.Invoke();

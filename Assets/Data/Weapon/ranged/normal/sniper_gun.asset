@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: sniper_gun
   m_EditorClassIdentifier: 
   _name: "\uC800\uACA9\uC18C\uCD1D"
-  m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
+  m_icon: {fileID: 21300000, guid: 01b29d85d47385c4a9a9f5ae269baec7, type: 3}
   descriptions: 
   needFlipY: 1
   needFlipX: 0

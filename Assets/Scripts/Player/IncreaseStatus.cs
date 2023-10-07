@@ -12,7 +12,7 @@ namespace Player
   public enum StatusValueType
   {
     Normal, Fixed, PercentPlus,
-    All
+    All, 
   }
 
   public struct IncreaseStatus
@@ -47,6 +47,9 @@ namespace Player
 
     public string resurrection;
     public string killEnemy;
+
+    public string nonNestableBleedingDamage;
+    public string nonNestableDamageWhenStop;
 
     public readonly static Dictionary<string, (float min, float max)> limit = new()
     {
@@ -100,11 +103,11 @@ namespace Player
     private string GetTypeChar(StatusValueType type)
       => type switch
       {
-        StatusValueType.Normal      => "",
-        StatusValueType.Fixed       => "=",
-        StatusValueType.PercentPlus => "%+",
-        StatusValueType.All         => "all",
-        _                           => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        StatusValueType.Normal       => "",
+        StatusValueType.Fixed        => "=",
+        StatusValueType.PercentPlus  => "%+",
+        StatusValueType.All          => "all",
+        _                            => throw new ArgumentOutOfRangeException(nameof(type), type, null)
       };
 
     public void SetValue(string fieldName, float value)

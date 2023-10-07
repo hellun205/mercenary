@@ -16,7 +16,7 @@ namespace Consumable
     {
       var obj = Get();
       obj.component.title = title;
-      obj.component.iconImage.sprite = icon;
+      obj.component.icon = icon;
       obj.component.description = description;
       
       return obj.component;

@@ -69,6 +69,12 @@ namespace Wave
         $"{Math.Max(0, GameManager.Data.data.GetWaveTime(currentWave) - Mathf.FloorToInt(sender.elapsedTime))}초";
     }
 
+    public void StartWave(int index)
+    {
+      currentWave = index;
+      StartWave();
+    }
+
     public void StartWave()
     {
       SetUIEnabled(true);
@@ -124,6 +130,8 @@ namespace Wave
       if (!start) return;
       CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>
       {
+        GameManager.UI.Find<Camera>($"$player_display_camera").transform.position =
+          GameManager.Player.transform.position.Setter(z: -5);
         Time.timeScale = 0f;
         storePanel.SetVisible(true, 0.1f);
       }));

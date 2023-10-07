@@ -1,5 +1,6 @@
 using Manager;
 using Store.Consumable;
+using UI;
 using UnityEngine;
 
 namespace Store.Inventory

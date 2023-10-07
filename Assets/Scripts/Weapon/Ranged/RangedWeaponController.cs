@@ -18,7 +18,7 @@ namespace Weapon.Ranged
         ApplyDamage(bulletObj);
         bulletObj.speed = stat.bulletSpeed;
         bulletObj.maxPenetrateCount = stat.penetrate;
-        bulletObj.SetTarget(target, stat.errorRange);
+        bulletObj.SetTarget(transform.eulerAngles.z, stat.errorRange);
       }
     }
   }

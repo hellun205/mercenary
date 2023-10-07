@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: rapier
   m_EditorClassIdentifier: 
   _name: "\uB808\uC774\uD53C\uC5B4"
-  m_icon: {fileID: 21300000, guid: a64313d79be813e4c97262e9b4efa23a, type: 3}
+  m_icon: {fileID: 21300000, guid: 4fe9bc52eb36c55469cdc6dc5c900da2, type: 3}
   descriptions: 
   needFlipY: 0
   needFlipX: 0

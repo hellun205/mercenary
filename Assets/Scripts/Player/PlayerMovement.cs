@@ -32,7 +32,8 @@ namespace Player
     {
       // rigid.MovePosition(transform.position + (Vector3)currentMoveAmount *
       //   (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
-      transform.Translate(currentMoveAmount * (GameManager.Player.status.moveSpeed * Time.fixedDeltaTime));
+      
+      transform.Translate(currentMoveAmount * (GameManager.Player.currentStatus.moveSpeed * Time.fixedDeltaTime));
     }
   }
 }

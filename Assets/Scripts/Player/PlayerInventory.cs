@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Item;
 using Manager;
 using Store.Inventory;
 using UI;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
+using Util.UI;
 
 namespace Player
 {
@@ -15,6 +18,34 @@ namespace Player
 
     public Dictionary<(string name, int tier), InventoryItem> uiItems = new();
 
+    private InventoryItemType _filtered;
+
+    public InventoryItemType filtered
+    {
+      get => _filtered;
+      set
+      {
+        _filtered = value;
+
+        void SetVisible(InventoryItem item, bool visible)
+        {
+          item.SetVisible(visible);
+          item.GetComponent<LayoutElement>().ignoreLayout = !visible;
+        }
+
+        if (filtered == InventoryItemType.All)
+        {
+          foreach (var item in uiItems.Values)
+            SetVisible(item, true);
+
+          return;
+        }
+
+        foreach (var item in uiItems.Values)
+          SetVisible(item, item.filterType == filtered);
+      }
+    }
+
     public event Action onChanged;
 
     protected override void Awake()
@@ -23,34 +54,13 @@ namespace Player
       parent = GameManager.UI.Find("$inventory_items").transform;
       instantiateFunc = () => GameManager.Prefabs.Get<InventoryItem>("inventory_item");
       onChanged += () => GameManager.StatusUI.Refresh();
+      GameManager.UI.Find<RadioButtonList>("$inventory_filters").onChanged += OnFilterChanged;
     }
 
-    private void Start()
+    private void OnFilterChanged(string filterName)
     {
-      GainItem("cross", -1, 3);
-      GainItem("thermonuclear_bomb", -1, 3);
-      GainItem("gold_dust", -1, 3);
-      GainItem("energy_drink", -1, 3);
-      GainItem("boiled_egg", -1, 3);
-      GainItem("kiwi", -1, 3);
+      filtered = Enum.Parse<InventoryItemType>(filterName);
     }
-
-    // private void ActionOnDestroy(InventoryItem obj)
-    //   => Destroy(obj.gameObject);
-    //
-    // private void ActionOnRelease(InventoryItem obj)
-    // {
-    //   obj.gameObject.SetActive(false);
-    // }
-    //
-    // private void ActionOnGet(InventoryItem obj)
-    // {
-    //   
-    //   obj.gameObject.SetActive(true);
-    // }
-    //
-    // private InventoryItem CreateFunc()
-    //   => Instantiate(, inventoryItemsParent);
 
     public void GainItem(string item, int tier, ushort count = 1)
     {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Manager;
 using UnityEngine;
+using UnityEngine.UI;
+using Util.UI;
 
 namespace Store.Status
 {
@@ -13,9 +15,23 @@ namespace Store.Status
 
     public Dictionary<string, StatusItem> items = new ();
     
+    public bool isOpened { get; private set; }
+    
     private void Awake()
     {
       items = content.GetComponentsInChildren<StatusItem>().ToDictionary(x => x.name, x => x);
+      GameManager.UI.Find<Button>("$toggle_stats").onClick.AddListener(OnToggleButtonClick);
+    }
+
+    private void Start()
+    {
+      gameObject.SetVisible(false, 0.1f);
+    }
+
+    private void OnToggleButtonClick()
+    {
+      isOpened = !isOpened;
+      gameObject.SetVisible(isOpened, 0.1f);
     }
 
     public void SetValue(string key, float value)

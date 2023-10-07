@@ -75,6 +75,27 @@ namespace Data
         }
       ).ToArray();
     }
+    
+    public static IncreaseStatus[] GetWeaponIncreaseStatus(this DataManager.Data data, string weaponName)
+    {
+      var weapon = data.GetWeaponData(weaponName);
+
+      float GetValue(int tier, WeaponStatusItem statusType)
+      {
+        return data.GetWeaponStatusData(weaponName, tier, statusType);
+      }
+
+      return weapon.tiers.Select
+      (
+        (_, i) => new IncreaseStatus()
+        {
+          moveSpeed = $"%+{GetValue(i, WeaponStatusItem.IncreaseMoveSpeedPercent)}" ,
+          evasionRate = $"{GetValue(i, WeaponStatusItem.IncreaseEvasionRate)}" ,
+          nonNestableDamageWhenStop = $"={GetValue(i, WeaponStatusItem.IncreaseDamageWhenStop)}" ,
+          nonNestableBleedingDamage = $"={GetValue(i, WeaponStatusItem.IncreaseBleedingDamagePercent)}" ,
+        }
+      ).ToArray();
+    }
 
     private static (int tier, Dictionary<ItemStatusItem, float> apply) GetItemData
     (
@@ -116,7 +137,7 @@ namespace Data
       res.SetValue("knockback", GetValue(ItemStatusItem.KnockBack));
       res.SetValue("armor", GetValue(ItemStatusItem.Armor));
       res.SetValue("criticalPercent", GetValue(ItemStatusItem.CriticalPercent));
-      res.SetValue("moveSpeed", GetValue(ItemStatusItem.MoveSpeed));
+      res.moveSpeed = $"%+{GetValue(ItemStatusItem.MoveSpeed)}";
       res.SetValue("fireRange", GetValue(ItemStatusItem.Range));
       res.SetValue("luck", GetValue(ItemStatusItem.Luck));
       res.SetValue("meleeDamage", GetValue(ItemStatusItem.MeleeDamage));
@@ -470,11 +491,19 @@ namespace Data
         armor = GetValue(ConsumableApplyStatus.Armor),
         evasionRate = GetValue(ConsumableApplyStatus.EvasionRate),
         knockback = GetValue(ConsumableApplyStatus.Knockback),
-        moveSpeed = GetValue(ConsumableApplyStatus.MoveSpeed),
+        moveSpeed = $"%+{GetValue(ConsumableApplyStatus.MoveSpeed)}",
         luck = GetValue(ConsumableApplyStatus.Luck),
         killEnemy = GetValue(ConsumableApplyStatus.KillEnemy),
         resurrection = GetValue(ConsumableApplyStatus.Resurrection),
       };
+    }
+
+    public static KeyCode[] GetKeyData(this DataManager.Data data, string name)
+    {
+      if (!data.keys.TryGetValue(name, out var key))
+        key = KeyManager.defaultData[name];
+
+      return key;
     }
   }
 }
