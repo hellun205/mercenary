@@ -134,7 +134,15 @@
   ],
   "spawns": [
     {
-      "spawns": []
+      "spawns": [
+        {
+          "name": "normal",
+          "count": 50,
+          "simultaneousSpawnCount": 3,
+          "delay": 0.0,
+          "range": 4.0
+        }
+      ]
     },
     {
       "spawns": [
@@ -683,7 +691,7 @@
     }
   ],
   "waveTime": [
-    1.0,
+    20.0,
     24.0,
     28.0,
     32.0,

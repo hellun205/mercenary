@@ -10700,12 +10700,6 @@ MonoBehaviour:
       Value: {fileID: 1297951790826436554, guid: 063691b27ef655a4d8688ce5bd99fb6f, type: 3}
     - Key: submachine_gun
       Value: {fileID: 1297951790826436554, guid: d80900a6bd00c154ba10bbd6891713db, type: 3}
-    - Key: testaxe
-      Value: {fileID: 1928209057720957025, guid: a0e62bbd267169b4ab184f25b3c0176b, type: 3}
-    - Key: testgun
-      Value: {fileID: 1297951790826436554, guid: 471f79a0e26d8ee4189b7345f8905a52, type: 3}
-    - Key: testknife
-      Value: {fileID: 7312725726241196181, guid: 9c4721f20ce63b04183e1c6182064348, type: 3}
 --- !u!1 &4974959180103286293
 GameObject:
   m_ObjectHideFlags: 0

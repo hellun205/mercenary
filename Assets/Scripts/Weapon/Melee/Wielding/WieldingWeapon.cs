@@ -45,6 +45,7 @@ namespace Weapon.Melee.Wielding
 
     protected override void OnFire()
     {
+      StartAnimation();
       ready = false;
       // moveCrt.Start();
       tweener = movingObj.DOLocalMoveX(status.fireRange / 10, 0.3f * Mathf.Min(1, status.attackSpeed))

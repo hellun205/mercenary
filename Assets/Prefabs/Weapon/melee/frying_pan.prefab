@@ -129,11 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf3c08f9ebc40c4a547d508c189877b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 835311814787891203}
   col: {fileID: 4181827904235362178}
+  specifiedName: frying_pan
   movingObj: {fileID: 2222215273383787293}
   attackableObject: {fileID: 8728203121397632685}
   cRotate: {fileID: 5791073417348056907}
@@ -530,3 +530,4 @@ MonoBehaviour:
   isCritical: 0
   knockBack: 0
   multipleDamage: 0
+  canAttack: 1

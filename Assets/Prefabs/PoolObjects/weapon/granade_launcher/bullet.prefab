@@ -71,7 +71,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.05
 --- !u!114 &-640458343421406574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   type: 
+  originalName: 
 --- !u!114 &3945096791911821114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +107,8 @@ MonoBehaviour:
   isCritical: 0
   knockBack: 0
   multipleDamage: 0
+  canAttack: 1
+  speed: 10
   maxPenetrateCount: 0
   curPenetrateCount: 0
   despawnTimer:
@@ -116,8 +119,8 @@ MonoBehaviour:
     m_value: 0
     m_type: 0
     m_isPlaying: 0
-  sr: {fileID: 1109187027350855757}
   detectEnemy: {fileID: 4450788279365091686}
+  sr: {fileID: 1109187027350855757}
   moveTimer:
     m_isUnscaled: 0
     m_elapsedTime: 0

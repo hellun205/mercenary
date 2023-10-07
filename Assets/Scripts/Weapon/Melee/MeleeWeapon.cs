@@ -20,6 +20,7 @@ namespace Weapon.Melee
 
     protected override void OnFire()
     {
+      StartAnimation();
       isAttacking = true;
       attackableObject.RemoveDetection();
       attackableObject.currentCondition = InteractCondition.Attack;

@@ -34,12 +34,16 @@ namespace Weapon
     [NonSerialized]
     public bool isReady;
 
-    public string GetPObj(string objName) => $"weapon/{name}/{objName}";
+    public string specifiedName;
+
+    public string GetPObj(string objName) => $"weapon/{specifiedName}/{objName}";
 
     public int tier { get; set; }
-    public string dataName => $"{name}.{tier}";
     public bool isAdditionalStatus { get; set; }
     public Func<IncreaseStatus> additionalStatusGetter { get; set; }
+
+    private Animator anim;
+    private bool hasAnimator;
 
     protected virtual void Reset()
     {
@@ -49,6 +53,7 @@ namespace Weapon
 
     protected virtual void Awake()
     {
+      hasAnimator = TryGetComponent(out anim);
       GameManager.Wave.onWaveStart += RefreshStatus;
     }
 
@@ -59,20 +64,15 @@ namespace Weapon
 
     private void RefreshStatus()
     {
-      try
-      {
-        weaponData = GameManager.WeaponData[name];
-      }
-      catch 
-      {
-        Debug.Log(name);
-      }
+      weaponData = GameManager.WeaponData[specifiedName];
 
       status = weaponData.status[tier] + GameManager.Player.RefreshStatus();
 
-
       if (isAdditionalStatus)
         status += additionalStatusGetter.Invoke();
+      
+      if (hasAnimator)
+        anim.SetFloat("speed", 1 / status.attackSpeed);
     }
 
     [ContextMenu("Refresh Range")]
@@ -145,6 +145,12 @@ namespace Weapon
 
     protected virtual void OnFire()
     {
+    }
+
+    protected void StartAnimation()
+    {
+      if (hasAnimator)
+        anim.SetTrigger("fire");
     }
 
     protected void ApplyDamage(AttackableObject ao)

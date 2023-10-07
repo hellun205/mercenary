@@ -115,11 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d53cf4ce94e43e68c0c912736a6085a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 2983364493825563897}
   col: {fileID: 4050276591124512170}
+  specifiedName: spear
   movingObj: {fileID: 1075818993657578876}
   attackableObject: {fileID: 753179698979213910}
 --- !u!50 &2618493213608456981
@@ -275,6 +275,7 @@ MonoBehaviour:
   isCritical: 0
   knockBack: 0
   multipleDamage: 0
+  canAttack: 1
 --- !u!1 &8757700173094275166
 GameObject:
   m_ObjectHideFlags: 0
