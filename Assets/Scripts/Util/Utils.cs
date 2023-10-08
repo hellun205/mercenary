@@ -7,8 +7,11 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Manager;
+using Sound;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Util
@@ -218,11 +221,30 @@ namespace Util
         KeyCode.Colon => ":",
         KeyCode.Semicolon => ";",
         KeyCode.Minus => "-",
-        KeyCode.Plus => "+",
         KeyCode.BackQuote => "`",
         KeyCode.LeftAlt => "LAlt",
         KeyCode.RightAlt => "RAlt",
+        KeyCode.UpArrow => "↑",
+        KeyCode.DownArrow => "↓",
+        KeyCode.LeftArrow => "←",
+        KeyCode.RightArrow => "→",
+        KeyCode.Backslash => "\\",
+        KeyCode.Comma => ",",
+        KeyCode.Equals => "=",
+        KeyCode.Period => ".",
+        KeyCode.LeftWindows => "LWin",
+        KeyCode.RightWindows => "RWin",
+        KeyCode.Quote => ".",
+        KeyCode.LeftBracket => "[",
+        KeyCode.RightBracket => "]",
         _ => keyCode.ToString()
       };
+
+    public static T Find<T>(this Transform transform, string name) where T: Component
+    {
+      return transform.Find("name").GetComponent<T>();
+    }
+
+    public static void PlaySound(this Object obj) => obj.GetComponent<UseSound>()?.PlaySound();
   }
 }

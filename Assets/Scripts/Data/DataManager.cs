@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Manager;
+using Sound;
 using UnityEngine;
 using Weapon;
 using Attribute = Weapon.Attribute;
@@ -24,6 +25,7 @@ namespace Data
       public string key { get; set; }
       public string store { get; set; }
       public string consumables { get; set; }
+      public string volume { get; set; }
 
       public string GetPath(string type)
       {
@@ -43,6 +45,7 @@ namespace Data
       public string key { get; set; }
       public string store { get; set; }
       public string consumables { get; set; }
+      public string volume { get; set; }
     }
 
     [Serializable]
@@ -57,6 +60,7 @@ namespace Data
       public TextAsset key;
       public TextAsset store;
       public TextAsset consumables;
+      public TextAsset volume { get; set; }
 
       public static implicit operator Jsons(Input i)
       {
@@ -101,6 +105,7 @@ namespace Data
       public Dictionary<string, KeyCode[]> keys { get; set; }
       public StoreData store { get; set; }
       public Dictionary<string, Dictionary<ConsumableApplyStatus, string>> consumables { get; set; }
+      public Dictionary<SoundType, float> volume { get; set; }
     }
 
     public Paths paths { get; }
@@ -120,7 +125,8 @@ namespace Data
         attributeChemistry = "AttributeChemistryData",
         key = "KeyData",
         store = "StoreData",
-        consumables = "ConsumableData"
+        consumables = "ConsumableData",
+        volume = "VolumeData"
       };
       if (jsonData != null)
         this.jsons = jsonData.Value;
@@ -141,7 +147,8 @@ namespace Data
           attributeChemistry = LoadJson(paths.GetPath("attributeChemistry")),
           key = LoadJson(paths.GetPath("key")),
           store = LoadJson(paths.GetPath("store")),
-          consumables = LoadJson(paths.GetPath("consumables"))
+          consumables = LoadJson(paths.GetPath("consumables")),
+          volume = LoadJson(paths.GetPath("volume"))
         },
         true => jsons
       };
@@ -158,7 +165,10 @@ namespace Data
           ? KeyManager.InitalDefaultData(paths.GetPath("key"))
           : LoadData<KeyData>(jsons.key).ToSimply(),
         store = LoadData<StoreData>(jsons.store),
-        consumables = LoadData<ConsumableData>(jsons.consumables).ToSimply()
+        consumables = LoadData<ConsumableData>(jsons.consumables).ToSimply(),
+        volume = string.IsNullOrEmpty(jsons.volume)
+          ? SoundManager.defaultVolumes
+          : LoadData<VolumeData>(jsons.volume).ToSimply()
       };
     }
 
@@ -176,6 +186,28 @@ namespace Data
     public static T LoadData<T>(string json) where T : ILoadable
     {
       return JsonUtility.FromJson<T>(json);
+    }
+
+    public static void SaveData<T>(string path, T obj) where T : ILoadable
+    {
+      using var sw = new StreamWriter(path);
+      sw.Write(JsonUtility.ToJson(obj, true));
+    }
+
+    public void SetKeySetting(Dictionary<string, KeyCode?[]> setting)
+    {
+      var res = data;
+      res.keys = setting.ToDictionary(x => x.Key, x => x.Value.Where(y => y.HasValue).Select(y => y.Value).ToArray());
+      data = res;
+      SaveData(paths.GetPath("key"), new KeyData().Parse(data.keys));
+    }
+    
+    public void SetVolumeSetting(Dictionary<SoundType, float> setting)
+    {
+      var res = data;
+      res.volume = setting;
+      data = res;
+      SaveData(paths.GetPath("volume"), new VolumeData().Parse(data.volume));
     }
   }
 }

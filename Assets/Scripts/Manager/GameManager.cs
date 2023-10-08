@@ -6,6 +6,7 @@ using Map;
 using Player;
 using Pool;
 using Scene;
+using Sound;
 using Spawn;
 using Store.Status;
 using TMPro;
@@ -45,6 +46,7 @@ namespace Manager
     public static SpriteCollection Sprites { get; private set; }
     public static ScriptableObjectCollection Partners { get; private set; }
     public static ScriptableObjectCollection Consumables { get; private set; }
+    public static SoundManager Sound { get; private set; }
 
     public static DontDestroyObject CoroutineObject =>
       GameObject.Find("@game").GetComponent<DontDestroyObject>();
@@ -102,6 +104,7 @@ namespace Manager
       UI = FindObjectOfType<UIManager>();
       Pool = new PoolManager();
       Wave = FindObjectOfType<WaveManager>();
+      Sound = FindObjectOfType<SoundManager>();
       Items = transform.Find("@item_data").GetComponent<ScriptableObjectCollection>();
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
@@ -125,6 +128,7 @@ namespace Manager
       UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_restart_btn").onClick.AddListener(AskRestart);
+      UI.Find<Button>("$menu_setting_btn").onClick.AddListener(OpenSetting);
       UI.Find<Button>("$menu_gotomain_btn").onClick.AddListener(AskGotoMain);
       UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
       UI.Find("$menu_panel").SetVisible(false);
@@ -135,6 +139,11 @@ namespace Manager
       coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
     }
 
+    public void OpenSetting()
+    {
+      var setting = Window.Open(WindowType.Setting).GetContent<SettingWindow>();
+      
+    }
 
     public static IPossessible GetItem(string itemName)
       => Items.Get(itemName) as IPossessible;

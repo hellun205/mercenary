@@ -7,12 +7,6 @@ using Window.Contents;
 
 namespace Window
 {
-  public enum WindowType
-  {
-    MessageBox,
-    AskBox
-  }
-
   public class WindowManager
   {
     public Dictionary<WindowType, HashSet<Components.Window>> windows { get; private set; }
