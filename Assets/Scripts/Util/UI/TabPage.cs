@@ -13,7 +13,7 @@ namespace Util.UI
     
     private void Awake()
     {
-      pages = GetComponentsInChildren<UIVisibler>();
+      pages = transform.GetChilds<UIVisibler>();
     }
 
     private void Start()

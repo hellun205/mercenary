@@ -50,6 +50,12 @@ namespace Wave
 
       SetUIEnabled(false);
       storePanel.SetVisible(false);
+
+      var pages = GameManager.UI.Find<TabPage>("$store_tab_pages");
+      GameManager.UI.Find<RadioButtonList>("$store_tab_buttons").onChanged += select => pages.SetEnable(select);
+      var inventories = GameManager.UI.Find<TabPage>("$inventory_tab_pages");
+      GameManager.UI.Find<RadioButtonList>("$inventory_tab_buttons").onChanged +=
+        select => inventories.SetEnable(select);
     }
 
     private void SetUIEnabled(bool value)

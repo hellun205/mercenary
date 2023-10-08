@@ -202,49 +202,58 @@ namespace Util
     public static string GetKeyString(this KeyCode keyCode)
       => keyCode switch
       {
-        KeyCode.Alpha0 => "0",
-        KeyCode.Alpha1 => "1",
-        KeyCode.Alpha2 => "2",
-        KeyCode.Alpha3 => "3",
-        KeyCode.Alpha4 => "4",
-        KeyCode.Alpha5 => "5",
-        KeyCode.Alpha6 => "6",
-        KeyCode.Alpha7 => "7",
-        KeyCode.Alpha8 => "8",
-        KeyCode.Alpha9 => "9",
-        KeyCode.LeftControl => "LCtrl",
+        KeyCode.Alpha0       => "0",
+        KeyCode.Alpha1       => "1",
+        KeyCode.Alpha2       => "2",
+        KeyCode.Alpha3       => "3",
+        KeyCode.Alpha4       => "4",
+        KeyCode.Alpha5       => "5",
+        KeyCode.Alpha6       => "6",
+        KeyCode.Alpha7       => "7",
+        KeyCode.Alpha8       => "8",
+        KeyCode.Alpha9       => "9",
+        KeyCode.LeftControl  => "LCtrl",
         KeyCode.RightControl => "RCtrl",
-        KeyCode.LeftShift => "LShift",
-        KeyCode.RightShift => "RShift",
-        KeyCode.Escape => "ESC",
-        KeyCode.Slash => "/",
-        KeyCode.Colon => ":",
-        KeyCode.Semicolon => ";",
-        KeyCode.Minus => "-",
-        KeyCode.BackQuote => "`",
-        KeyCode.LeftAlt => "LAlt",
-        KeyCode.RightAlt => "RAlt",
-        KeyCode.UpArrow => "↑",
-        KeyCode.DownArrow => "↓",
-        KeyCode.LeftArrow => "←",
-        KeyCode.RightArrow => "→",
-        KeyCode.Backslash => "\\",
-        KeyCode.Comma => ",",
-        KeyCode.Equals => "=",
-        KeyCode.Period => ".",
-        KeyCode.LeftWindows => "LWin",
+        KeyCode.LeftShift    => "LShift",
+        KeyCode.RightShift   => "RShift",
+        KeyCode.Escape       => "ESC",
+        KeyCode.Slash        => "/",
+        KeyCode.Colon        => ":",
+        KeyCode.Semicolon    => ";",
+        KeyCode.Minus        => "-",
+        KeyCode.BackQuote    => "`",
+        KeyCode.LeftAlt      => "LAlt",
+        KeyCode.RightAlt     => "RAlt",
+        KeyCode.UpArrow      => "↑",
+        KeyCode.DownArrow    => "↓",
+        KeyCode.LeftArrow    => "←",
+        KeyCode.RightArrow   => "→",
+        KeyCode.Backslash    => "\\",
+        KeyCode.Comma        => ",",
+        KeyCode.Equals       => "=",
+        KeyCode.Period       => ".",
+        KeyCode.LeftWindows  => "LWin",
         KeyCode.RightWindows => "RWin",
-        KeyCode.Quote => ".",
-        KeyCode.LeftBracket => "[",
+        KeyCode.Quote        => ".",
+        KeyCode.LeftBracket  => "[",
         KeyCode.RightBracket => "]",
-        _ => keyCode.ToString()
+        _                    => keyCode.ToString()
       };
 
-    public static T Find<T>(this Transform transform, string name) where T: Component
+    public static T Find<T>(this Transform transform, string name) where T : Component
     {
       return transform.Find("name").GetComponent<T>();
     }
 
     public static void PlaySound(this Object obj) => obj.GetComponent<UseSound>()?.PlaySound();
+
+    public static T[] GetChilds<T>(this Transform transform) where T : Component
+    {
+      var res = new List<T>();
+
+      for (var i = 0; i < transform.childCount; i++)
+        res.Add(transform.GetChild(i).GetComponent<T>());
+      return res.ToArray();
+    }
   }
 }

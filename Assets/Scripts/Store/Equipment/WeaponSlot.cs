@@ -11,13 +11,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Util;
 using Util.Text;
+using Util.UI;
 using Weapon;
 using Attribute = Weapon.Attribute;
 using WeaponData = Weapon.WeaponData;
 
 namespace Store.Equipment
 {
-  public class WeaponSlot : UsePopup<ListPopup>
+  public class WeaponSlot : UsePopup<ListPopup>, IUseContextMenu
   {
     [SerializeField]
     private Image targetImg;
@@ -167,5 +168,31 @@ namespace Store.Equipment
 
       popupPanel.ShowPopup(sb.ToString(), GameManager.Data.data.GetAttributeChemistryDescriptions(data.attribute));
     }
+
+    public string contextMenuName => "$context_menu_can_duplicate";
+
+    public object[] contextMenuFormats => new object[]
+    {
+      (weapon!.Value.tier + 2).ToRomanNumeral(),
+      GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2
+    };
+
+    public bool contextMenuCondition => weapon.HasValue;
+
+    public Action<string> contextMenuFunction => res =>
+    {
+      switch (res)
+      {
+        case "duplicate":
+          parentUI.DuplicateWeapon(weapon!.Value);
+          break;
+
+        case "sell":
+          GameManager.Manager.coin.value +=
+            GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2;
+          Set(null);
+          break;
+      }
+    };
   }
 }

@@ -7,9 +7,19 @@ namespace Store.Consumable
   {
     public override bool isConsume => false;
 
-    protected override void OnPurchase()
+    protected override void OnPurchase(ConsumableItem item)
     {
-      GameManager.Player.inventory.GainItem(data.specfiedName, -1);
+      var slots = FindObjectsOfType<ConsumableSlot>();
+      
+      foreach (var consumableSlot in slots)
+      {
+        if (string.IsNullOrEmpty(consumableSlot.itemData))
+        {
+          consumableSlot.SetItem(item.specfiedName);
+          SubmitPurchase();
+          return;
+        }
+      }
     }
   }
 }

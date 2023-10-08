@@ -1,3 +1,4 @@
+using System.Linq;
 using Manager;
 using Store.Inventory;
 using UI.DragNDrop;
@@ -78,6 +79,52 @@ namespace Store.Equipment
         {
           if (weapons[j] == null) continue;
           list[i + 1].slots[j].Set(weapons[j], false);
+        }
+      }
+    }
+
+    public (bool canPurchase, bool canDuplicate) TryAddWeapon((string name, int tier) weapon)
+    {
+      foreach (var wrapper in list)
+      {
+        if (wrapper.type == EquipmentType.Partner && !wrapper.partnerSlot.partner.HasValue) continue;
+        foreach (var slot in wrapper.slots)
+        {
+          if (!slot.weapon.HasValue)
+          {
+            slot.Set(weapon);
+            return (true, false);
+          }
+        }
+      }
+
+      foreach (var wrapper in list)
+      {
+        if (wrapper.type == EquipmentType.Partner && !wrapper.partnerSlot.partner.HasValue) continue;
+        foreach (var slot in wrapper.slots)
+        {
+          if (slot.weapon.HasValue && slot.weapon.Value == weapon && slot.weapon.Value.tier < 3)
+          {
+            return (true, true);
+          }
+        }
+      }
+
+      return (false, false);
+    }
+
+    public void DuplicateWeapon((string name, int tier) weapon)
+    {
+      foreach (var wrapper in list)
+      {
+        if (wrapper.type == EquipmentType.Partner && !wrapper.partnerSlot.partner.HasValue) continue;
+        foreach (var slot in wrapper.slots)
+        {
+          if (slot.weapon.HasValue && slot.weapon.Value == weapon && slot.weapon.Value.tier < 3)
+          {
+            slot.Set((weapon.name, weapon.tier + 1));
+            return;
+          }
         }
       }
     }

@@ -70,5 +70,7 @@ namespace Util.UI
       bool ignoreEqual = false
     )
       => obj.GetComponent<UIVisibler>().SetVisible(visible, duration, type, ignoreEqual);
+
+    public static bool IsVisible(this Object obj) => obj.GetComponent<UIVisibler>().isVisible;
   }
 }

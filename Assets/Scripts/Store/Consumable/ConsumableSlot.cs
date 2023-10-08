@@ -70,6 +70,7 @@ namespace Store.Consumable
         default:
           throw new ArgumentOutOfRangeException();
       }
+      OnEntered();
     }
 
     public void SetItem(string item)

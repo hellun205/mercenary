@@ -90,7 +90,14 @@ namespace Store
     private void OnPurchaseButtonClick()
     {
       if (GameManager.Manager.coin.value < price) return;
+      
+      OnPurchase(data);
+    }
 
+    protected abstract void OnPurchase(T data);
+
+    protected void SubmitPurchase()
+    {
       if (isConsume)
       {
         SetEnabled(false);
@@ -99,10 +106,7 @@ namespace Store
       }
       
       GameManager.Manager.coin.value -= price;
-      OnPurchase();
     }
-
-    protected abstract void OnPurchase();
 
     public void SetLock(bool value)
     {

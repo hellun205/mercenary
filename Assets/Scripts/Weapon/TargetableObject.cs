@@ -146,6 +146,7 @@ namespace Weapon
     {
       hp -= amount;
       sr.color = Color.red;
+      GameManager.Pool.Summon("effect/blood", transform.position);
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(amount));
 
