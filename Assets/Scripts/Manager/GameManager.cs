@@ -57,6 +57,7 @@ namespace Manager
     public static event Action onLoaded;
     public static bool isLoaded { get; private set; }
 
+    public int currentStage { get; set; }
 
     public static Color GetTierColor(int tier)
       => tier switch
@@ -124,12 +125,17 @@ namespace Manager
       onLoaded?.Invoke();
       UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
+      UI.Find<Button>("$menu_restart_btn").onClick.AddListener(Restart);
       UI.Find<Button>("$menu_gotomain_btn").onClick.AddListener(AskGotoMain);
       UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
       UI.Find("$menu_panel").SetVisible(false);
 
+      UI.Find<Button>("$menu_restart_btn").interactable = false;
+      UI.Find<Button>("$menu_gotomain_btn").interactable = false;
+
       coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
     }
+
 
     public static IPossessible GetItem(string itemName)
       => Items.Get(itemName) as IPossessible;
@@ -164,6 +170,21 @@ namespace Manager
       else Utils.UnPause();
     }
 
+    private void Restart()
+    {
+      var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
+      askBox.window.title = "스테이지 재 시작";
+      askBox.message = "정말로 재 시작하시겠습니까?";
+      askBox.onReturn = res =>
+      {
+        if (res == AskBoxResult.Yes)
+        {
+          ToggleGameMenu();
+          StartStage(currentStage, startWeaponName);
+        }
+      };
+    }
+
     public void AskGotoMain()
     {
       var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
@@ -180,6 +201,8 @@ namespace Manager
             {
               ToggleGameMenu();
               ExitGame();
+              UI.Find<Button>("$menu_restart_btn").interactable = false;
+              UI.Find<Button>("$menu_gotomain_btn").interactable = false;
             })
            .Load();
         }
@@ -202,6 +225,22 @@ namespace Manager
       {
         if (res == AskBoxResult.Yes) Utils.ExitGame();
       };
+    }
+
+    public void StartStage(int stage, string startWeapon)
+    {
+      startWeaponName = startWeapon;
+      currentStage = stage;
+
+      new SceneLoader($"Stage{stage}")
+       .Out(Transitions.FADEOUT)
+       .In(Transitions.FADEIN)
+       .OnEndOut(() =>
+        {
+          UI.Find<Button>("$menu_restart_btn").interactable = true;
+          UI.Find<Button>("$menu_gotomain_btn").interactable = true;
+        })
+       .Load();
     }
   }
 }

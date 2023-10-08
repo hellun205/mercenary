@@ -73,11 +73,7 @@ namespace Scene
 
     private void OnGameStart()
     {
-      GameManager.Manager.startWeaponName = weaponSelect.selectedItem.value.weaponName;
-      new SceneLoader($"Stage{stageSelect.selectedItem.value.index}")
-       .Out(Transitions.FADEOUT)
-       .In(Transitions.FADEIN)
-       .Load();
+      GameManager.Manager.StartStage(stageSelect.selectedItem.value.index,weaponSelect.selectedItem.value.weaponName);
     }
   }
 }
