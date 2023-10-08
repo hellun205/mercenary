@@ -20,9 +20,6 @@ using Wave;
 using Weapon;
 using Window;
 using Window.Contents;
-using ItemData = Item.ItemData;
-using Object = System.Object;
-using PartnerData = Player.Partner.PartnerData;
 
 namespace Manager
 {
@@ -125,7 +122,7 @@ namespace Manager
       onLoaded?.Invoke();
       UI.Find<Button>("$menu_btn").onClick.AddListener(ToggleGameMenu);
       UI.Find<Button>("$menu_resume_btn").onClick.AddListener(ToggleGameMenu);
-      UI.Find<Button>("$menu_restart_btn").onClick.AddListener(Restart);
+      UI.Find<Button>("$menu_restart_btn").onClick.AddListener(AskRestart);
       UI.Find<Button>("$menu_gotomain_btn").onClick.AddListener(AskGotoMain);
       UI.Find<Button>("$menu_shutdown_btn").onClick.AddListener(AskExit);
       UI.Find("$menu_panel").SetVisible(false);
@@ -165,12 +162,17 @@ namespace Manager
     {
       if (Window.isOpened) return;
       isMenuOpened = !isMenuOpened;
-      GameManager.UI.Find("$menu_panel").SetVisible(isMenuOpened, 0.2f);
-      if (isMenuOpened) Utils.Pause();
+      SetGameMenu(isMenuOpened);
+    }
+
+    private void SetGameMenu(bool visible)
+    {
+      GameManager.UI.Find("$menu_panel").SetVisible(visible, 0.2f);
+      if (visible) Utils.Pause();
       else Utils.UnPause();
     }
 
-    private void Restart()
+    public void AskRestart()
     {
       var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
       askBox.window.title = "스테이지 재 시작";
@@ -179,7 +181,7 @@ namespace Manager
       {
         if (res == AskBoxResult.Yes)
         {
-          ToggleGameMenu();
+          SetGameMenu(false);
           StartStage(currentStage, startWeaponName);
         }
       };
@@ -199,7 +201,7 @@ namespace Manager
            .In(Transitions.FADEIN, delay: 2f)
            .OnEndOut(() =>
             {
-              ToggleGameMenu();
+              SetGameMenu(false);
               ExitGame();
               UI.Find<Button>("$menu_restart_btn").interactable = false;
               UI.Find<Button>("$menu_gotomain_btn").interactable = false;
@@ -240,6 +242,24 @@ namespace Manager
           UI.Find<Button>("$menu_restart_btn").interactable = true;
           UI.Find<Button>("$menu_gotomain_btn").interactable = true;
         })
+       .Load();
+    }
+
+    public void GameClear()
+    {
+      ExitGame();
+      new SceneLoader("GameClear")
+       .Out(Transitions.OUT)
+       .In(Transitions.FADEIN, delay: 1.25f)
+       .Load();
+    }
+
+    public void GameOver()
+    {
+      ExitGame();
+      new SceneLoader("Main")
+       .Out(Transitions.OUT)
+       .In(Transitions.FADEIN, delay: 1.25f)
        .Load();
     }
   }

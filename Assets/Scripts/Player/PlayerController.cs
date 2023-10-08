@@ -219,11 +219,7 @@ namespace Player
     public void Dead()
     {
       Debug.Log("Dead");
-      GameManager.Wave.EndWave(false);
-      new SceneLoader("Main")
-       .Out(Transitions.OUT)
-       .In(Transitions.FADEIN, delay: 1.25f)
-       .Load();
+      GameManager.Manager.GameOver();
     }
 
     public void Heal(int amount)

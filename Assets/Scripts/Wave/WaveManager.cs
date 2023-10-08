@@ -86,11 +86,11 @@ namespace Wave
       {
         onWaveStart?.Invoke();
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         Debug.Log(ex.Message);
       }
-      
+
 
       foreach (var spawn in spawns)
       {
@@ -125,6 +125,12 @@ namespace Wave
 
     public void EndWave(bool start = true)
     {
+      if (start && GameManager.Data.data.spawns.waves.Length - 1 <= currentWave)
+      {
+        GameManager.Manager.GameClear();
+        return;
+      }
+
       if (!state) return;
       foreach (var spawnTimer in spawnTimers)
         spawnTimer.Stop();

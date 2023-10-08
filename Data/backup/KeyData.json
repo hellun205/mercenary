@@ -1,0 +1,38 @@
+{
+    "keys": [
+        {
+            "name": "player_movement_up",
+            "key": [
+                119,
+                273
+            ]
+        },
+        {
+            "name": "player_movement_down",
+            "key": [
+                115,
+                274
+            ]
+        },
+        {
+            "name": "player_movement_left",
+            "key": [
+                97,
+                276
+            ]
+        },
+        {
+            "name": "player_movement_right",
+            "key": [
+                100,
+                275
+            ]
+        },
+        {
+            "name": "menu_toggle",
+            "key": [
+                27
+            ]
+        }
+    ]
+}
