@@ -54,6 +54,7 @@ namespace Player
       parent = GameManager.UI.Find("$inventory_items").transform;
       instantiateFunc = () => GameManager.Prefabs.Get<InventoryItem>("inventory_item");
       onChanged += () => GameManager.StatusUI.Refresh();
+      onChanged += () => filtered = filtered;
       GameManager.UI.Find<RadioButtonList>("$inventory_filters").onChanged += OnFilterChanged;
     }
 
