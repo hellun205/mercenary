@@ -219,7 +219,7 @@ namespace Player
     public void Dead()
     {
       Debug.Log("Dead");
-      GameManager.Manager.GameOver();
+      GameManager.Manager.GameOver(GameOverReason.Dead);
     }
 
     public void Heal(int amount)

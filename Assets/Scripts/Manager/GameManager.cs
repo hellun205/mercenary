@@ -79,6 +79,8 @@ namespace Manager
     public bool isMenuOpened { get; private set; }
 
     public string startWeaponName { get; set; }
+    
+    public GameOverReason gameOverReason { get; set; }
 
     private void Init()
     {
@@ -254,10 +256,11 @@ namespace Manager
        .Load();
     }
 
-    public void GameOver()
+    public void GameOver(GameOverReason reason)
     {
+      gameOverReason = reason;
       ExitGame();
-      new SceneLoader("Main")
+      new SceneLoader("GameOver")
        .Out(Transitions.OUT)
        .In(Transitions.FADEIN, delay: 1.25f)
        .Load();
