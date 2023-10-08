@@ -53,12 +53,13 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      hasAnimator = TryGetComponent(out anim);
-      GameManager.Wave.onWaveStart += RefreshStatus;
+      
+      // GameManager.Wave.onWaveStart += RefreshStatus;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
+      hasAnimator = TryGetComponent(out anim);
       RefreshStatus();
     }
 
@@ -88,7 +89,7 @@ namespace Weapon
       if (!isReady)
       {
         readyTime += Time.deltaTime;
-        if (readyTime >= 2f) isReady = true;
+        if (readyTime >= 1f) isReady = true;
         return;
       }
 

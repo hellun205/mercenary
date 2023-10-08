@@ -62,10 +62,6 @@ namespace Player
 
     public float evasionRate;
 
-    public float nonNestableBleedingDamage;
-    [FormerlySerializedAs("nonNestableMoveSpeedWhenStop")]
-    public float nonNestableDamageWhenStop;
-
     // public string GetDescription()
     // {
     //   var sb = new StringBuilder();
@@ -135,14 +131,6 @@ namespace Player
       res.luck = b.ToValue("luck", res.luck, (o, v) => o + v);
       res.explosionRange = b.ToValue("explosionRange", res.explosionRange, (o, v) => o + v);
       res.evasionRate = b.ToValue("evasionRate", res.evasionRate, (o, v) => o + v);
-      var nBleedingDamage = b.GetValue("nonNestableBleedingDamage");
-      res.nonNestableBleedingDamage = nBleedingDamage is > 0 or < 0
-        ? nBleedingDamage
-        : res.nonNestableBleedingDamage;
-      var nDamageWhenStop = b.GetValue("nonNestableDamageWhenStop");
-      res.nonNestableDamageWhenStop = nDamageWhenStop is > 0 or < 0
-        ? nDamageWhenStop
-        : res.nonNestableDamageWhenStop;
 
       return res;
     }

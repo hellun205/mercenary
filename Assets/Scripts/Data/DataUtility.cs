@@ -91,8 +91,7 @@ namespace Data
         {
           moveSpeed = $"%+{GetValue(i, WeaponStatusItem.IncreaseMoveSpeedPercent)}" ,
           evasionRate = $"{GetValue(i, WeaponStatusItem.IncreaseEvasionRate)}" ,
-          nonNestableDamageWhenStop = $"={GetValue(i, WeaponStatusItem.IncreaseDamageWhenStop)}" ,
-          nonNestableBleedingDamage = $"={GetValue(i, WeaponStatusItem.IncreaseBleedingDamagePercent)}" ,
+          bleedingDamage = $"{GetValue(i, WeaponStatusItem.IncreaseBleedingDamagePercent)}" ,
         }
       ).ToArray();
     }

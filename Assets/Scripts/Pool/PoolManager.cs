@@ -102,6 +102,11 @@ namespace Pool
       pools.Clear();
 
       index = 0;
+      
+      foreach (var poolObject in Object.FindObjectsOfType<PoolObject>())
+      {
+        Object.Destroy(poolObject.gameObject);
+      }
     }
 
     public T Get<T>(string path) where T : Object

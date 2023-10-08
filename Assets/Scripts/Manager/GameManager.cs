@@ -21,6 +21,7 @@ using Weapon;
 using Window;
 using Window.Contents;
 using ItemData = Item.ItemData;
+using Object = System.Object;
 using PartnerData = Player.Partner.PartnerData;
 
 namespace Manager
@@ -48,6 +49,9 @@ namespace Manager
     public static ScriptableObjectCollection Partners { get; private set; }
     public static ScriptableObjectCollection Consumables { get; private set; }
 
+    public static DontDestroyObject CoroutineObject =>
+      GameObject.Find("@game").GetComponent<DontDestroyObject>();
+
     public State<int> coin;
 
     public static event Action onLoaded;
@@ -62,7 +66,7 @@ namespace Manager
         3 => new Color32(115, 26, 45, 255),
         _ => new Color32(72, 72, 72, 255),
       };
-    public static Color GetAttributeColor() 
+    public static Color GetAttributeColor()
       => new Color32(72, 156, 255, 255);
 
     [SerializeField]
@@ -86,7 +90,7 @@ namespace Manager
         true  => new DataManager(),
         false => new DataManager(dataJsons),
       };
-      Key = new KeyManager();
+      Key ??= new KeyManager();
       Weapons = transform.Find("@weapon_objects").GetComponent<ObjectCollection>();
       WeaponData = transform.Find("@weapon_data").GetComponent<WeaponDataCollection>();
       Prefabs = transform.Find("@prefab_objects").GetComponent<ObjectCollection>();
@@ -101,8 +105,8 @@ namespace Manager
       Items = transform.Find("@item_data").GetComponent<ScriptableObjectCollection>();
       StatusUI = FindObjectOfType<Status>();
       Camera = new CameraManager();
-      Transition = new global::Transition.Transition();
-      Window = new WindowManager();
+      Transition ??= new global::Transition.Transition();
+      Window ??= new WindowManager();
       Sprites = transform.Find("@sprites").GetComponent<SpriteCollection>();
     }
 
@@ -135,14 +139,14 @@ namespace Manager
       IPossessible res = null;
 
       if (Items.items.TryGetValue(name, out var item))
-        res = (IPossessible)item;
+        res = (IPossessible) item;
       else if (WeaponData.items.TryGetValue(name, out var weapon))
-        res = (IPossessible)weapon;
+        res = (IPossessible) weapon;
       else if (Partners.items.TryGetValue(name, out var partner))
-        res = (IPossessible)partner;
+        res = (IPossessible) partner;
       else if (Consumables.items.TryGetValue(name, out var consumable))
-        res = (IPossessible)consumable;
-        
+        res = (IPossessible) consumable;
+
       return res ?? throw new Exception($"can't find IPossessble object: {name}");
     }
 
@@ -153,6 +157,7 @@ namespace Manager
 
     private void ToggleGameMenu()
     {
+      if (Window.isOpened) return;
       isMenuOpened = !isMenuOpened;
       GameManager.UI.Find("$menu_panel").SetVisible(isMenuOpened, 0.2f);
       if (isMenuOpened) Utils.Pause();
@@ -167,16 +172,25 @@ namespace Manager
       askBox.onReturn = res =>
       {
         if (res == AskBoxResult.Yes)
+        {
           new SceneLoader("Main")
            .Out(Transitions.FADEOUT)
-           .In(Transitions.FADEIN)
+           .In(Transitions.FADEIN, delay: 2f)
            .OnEndOut(() =>
             {
               ToggleGameMenu();
-              GameManager.Wave.EndWave(false);
+              ExitGame();
             })
            .Load();
+        }
       };
+    }
+
+    private void ExitGame()
+    {
+      GameManager.Wave.EndWave(false);
+      GameManager.UI.Find("$store").SetVisible(false);
+      Player = null;
     }
 
     public void AskExit()

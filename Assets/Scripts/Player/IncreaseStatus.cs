@@ -12,9 +12,10 @@ namespace Player
   public enum StatusValueType
   {
     Normal, Fixed, PercentPlus,
-    All, 
+    All
   }
 
+  [Serializable]
   public struct IncreaseStatus
   {
     public string maxHp;
@@ -48,9 +49,6 @@ namespace Player
     public string resurrection;
     public string killEnemy;
 
-    public string nonNestableBleedingDamage;
-    public string nonNestableDamageWhenStop;
-
     public readonly static Dictionary<string, (float min, float max)> limit = new()
     {
       { "evasionRate", (0f, 0.7f) },
@@ -58,6 +56,20 @@ namespace Player
       { "criticalPercent", (0f, 1f) },
       { "armor", (0f, 0.6f) }
     };
+
+    public bool isEmpty
+    {
+      get
+      {
+        var fields = GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+        var status = this;
+        return fields.All(x =>
+        {
+          var value = status.GetValue(x.Name, out var type);
+          return type != StatusValueType.Fixed && value == 0f;
+        });
+      }
+    }
 
     public static (float min, float max) GetLimit(string field)
       => limit.TryGetValue(field, out var value) ? value : (float.MinValue, float.MaxValue);
@@ -93,7 +105,7 @@ namespace Player
       else if (value.Contains(GetTypeChar(StatusValueType.All)))
       {
         type = StatusValueType.All;
-        value = float.MaxValue.ToString(CultureInfo.InvariantCulture);
+        value = 999999.ToString(CultureInfo.InvariantCulture);
       }
       else type = StatusValueType.Normal;
 
@@ -103,11 +115,11 @@ namespace Player
     private string GetTypeChar(StatusValueType type)
       => type switch
       {
-        StatusValueType.Normal       => "",
-        StatusValueType.Fixed        => "=",
-        StatusValueType.PercentPlus  => "%+",
-        StatusValueType.All          => "all",
-        _                            => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        StatusValueType.Normal      => "",
+        StatusValueType.Fixed       => "=",
+        StatusValueType.PercentPlus => "%+",
+        StatusValueType.All         => "all",
+        _                           => throw new ArgumentOutOfRangeException(nameof(type), type, null)
       };
 
     public void SetValue(string fieldName, float value)
@@ -145,6 +157,7 @@ namespace Player
         StatusValueType.Normal      => setValueGetter.Invoke(originalValue, fieldValue),
         StatusValueType.Fixed       => fieldValue,
         StatusValueType.PercentPlus => originalValue * (1 + fieldValue),
+        StatusValueType.All         => 999999,
         _                           => throw new ArgumentOutOfRangeException()
       }, lim.min, lim.max);
     }

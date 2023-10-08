@@ -103,6 +103,7 @@ namespace Weapon
     {
       bleedingTimer.Stop();
       bleedingQueue.Clear();
+      knockBackTimer.Stop();
       OnSummon();
     }
 

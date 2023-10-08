@@ -18,6 +18,8 @@ namespace Window
     public Dictionary<WindowType, HashSet<Components.Window>> windows { get; private set; }
     public Canvas canvas { get; private set; }
 
+    public bool isOpened => windows.Any(x => x.Value.Count > 0);
+
     public WindowManager()
     {
       windows = Enum.GetValues(typeof(WindowType)).OfType<WindowType>().ToDictionary

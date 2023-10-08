@@ -55,6 +55,10 @@ namespace Weapon
       sb.Append("무기 능력치\n".AddColor(GameManager.GetAttributeColor()))
        .Append(status[tier].GetDescription())
        .Append($"{string.Format(descriptions, status[tier].bulletCount)}");
+
+      if (!increaseStatus[tier].isEmpty)
+        sb.Append("\n착용 시 능력치 증가\n".AddColor(GameManager.GetAttributeColor()))
+         .Append(increaseStatus[tier].GetDescription());
       return sb.ToString();
     }
 

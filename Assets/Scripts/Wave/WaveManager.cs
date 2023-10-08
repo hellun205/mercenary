@@ -82,7 +82,15 @@ namespace Wave
       leftCount.Clear();
       spawns = GameManager.Data.data.GetSpawnData(currentWave);
       waveTimer.duration = GameManager.Data.data.GetWaveTime(currentWave);
-      onWaveStart?.Invoke();
+      try
+      {
+        onWaveStart?.Invoke();
+      }
+      catch(Exception ex)
+      {
+        Debug.Log(ex.Message);
+      }
+      
 
       foreach (var spawn in spawns)
       {

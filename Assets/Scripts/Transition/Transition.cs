@@ -6,7 +6,7 @@ namespace Transition
 {
   public class Transition
   {
-    public Animator targetImg => GameManager.UI.Find<Animator>("$transition");
+    public Animator targetImg => GameObject.Find("$transition").GetComponent<Animator>();
 
     /// <summary>
     /// 전환 애니메이션을 실행합니다.

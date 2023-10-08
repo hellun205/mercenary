@@ -113,7 +113,7 @@ namespace Scene
     {
       if (isLoading) return this;
       SceneManager.activeSceneChanged += SceneManagerOnactiveSceneChanged;
-      coroutine = GameManager.Manager.StartCoroutine(LoadRoutine());
+      coroutine = GameManager.CoroutineObject.StartCoroutine(LoadRoutine());
       return this;
     }
 

@@ -70,6 +70,7 @@ namespace Player
 
     private Timer invincibilityTimer = new Timer();
     private bool isInvincibility;
+    public float moveSpeedPercent { get; private set; }
 
     public bool isResurrection { get; private set; }
 
@@ -247,7 +248,10 @@ namespace Player
     private PlayerStatus GetStatus()
     {
       var res = status;
-      var increases = new IncreaseStatus();
+      var increases = new IncreaseStatus()
+      {
+        moveSpeed = "%+0"
+      };
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
@@ -268,6 +272,7 @@ namespace Player
       increases += GetChemistryStatus(out var _);
 
       res += increases;
+      moveSpeedPercent = increases.GetValue("moveSpeed");
       return res;
     }
 

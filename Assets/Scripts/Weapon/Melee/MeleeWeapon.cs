@@ -13,8 +13,9 @@ namespace Weapon.Melee
     [SerializeField]
     protected AttackableObject attackableObject;
 
-    private void Start()
+    protected override void Start()
     {
+      base.Start();
       GameManager.Wave.onWaveStart += () => ApplyDamage(attackableObject);
     }
 
