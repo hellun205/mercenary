@@ -1,4 +1,6 @@
 using System;
+using Manager;
+using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +16,7 @@ namespace UI.DragNDrop
 
       onGetRequest?.Invoke(pointerDrag.data);
       pointerDrag.draggingObject.EndDrag();
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/drop");
     }
   }
 }

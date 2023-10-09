@@ -42,6 +42,11 @@ namespace Scene
       stageNext = GameManager.UI.Find("$stage_next").GetComponentInChildren<Button>();
       GameManager.UI.Find<Button>("$game_start_btn").onClick.AddListener(OnGameStart);
       GameManager.UI.Find<Button>("$game_exit_btn").onClick.AddListener(GameManager.Manager.AskExit);
+      GameManager.UI.Find<Button>("$main_setting").onClick.AddListener(GameManager.Manager.OpenSetting);
+      GameManager.UI.Find<Button>("$stage_tutorial").onClick.AddListener(() =>
+      {
+        GameManager.Manager.StartStage(0, weaponSelect.selectedItem.value.weaponName);
+      });
 
       weaponSelect.AddItems(GameManager.WeaponData.items.Values.Select
         (
@@ -75,7 +80,7 @@ namespace Scene
 
     private void OnGameStart()
     {
-      GameManager.Manager.StartStage(stageSelect.selectedItem.value.index,weaponSelect.selectedItem.value.weaponName);
+      GameManager.Manager.StartStage(stageSelect.selectedItem.value.index + 1,weaponSelect.selectedItem.value.weaponName);
     }
   }
 }

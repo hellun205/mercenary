@@ -1,4 +1,5 @@
 ﻿using Manager;
+using Sound;
 using Store.Equipment;
 using Window;
 using Window.Contents;
@@ -31,6 +32,11 @@ namespace Store.Weapon
       else if (result.canPurchase)
       {
         SubmitPurchase();
+      }
+      else
+      {
+        SayMessage($"무기 슬롯이 부족합니다.");
+        GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/error");
       }
     }
   }

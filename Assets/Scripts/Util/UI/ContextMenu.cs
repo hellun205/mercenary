@@ -20,11 +20,16 @@ namespace Util.UI
 
     private bool isClicked;
 
+    public static event Action onOpened;
+
+#if UNITY_EDITOR
     protected override void Reset()
     {
       base.Reset();
       uiVisibler = GetComponent<UIVisibler>();
     }
+#endif
+    
 
     protected override void Awake()
     {
@@ -63,10 +68,11 @@ namespace Util.UI
           onButtonClick.Invoke(buttons[i1].name);
         });
         var tmp = buttons[i].GetComponentInChildren<TextMeshProUGUI>();
-        
+
         tmp.text = string.Format(texts[i], format);
       }
 
+      onOpened?.Invoke();
       Select();
       uiVisibler.SetVisible(true);
     }

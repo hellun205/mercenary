@@ -4,8 +4,11 @@ using System.Linq;
 using Data;
 using Manager;
 using Scene;
+using Sound;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Util;
 
 namespace UI
@@ -73,6 +76,7 @@ namespace UI
     public void OnSceneChanged(string before, string after)
     {
       Load();
+      RefreshButtonsClickUseSound();
 
       var keyInfo = items.Where(x => x.name.Contains("keyinfo"));
 
@@ -80,6 +84,21 @@ namespace UI
       {
         var keyName = obj.name.Split('.')[1];
         obj.GetComponent<TextMeshProUGUI>().text = GameManager.Data.data.GetKeyData(keyName)[0].GetKeyString();
+      }
+    }
+
+    public void RefreshButtonsClickUseSound()
+    {
+      var selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+      // var selectables = FindObjectsOfType<Selectable>();
+      foreach (var selectable in selectables)
+      {
+        if (selectable.TryGetComponent<PointerSound>(out var _)) continue;
+
+        selectable.gameObject.AddComponent<PointerSound>();
+        var useSound = selectable.GetComponent<UseSound>();
+        useSound.type = SoundType.SFX_UI;
+        useSound.sounds = new[] { "sfx/ui/click" };
       }
     }
   }

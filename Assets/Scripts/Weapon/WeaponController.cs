@@ -175,5 +175,10 @@ namespace Weapon
       ao.bleeding = status.bleedingDamage;
       ao.knockBack = status.knockback;
     }
+
+    protected void PlayFireSound()
+    {
+      this.PlaySound();
+    }
   }
 }

@@ -23,7 +23,7 @@ namespace Window.Contents
     {
       Screen.SetResolution(resolution.width, resolution.height, fullScreenMode, resolution.refreshRateRatio);
       foreach (var (type, volume) in volumes)
-        GameManager.Sound.SetVolume(type, volume);
+        GameManager.Sound.SetVolume(type, volume <= -35 ? -80 : volume);
       GameManager.Data.SetKeySetting(keys);
       GameManager.Data.SetVolumeSetting(volumes);
     }

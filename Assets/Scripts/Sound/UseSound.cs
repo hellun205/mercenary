@@ -1,20 +1,21 @@
 using System;
 using Manager;
 using UnityEngine;
+using Util;
 
 namespace Sound
 {
   public class UseSound : MonoBehaviour
   {
     public SoundType type;
-    public string soundName;
+    public string[] sounds;
 
     [SerializeField]
-    private bool playOnStart;
+    protected bool playOnStart;
     
     public void PlaySound()
     {
-      GameManager.Sound.Play(type, soundName);
+      GameManager.Sound.Play(type, sounds.GetRandom());
     }
 
     private void Start()

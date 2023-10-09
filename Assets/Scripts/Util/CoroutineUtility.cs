@@ -27,10 +27,10 @@ namespace Util
       }
     }
 
-    public static Coroutine Wait(float second, Action fn)
+    public static Coroutine Wait(this float second, Action fn)
       => Start((new WaitForSeconds(second), fn));
 
-    public static Coroutine WaitUnscaled(float second, Action fn)
+    public static Coroutine WaitUnscaled(this float second, Action fn)
       => Start((new WaitForSecondsRealtime(second), fn));
 
     public static Coroutine WaitUntil(Func<bool> predicate, Action fn)

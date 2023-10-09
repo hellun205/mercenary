@@ -15,6 +15,8 @@ namespace Spawn
 
     private float time;
 
+    public event Action onSpawned;
+
     public void SpawnRandomPos(string targetPrefab, Action<PoolObject> setter = null)
       => SpawnRandomPos<PoolObject>(targetPrefab);
 
@@ -42,8 +44,12 @@ namespace Spawn
       CoroutineUtility.Wait(1f, () =>
       {
         warning.Release();
+
         if (GameManager.Wave.state)
+        {
           GameManager.Pool.Summon(targetPrefab, position, setter);
+          onSpawned?.Invoke();
+        }
       });
     }
 

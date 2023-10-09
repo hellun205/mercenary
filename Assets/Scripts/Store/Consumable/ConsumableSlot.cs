@@ -3,6 +3,7 @@ using System.Text;
 using Consumable;
 using Item;
 using Manager;
+using Sound;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
@@ -122,8 +123,18 @@ namespace Store.Consumable
       switch (res)
       {
         case "sell":
-          GameManager.Manager.coin.value += GameManager.GetIPossessible(itemData).GetPrice() / 2;
+          var price = GameManager.GetIPossessible(itemData).GetPrice() / 2;
+          GameManager.Manager.coin.value += price;
+          
+          var item = GameManager.GetIPossessible(itemData);
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}에 판매하였습니다.",
+            item.itemName,
+            $"${price}"
+          );
           SetItem(null);
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/sell");
           break;
       }
     };

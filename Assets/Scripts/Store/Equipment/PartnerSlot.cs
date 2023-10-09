@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Manager;
 using Player.Partner;
+using Sound;
 using UI.DragNDrop;
 using UI.Popup;
 using Unity.VisualScripting;
@@ -82,14 +83,17 @@ namespace Store.Equipment
       OnEntered();
     }
 
-    public void SetPartner((string name, int tier)? data)
+    public void SetPartner((string name, int tier)? data, bool createPartnerObject = true)
     {
       partner = data;
       shielder.SetVisible(!data.HasValue, 0.1f, ignoreEqual: true);
-      GameManager.Player.partners[index].partner =
-        data.HasValue ? GameManager.GetIPossessible(data.Value.name) as PartnerData : null;
-      GameManager.Player.partners[index].tier = data?.tier ?? 0;
-      GameManager.Player.partners[index].weaponInventory.gameObject.SetActive(data.HasValue);
+      if (GameManager.Player != null)
+      {
+        GameManager.Player.partners[index].partner =
+          data.HasValue ? GameManager.GetIPossessible(data.Value.name) as PartnerData : null;
+        GameManager.Player.partners[index].tier = data?.tier ?? 0;
+        GameManager.Player.partners[index].weaponInventory.gameObject.SetActive(data.HasValue);
+      }
       panelImg.color = GameManager.GetTierColor(data?.tier ?? 0);
       iconImg.color = data.HasValue ? Color.white : Color.clear;
       if (data.HasValue)
@@ -132,7 +136,7 @@ namespace Store.Equipment
 
     public object[] contextMenuFormats => new object[]
     {
-      (partner!.Value.tier + 2).ToRomanNumeral(),
+      partner!.Value.tier < 3 ? (partner!.Value.tier + 2).ToRomanNumeral() : "최대",
       $"${GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2}"
     };
 
@@ -147,9 +151,19 @@ namespace Store.Equipment
           break;
 
         case "sell":
-          GameManager.Manager.coin.value +=
-            GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2;
+          var price = GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2;
+          GameManager.Manager.coin.value += price;
+          
+          var item = GameManager.GetIPossessible(partner.Value.name);
+          var tier = partner.Value.tier;
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}에 판매하였습니다.",
+            $"{item.itemName} {(tier + 1).ToRomanNumeral()}",
+            $"${price}"
+          );
           SetPartner(null);
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/sell");
           break;
       }
     };
@@ -166,9 +180,22 @@ namespace Store.Equipment
         {
           partnerSlot.SetPartner(null);
           SetPartner((partner.Value.name, partner.Value.tier + 1));
+          
+          var item = GameManager.GetIPossessible(partner.Value.name);
+          var tier = partner.Value.tier;
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}티어로 결합하였습니다.",
+            $"{item.itemName} {(tier + 1).ToRomanNumeral()}",
+            (tier + 2).ToRomanNumeral()
+          );
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/duplicate");
           return;
         }
       }
+      
+      GameManager.Broadcast.Say("결합할 수 있는 용병이 존재하지 않습니다.");
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/error");
     }
   }
 }

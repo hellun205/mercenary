@@ -1,4 +1,6 @@
 using System;
+using Manager;
+using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Util;
@@ -41,6 +43,7 @@ namespace UI.DragNDrop
     {
       if (!draggingObject.isDragging) return;
       draggingObject.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(Input.mousePosition);
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/drag");
     }
 
     public void OnEndDrag(PointerEventData eventData)

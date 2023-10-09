@@ -1,5 +1,6 @@
 using Consumable;
 using Manager;
+using Sound;
 
 namespace Store.Consumable
 {
@@ -20,6 +21,9 @@ namespace Store.Consumable
           return;
         }
       }
+      
+      SayMessage($"소모품 슬롯이 부족합니다.");
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/error");
     }
   }
 }

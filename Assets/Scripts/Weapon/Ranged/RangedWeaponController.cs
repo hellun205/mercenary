@@ -11,6 +11,7 @@ namespace Weapon.Ranged
     protected override void OnFire()
     {
       StartAnimation();
+      PlayFireSound();
       var stat = weaponData.status[tier];
       for (var i = 0; i < stat.bulletCount; i++)
       {

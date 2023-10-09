@@ -10,6 +10,7 @@ using Interact;
 using Manager;
 using Pool;
 using Pool.Extensions;
+using Sound;
 using UnityEngine;
 using Util;
 
@@ -149,6 +150,7 @@ namespace Weapon
       GameManager.Pool.Summon("effect/blood", transform.position);
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(amount));
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/enemyhit");
 
       if (knockBack > 0 && attacker != null)
       {

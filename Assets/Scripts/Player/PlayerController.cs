@@ -14,6 +14,7 @@ using Manager;
 using Player.Partner;
 using Pool.Extensions;
 using Scene;
+using Sound;
 using Store.Consumable;
 using Store.Equipment;
 using Store.Status;
@@ -193,6 +194,8 @@ namespace Player
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(damage));
 
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/playerhit");
+
       if (status.hp <= 0)
         if (isResurrection)
           Resurrection();
@@ -202,7 +205,10 @@ namespace Player
 
     private void Resurrection()
     {
-      Debug.Log("resurrection!");
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/resurrection");
+      var white = GameManager.UI.Find<Animator>("$white");
+      white.SetFloat("speed", 0.5f);
+      white.Play("FadeIn");
       status.hp = currentStatus.maxHp;
       var buff = buffs
        .Where(x => x.Key.status.GetValue("resurrection") > 0)
@@ -310,6 +316,7 @@ namespace Player
 
     public void UseConsumableItem(string consumableItemName)
     {
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/useitem");
       var consumable = GameManager.Consumables.Get(consumableItemName) as ConsumableItem;
       var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
       var stat = consumable.GetStatus();

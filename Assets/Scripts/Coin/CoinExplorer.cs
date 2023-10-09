@@ -1,3 +1,5 @@
+using Manager;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,6 +31,7 @@ namespace Coin
     private void OnTriggerEnter2D(Collider2D other)
     {
       other.GetComponent<CoinController>().isFollowing = true;
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/pickup");
     }
   }
 }

@@ -8,6 +8,7 @@ using Pool;
 using Scene;
 using Sound;
 using Spawn;
+using Store.Equipment;
 using Store.Status;
 using TMPro;
 using Transition;
@@ -47,6 +48,7 @@ namespace Manager
     public static ScriptableObjectCollection Partners { get; private set; }
     public static ScriptableObjectCollection Consumables { get; private set; }
     public static SoundManager Sound { get; private set; }
+    public static Broadcast Broadcast { get; private set; }
 
     public static DontDestroyObject CoroutineObject =>
       GameObject.Find("@game").GetComponent<DontDestroyObject>();
@@ -55,6 +57,8 @@ namespace Manager
 
     public static event Action onLoaded;
     public static bool isLoaded { get; private set; }
+    
+    public static bool isTutorial { get; set; }
 
     public int currentStage { get; set; }
 
@@ -111,6 +115,7 @@ namespace Manager
       Transition ??= new global::Transition.Transition();
       Window ??= new WindowManager();
       Sprites = transform.Find("@sprites").GetComponent<SpriteCollection>();
+      Broadcast = new Broadcast();
     }
 
     private void Awake()
@@ -207,6 +212,7 @@ namespace Manager
       {
         if (res == AskBoxResult.Yes)
         {
+          Clear();
           new SceneLoader("Main")
            .Out(Transitions.FADEOUT)
            .In(Transitions.FADEIN, delay: 2f)
@@ -242,6 +248,9 @@ namespace Manager
 
     public void StartStage(int stage, string startWeapon)
     {
+      if (stage == 0) isTutorial = true;
+      else isTutorial = false;
+      
       startWeaponName = startWeapon;
       currentStage = stage;
 
@@ -256,23 +265,40 @@ namespace Manager
        .Load();
     }
 
-    public void GameClear()
+    public void GameClear(bool exit = true)
     {
-      ExitGame();
+      if (exit) ExitGame();
+      // Clear();
+      GameManager.Wave.SetUIEnabled(false);
       new SceneLoader("GameClear")
        .Out(Transitions.OUT)
        .In(Transitions.FADEIN, delay: 1.25f)
        .Load();
     }
 
-    public void GameOver(GameOverReason reason)
+    public void GameOver(GameOverReason reason, bool exit = true)
     {
       gameOverReason = reason;
-      ExitGame();
+      if (exit) ExitGame();
+      // Clear();
+      GameManager.Wave.SetUIEnabled(false);
       new SceneLoader("GameOver")
        .Out(Transitions.OUT)
        .In(Transitions.FADEIN, delay: 1.25f)
        .Load();
+    }
+
+    private void Clear()
+    {
+      var wui = FindObjectOfType<WeaponInventoryUI>();
+      foreach (var weaponSlotWrapper in wui.list)
+        foreach (var slot in weaponSlotWrapper.slots)
+          slot.Set(null, false);
+      var partners = FindObjectsOfType<PartnerSlot>();
+      foreach (var partnerSlot in partners)
+      {
+        partnerSlot.SetPartner(null, false);
+      }
     }
   }
 }

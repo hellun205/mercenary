@@ -14,21 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_itemName: "\uD3EC\uCE08 \uCFE0\uD0A4"
   m_description: 
-  m_icon: {fileID: 21300000, guid: 3b86cafdc84a5bf4bb61a8c40105af83, type: 3}
-  m_price: 0
-  increaseStatus:
-    maxHp: 0
-    regeneration: 0
-    drainHp: 0
-    meleeDamage: 0
-    rangedDamage: 0
-    bleedingDamage: 0
-    criticalPercent: 0
-    attackSpeed: 0
-    attackSpeedPercent: 0
-    range: 0
-    knockback: 0
-    explosionRange: 0
-    armor: 0
-    moveSpeed: 0
-    luck: 0.02
+  m_icon: {fileID: 546740026, guid: 0326d192b657e12429d6d318cde834b1, type: 3}

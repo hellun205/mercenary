@@ -14,7 +14,9 @@ namespace Scene
       GameManager.UI.Find<Button>("$gameclear_mainmenu_btn").onClick.AddListener(GoToMain);
       GameManager.UI.Find<Button>("$gameclear_exit_btn").onClick.AddListener(ExitGame);
       var title = GameManager.UI.Find<TextMeshProUGUI>("$title");
-      title.text = string.Format(title.text, GameManager.Manager.currentStage + 1);
+      var stage = GameManager.Manager.currentStage;
+      var stageText = stage == 0 ? "튜토리얼" : $"{stage}";
+      title.text = string.Format(title.text, stageText);
     }
 
     private void ExitGame()

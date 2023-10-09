@@ -1,14 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Consumable;
-using Data;
-using Item;
 using Manager;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Util;
 
 namespace Store
 {

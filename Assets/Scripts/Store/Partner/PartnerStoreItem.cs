@@ -1,5 +1,6 @@
 using Manager;
 using Player.Partner;
+using Sound;
 using Store.Equipment;
 using UnityEngine;
 using Window;
@@ -43,6 +44,8 @@ namespace Store.Partner
         }
       }
       
+      SayMessage($"용병 슬롯이 부족합니다.");
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/error");
     }
   }
 }

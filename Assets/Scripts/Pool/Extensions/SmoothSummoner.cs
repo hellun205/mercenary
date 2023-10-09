@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,6 +34,11 @@ namespace Pool.Extensions
     }
 
     public void OnKilled()
+    {
+      isEnabled = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
     {
       isEnabled = false;
     }

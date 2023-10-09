@@ -1,5 +1,7 @@
 using System;
+using Manager;
 using Pool;
+using Sound;
 using UnityEngine;
 
 namespace Weapon.Ranged.Bomb
@@ -21,6 +23,7 @@ namespace Weapon.Ranged.Bomb
     public void OnSummon()
     {
       anim.Play(animName);
+      GameManager.Sound.Play(SoundType.SFX_Weapon, "sfx/weapon/explosion");
     }
 
     public void SetRange(float range)

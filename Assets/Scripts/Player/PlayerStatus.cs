@@ -131,6 +131,7 @@ namespace Player
       res.luck = b.ToValue("luck", res.luck, (o, v) => o + v);
       res.explosionRange = b.ToValue("explosionRange", res.explosionRange, (o, v) => o + v);
       res.evasionRate = b.ToValue("evasionRate", res.evasionRate, (o, v) => o + v);
+      res.drainHp = b.ToValue("drainHp", res.drainHp, (o, v) => o + v);
 
       return res;
     }

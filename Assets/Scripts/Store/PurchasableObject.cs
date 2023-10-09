@@ -1,6 +1,7 @@
 using System;
 using Item;
 using Manager;
+using Sound;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -106,7 +107,13 @@ namespace Store
       }
       
       GameManager.Manager.coin.value -= price;
+      SayMessage($"{data.displayName}(을)를 구매하였습니다.");
+      
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/purchase");
     }
+
+    protected void SayMessage(string message)
+      => GameManager.Broadcast.Say(message);
 
     public void SetLock(bool value)
     {

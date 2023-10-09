@@ -19,8 +19,8 @@ TagManager:
   - PlayerCollider
   - IgnorePhysics
   - Weapon
-  - 
-  - 
+  - CoinCollider
+  - Map
   - 
   - 
   - 

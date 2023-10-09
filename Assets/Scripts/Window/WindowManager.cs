@@ -37,6 +37,8 @@ namespace Window
       ((RectTransform) obj.transform).anchoredPosition = position == default ? Vector2.zero : position;
         
       windows[type].Add(obj);
+
+      GameManager.UI.RefreshButtonsClickUseSound();
       return obj;
     }
   }

@@ -51,9 +51,16 @@ namespace Manager
       foreach (var guid in guids)
       {
         var path = AssetDatabase.GUIDToAssetPath(guid);
-        if (path.Contains($".{exts}"))
+        if (string.IsNullOrEmpty(exts))
         {
-          var asset = (T)AssetDatabase.LoadAssetAtPath(path, typeof(T));
+          var asset = (T) AssetDatabase.LoadAssetAtPath(path, typeof(T));
+          if (asset is not T) continue;
+          var key = isPath ? path.Replace($"Assets/{root}/", "").Split('.')[0] : asset.name;
+          items.Add(key, asset);
+        }
+        else if (path.Contains($".{exts}"))
+        {
+          var asset = (T) AssetDatabase.LoadAssetAtPath(path, typeof(T));
           var key = isPath ? path.Replace($"Assets/{root}/", "").Replace($".{exts}", "").ToLower() : asset.name;
           items.Add(key, asset);
         }

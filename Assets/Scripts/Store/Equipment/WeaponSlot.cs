@@ -5,6 +5,7 @@ using Data;
 using DG.Tweening;
 using Manager;
 using Player;
+using Sound;
 using UI.DragNDrop;
 using UI.Popup;
 using UnityEngine;
@@ -41,6 +42,8 @@ namespace Store.Equipment
     private WeaponInventoryUI parentUI;
 
     private Color defColor;
+
+    public static event Action onSale;
 
     public Attribute? highlightAttribute { get; set; } = null;
     public Func<IncreaseStatus> highlightStatus { get; set; }
@@ -173,7 +176,7 @@ namespace Store.Equipment
 
     public object[] contextMenuFormats => new object[]
     {
-      (weapon!.Value.tier + 2).ToRomanNumeral(),
+      weapon!.Value.tier < 3 ? (weapon!.Value.tier + 2).ToRomanNumeral() : "최대",
       $"${GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2}"
     };
 
@@ -188,9 +191,21 @@ namespace Store.Equipment
           break;
 
         case "sell":
-          GameManager.Manager.coin.value +=
-            GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2;
+          var price = GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2;
+          GameManager.Manager.coin.value += price;
+          
+          var item = GameManager.GetIPossessible(weapon.Value.name);
+          var tier = weapon.Value.tier;
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}에 판매하였습니다.",
+            $"{item.itemName} {(tier + 1).ToRomanNumeral()}",
+            $"${price}"
+          );
+          
           Set(null);
+          onSale?.Invoke();
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/sell");
           break;
       }
     };

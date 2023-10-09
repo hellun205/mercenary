@@ -39,6 +39,7 @@ namespace Weapon.Melee.Wielding
       tweener.Kill();
       attackableObject.currentCondition = InteractCondition.Attack;
       StartAnimation();
+      PlayFireSound();
     }
     
     public void OnAttack() => isAttacking = true;

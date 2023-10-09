@@ -3,6 +3,7 @@ using System.Text;
 using Consumable;
 using Data;
 using Manager;
+using Sound;
 using Store.Equipment;
 using TMPro;
 using UI;
@@ -98,9 +99,9 @@ namespace Store.Inventory
       else
         popupPanel.ShowPopup(text: sb.ToString());
     }
-    
+
     public InventoryItem component => this;
-    
+
     public string contextMenuName => "$context_menu_cant_duplicate";
 
     public object[] contextMenuFormats => new object[]
@@ -115,9 +116,21 @@ namespace Store.Inventory
       switch (res)
       {
         case "sell":
-          GameManager.Manager.coin.value +=
-            GameManager.GetIPossessible(itemData!.Value.name).GetPrice(itemData!.Value.tier) / 2;
+          var price = GameManager.GetIPossessible(itemData!.Value.name).GetPrice(itemData!.Value.tier) / 2;
+          GameManager.Manager.coin.value += price;
+          
+          var item = GameManager.GetIPossessible(itemData.Value.name);
+          var tier = itemData.Value.tier;
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}에 판매하였습니다.",
+            $"{item.itemName} {(tier + 1).ToRomanNumeral()}",
+            $"${price}"
+          );
+          
           GameManager.Player.inventory.LoseItem(itemData!.Value.name, itemData.Value.tier);
+          
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/sell");
           break;
       }
     };

@@ -46,7 +46,7 @@ namespace Util.UI
       if (ignoreEqual && isVisible == visible) return;
       isVisible = visible;
       
-      // canvasGroup.interactable = visible;
+      canvasGroup.interactable = visible;
       canvasGroup.blocksRaycasts = visible;
 
       if (duration.HasValue)

@@ -24,6 +24,9 @@ namespace Wave
 
     public event Action onWaveEnd;
     public event Action onWaveStart;
+    public event Action onStoreOpen;
+
+    private int tutorialWave;
 
     public SpawnData.Spawns.Spawn[] spawns { get; private set; }
 
@@ -58,7 +61,7 @@ namespace Wave
         select => inventories.SetEnable(select);
     }
 
-    private void SetUIEnabled(bool value)
+    public void SetUIEnabled(bool value)
     {
       // foreach (var uiName in uiNames)
       GameManager.UI.Find($"$game_display").SetVisible(value, 0.3f);
@@ -72,7 +75,7 @@ namespace Wave
     private void OnTimerTick(Timer sender)
     {
       timerText.text =
-        $"{Math.Max(0, GameManager.Data.data.GetWaveTime(currentWave) - Mathf.FloorToInt(sender.elapsedTime))}초";
+        $"{Math.Max(0, sender.duration - Mathf.FloorToInt(sender.elapsedTime))}초";
     }
 
     public void StartWave(int index)
@@ -84,11 +87,51 @@ namespace Wave
     public void StartWave()
     {
       SetUIEnabled(true);
-      
+
       spawnTimers.Clear();
       leftCount.Clear();
-      spawns = GameManager.Data.data.GetSpawnData(currentWave);
-      waveTimer.duration = GameManager.Data.data.GetWaveTime(currentWave);
+
+      if (GameManager.isTutorial)
+      {
+        switch (tutorialWave)
+        {
+          case 0:
+            spawns = new[]
+            {
+              new SpawnData.Spawns.Spawn
+              {
+                name = "normal",
+                count = 15,
+                range = 10,
+                delay = 0,
+                simultaneousSpawnCount = 1
+              }
+            };
+            waveTimer.duration = 10f;
+            break;
+
+          case 1:
+            spawns = new[]
+            {
+              new SpawnData.Spawns.Spawn
+              {
+                name = "normal",
+                count = 30,
+                range = 10,
+                delay = 0,
+                simultaneousSpawnCount = 2
+              }
+            };
+            waveTimer.duration = 20f;
+            break;
+        }
+      }
+      else
+      {
+        spawns = GameManager.Data.data.GetSpawnData(currentWave);
+        waveTimer.duration = GameManager.Data.data.GetWaveTime(currentWave);
+      }
+
       try
       {
         onWaveStart?.Invoke();
@@ -97,7 +140,6 @@ namespace Wave
       {
         Debug.Log(ex.Message);
       }
-
 
       foreach (var spawn in spawns)
       {
@@ -117,7 +159,7 @@ namespace Wave
             leftCount[spawn.name]--;
           }
         };
-        timer.onEnd += t => { t.Start(); };
+        timer.onEnd += t => t.Start();
         spawnTimers.Add(timer);
         leftCount.Add(spawn.name, spawn.count);
 
@@ -132,11 +174,19 @@ namespace Wave
 
     public void EndWave(bool start = true)
     {
-      if (start && GameManager.Data.data.spawns.waves.Length - 1 <= currentWave)
+      if
+      (
+        (GameManager.isTutorial && tutorialWave == 1) ||
+        (start && GameManager.Data.data.spawns.waves.Length - 1 <= currentWave)
+      )
       {
-        GameManager.Manager.GameClear();
+        tutorialWave = 0;
+        GameManager.Manager.GameClear(false);
         return;
       }
+
+      if (GameManager.isTutorial)
+        tutorialWave++;
 
       if (!state) return;
       foreach (var spawnTimer in spawnTimers)
@@ -155,6 +205,7 @@ namespace Wave
           GameManager.Player.transform.position.Setter(z: -5);
         Time.timeScale = 0f;
         storePanel.SetVisible(true, 0.1f);
+        onStoreOpen?.Invoke();
       }));
     }
 
