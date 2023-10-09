@@ -174,7 +174,7 @@ namespace Store.Equipment
     public object[] contextMenuFormats => new object[]
     {
       (weapon!.Value.tier + 2).ToRomanNumeral(),
-      GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2
+      $"${GameManager.GetIPossessible(weapon!.Value.name).GetPrice(weapon!.Value.tier) / 2}"
     };
 
     public bool contextMenuCondition => weapon.HasValue;

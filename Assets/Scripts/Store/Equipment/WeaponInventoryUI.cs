@@ -61,6 +61,23 @@ namespace Store.Equipment
       }
     }
 
+    public void RemoveWeapon((string name, int tier) weapon)
+    {
+      var l = list.Select
+      (
+        x => x.slots.Where
+        (
+          y => y.weapon.HasValue && y.weapon == weapon
+        ).Select
+        (
+          y => (y.wrapper.GetIndex(), y.slotIndex)
+        ).First()
+      ).First();
+
+      SetWeapon(l.Item1, l.slotIndex, null);
+      list[l.Item1].slots[l.slotIndex].Set(null);
+    }
+
     public void Refresh()
     {
       var playerWeapons = GameManager.Player.weaponInventory.weapons;
@@ -114,6 +131,31 @@ namespace Store.Equipment
     }
 
     public void DuplicateWeapon((string name, int tier) weapon)
+    {
+      (int wrapper, int slot)? tmp = null;
+      foreach (var wrapper in list)
+      {
+        if (wrapper.type == EquipmentType.Partner && !wrapper.partnerSlot.partner.HasValue) continue;
+        foreach (var slot in wrapper.slots)
+        {
+          if (slot.weapon.HasValue && slot.weapon.Value == weapon && slot.weapon.Value.tier < 3)
+          {
+            if (tmp.HasValue && tmp.Value == (wrapper.GetIndex(), slot.slotIndex)) continue;
+            if (!tmp.HasValue)
+            {
+              tmp = (wrapper.GetIndex(), slot.slotIndex);
+              continue;
+            }
+
+            slot.Set((weapon.name, weapon.tier + 1));
+            RemoveWeapon(weapon);
+            return;
+          }
+        }
+      }
+    }
+
+    public void DuplicateWeaponForce((string name, int tier) weapon)
     {
       foreach (var wrapper in list)
       {

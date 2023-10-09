@@ -23,7 +23,7 @@ namespace Store.Weapon
         {
           if (res == AskBoxResult.Yes)
           {
-            weaponInventory.DuplicateWeapon(weapon);
+            weaponInventory.DuplicateWeaponForce(weapon);
             SubmitPurchase();
           }
         };

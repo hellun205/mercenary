@@ -303,10 +303,9 @@ namespace Player
 
     private void WaveOnonWaveEnd()
     {
-      foreach (var (data, ui) in buffs)
-      {
-        OnBuffEnd(data);
-      }
+      var list = buffs.Keys.ToList();
+      for (var i = 0; i < list.Count; i++)
+        OnBuffEnd(list[i]);
     }
 
     public void UseConsumableItem(string consumableItemName)

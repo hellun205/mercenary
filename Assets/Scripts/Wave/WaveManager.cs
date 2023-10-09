@@ -84,6 +84,7 @@ namespace Wave
     public void StartWave()
     {
       SetUIEnabled(true);
+      
       spawnTimers.Clear();
       leftCount.Clear();
       spawns = GameManager.Data.data.GetSpawnData(currentWave);

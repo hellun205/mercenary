@@ -21,6 +21,7 @@ namespace Store.Status
     {
       items = content.GetComponentsInChildren<StatusItem>().ToDictionary(x => x.name, x => x);
       GameManager.UI.Find<Button>("$toggle_stats").onClick.AddListener(OnToggleButtonClick);
+      GameManager.Wave.onWaveStart += () => this.SetVisible(false);
     }
 
     private void Start()
@@ -56,6 +57,7 @@ namespace Store.Status
       SetValue("attack_speed", status.attackSpeed);
       SetValue("weapon_range", status.range);
       SetValue("armor", status.armor);
+      SetValue("evasion_rate", status.evasionRate);
       SetValue("knockback", status.knockback);
       SetValue("move_speed", status.moveSpeed);
       SetValue("luck", status.luck);

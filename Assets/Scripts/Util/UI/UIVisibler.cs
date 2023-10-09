@@ -17,6 +17,7 @@ namespace Util.UI
 
     public bool isVisible { get; private set; } = true;
 
+
     private void Reset()
     {
       canvasGroup = GetComponent<CanvasGroup>();
@@ -40,11 +41,12 @@ namespace Util.UI
       float? duration = null,
       TimerType type = TimerType.Normal,
       bool ignoreEqual = false
-      )
+    )
     {
       if (ignoreEqual && isVisible == visible) return;
       isVisible = visible;
-      canvasGroup.interactable = visible;
+      
+      // canvasGroup.interactable = visible;
       canvasGroup.blocksRaycasts = visible;
 
       if (duration.HasValue)

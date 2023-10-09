@@ -167,7 +167,7 @@ namespace Window.Contents
       resolutionDropDown.value = resolutions.FindIndex(x => x.Equals(settingValue.resolution));
       fullScreenToggle.isOn = settingValue.fullScreenMode.Equals(FullScreenMode.FullScreenWindow);
       foreach (var (soundType, volume) in settingValue.volumes)
-        soundSliders[soundType].value = volume <= -40 ? -80 : volume;
+        soundSliders[soundType].value = volume;
       foreach (var (uniqueKey, keyCodes) in values.keys)
         for (var i = 0; i < keyButtons[uniqueKey].Length; i++)
           keyButtons[uniqueKey][i].key = keyCodes[i];

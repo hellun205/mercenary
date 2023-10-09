@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using Manager;
 using Player.Partner;
@@ -14,7 +15,7 @@ using Weapon;
 
 namespace Store.Equipment
 {
-  public class PartnerSlot : UsePopup<PopupPanel>
+  public class PartnerSlot : UsePopup<PopupPanel>, IUseContextMenu
   {
     [SerializeField]
     private GameObject shielder;
@@ -104,27 +105,70 @@ namespace Store.Equipment
       sb.Append
         (
           $"{data.itemName} {(partner.Value.tier + 1).ToRomanNumeral()}"
-            .SetSizePercent(1.25f)
-            .SetAlign(TextAlign.Center)
+           .SetSizePercent(1.25f)
+           .SetAlign(TextAlign.Center)
         )
-        .Append("\n")
-        .Append
+       .Append("\n")
+       .Append
         (
           data.GetAttribute().GetTexts()
-            .SetSizePercent(1.25f)
-            .AddColor(GameManager.GetAttributeColor())
-            .SetLineHeight(1.25f)
-            .SetAlign(TextAlign.Center)
+           .SetSizePercent(1.25f)
+           .AddColor(GameManager.GetAttributeColor())
+           .SetLineHeight(1.25f)
+           .SetAlign(TextAlign.Center)
         )
-        .Append("\n");
+       .Append("\n");
 
 
       sb.Append
       (
         data.GetDescription(partner.Value.tier)
-          .SetAlign(TextAlign.Left)
+         .SetAlign(TextAlign.Left)
       );
       popupPanel.ShowPopup(sb.ToString());
+    }
+
+    public string contextMenuName => "$context_menu_can_duplicate";
+
+    public object[] contextMenuFormats => new object[]
+    {
+      (partner!.Value.tier + 2).ToRomanNumeral(),
+      $"${GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2}"
+    };
+
+    public bool contextMenuCondition => partner.HasValue;
+
+    public Action<string> contextMenuFunction => res =>
+    {
+      switch (res)
+      {
+        case "duplicate":
+          Duplicate();
+          break;
+
+        case "sell":
+          GameManager.Manager.coin.value +=
+            GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2;
+          SetPartner(null);
+          break;
+      }
+    };
+
+    private void Duplicate()
+    {
+      var slots = FindObjectsOfType<PartnerSlot>().Where(x => x != this);
+
+      if (partner!.Value.tier >= 3) return;
+
+      foreach (var partnerSlot in slots)
+      {
+        if (partnerSlot.partner == partner)
+        {
+          partnerSlot.SetPartner(null);
+          SetPartner((partner.Value.name, partner.Value.tier + 1));
+          return;
+        }
+      }
     }
   }
 }

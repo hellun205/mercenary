@@ -20,13 +20,12 @@ namespace Util.UI
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-      Debug.Log("Click");
       if (!contextMenuCondition || eventData.button != button) return;
 
       GameManager.UI.Find<ContextMenu>(contextMenuName).Open
       (
         contextMenuPosition,
-        contextMenuFormats,
+        (object[])contextMenuFormats.Clone(),
         contextMenuFunction
       );
     }

@@ -48,7 +48,7 @@ namespace Store.Status
 
     public override void OnEntered()
     {
-      popupPanel.ShowPopup(statName, GetValue(description));
+      popupPanel.ShowPopup(statName, GetValue(description), statIcon);
     }
 
     private string GetValue(string format)

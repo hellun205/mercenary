@@ -47,8 +47,14 @@ namespace Store.Equipment
       }
     }
 
-    public void Refresh()
+    public int GetIndex()
     {
+      return type switch
+      {
+        EquipmentType.Player  => 0,
+        EquipmentType.Partner => partnerIndex + 1,
+        _                     => throw new ArgumentOutOfRangeException()
+      };
     }
   }
 }

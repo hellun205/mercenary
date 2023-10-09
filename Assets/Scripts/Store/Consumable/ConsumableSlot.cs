@@ -9,12 +9,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Util;
 using Util.Text;
+using Util.UI;
 using Weapon;
 
 namespace Store.Consumable
 {
   [RequireComponent(typeof(ItemDrag), typeof(ItemDrop))]
-  public class ConsumableSlot : UsePopup<ListPopup>
+  public class ConsumableSlot : UsePopup<ListPopup>, IUseContextMenu
   {
     public override string popupName => "$popup_item";
 
@@ -106,5 +107,25 @@ namespace Store.Consumable
       
       popupPanel.ShowPopup(sb.ToString());
     }
+    
+    public string contextMenuName => "$context_menu_cant_duplicate";
+
+    public object[] contextMenuFormats => new object[]
+    {
+      $"${GameManager.GetIPossessible(itemData).GetPrice() / 2}"
+    };
+
+    public bool contextMenuCondition => !string.IsNullOrEmpty(itemData);
+
+    public Action<string> contextMenuFunction => res =>
+    {
+      switch (res)
+      {
+        case "sell":
+          GameManager.Manager.coin.value += GameManager.GetIPossessible(itemData).GetPrice() / 2;
+          SetItem(null);
+          break;
+      }
+    };
   }
 }

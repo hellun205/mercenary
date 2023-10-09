@@ -98,9 +98,7 @@ namespace Weapon
           { "attackSpeed", ("공격 속도", v => v, "", false) },
           { "fireRange", ("범위", v => v, "", false) },
           { "knockback", ("넉백", v => v, "", false) },
-          { "explosionRange", ("폭발 범위", v => v, "", false) },
           { "penetrateCount", ("관통", v => v, "", false) },
-          { "errorRange", ("오차 범위", v => v, "", false) },
           { "multipleCritical", ("치명타 데미지", v => v, "x", false) },
         };
 

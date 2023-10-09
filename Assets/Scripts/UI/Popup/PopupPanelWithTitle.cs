@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace UI.Popup
 {
@@ -11,10 +12,14 @@ namespace UI.Popup
     [SerializeField]
     protected TextMeshProUGUI titleText;
 
-    public void ShowPopup(string title, string desc)
+    [SerializeField]
+    protected Image iconImage;
+
+    public void ShowPopup(string title, string desc, Sprite icon)
     {
       titleText.text = title;
       valueText.text = desc;
+      iconImage.sprite = icon;
       ShowPopup();
     }
   }
