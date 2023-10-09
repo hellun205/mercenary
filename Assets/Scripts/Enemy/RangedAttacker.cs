@@ -16,16 +16,19 @@ namespace Enemy
     [SerializeField]
     private Timer fireTimer = new();
 
+    private Animator anim;
+
     public Func<float> bulletSpeedGetter { private get; set; }
     public Func<float> damageGetter { private get; set; }
     public Func<float> fireDurationGetter { private get; set; }
     public Func<float> detectRangeGetter { private get; set; }
 
+
     private void Awake()
     {
+      anim = GetComponent<Animator>();
       fireTimer.onEnd += OnTimerEnd;
     }
-
     private void OnTimerEnd(Timer sender)
     {
       Fire();
@@ -50,6 +53,7 @@ namespace Enemy
     private void Update()
     {
       detector.transform.position = transform.position;
+      anim.SetBool("detect", detector.isDetected);
     }
 
     public void OnKilled()

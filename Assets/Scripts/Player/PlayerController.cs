@@ -206,9 +206,11 @@ namespace Player
     private void Resurrection()
     {
       GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/resurrection");
+      GameManager.Broadcast.Say("부활하였습니다.");
       var white = GameManager.UI.Find<Animator>("$white");
       white.SetFloat("speed", 0.5f);
       white.Play("FadeIn");
+      1f.Wait(() => white.Play("None"));
       status.hp = currentStatus.maxHp;
       var buff = buffs
        .Where(x => x.Key.status.GetValue("resurrection") > 0)
@@ -320,6 +322,12 @@ namespace Player
       var consumable = GameManager.Consumables.Get(consumableItemName) as ConsumableItem;
       var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
       var stat = consumable.GetStatus();
+
+      var heal = stat.GetValue("hp");
+      if (heal > 0)
+      {
+        Heal(Mathf.FloorToInt(currentStatus.maxHp * heal));
+      }
 
       if (consumable.GetDuration() > 0)
       {

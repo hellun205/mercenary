@@ -37,13 +37,13 @@ namespace UI.DragNDrop
       data = getter.Invoke();
       draggingObject.StartDrag(data.draggingImage);
       onStartRequest?.Invoke(data);
+      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/drag");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
       if (!draggingObject.isDragging) return;
       draggingObject.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(Input.mousePosition);
-      GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/drag");
     }
 
     public void OnEndDrag(PointerEventData eventData)

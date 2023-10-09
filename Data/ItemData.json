@@ -118,7 +118,7 @@
       "applies": [
         {
           "type": 8,
-          "value": 5.0
+          "value": 1.0
         },
         {
           "type": 13,
@@ -202,25 +202,15 @@
       "applies": [
         {
           "type": 0,
-          "value": 4.0
+          "value": 2.5
         },
         {
           "type": 13,
-          "value": 50.0
-        }
-      ]
-    },
-    {
-      "name": "tree",
-      "tier": 1,
-      "applies": [
+          "value": 40.0
+        },
         {
           "type": 1,
-          "value": 2.0
-        },
-        {
-          "type": 13,
-          "value": 50.0
+          "value": 1.25
         }
       ]
     },
@@ -230,11 +220,11 @@
       "applies": [
         {
           "type": 2,
-          "value": 0.02
+          "value": 0.025
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -244,11 +234,11 @@
       "applies": [
         {
           "type": 3,
-          "value": 4.0
+          "value": 5.0
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -258,11 +248,11 @@
       "applies": [
         {
           "type": 4,
-          "value": 2.0
+          "value": 2.5
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -272,25 +262,15 @@
       "applies": [
         {
           "type": 5,
-          "value": 0.02
+          "value": 0.0125
         },
         {
           "type": 13,
-          "value": 50.0
-        }
-      ]
-    },
-    {
-      "name": "lychee",
-      "tier": 1,
-      "applies": [
+          "value": 40.0
+        },
         {
           "type": 6,
-          "value": 2.0
-        },
-        {
-          "type": 13,
-          "value": 50.0
+          "value": 1.25
         }
       ]
     },
@@ -300,11 +280,11 @@
       "applies": [
         {
           "type": 7,
-          "value": 0.04
+          "value": 0.05
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -314,11 +294,11 @@
       "applies": [
         {
           "type": 8,
-          "value": 10.0
+          "value": 2.5
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -328,25 +308,15 @@
       "applies": [
         {
           "type": 9,
-          "value": 0.02
+          "value": 0.0125
         },
         {
           "type": 13,
-          "value": 50.0
-        }
-      ]
-    },
-    {
-      "name": "t_shirt",
-      "tier": 1,
-      "applies": [
+          "value": 40.0
+        },
         {
           "type": 14,
-          "value": 0.02
-        },
-        {
-          "type": 13,
-          "value": 50.0
+          "value": 0.0125
         }
       ]
     },
@@ -356,11 +326,11 @@
       "applies": [
         {
           "type": 10,
-          "value": 2.0
+          "value": 2.5
         },
         {
           "type": 13,
-          "value": 50.0
+          "value": 40.0
         }
       ]
     },
@@ -370,25 +340,15 @@
       "applies": [
         {
           "type": 11,
-          "value": 0.04
+          "value": 0.025
         },
         {
           "type": 13,
-          "value": 50.0
-        }
-      ]
-    },
-    {
-      "name": "bill",
-      "tier": 1,
-      "applies": [
+          "value": 40.0
+        },
         {
           "type": 12,
-          "value": 0.02
-        },
-        {
-          "type": 13,
-          "value": 50.0
+          "value": 0.0125
         }
       ]
     },
@@ -398,11 +358,11 @@
       "applies": [
         {
           "type": 0,
-          "value": 8.0
+          "value": 12.0
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -412,25 +372,15 @@
       "applies": [
         {
           "type": 1,
-          "value": 4.0
+          "value": 3.0
         },
         {
           "type": 13,
-          "value": 120.0
-        }
-      ]
-    },
-    {
-      "name": "heart_of_vampire",
-      "tier": 2,
-      "applies": [
+          "value": 80.0
+        },
         {
           "type": 2,
-          "value": 0.04
-        },
-        {
-          "type": 13,
-          "value": 120.0
+          "value": 0.03
         }
       ]
     },
@@ -440,11 +390,11 @@
       "applies": [
         {
           "type": 3,
-          "value": 8.0
+          "value": 12.0
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -454,11 +404,11 @@
       "applies": [
         {
           "type": 4,
-          "value": 4.0
+          "value": 6.0
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -468,11 +418,11 @@
       "applies": [
         {
           "type": 5,
-          "value": 0.04
+          "value": 0.06
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -482,11 +432,11 @@
       "applies": [
         {
           "type": 6,
-          "value": 4.0
+          "value": 6.0
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -496,25 +446,15 @@
       "applies": [
         {
           "type": 7,
-          "value": 0.08
+          "value": 0.06
         },
         {
           "type": 13,
-          "value": 120.0
-        }
-      ]
-    },
-    {
-      "name": "cctv",
-      "tier": 2,
-      "applies": [
+          "value": 80.0
+        },
         {
           "type": 8,
-          "value": 20.0
-        },
-        {
-          "type": 13,
-          "value": 120.0
+          "value": 3.0
         }
       ]
     },
@@ -524,11 +464,11 @@
       "applies": [
         {
           "type": 9,
-          "value": 0.04
+          "value": 0.06
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -538,11 +478,11 @@
       "applies": [
         {
           "type": 14,
-          "value": 0.04
+          "value": 0.06
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -552,11 +492,11 @@
       "applies": [
         {
           "type": 10,
-          "value": 4.0
+          "value": 6.0
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -566,11 +506,11 @@
       "applies": [
         {
           "type": 11,
-          "value": 0.08
+          "value": 0.12
         },
         {
           "type": 13,
-          "value": 120.0
+          "value": 80.0
         }
       ]
     },
@@ -580,25 +520,11 @@
       "applies": [
         {
           "type": 12,
-          "value": 0.04
+          "value": 0.06
         },
         {
           "type": 13,
-          "value": 120.0
-        }
-      ]
-    },
-    {
-      "name": "potato",
-      "tier": 3,
-      "applies": [
-        {
-          "type": 0,
-          "value": 16.0
-        },
-        {
-          "type": 13,
-          "value": 250.0
+          "value": 80.0
         }
       ]
     },
@@ -607,12 +533,16 @@
       "tier": 3,
       "applies": [
         {
-          "type": 1,
-          "value": 8.0
+          "type": 0,
+          "value": 18.0
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
+        },
+        {
+          "type": 1,
+          "value": 9.0
         }
       ]
     },
@@ -622,11 +552,11 @@
       "applies": [
         {
           "type": 2,
-          "value": 0.08
+          "value": 0.18
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -636,11 +566,11 @@
       "applies": [
         {
           "type": 3,
-          "value": 16.0
+          "value": 36.0
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -650,11 +580,11 @@
       "applies": [
         {
           "type": 4,
-          "value": 8.0
+          "value": 18.0
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -664,11 +594,11 @@
       "applies": [
         {
           "type": 5,
-          "value": 0.08
+          "value": 0.18
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -678,25 +608,11 @@
       "applies": [
         {
           "type": 6,
-          "value": 8.0
+          "value": 18.0
         },
         {
           "type": 13,
-          "value": 250.0
-        }
-      ]
-    },
-    {
-      "name": "guitar",
-      "tier": 3,
-      "applies": [
-        {
-          "type": 7,
-          "value": 0.16
-        },
-        {
-          "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -705,26 +621,16 @@
       "tier": 3,
       "applies": [
         {
+          "type": 7,
+          "value": 0.18
+        },
+        {
+          "type": 13,
+          "value": 200.0
+        },
+        {
           "type": 8,
-          "value": 40.0
-        },
-        {
-          "type": 13,
-          "value": 250.0
-        }
-      ]
-    },
-    {
-      "name": "sandbag",
-      "tier": 3,
-      "applies": [
-        {
-          "type": 9,
-          "value": 0.08
-        },
-        {
-          "type": 13,
-          "value": 250.0
+          "value": 9.0
         }
       ]
     },
@@ -734,11 +640,15 @@
       "applies": [
         {
           "type": 14,
-          "value": 0.08
+          "value": 0.09
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
+        },
+        {
+          "type": 11,
+          "value": 0.18
         }
       ]
     },
@@ -748,25 +658,11 @@
       "applies": [
         {
           "type": 10,
-          "value": 8.0
+          "value": 18.0
         },
         {
           "type": 13,
-          "value": 250.0
-        }
-      ]
-    },
-    {
-      "name": "wing",
-      "tier": 3,
-      "applies": [
-        {
-          "type": 11,
-          "value": 0.16
-        },
-        {
-          "type": 13,
-          "value": 250.0
+          "value": 200.0
         }
       ]
     },
@@ -775,12 +671,16 @@
       "tier": 3,
       "applies": [
         {
-          "type": 12,
-          "value": 0.08
+          "type": 9,
+          "value": 0.09
         },
         {
           "type": 13,
-          "value": 250.0
+          "value": 200.0
+        },
+        {
+          "type": 12,
+          "value": 0.09
         }
       ]
     }

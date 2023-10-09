@@ -953,7 +953,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -2124,7 +2124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -3155,7 +3155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -4407,7 +4407,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{4}'
+  m_text: <color=#980000FF>-2</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -4476,6 +4476,89 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1989464624508254159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2797160516876462243}
+  - component: {fileID: 5226613289921238153}
+  m_Layer: 0
+  m_Name: $partner1_display_camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2797160516876462243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989464624508254159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6059598998525568732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &5226613289921238153
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989464624508254159}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 17.5
+  orthographic: 0
+  orthographic size: 13.12
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: 9b789294b7a09274abdb3b60b4099e80, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &2096872061224550500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5326,6 +5409,89 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &2371931915336375402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2507536305065739374}
+  - component: {fileID: 1339457697409094041}
+  m_Layer: 0
+  m_Name: $partner2_display_camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2507536305065739374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371931915336375402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6059598998525568732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1339457697409094041
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371931915336375402}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 17.5
+  orthographic: 0
+  orthographic size: 13.12
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: aa4acc1bcf8143546a476bbcacdb35d9, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &2373993527233552158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6125,7 +6291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -7302,7 +7468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -7436,7 +7602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -8380,8 +8546,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 7c0b881482783994db552a88f8e62456, type: 2}
     - Key: bean_sprout
       Value: {fileID: 11400000, guid: 422c045ea53c8fb4f97d3605843b1a18, type: 2}
-    - Key: bill
-      Value: {fileID: 11400000, guid: b07540fde5070714e8cc06492e1951ce, type: 2}
     - Key: blade
       Value: {fileID: 11400000, guid: e86662eb5f10b064f8175001b8a11f49, type: 2}
     - Key: blueberry
@@ -8398,8 +8562,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: eb0645a64b2a52941b27ee82abf5b657, type: 2}
     - Key: canine
       Value: {fileID: 11400000, guid: ab86a9c44beae844a87680e4fe7050ae, type: 2}
-    - Key: cctv
-      Value: {fileID: 11400000, guid: c5f141a3b1023374d9c8f3784f31de01, type: 2}
     - Key: chicken_breast
       Value: {fileID: 11400000, guid: 5396f233b7394bd42bd48572aee86fa6, type: 2}
     - Key: chocolate
@@ -8420,10 +8582,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: bcfbe74ae322c754e8e98c9bd6f0b259, type: 2}
     - Key: garlic
       Value: {fileID: 11400000, guid: a912183747c242943b53a41bb45d3519, type: 2}
-    - Key: guitar
-      Value: {fileID: 11400000, guid: 39394b888cbdf494bbc96907692ff53b, type: 2}
-    - Key: heart_of_vampire
-      Value: {fileID: 11400000, guid: 247ad6fa525662044bbacd54065fece1, type: 2}
     - Key: iron_ingot
       Value: {fileID: 11400000, guid: 89c6c208f3e954f469e19f73047558e7, type: 2}
     - Key: kettlebell
@@ -8432,8 +8590,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 3a49de72e093a1a44b4d4612187144a3, type: 2}
     - Key: lens
       Value: {fileID: 11400000, guid: 7f70589d413d6c94098c320bd56c7edd, type: 2}
-    - Key: lychee
-      Value: {fileID: 11400000, guid: 1cc0058bae59e52449f9052d22ec38a8, type: 2}
     - Key: magazine
       Value: {fileID: 11400000, guid: 7f21855b37506ea4dac8728a13c6727a, type: 2}
     - Key: magnet
@@ -8448,12 +8604,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: eb17e5a67522e914ba37fda324ebc285, type: 2}
     - Key: pork
       Value: {fileID: 11400000, guid: 418eef01e73284c4ba9b318c4d35a9aa, type: 2}
-    - Key: potato
-      Value: {fileID: 11400000, guid: 10de0cad90878de49a00dd42fd3eb0b3, type: 2}
     - Key: ruler
       Value: {fileID: 11400000, guid: beacede90b34eb647a5e29cf9c259e81, type: 2}
-    - Key: sandbag
-      Value: {fileID: 11400000, guid: 00bc029c04931204ab92d8d238a08a47, type: 2}
     - Key: scissors
       Value: {fileID: 11400000, guid: 61bd57f2f16093a4b87d10029e2dcd1a, type: 2}
     - Key: scope
@@ -8462,18 +8614,12 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 05efff70d7b08564f8c182e980115643, type: 2}
     - Key: sunglasses
       Value: {fileID: 11400000, guid: b4cf56ccb68cfbc489e69ebc14136a56, type: 2}
-    - Key: t_shirt
-      Value: {fileID: 11400000, guid: 437b15aace2500140be29aec53230811, type: 2}
     - Key: telescope
       Value: {fileID: 11400000, guid: 9683bb04ceb3d8a40b23bfa089423785, type: 2}
     - Key: tire
       Value: {fileID: 11400000, guid: 94d6c084b785e0b4680d4af617ab658c, type: 2}
-    - Key: tree
-      Value: {fileID: 11400000, guid: ce11de96f467f7742b2f083c9968023f, type: 2}
     - Key: whetstone
       Value: {fileID: 11400000, guid: 08801eced6f23f445b9593181a553c90, type: 2}
-    - Key: wing
-      Value: {fileID: 11400000, guid: 5732ec74c64be4349a8e05915107391c, type: 2}
     - Key: wolf
       Value: {fileID: 11400000, guid: 5f1742b272311f2489228ce0e249e61e, type: 2}
     - Key: wrench
@@ -9227,7 +9373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 12f40ea4e5481704da66157740c96eb1, type: 2}
+  m_Texture: {fileID: 8400000, guid: aa4acc1bcf8143546a476bbcacdb35d9, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -10049,6 +10195,8 @@ Transform:
   - {fileID: 8349960194823337931}
   - {fileID: 2670528707679402990}
   - {fileID: 7545812545631358053}
+  - {fileID: 2797160516876462243}
+  - {fileID: 2507536305065739374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7924634636866097775
@@ -12702,9 +12850,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 17.5
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 13.12
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -12829,8 +12977,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: -49.999985}
-  m_SizeDelta: {x: 420, y: 294}
+  m_AnchoredPosition: {x: 0.000061035156, y: -8.7756}
+  m_SizeDelta: {x: 420, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1895542457259978376
 CanvasRenderer:
@@ -16117,7 +16265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -16985,7 +17133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -17548,7 +17696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{3}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -17788,7 +17936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{2}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -19806,6 +19954,8 @@ MonoBehaviour:
     _serializedList:
     - Key: boiled_egg
       Value: {fileID: 11400000, guid: b9722b3969923d34aaa6e254969bc0f6, type: 2}
+    - Key: cake
+      Value: {fileID: 11400000, guid: 8a3ccbdd616c05646842d2415d2a1334, type: 2}
     - Key: cross
       Value: {fileID: 11400000, guid: cbfe2d7385473bf47a9a29fdb4940f32, type: 2}
     - Key: energy_drink
@@ -19814,6 +19964,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: a1de47adc8c2ed6409bdc593d152310b, type: 2}
     - Key: kiwi
       Value: {fileID: 11400000, guid: 4d7ed05d55eea334f8f0e3d181738b1e, type: 2}
+    - Key: strawberry
+      Value: {fileID: 11400000, guid: fa58c91ac5233a04894776f6f07fd6f1, type: 2}
     - Key: thermonuclear_bomb
       Value: {fileID: 11400000, guid: 13eb5a9e8141c504daaf29ba9cabbad7, type: 2}
 --- !u!1 &8871429798358241014
@@ -20002,7 +20154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{0}'
+  m_text: <color=#FFFFFFFF>0</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -20772,7 +20924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 12f40ea4e5481704da66157740c96eb1, type: 2}
+  m_Texture: {fileID: 8400000, guid: 9b789294b7a09274abdb3b60b4099e80, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0

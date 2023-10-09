@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: gold_dust
   m_EditorClassIdentifier: 
   _name: "\uAE08 \uAC00\uB8E8"
-  _icon: {fileID: 21300000, guid: b433360fcc519e6439840b534b1e8ae4, type: 3}
+  _icon: {fileID: 1979796332, guid: 4119e9186c0d7424783e0f27f00a48e1, type: 3}
+  _descrption: 

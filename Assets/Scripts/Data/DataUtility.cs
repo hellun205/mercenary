@@ -479,7 +479,7 @@ namespace Data
 
       return new IncreaseStatus
       {
-        maxHp = GetValue(ConsumableApplyStatus.Hp),
+        hp = GetValue(ConsumableApplyStatus.Hp),
         regeneration = GetValue(ConsumableApplyStatus.Regeneration),
         drainHp = GetValue(ConsumableApplyStatus.DrainHp),
         meleeDamage = GetValue(ConsumableApplyStatus.MeleeDamage),

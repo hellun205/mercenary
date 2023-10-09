@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: cross
   m_EditorClassIdentifier: 
   _name: "\uC2ED\uC790\uAC00"
-  _icon: {fileID: 21300000, guid: b433360fcc519e6439840b534b1e8ae4, type: 3}
+  _icon: {fileID: 1611817493, guid: 4119e9186c0d7424783e0f27f00a48e1, type: 3}
   _descrption: "\uCCB4\uB825\uC774 \uBAA8\uB450 \uC18C\uC9C4\uB420 \uACBD\uC6B0 1\uD68C
     \uBD80\uD65C"

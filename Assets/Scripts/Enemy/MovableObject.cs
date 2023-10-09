@@ -19,12 +19,21 @@ namespace Enemy
     private float increaseAmount;
     private float increasedMoveSpeed;
 
+    private SpriteRenderer sr;
+
+    private void Awake()
+    {
+      sr = GetComponentInChildren<SpriteRenderer>();
+    }
+
     private void Update()
     {
       if (!canMove) return;
-      
-      transform.rotation = transform.GetRotationOfLookAtObject(GameManager.Player.transform);
-      transform.Translate(Vector3.right * (Time.deltaTime * Mathf.Min((speed + increasedMoveSpeed), maxSpeed)));
+
+      // transform.rotation = transform.GetRotationOfLookAtObject(GameManager.Player.transform);
+      var dir = (GameManager.Player.transform.position - transform.position).normalized;
+      transform.Translate(dir * (Time.deltaTime * Mathf.Min((speed + increasedMoveSpeed), maxSpeed)));
+      sr.flipX = dir.x > 0;
 
       increasedMoveSpeed += increaseAmount * Time.deltaTime;
     }

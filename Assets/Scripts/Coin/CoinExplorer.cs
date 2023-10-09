@@ -13,7 +13,7 @@ namespace Coin
     [FormerlySerializedAs("collider")]
     [SerializeField]
     private CircleCollider2D col;
-    
+
     private void Reset()
     {
       col = GetComponent<CircleCollider2D>();
@@ -30,7 +30,8 @@ namespace Coin
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-      other.GetComponent<CoinController>().isFollowing = true;
+      if (!other.TryGetComponent<CoinController>(out var coinController)) return;
+      coinController.isFollowing = true;
       GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/pickup");
     }
   }

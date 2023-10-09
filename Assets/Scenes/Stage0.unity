@@ -2008,7 +2008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1864651867}
   - component: {fileID: 1864651866}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: '@confiner'
   m_TagString: Untagged
   m_Icon: {fileID: 0}

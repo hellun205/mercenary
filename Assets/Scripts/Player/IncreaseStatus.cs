@@ -19,6 +19,7 @@ namespace Player
   public struct IncreaseStatus
   {
     public string maxHp;
+    public string hp;
 
     public string regeneration;
     public string drainHp;
