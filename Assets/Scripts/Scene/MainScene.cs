@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using Sound;
 using Transition;
 using UI;
 using UI.Select;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 using Util.Text;
 using Weapon;
 
@@ -40,6 +42,11 @@ namespace Scene
       stageNext = GameManager.UI.Find("$stage_next").GetComponentInChildren<Button>();
       GameManager.UI.Find<Button>("$game_start_btn").onClick.AddListener(OnGameStart);
       GameManager.UI.Find<Button>("$game_exit_btn").onClick.AddListener(GameManager.Manager.AskExit);
+      GameManager.UI.Find<Button>("$main_setting").onClick.AddListener(GameManager.Manager.OpenSetting);
+      GameManager.UI.Find<Button>("$stage_tutorial").onClick.AddListener(() =>
+      {
+        GameManager.Manager.StartStage(0, weaponSelect.selectedItem.value.weaponName);
+      });
 
       weaponSelect.AddItems(GameManager.WeaponData.items.Values.Select
         (
@@ -63,6 +70,8 @@ namespace Scene
           description = ""
         });
       }
+      
+      GameManager.UI.Find("$tobecontinue").transform.SetAsLastSibling();
     }
 
     private void Update()
@@ -73,11 +82,7 @@ namespace Scene
 
     private void OnGameStart()
     {
-      GameManager.Manager.startWeaponName = weaponSelect.selectedItem.value.weaponName;
-      new SceneLoader($"Stage{stageSelect.selectedItem.value.index}")
-       .Out(Transitions.FADEOUT)
-       .In(Transitions.FADEIN)
-       .Load();
+      GameManager.Manager.StartStage(stageSelect.selectedItem.value.index + 1,weaponSelect.selectedItem.value.weaponName);
     }
   }
 }

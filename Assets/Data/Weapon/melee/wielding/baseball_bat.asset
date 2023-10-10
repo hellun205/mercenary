@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: baseball_bat
   m_EditorClassIdentifier: 
   _name: "\uC57C\uAD6C\uBC30\uD2B8"
-  m_icon: {fileID: 21300000, guid: 9e0bf4892c569a641b1479183adbec70, type: 3}
+  m_icon: {fileID: 21300000, guid: 7cd0ac177a1f0324db81120696bf2dbb, type: 3}
   descriptions: 
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
   bullet: bullet

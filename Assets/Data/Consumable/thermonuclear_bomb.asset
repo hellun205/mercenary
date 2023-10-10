@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f03b1d4633f4f43a70da0fb6b54593c, type: 3}
+  m_Name: thermonuclear_bomb
+  m_EditorClassIdentifier: 
+  _name: "\uC218\uC18C \uD3ED\uD0C4"
+  _icon: {fileID: -356964373, guid: 4119e9186c0d7424783e0f27f00a48e1, type: 3}
+  _descrption: "\uBAA8\uB4E0 \uC801 \uCC98\uCE58"

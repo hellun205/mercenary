@@ -113,7 +113,7 @@ namespace Scene
     {
       if (isLoading) return this;
       SceneManager.activeSceneChanged += SceneManagerOnactiveSceneChanged;
-      coroutine = GameManager.Manager.StartCoroutine(LoadRoutine());
+      coroutine = GameManager.CoroutineObject.StartCoroutine(LoadRoutine());
       return this;
     }
 
@@ -139,6 +139,7 @@ namespace Scene
 
       yield return new WaitForSecondsRealtime(outTransition.speed);
       callbackOnEndOut?.Invoke();
+      HandleBeforeSceneChanged();
 
       yield return new WaitUntil(() => load.progress >= 0.9f);
       load.allowSceneActivation = true;
@@ -163,6 +164,15 @@ namespace Scene
 
       foreach (var property in p.Select(x => x.GetValue(GameManager.Manager)).OfType<ISceneChangeEventHandler>())
         property.OnSceneChanged(beforeSceneName, afterSceneName);
+    }
+    
+    public void HandleBeforeSceneChanged()
+    {
+      var p = typeof(GameManager).GetProperties(BindingFlags.Public | BindingFlags.Instance |
+                                                BindingFlags.Static | BindingFlags.DeclaredOnly);
+
+      foreach (var property in p.Select(x => x.GetValue(GameManager.Manager)).OfType<IBeforeSceneChangeEventHandler>())
+        property.OnBeforeSceneChange(beforeSceneName, afterSceneName);
     }
   }
 }

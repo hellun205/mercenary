@@ -1,15 +1,15 @@
 using System;
+using Manager;
 using Pool;
+using Sound;
 using UnityEngine;
 
 namespace Weapon.Ranged.Bomb
 {
-  [RequireComponent(typeof(PoolObject))]
-  public class ExplosionEffectController : MonoBehaviour
+  public class ExplosionEffectController : MonoBehaviour, IUsePool
   {
-    [NonSerialized]
-    public PoolObject po;
-    
+    public PoolObject poolObject { get; set; }
+
     private Animator anim;
 
     [SerializeField]
@@ -17,20 +17,13 @@ namespace Weapon.Ranged.Bomb
 
     private void Awake()
     {
-      po = GetComponent<PoolObject>();
       anim = GetComponent<Animator>();
-
-      po.onGet += PoolOnGet;
-      po.onReleased += PoolOnRelease;
     }
 
-    private void PoolOnRelease()
-    {
-    }
-
-    private void PoolOnGet()
+    public void OnSummon()
     {
       anim.Play(animName);
+      GameManager.Sound.Play(SoundType.SFX_Weapon, "sfx/weapon/explosion");
     }
 
     public void SetRange(float range)

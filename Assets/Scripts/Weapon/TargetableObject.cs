@@ -10,6 +10,7 @@ using Interact;
 using Manager;
 using Pool;
 using Pool.Extensions;
+using Sound;
 using UnityEngine;
 using Util;
 
@@ -103,6 +104,7 @@ namespace Weapon
     {
       bleedingTimer.Stop();
       bleedingQueue.Clear();
+      knockBackTimer.Stop();
       OnSummon();
     }
 
@@ -116,19 +118,22 @@ namespace Weapon
       if (isDead) return;
       sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime * 5f);
     }
-
-
-    public void Kill(bool throwCoin = false)
+    
+    public void Kill(bool? throwCoin = null)
     {
+      if (throwCoin.HasValue)
+        playerAttacked = throwCoin.Value;
+      
       isDead = true;
       onDead?.Invoke();
       detectCaster = InteractCaster.Nothing;
       deadTweener = sr.DOFade(0f, 0.3f).OnComplete(poolObject.Release);
     }
+    
     protected override void OnInteract(Interacter caster)
     {
-      if (!caster.TryGetComponent<AttackableObject>(out var ao)) return;
-
+      if (!caster.TryGetComponent<AttackableObject>(out var ao) || !ao.canAttack) return;
+      
       GameManager.Player.SuccessfulAttack();
       Damage(ao.isCritical ? ao.damage * ao.multipleDamage : ao.damage, ao.knockBack, ao.transform);
       if (ao.isCritical)
@@ -138,12 +143,14 @@ namespace Weapon
       }
     }
 
-    private void Damage(float amount, float knockBack = 0f, Transform attacker = null)
+    public void Damage(float amount, float knockBack = 0f, Transform attacker = null)
     {
       hp -= amount;
       sr.color = Color.red;
+      GameManager.Pool.Summon("effect/blood", transform.position);
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(amount));
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/enemyhit");
 
       if (knockBack > 0 && attacker != null)
       {

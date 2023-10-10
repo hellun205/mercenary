@@ -33,6 +33,24 @@
             "key": [
                 27
             ]
+        },
+        {
+            "name": "use_item_0",
+            "key": [
+                49
+            ]
+        },
+        {
+            "name": "use_item_1",
+            "key": [
+                50
+            ]
+        },
+        {
+            "name": "use_item_2",
+            "key": [
+                51
+            ]
         }
     ]
 }

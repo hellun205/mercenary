@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ballista
   m_EditorClassIdentifier: 
   _name: "\uBC1C\uB9AC\uC2A4\uD0C0"
-  m_icon: {fileID: 21300000, guid: 9ae81afd4e34ef844afd2f285fd0a54a, type: 3}
+  m_icon: {fileID: 21300000, guid: c38b77f3de6c69e41b66d5a57cbf79c9, type: 3}
   descriptions: 
   needFlipY: 1
   needFlipX: 0

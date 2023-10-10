@@ -1,0 +1,524 @@
+fileFormatVersion: 2
+guid: 1fb8a441ebdc2db43a70e77157907611
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: weapons_frying_pan
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 435
+        width: 162
+        height: 143
+      alignment: 9
+      pivot: {x: 0.8088874, y: 0.21182315}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20237aada6aefe94789557159b56b91f
+      internalID: -1493616654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_lazer_sword
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 447
+        width: 247
+        height: 127
+      alignment: 9
+      pivot: {x: 0.83665705, y: 0.18131167}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe68fd77cc1d530409b69cbb43abc9f7
+      internalID: 561395107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_knife
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 501
+        width: 172
+        height: 54
+      alignment: 9
+      pivot: {x: 0.83799106, y: 0.4454888}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2cfbfc56c649541b5e14b931e841f1
+      internalID: -180182075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_raipier
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 455
+        width: 242
+        height: 79
+      alignment: 9
+      pivot: {x: 0.89226615, y: 0.21123649}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b69949d6f4220d499f5995c4be6bde5
+      internalID: 202081737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_lance
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 455
+        width: 244
+        height: 71
+      alignment: 9
+      pivot: {x: 0.8950826, y: 0.32380268}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8913e34a244baf45b4e4b717c6176ee
+      internalID: 67567838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_spear
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 465
+        width: 216
+        height: 48
+      alignment: 9
+      pivot: {x: 0.58517116, y: 0.3773524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7abd0c43ee6bced4cb6d7ca705a9f779
+      internalID: 923182233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_bamboo_spear
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 447
+        width: 231
+        height: 100
+      alignment: 9
+      pivot: {x: 0.57008314, y: 0.44848785}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cfa3ce2cfc0e9e41bfc9ee28fa61238
+      internalID: -1439061596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_katana
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 318
+        width: 221
+        height: 28
+      alignment: 9
+      pivot: {x: 0.8396367, y: 0.31602806}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69ee806b748ef114dbc81cf258c4ba94
+      internalID: 237345885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_long_sword
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 250
+        width: 263
+        height: 112
+      alignment: 9
+      pivot: {x: 0.8721367, y: 0.13863018}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea1c553d67dc6ee4cbee21d90336ce0b
+      internalID: -1361397284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_hand_gun
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 261
+        width: 128
+        height: 84
+      alignment: 9
+      pivot: {x: 0.7989507, y: 0.28974843}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62717d6b09621054ba84bb6b70636553
+      internalID: -560463378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_submachine_gun
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 236
+        width: 170
+        height: 134
+      alignment: 9
+      pivot: {x: 0.85495317, y: 0.31328413}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b57eb969bd2dce6408f9d20ba89a64ff
+      internalID: -1486843794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_shot_gun
+      rect:
+        serializedVersion: 2
+        x: 1159
+        y: 293
+        width: 215
+        height: 67
+      alignment: 9
+      pivot: {x: 0.73616576, y: 0.3901663}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09bc6b9b3fa410e468945097568e73cc
+      internalID: 578027944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_sniper_gun
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 316
+        width: 227
+        height: 62
+      alignment: 9
+      pivot: {x: 0.7917577, y: 0.36944038}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5405acb238df2c5488f42ee5e222eca1
+      internalID: -704958012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_granade_launcher
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 57
+        width: 255
+        height: 110
+      alignment: 9
+      pivot: {x: 0.7020061, y: 0.24578677}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fb1ca93df0a4f74fb2154224a22603a
+      internalID: -278266153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_rocket_launcher
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 75
+        width: 285
+        height: 75
+      alignment: 9
+      pivot: {x: 0.5774609, y: 0.33319998}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b318db4e8aa44b46a7dd7d89bffe8bd
+      internalID: 1699283687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_minigun
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 97
+        width: 290
+        height: 83
+      alignment: 9
+      pivot: {x: 0.703001, y: 0.47340155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62eab3c8433b80e44b120c7ad736ce42
+      internalID: -1993950701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_bow
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 56
+        width: 222
+        height: 144
+      alignment: 9
+      pivot: {x: 0.39724153, y: 0.30580923}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da828263547cd334ebbd15e0ce9ca689
+      internalID: 696276822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapons_lazer_gun
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 93
+        width: 206
+        height: 107
+      alignment: 9
+      pivot: {x: 0.6786108, y: 0.2730462}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a330a76e0f71a43823df4164d19fca
+      internalID: -830119626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      weapons_0: -890998049
+      weapons_bamboo_spear: -1439061596
+      weapons_bow: 696276822
+      weapons_frying_pan: -1493616654
+      weapons_granade_launcher: -278266153
+      weapons_hand_gun: -560463378
+      weapons_katana: 237345885
+      weapons_knife: -180182075
+      weapons_lance: 67567838
+      weapons_lazer_gun: -830119626
+      weapons_lazer_sword: 561395107
+      weapons_long_sword: -1361397284
+      weapons_minigun: -1993950701
+      weapons_raipier: 202081737
+      weapons_rocket_launcher: 1699283687
+      weapons_shot_gun: 578027944
+      weapons_sniper_gun: -704958012
+      weapons_spear: 923182233
+      weapons_submachine_gun: -1486843794
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,13 +13,16 @@ namespace Weapon.Melee
     [SerializeField]
     protected AttackableObject attackableObject;
 
-    private void Start()
+    protected override void Start()
     {
+      base.Start();
       GameManager.Wave.onWaveStart += () => ApplyDamage(attackableObject);
     }
 
     protected override void OnFire()
     {
+      StartAnimation();
+      PlayFireSound();
       isAttacking = true;
       attackableObject.RemoveDetection();
       attackableObject.currentCondition = InteractCondition.Attack;

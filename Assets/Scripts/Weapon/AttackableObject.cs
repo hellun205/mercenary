@@ -6,18 +6,18 @@ namespace Weapon
 {
   public class AttackableObject : Interacter
   {
-    [Header("Attack")]
-    public float damage;
+    public float damage { get; set; }
 
-    public float bleeding;
+    public float bleeding { get; set; }
 
-    public static int bleedingCount = 3;
+    public const int bleedingCount = 3;
 
-    public bool isCritical;
+    public bool isCritical { get; set; }
 
-    public float knockBack;
+    public float knockBack { get; set; }
 
-    public float multipleDamage;
+    public float multipleDamage { get; set; }
+    public bool canAttack = true;
 
     private void Reset()
     {

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: long_sword
   m_EditorClassIdentifier: 
   _name: "\uB300\uAC80"
-  m_icon: {fileID: 21300000, guid: 76c51d49ecd7cac4c9599082e7fd2f3b, type: 3}
+  m_icon: {fileID: 21300000, guid: f58df0f717f4f9b43a1f9aa27a3562d9, type: 3}
   descriptions: 
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
   bullet: bullet

@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Manager;
+using Sound;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Util
@@ -58,13 +62,14 @@ namespace Util
 
       return screenPoint;
     }
-    
+
     public static Vector3 WorldToCanvasPosition(this Canvas canvas, Vector3 worldPosition, Camera camera = null)
     {
       if (camera == null)
       {
         camera = GameManager.Camera.camera;
       }
+
       var viewportPosition = camera.WorldToViewportPoint(worldPosition);
       return canvas.ViewportToCanvasPosition(viewportPosition);
     }
@@ -96,20 +101,35 @@ namespace Util
       return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
     }
 
-    public static bool ApplyPercentage(this float percentage, params float[] additive)
+    public static bool ApplyProbability(this float probability, params float[] additive)
     {
-      var random = Random.Range(0f, 1f);
-      foreach (var add in additive)
-        percentage += add;
-      return Mathf.Min(1f, Mathf.Max(0,percentage)) > random;
+      return ApplyProbability(probability, out var _, additive);
     }
-    
+
+    public static bool ApplyProbability(this float probability, out float randomValue, params float[] additive)
+    {
+      return ApplyProbability(probability, out randomValue, out var _, additive);
+    }
+
+    public static bool ApplyProbability
+    (
+      this float probability,
+      out float randomValue,
+      out float finalProbability,
+      params float[] additive
+    )
+    {
+      randomValue = Random.Range(0f, 1f);
+      finalProbability = probability + additive.Sum();
+      return Mathf.Min(1f, Mathf.Max(0f, finalProbability)) >= randomValue;
+    }
+
     public static void ExitGame()
     {
 #if UNITY_EDITOR
       UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit();
+      Application.Quit();
 #endif
     }
 
@@ -133,13 +153,13 @@ namespace Util
       else
         Time.timeScale = 1f;
     }
-    
+
     public static IEnumerable<Enum> GetFlags(this Enum input)
     {
       return Enum.GetValues(input.GetType()).Cast<Enum>().Where(value => input.HasFlag(value));
     }
-    
-    public static IEnumerable<T> GetFlags<T>(this T input) where T: Enum
+
+    public static IEnumerable<T> GetFlags<T>(this T input) where T : Enum
     {
       return Enum.GetValues(input.GetType()).Cast<T>().Where(value => input.HasFlag(value));
     }
@@ -161,6 +181,79 @@ namespace Util
     {
       for (var i = 0; i < count; i++)
         fn?.Invoke(i);
+    }
+
+    public static string ToRomanNumeral(this int number, bool emptyOnOutOfRange = false)
+      => number switch
+      {
+        1  => "Ⅰ",
+        2  => "Ⅱ",
+        3  => "Ⅲ",
+        4  => "Ⅳ",
+        5  => "Ⅴ",
+        6  => "Ⅵ",
+        7  => "Ⅶ",
+        8  => "Ⅷ",
+        9  => "Ⅸ",
+        10 => "Ⅹ",
+        _  => emptyOnOutOfRange ? string.Empty : number.ToString()
+      };
+
+    public static string GetKeyString(this KeyCode keyCode)
+      => keyCode switch
+      {
+        KeyCode.Alpha0       => "0",
+        KeyCode.Alpha1       => "1",
+        KeyCode.Alpha2       => "2",
+        KeyCode.Alpha3       => "3",
+        KeyCode.Alpha4       => "4",
+        KeyCode.Alpha5       => "5",
+        KeyCode.Alpha6       => "6",
+        KeyCode.Alpha7       => "7",
+        KeyCode.Alpha8       => "8",
+        KeyCode.Alpha9       => "9",
+        KeyCode.LeftControl  => "LCtrl",
+        KeyCode.RightControl => "RCtrl",
+        KeyCode.LeftShift    => "LShift",
+        KeyCode.RightShift   => "RShift",
+        KeyCode.Escape       => "ESC",
+        KeyCode.Slash        => "/",
+        KeyCode.Colon        => ":",
+        KeyCode.Semicolon    => ";",
+        KeyCode.Minus        => "-",
+        KeyCode.BackQuote    => "`",
+        KeyCode.LeftAlt      => "LAlt",
+        KeyCode.RightAlt     => "RAlt",
+        KeyCode.UpArrow      => "↑",
+        KeyCode.DownArrow    => "↓",
+        KeyCode.LeftArrow    => "←",
+        KeyCode.RightArrow   => "→",
+        KeyCode.Backslash    => "\\",
+        KeyCode.Comma        => ",",
+        KeyCode.Equals       => "=",
+        KeyCode.Period       => ".",
+        KeyCode.LeftWindows  => "LWin",
+        KeyCode.RightWindows => "RWin",
+        KeyCode.Quote        => ".",
+        KeyCode.LeftBracket  => "[",
+        KeyCode.RightBracket => "]",
+        _                    => keyCode.ToString()
+      };
+
+    public static T Find<T>(this Transform transform, string name) where T : Component
+    {
+      return transform.Find("name").GetComponent<T>();
+    }
+
+    public static void PlaySound(this Object obj) => obj.GetComponent<UseSound>()?.PlaySound();
+
+    public static T[] GetChilds<T>(this Transform transform) where T : Component
+    {
+      var res = new List<T>();
+
+      for (var i = 0; i < transform.childCount; i++)
+        res.Add(transform.GetChild(i).GetComponent<T>());
+      return res.ToArray();
     }
   }
 }

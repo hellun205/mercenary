@@ -26,6 +26,8 @@ namespace Enemy
 
     public float damage => status.damage;
 
+    private Animator anim;
+
     [Header("Enemy Controller")]
     [SerializeField]
     private Timer attackCooldownTimer = new();
@@ -37,6 +39,8 @@ namespace Enemy
 
     private void Awake()
     {
+      anim = GetComponent<Animator>();
+      anim.keepAnimatorStateOnDisable = true;
       to = GetComponent<TargetableObject>();
       movableObject = GetComponent<MovableObject>();
       rangedAttacker = GetComponent<RangedAttacker>();
@@ -74,6 +78,7 @@ namespace Enemy
 
     public void OnSummon()
     {
+      anim.SetTrigger("summon");
       status = GameManager.Data.data.GetEnemyStatus(poolObject.originalName, GameManager.Wave.currentWave);
       movableObject.canMove = true;
 
@@ -90,8 +95,9 @@ namespace Enemy
 
     private void ThrowCoin()
     {
+      if (!GameManager.Wave.state) return;
       var count = status.drop;
-      if (GameManager.Player.status.luck.ApplyPercentage())
+      if (GameManager.Player.status.luck.ApplyProbability())
         count *= 2;
 
       for (var i = 0; i < count; i++)

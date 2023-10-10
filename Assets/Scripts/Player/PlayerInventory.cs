@@ -1,49 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Item;
 using Manager;
 using Store.Inventory;
+using UI;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
+using Util.UI;
 
 namespace Player
 {
-  public class PlayerInventory : MonoBehaviour
+  public class PlayerInventory : PoolableWrapper<InventoryItem, InventoryItem>
   {
     public Dictionary<(string name, int tier), ushort> items = new();
 
     public Dictionary<(string name, int tier), InventoryItem> uiItems = new();
 
-    private IObjectPool<InventoryItem> pool;
-    private (string item, int tier, ushort count) temp;
-    private Transform inventoryItemsParent;
-
     public event Action onChanged;
 
-    private void Awake()
+    protected override void Awake()
     {
-      pool = new ObjectPool<InventoryItem>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy);
-      inventoryItemsParent = GameManager.UI.Find("$inventory_items").transform;
+      base.Awake();
+      parent = GameManager.UI.Find("$inventory_items").transform;
+      instantiateFunc = () => GameManager.Prefabs.Get<InventoryItem>("inventory_item");
       onChanged += () => GameManager.StatusUI.Refresh();
     }
-
-    private void ActionOnDestroy(InventoryItem obj)
-      => Destroy(obj.gameObject);
-
-    private void ActionOnRelease(InventoryItem obj)
-    {
-      obj.gameObject.SetActive(false);
-    }
-
-    private void ActionOnGet(InventoryItem obj)
-    {
-      obj.SetItem((temp.item, temp.tier), temp.count);
-      obj.gameObject.SetActive(true);
-    }
-
-    private InventoryItem CreateFunc()
-      => Instantiate(GameManager.Prefabs.Get<InventoryItem>("inventory_item"), inventoryItemsParent);
-
+    
     public void GainItem(string item, int tier, ushort count = 1)
     {
       if (items.ContainsKey((item, tier)))
@@ -54,8 +38,11 @@ namespace Player
       else
       {
         items.Add((item, tier), count);
-        temp = (item, tier, count);
-        uiItems.Add((item, tier), pool.Get());
+        var obj = Get();
+        obj.component.SetItem((item, tier), count);
+        obj.transform.SetAsLastSibling();
+        obj.Ready();
+        uiItems.Add((item, tier), obj.component);
       }
 
       onChanged?.Invoke();
@@ -68,7 +55,7 @@ namespace Player
       if (items[(item, tier)] <= count)
       {
         items.Remove((item, tier));
-        pool.Release(uiItems[(item, tier)]);
+        Release(uiItems[(item, tier)]);
         uiItems.Remove((item, tier));
       }
       else
@@ -78,6 +65,17 @@ namespace Player
       }
 
       onChanged?.Invoke();
+    }
+
+    public void ClearItem()
+    {
+      foreach (var (item, inventoryItem) in uiItems)
+      {
+        Release(inventoryItem);
+      }
+      
+      items.Clear();
+      uiItems.Clear();
     }
   }
 }

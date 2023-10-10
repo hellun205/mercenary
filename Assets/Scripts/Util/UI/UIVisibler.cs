@@ -12,7 +12,11 @@ namespace Util.UI
     private CanvasGroup canvasGroup;
 
     private Timer timer = new Timer();
-    private int multiple;
+    private int end;
+    private int start => end == 1 ? 0 : 1;
+
+    public bool isVisible { get; private set; } = true;
+
 
     private void Reset()
     {
@@ -28,24 +32,32 @@ namespace Util.UI
 
     private void TimerOnTick(Timer sender)
     {
-      canvasGroup.alpha = sender.value * multiple;
+      canvasGroup.alpha = Mathf.Lerp(start, end, sender.value);
     }
 
-    public void SetVisible(bool visible, float? duration = null, TimerType type = TimerType.Normal)
+    public void SetVisible
+    (
+      bool visible,
+      float? duration = null,
+      TimerType type = TimerType.Normal,
+      bool ignoreEqual = false
+    )
     {
+      if (ignoreEqual && isVisible == visible) return;
+      isVisible = visible;
+      
       canvasGroup.interactable = visible;
       canvasGroup.blocksRaycasts = visible;
-      
+
       if (duration.HasValue)
       {
         timer.duration = duration.Value;
         timer.type = type;
-        multiple = visible ? 1 : -1;
+        end = visible ? 1 : 0;
         timer.Start();
       }
       else
         canvasGroup.alpha = visible ? 1f : 0f;
-        
     }
   }
 
@@ -56,8 +68,11 @@ namespace Util.UI
       this Object obj,
       bool visible,
       float? duration = null,
-      TimerType type = TimerType.Normal
+      TimerType type = TimerType.Normal,
+      bool ignoreEqual = false
     )
-      => obj.GetComponent<UIVisibler>().SetVisible(visible, duration, type);
+      => obj.GetComponent<UIVisibler>().SetVisible(visible, duration, type, ignoreEqual);
+
+    public static bool IsVisible(this Object obj) => obj.GetComponent<UIVisibler>().isVisible;
   }
 }

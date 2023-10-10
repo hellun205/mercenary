@@ -51,6 +51,7 @@ namespace Weapon.Ranged
       isEnabled = true;
       detectEnemy.enabled = true;
       despawnTimer.Start();
+      canAttack = true;
       sr.color = sr.color.Setter(a: 1f);
       currentCondition = InteractCondition.Attack;
     }
@@ -59,6 +60,7 @@ namespace Weapon.Ranged
     {
       isDead = false;
       isEnabled = false;
+      canAttack = false;
       curPenetrateCount = 0;
       despawnTimer.Stop();
       currentCondition = InteractCondition.Normal;
@@ -70,7 +72,7 @@ namespace Weapon.Ranged
       isDead = true;
       isEnabled = false;
       sr.color = sr.color.Setter(a: 0f);
-      CoroutineUtility.Wait(0.1f, () => poolObject.Release());
+      CoroutineUtility.Wait(0.05f, () => poolObject.Release());
     }
 
     private void Update()
@@ -84,10 +86,9 @@ namespace Weapon.Ranged
       transform.Translate(Vector3.right * (Time.deltaTime * speed));
     }
 
-    public void SetTarget(TargetableObject targetableObject, float errorRange)
+    public void SetTarget(float z, float errorRange)
     {
-      var z = transform.GetRotationOfLookAtObject(targetableObject.transform);
-      var rotation = Random.Range(z.eulerAngles.z - errorRange, z.eulerAngles.z + errorRange);
+      var rotation = Random.Range(z - errorRange, z + errorRange);
       transform.rotation = Quaternion.Euler(0, 0, rotation);
       isEnabled = true;
     }

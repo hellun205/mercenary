@@ -3,6 +3,8 @@ namespace Store
   public enum DragType
   {
     Inventory,
-    WeaponSlot
+    WeaponSlot,
+    PartnerSlot,
+    ConsumableSlot,
   }
 }

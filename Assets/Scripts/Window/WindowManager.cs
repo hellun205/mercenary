@@ -7,16 +7,12 @@ using Window.Contents;
 
 namespace Window
 {
-  public enum WindowType
-  {
-    MessageBox,
-    AskBox
-  }
-
   public class WindowManager
   {
     public Dictionary<WindowType, HashSet<Components.Window>> windows { get; private set; }
     public Canvas canvas { get; private set; }
+
+    public bool isOpened => windows.Any(x => x.Value.Count > 0);
 
     public WindowManager()
     {
@@ -41,6 +37,8 @@ namespace Window
       ((RectTransform) obj.transform).anchoredPosition = position == default ? Vector2.zero : position;
         
       windows[type].Add(obj);
+
+      GameManager.UI.RefreshButtonsClickUseSound();
       return obj;
     }
   }

@@ -75,6 +75,26 @@ namespace Data
         }
       ).ToArray();
     }
+    
+    public static IncreaseStatus[] GetWeaponIncreaseStatus(this DataManager.Data data, string weaponName)
+    {
+      var weapon = data.GetWeaponData(weaponName);
+
+      float GetValue(int tier, WeaponStatusItem statusType)
+      {
+        return data.GetWeaponStatusData(weaponName, tier, statusType);
+      }
+
+      return weapon.tiers.Select
+      (
+        (_, i) => new IncreaseStatus()
+        {
+          moveSpeed = $"%+{GetValue(i, WeaponStatusItem.IncreaseMoveSpeedPercent)}" ,
+          evasionRate = $"{GetValue(i, WeaponStatusItem.IncreaseEvasionRate)}" ,
+          bleedingDamage = $"{GetValue(i, WeaponStatusItem.IncreaseBleedingDamagePercent)}" ,
+        }
+      ).ToArray();
+    }
 
     private static (int tier, Dictionary<ItemStatusItem, float> apply) GetItemData
     (
@@ -102,36 +122,31 @@ namespace Data
     public static int GetItemPrice(this DataManager.Data data, string itemName)
       => Convert.ToInt32(data.GetItemStatusData(itemName, ItemStatusItem.Price));
 
-    public static IncreaseStatus[] GetItemStatus(this DataManager.Data data, string itemName)
+    public static IncreaseStatus GetItemStatus(this DataManager.Data data, string itemName)
     {
-      var item = data.GetItemData(itemName);
-
       float GetValue(ItemStatusItem statusType)
       {
         return data.GetItemStatusData(itemName, statusType);
       }
 
-      return item.apply.Select
-      (
-        _ => new IncreaseStatus
-        {
-          attackSpeed = GetValue(ItemStatusItem.AttackSpeed),
-          bleedingDamage = GetValue(ItemStatusItem.BleedingDamage),
-          knockback = GetValue(ItemStatusItem.KnockBack),
-          armor = GetValue(ItemStatusItem.Armor),
-          explosionRange = 0,
-          criticalPercent = GetValue(ItemStatusItem.CriticalPercent),
-          moveSpeed = GetValue(ItemStatusItem.MoveSpeed),
-          range = GetValue(ItemStatusItem.Range),
-          luck = GetValue(ItemStatusItem.Luck),
-          meleeDamage = GetValue(ItemStatusItem.MeleeDamage),
-          rangedDamage = GetValue(ItemStatusItem.RangedDamage),
-          maxHp = GetValue(ItemStatusItem.Hp),
-          regeneration = GetValue(ItemStatusItem.Regenaration),
-          drainHp = GetValue(ItemStatusItem.DrainHp),
-          evasionRate = GetValue(ItemStatusItem.EvasionRate)
-        }
-      ).ToArray();
+      var res = new IncreaseStatus();
+
+      res.SetValue("attackSpeed", GetValue(ItemStatusItem.AttackSpeed));
+      res.SetValue("bleedingDamage", GetValue(ItemStatusItem.BleedingDamage));
+      res.SetValue("knockback", GetValue(ItemStatusItem.KnockBack));
+      res.SetValue("armor", GetValue(ItemStatusItem.Armor));
+      res.SetValue("criticalPercent", GetValue(ItemStatusItem.CriticalPercent));
+      res.moveSpeed = $"%+{GetValue(ItemStatusItem.MoveSpeed)}";
+      res.SetValue("fireRange", GetValue(ItemStatusItem.Range));
+      res.SetValue("luck", GetValue(ItemStatusItem.Luck));
+      res.SetValue("meleeDamage", GetValue(ItemStatusItem.MeleeDamage));
+      res.SetValue("rangedDamage", GetValue(ItemStatusItem.RangedDamage));
+      res.SetValue("maxHp", GetValue(ItemStatusItem.Hp));
+      res.SetValue("regeneration", GetValue(ItemStatusItem.Regenaration));
+      res.SetValue("drainHp", GetValue(ItemStatusItem.DrainHp));
+      res.SetValue("evasionRate", GetValue(ItemStatusItem.EvasionRate));
+
+      return res;
     }
 
     private static SpawnDataSimply.Enemy GetEnemyData(this DataManager.Data data, string enemyName)
@@ -216,7 +231,7 @@ namespace Data
               break;
 
             case ApplyStatus.Range:
-              res.range += value;
+              res.fireRange += value;
               break;
 
             case ApplyStatus.AttackSpeed:
@@ -263,11 +278,11 @@ namespace Data
       sb.Append
         (
           attribute.GetText()
-           .SetSizePercent(1.25f)
-           .AddColor(new Color32(72, 156, 255, 255))
-           .SetLineHeight(1.3f)
+            .SetSizePercent(1.25f)
+            .AddColor(new Color32(72, 156, 255, 255))
+            .SetLineHeight(1.3f)
         )
-       .Append("\n");
+        .Append("\n");
 
       foreach (var (count, value) in attr)
       {
@@ -275,17 +290,17 @@ namespace Data
 
         foreach (var (status, f) in value)
           sb2.Append(status.GetText())
-           .Append(' ')
-           .Append(status.GetValue(f).GetViaValue())
-           .Append("\n");
+            .Append(' ')
+            .Append(status.GetValue(f).GetViaValue())
+            .Append("\n");
 
         sb2.Remove(sb2.ToString().LastIndexOf("\n", StringComparison.Ordinal), 1);
         sb.Append
           (
             $"({count}){sb2.ToString().SetIndent(0.2f)}"
-             .AddColor(i != default && i == count ? Color.white : Color.gray)
+              .AddColor(i != default && i == count ? Color.white : Color.gray)
           )
-         .Append("\n");
+          .Append("\n");
       }
 
       return sb.ToString();
@@ -323,7 +338,7 @@ namespace Data
           delay = x.Value.delay,
           simultaneousSpawnCount = x.Value.simultaneousSpawnCount
         })
-       .ToArray();
+        .ToArray();
     }
 
     public static float GetPlayerStatusData(this DataManager.Data data, PlayerStatusItem statusType)
@@ -350,8 +365,144 @@ namespace Data
         luck = data.GetPlayerStatusData(PlayerStatusItem.Luck),
         range = data.GetPlayerStatusData(PlayerStatusItem.Range),
         drainHp = data.GetPlayerStatusData(PlayerStatusItem.DrainHp),
-        evasionRate =  data.GetPlayerStatusData(PlayerStatusItem.EvasionRate)
+        evasionRate = data.GetPlayerStatusData(PlayerStatusItem.EvasionRate)
       };
+    }
+
+    public static int GetIncreaseRefreshPrice(this DataManager.Data data, int wave)
+    {
+      if (data.store.refreshPrices.Length <= wave)
+        throw new Exception($"Increase Refresh Price (wave: {wave}) data does not exist.");
+
+      return data.store.refreshPrices[wave];
+    }
+
+    public static float GetProbabilityOfPossessibleObject(this DataManager.Data data, int tier)
+    {
+      if (data.store.tierProbabilities.Length <= tier)
+        throw new Exception($"Probability of Possessible Object (tier: {tier}) data does not exist.");
+
+      return data.store.tierProbabilities[tier];
+    }
+
+    public static float GetIncreaseProbabilityByWaveWithoutMultiple(this DataManager.Data data, int tier)
+    {
+      if (data.store.additionalProbabilitiesOfWaves.Length <= tier)
+        throw new Exception($"Probability of Possessible Object (tier: {tier}) data does not exist.");
+
+      return data.store.additionalProbabilitiesOfWaves[tier];
+    }
+
+    public static float GetIncreaseProbabilityByWave(this DataManager.Data data, int tier, int wave)
+    {
+      return data.GetIncreaseProbabilityByWaveWithoutMultiple(tier) * wave;
+    }
+
+    public static (Attribute attr, Dictionary<int, Dictionary<PartnerData.Status, string>> tiers) GetPartnerData
+    (
+      this DataManager.Data data, string partnerName
+    )
+    {
+      if (!data.partner.TryGetValue(partnerName, out var value))
+        throw new Exception($"Partner({partnerName}) data does not exist.");
+
+      var f = value.First();
+      return (f.Key, f.Value);
+    }
+
+    public static string GetPartnerStatusData
+    (
+      this DataManager.Data data, string partnerName, int tier, PartnerData.Status statusType
+    )
+    {
+      var partner = data.GetPartnerData(partnerName);
+      if (!partner.tiers.TryGetValue(tier, out var status))
+        throw new Exception($"Partner(tier:{tier}) data does not exist.");
+
+      return status.TryGetValue(statusType, out var value) ? value : statusType.GetMinValue();
+    }
+
+    public static Attribute GetPartnerAttribute(this DataManager.Data data, string partnerName)
+    {
+      return data.GetPartnerData(partnerName).attr;
+    }
+
+    public static IncreaseStatus GetPartnerStatus(this DataManager.Data data, string partnerName, int tier)
+    {
+      string GetValue(PartnerData.Status status)
+      {
+        return data.GetPartnerStatusData(partnerName, tier, status);
+      }
+
+      return new IncreaseStatus
+      {
+        attackSpeed = GetValue(PartnerData.Status.AttackSpeed),
+        knockback = GetValue(PartnerData.Status.Knockback),
+        bleedingDamage = GetValue(PartnerData.Status.BleedingDamage),
+        criticalPercent = GetValue(PartnerData.Status.CriticalPercent),
+        explosionRange = GetValue(PartnerData.Status.ExplosionRange),
+        attackDamage = GetValue(PartnerData.Status.Damage),
+        fireRange = GetValue(PartnerData.Status.Range),
+        multipleCritical = GetValue(PartnerData.Status.MultipleCritical),
+        penetrateCount = GetValue(PartnerData.Status.PenetrateCount),
+        errorRange = GetValue(PartnerData.Status.ErrorRange)
+      };
+    }
+
+    public static Dictionary<ConsumableApplyStatus, string> GetConsumableData
+    (
+      this DataManager.Data data, string consumableName
+    )
+    {
+      if (!data.consumables.TryGetValue(consumableName, out var value))
+        throw new Exception($"Consumable({consumableName}) data does not exist.");
+
+      return value;
+    }
+
+    public static string GetConsumableStatusData
+    (
+      this DataManager.Data data, string consumableName, ConsumableApplyStatus statusType
+    )
+    {
+      var consumable = data.GetConsumableData(consumableName);
+
+      return consumable.TryGetValue(statusType, out var value) ? value : statusType.GetMinValue();
+    }
+
+    public static IncreaseStatus GetConsumableStatus(this DataManager.Data data, string consumableName)
+    {
+      string GetValue(ConsumableApplyStatus status)
+      {
+        return data.GetConsumableStatusData(consumableName, status);
+      }
+
+      return new IncreaseStatus
+      {
+        hp = GetValue(ConsumableApplyStatus.Hp),
+        regeneration = GetValue(ConsumableApplyStatus.Regeneration),
+        drainHp = GetValue(ConsumableApplyStatus.DrainHp),
+        meleeDamage = GetValue(ConsumableApplyStatus.MeleeDamage),
+        rangedDamage = GetValue(ConsumableApplyStatus.RangedDamage),
+        criticalPercent = GetValue(ConsumableApplyStatus.CriticalPercent),
+        bleedingDamage = GetValue(ConsumableApplyStatus.BleedingDamage),
+        fireRange = GetValue(ConsumableApplyStatus.Range),
+        armor = GetValue(ConsumableApplyStatus.Armor),
+        evasionRate = GetValue(ConsumableApplyStatus.EvasionRate),
+        knockback = GetValue(ConsumableApplyStatus.Knockback),
+        moveSpeed = $"%+{GetValue(ConsumableApplyStatus.MoveSpeed)}",
+        luck = GetValue(ConsumableApplyStatus.Luck),
+        killEnemy = GetValue(ConsumableApplyStatus.KillEnemy),
+        resurrection = GetValue(ConsumableApplyStatus.Resurrection),
+      };
+    }
+
+    public static KeyCode[] GetKeyData(this DataManager.Data data, string name)
+    {
+      if (!data.keys.TryGetValue(name, out var key))
+        key = KeyManager.defaultData[name];
+
+      return key;
     }
   }
 }

@@ -10,7 +10,6 @@ namespace Weapon.Ranged.Bomb
     [Header("Bomb")]
     // [SerializeField]
     // private SpriteRenderer sr;
-
     [NonSerialized]
     public Vector2 targetPosition;
 
@@ -20,6 +19,8 @@ namespace Weapon.Ranged.Bomb
 
     [NonSerialized]
     public RangedBombWeapon mainCtrler;
+
+    private bool isFired;
 
     protected override void Awake()
     {
@@ -38,6 +39,7 @@ namespace Weapon.Ranged.Bomb
     public override void OnSummon()
     {
       base.OnSummon();
+      isFired = false;
       currentCondition = InteractCondition.Normal;
       // sr.color = sr.color.Setter(a: 1f);
       OnStart();
@@ -50,7 +52,7 @@ namespace Weapon.Ranged.Bomb
     public virtual void OnStart()
     {
     }
-    
+
 
     public void SetRange(float range)
     {
@@ -60,9 +62,10 @@ namespace Weapon.Ranged.Bomb
 
     protected void Fire()
     {
+      if (isFired) return;
+      isFired = true;
       isEnabled = false;
       currentCondition = InteractCondition.Attack;
-      // sr.color = sr.color.Setter(a: 0f);
 
       GameManager.Pool.Summon<ExplosionEffectController>
       (
@@ -70,7 +73,6 @@ namespace Weapon.Ranged.Bomb
         transform.position,
         obj => obj.SetRange(explosionRange)
       );
-      // CoroutineUtility.Wait(0.2f, () => poolObject.Release());
       Kill();
     }
   }

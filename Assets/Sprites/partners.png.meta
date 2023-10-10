@@ -1,0 +1,1169 @@
+fileFormatVersion: 2
+guid: efa9bf3271e3a3a42b79d838b86ae03a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: partners_specialforce_1
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 1646
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e47cafad3f8ba48b59a3f4a8f6c8ca
+      internalID: 907666492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_specialforce_4
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 1646
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 405ec1622f5038647bf5affe9b62b6ad
+      internalID: -1930490276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_brute_1
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 1646
+        width: 111
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0797a7bb1c5ad49b4bfcfdc15fe2e7
+      internalID: 2133395079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_specialforce_0
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 1646
+        width: 121
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8224ba4a2a8fa5b419e0a96e1fd036ed
+      internalID: 937470438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_specialforce_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1646
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 524292599aa8a1042a4463c9b1db8b89
+      internalID: 887265817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_specialforce_3
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 1646
+        width: 117
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84aa702c446f71c4cb1b49ce90623d85
+      internalID: -2018963895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_brute_0
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 1646
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0af46e32fd814945ba726deb2a34656
+      internalID: 1985144042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_brute_2
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1646
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e95acccf3e1dc46961ad13bfcf8b3e
+      internalID: -106096120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_brute_3
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 1646
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc8cba0cd9855f4398cc6644a80ce4a
+      internalID: 1798817737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_brute_4
+      rect:
+        serializedVersion: 2
+        x: 1767
+        y: 1646
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc33801db33b5834aa6f257e5cdc8d78
+      internalID: 1755628184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_futherperson_1
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 1333
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67cfa1dd003a4a242837be8f6f06fac1
+      internalID: -1420854046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_futherperson_3
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 1333
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40be83465125b294999746a7d25233a5
+      internalID: -1107384567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_futherperson_4
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 1335
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f087a47f91aaf46816ebbc631f53b9
+      internalID: -918083793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_marksman_0
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 1333
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4d1b47785b741449b7433179f143b3d
+      internalID: 1862682391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_futherperson_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 1333
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b6155d5ea6eaf74f89cbc64e0c17a27
+      internalID: -1194929497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_futherperson_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1333
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8b39e1382e754d4c95ed564884a2762
+      internalID: 1796615898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_marksman_1
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 1333
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 397389ef45e20f0479b4ebc88f701016
+      internalID: 496320744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_marksman_2
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 1333
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ceabf1b4a3cf64e8b619e8cb9b4679
+      internalID: -994849346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_marksman_3
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 1333
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 220e4fec4f303c743ad874a09927a3c9
+      internalID: 1019128648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_marksman_4
+      rect:
+        serializedVersion: 2
+        x: 1767
+        y: 1333
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd5f9ca6ebb49d14dab3dfe54336e6bb
+      internalID: -463909708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_assassin_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 1027
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47f063c9dd7bb4c4f8281d15854f58e8
+      internalID: -1795976774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_assassin_1
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 1027
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f50a21cbfb705479c795513b7378d2
+      internalID: -1148755211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_assassin_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1027
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c322ddd8dddf9c4ab30894890910611
+      internalID: 1050809129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_assassin_3
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 1027
+        width: 117
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b967c0bb49be5ca4d9a724240ee10445
+      internalID: 1209832138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_assassin_4
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 1027
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3df110a5d29044eb57909d14cb3faf
+      internalID: -249095356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_bomber_0
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 1027
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 581de57116ebe4b4f93bac8e31139aa6
+      internalID: -1305088096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_bomber_1
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 1027
+        width: 113
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c76587e98f9c7ee4bbc27c6fcfdc64eb
+      internalID: 1005846895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_bomber_2
+      rect:
+        serializedVersion: 2
+        x: 1508
+        y: 1027
+        width: 122
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b892857d4ee58114da8afacf274f5d56
+      internalID: 2009806120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_bomber_3
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 1027
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d70921c68477024ea153dfec7aba2b1
+      internalID: 1805246857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_bomber_4
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 1027
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c84b8801d4e7a2418fafd060f4b01f6
+      internalID: -1042063908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_spearman_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 685
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 798fbaf4d0c6d8f4eb4aaa0698b05038
+      internalID: 144698265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_spearman_1
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 685
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bca1f0c558a71b479e1a4a8a9362406
+      internalID: 2117581924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_spearman_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 687
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e5defbe9967a9a4cad03f8218a05d7f
+      internalID: 1758870396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_spearman_3
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 685
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df90cd79dd75f904489c3aebec9e3d6c
+      internalID: -1792463682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_spearman_4
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 685
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 858ebc5cae352244182bd94bd5e32991
+      internalID: -671492814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_knight_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 343
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f3f695a480e12c4583028b52100a4e2
+      internalID: -1981982137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_knight_1
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 343
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c27d127eeee2eea49bfffca3850eb24d
+      internalID: 2005763631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_knight_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 343
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12745e68a7a32cc4a884dfa95b08dc17
+      internalID: 1532547288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_knight_3
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 343
+        width: 117
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 912f73944fc75d741b086695b53eb2c9
+      internalID: -569060473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_knight_4
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 343
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f3f3b65375b2d49b33d38cd7564afc
+      internalID: 1590784445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_striker_0
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 27
+        width: 118
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2856193f871ee0a4bae43236c5869367
+      internalID: 111698753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_striker_1
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 27
+        width: 119
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10f75cbe02318f04892de742cfca4904
+      internalID: -1789199903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_striker_2
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 27
+        width: 120
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d289174599c62548a34131cba2f4e81
+      internalID: -1320171660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_striker_3
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 27
+        width: 117
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c04a36b46edab17458f1fff713154f3f
+      internalID: 1300186106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: partners_striker_4
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 27
+        width: 116
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cdf25f92e06180498390e56fc353684
+      internalID: -1288807449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      partners_0: -272902720
+      partners_11: -2031758991
+      partners_12: -442138892
+      partners_13: 1889355942
+      partners_14: 2025540380
+      partners_15: -194096249
+      partners_19: 1529285349
+      partners_2: 1635819383
+      partners_24: -1708263842
+      partners_25: 844546267
+      partners_26: 264310386
+      partners_27: -980288993
+      partners_28: -1657794466
+      partners_29: -1715859382
+      partners_3: -291070643
+      partners_30: 372402842
+      partners_31: 931915321
+      partners_32: -184878141
+      partners_33: -949739815
+      partners_34: 1435704032
+      partners_36: 241457618
+      partners_38: -918280055
+      partners_4: -933161777
+      partners_40: -243875787
+      partners_44: -1378511405
+      partners_47: 252519285
+      partners_50: 1353176294
+      partners_51: -385364942
+      partners_57: -761751742
+      partners_6: -1909898520
+      partners_60: -719660091
+      partners_64: -439073805
+      partners_65: 1305986232
+      partners_66: 910712334
+      partners_67: -1738520424
+      partners_7: -1779398407
+      partners_71: 2087322897
+      partners_74: 547932295
+      partners_75: -1086203610
+      partners_76: -1067245149
+      partners_77: -1593357769
+      partners_80: -730068616
+      partners_83: -1290311084
+      partners_85: 907143966
+      partners_86: 1723686155
+      partners_87: 48083890
+      partners_88: -395913459
+      partners_9: 2044994138
+      partners_93: -1909195548
+      partners_95: -957884846
+      partners_96: -420663696
+      partners_97: 562789156
+      partners_assassin_0: -1795976774
+      partners_assassin_1: -1148755211
+      partners_assassin_2: 1050809129
+      partners_assassin_3: 1209832138
+      partners_assassin_4: -249095356
+      partners_bomber_0: -1305088096
+      partners_bomber_1: 1005846895
+      partners_bomber_2: 2009806120
+      partners_bomber_3: 1805246857
+      partners_bomber_4: -1042063908
+      partners_brute_0: 1985144042
+      partners_brute_1: 2133395079
+      partners_brute_2: -106096120
+      partners_brute_3: 1798817737
+      partners_brute_4: 1755628184
+      partners_futherperson_0: -1194929497
+      partners_futherperson_1: -1420854046
+      partners_futherperson_2: 1796615898
+      partners_futherperson_3: -1107384567
+      partners_futherperson_4: -918083793
+      partners_knight_0: -1981982137
+      partners_knight_1: 2005763631
+      partners_knight_2: 1532547288
+      partners_knight_3: -569060473
+      partners_knight_4: 1590784445
+      partners_marksman_0: 1862682391
+      partners_marksman_1: 496320744
+      partners_marksman_2: -994849346
+      partners_marksman_3: 1019128648
+      partners_marksman_4: -463909708
+      partners_spearman_0: 144698265
+      partners_spearman_1: 2117581924
+      partners_spearman_2: 1758870396
+      partners_spearman_3: -1792463682
+      partners_spearman_4: -671492814
+      partners_specialforce_0: 937470438
+      partners_specialforce_1: 907666492
+      partners_specialforce_2: 887265817
+      partners_specialforce_3: -2018963895
+      partners_specialforce_4: -1930490276
+      partners_striker_0: 111698753
+      partners_striker_1: -1789199903
+      partners_striker_2: -1320171660
+      partners_striker_3: 1300186106
+      partners_striker_4: -1288807449
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

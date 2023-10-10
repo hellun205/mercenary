@@ -9,6 +9,8 @@ namespace Player
 {
   public class WeaponInventory : MonoBehaviour
   {
+    [SerializeField]
+    private string layerName;
     public int weaponMaxCount;
 
     public List<(string name, int tier)?> weapons = new();
@@ -18,6 +20,10 @@ namespace Player
     public Transform weaponParent;
 
     public event Action onChanged;
+
+    public bool isPartnerOwner { get; set; }
+
+    public Func<IncreaseStatus> statusGetter { get; set; }
 
     private void Awake()
     {
@@ -51,7 +57,20 @@ namespace Player
         Quaternion.identity,
         weaponSlots[slot]);
       obj.name = weaponName;
+      var wc = obj.GetComponent<WeaponController>();
+      wc.additionalStatusGetter = statusGetter;
+      wc.isAdditionalStatus = isPartnerOwner;
+
+      if (isPartnerOwner)
+      {
+        wc.sr.gameObject.layer = LayerMask.NameToLayer(layerName);
+        if (wc.arrowSr != null)
+          wc.arrowSr.gameObject.layer = LayerMask.NameToLayer(layerName);
+      }
+      
+      
       ((ITier) obj.GetComponent(typeof(ITier))).tier = tier;
+      
       onChanged?.Invoke();
     }
 

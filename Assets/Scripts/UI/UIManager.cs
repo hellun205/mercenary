@@ -1,16 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using Manager;
 using Scene;
+using Sound;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using Util;
 
 namespace UI
 {
   public class UIManager : MonoBehaviour, ISceneChangeEventHandler
   {
     public List<GameObject> items;
-    
+
     private void Load()
     {
       items.Clear();
@@ -45,21 +51,21 @@ namespace UI
 
       if (!objs.Any())
         throw new Exception($"invalid managed ui: \"{name}\"");
-      
+
       if (setter is not null)
         foreach (var obj in objs)
           setter.Invoke(obj);
 
       return objs;
     }
-    
+
     public T[] FindAll<T>(string name, Action<T> setter = null) where T : Component
     {
       var objs = items.FindAll(x => x.name == name).Select(x => x.GetComponent<T>()).ToArray();
-      
+
       if (!objs.Any())
         throw new Exception($"invalid managed ui: \"{name}\" (\"{typeof(T).Name}\")");
-      
+
       if (setter is not null)
         foreach (var obj in objs)
           setter.Invoke(obj);
@@ -70,6 +76,30 @@ namespace UI
     public void OnSceneChanged(string before, string after)
     {
       Load();
+      RefreshButtonsClickUseSound();
+
+      var keyInfo = items.Where(x => x.name.Contains("keyinfo"));
+
+      foreach (var obj in keyInfo)
+      {
+        var keyName = obj.name.Split('.')[1];
+        obj.GetComponent<TextMeshProUGUI>().text = GameManager.Data.data.GetKeyData(keyName)[0].GetKeyString();
+      }
+    }
+
+    public void RefreshButtonsClickUseSound()
+    {
+      var selectables = FindObjectsByType<Selectable>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+      // var selectables = FindObjectsOfType<Selectable>();
+      foreach (var selectable in selectables)
+      {
+        if (selectable.TryGetComponent<PointerSound>(out var _)) continue;
+
+        selectable.gameObject.AddComponent<PointerSound>();
+        var useSound = selectable.GetComponent<UseSound>();
+        useSound.type = SoundType.SFX_UI;
+        useSound.sounds = new[] { "sfx/ui/click" };
+      }
     }
   }
 }

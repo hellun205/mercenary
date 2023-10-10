@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Coin;
+using Consumable;
 using Data;
 using DG.Tweening;
 using DG.Tweening.Core;
@@ -9,14 +11,22 @@ using DG.Tweening.Plugins.Options;
 using Enemy;
 using Interact;
 using Manager;
+using Player.Partner;
 using Pool.Extensions;
+using Scene;
+using Sound;
+using Store.Consumable;
 using Store.Equipment;
 using Store.Status;
+using Transition;
 using UI;
 using UnityEngine;
 using Util;
+using Weapon;
+using Weapon.Ranged.Bomb;
 using Attribute = Weapon.Attribute;
 using ItemData = Item.ItemData;
+using WeaponData = Weapon.WeaponData;
 
 namespace Player
 {
@@ -30,6 +40,7 @@ namespace Player
     public PlayerStatus status;
 
     private ProgressBar hpBar;
+    public PlayerMovement movement { get; private set; }
 
     [NonSerialized]
     public WeaponInventory weaponInventory;
@@ -38,7 +49,8 @@ namespace Player
 
     private float time;
 
-    public List<WeaponInventory> partnerWeaponInventories;
+    // public List<WeaponInventory> partnerWeaponInventories;
+    public PartnerController[] partners;
 
     [SerializeField]
     private SpriteRenderer sr;
@@ -50,38 +62,69 @@ namespace Player
     [SerializeField]
     private CoinExplorer coinExplorer;
 
-    public PlayerStatus currentStatus { get; private set; }
+    public PlayerStatus currentStatus;
+
+    public Dictionary<BuffData, BuffInformationItem> buffs { get; } = new();
+
+    public Dictionary<string, Action<float>> activeConsumable;
+    public Dictionary<string, Action<float>> endActiveConsumable;
+
+    private Timer invincibilityTimer = new Timer();
+    private bool isInvincibility;
+    public float moveSpeedPercent { get; private set; }
+
+    public bool isResurrection { get; private set; }
 
     private void Awake()
     {
       if (GameManager.Player == null) GameManager.Player = this;
 
+      movement = GetComponent<PlayerMovement>();
       inventory = GetComponent<PlayerInventory>();
       weaponInventory = GetComponent<WeaponInventory>();
       io = GetComponent<InteractiveObject>();
       hpBar = GameManager.UI.Find<ProgressBar>("$hp");
       anim = GetComponent<Animator>();
+      partners = GetComponentsInChildren<PartnerController>();
       io.onInteract += OnDamage;
-      weaponInventory.onChanged += RefreshStatus;
-      GameManager.Wave.onWaveStart += RefreshStatus;
-      foreach (var partnerWeaponInventory in partnerWeaponInventories)
+      weaponInventory.onChanged += () => RefreshStatus();
+      GameManager.Wave.onWaveStart += () => RefreshStatus();
+      GameManager.Wave.onWaveEnd += WaveOnonWaveEnd;
+      activeConsumable = new()
       {
-        partnerWeaponInventory.onChanged += RefreshStatus;
-      }
+        { "resurrection", OnUseResurrection },
+        { "killEnemy", OnUseKillEnemy }
+      };
+      endActiveConsumable = new()
+      {
+        { "resurrection", OnEndResurrection }
+      };
+      invincibilityTimer.onEnd += _ => isInvincibility = false;
+      invincibilityTimer.onStart += _ => isInvincibility = true;
+
+      partners.Length.For(i =>
+      {
+        partners[i].wrapper = FindObjectsOfType<WeaponSlotWrapper>()
+          .First
+          (
+            x => x.type == EquipmentType.Partner && x.partnerIndex == i
+          );
+      });
 
       RefreshHpBar();
     }
 
-    private void RefreshStatus()
+    public PlayerStatus RefreshStatus()
     {
       currentStatus = GetStatus();
+      return currentStatus;
     }
 
     private void OnDamage(Interacter obj)
     {
       if (obj.TryGetComponent(typeof(IAttacker), out var component))
       {
-        Hit(((IAttacker) component).damage * (1 - currentStatus.armor));
+        Hit(((IAttacker)component).damage * (1 - currentStatus.armor));
       }
     }
 
@@ -101,6 +144,26 @@ namespace Player
       }
 
       time += Time.deltaTime;
+
+      if (GameManager.Wave.state)
+        GameManager.Key.KeyMap(GetKeyType.Down,
+          (Keys.UseItem1, () => UseItem(0)),
+          (Keys.UseItem2, () => UseItem(1)),
+          (Keys.UseItem3, () => UseItem(2))
+        );
+    }
+
+    private void UseItem(int index)
+    {
+      var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
+      var slot = wrapper.slots[index];
+
+      if (string.IsNullOrEmpty(slot.itemData)) return;
+
+      var item = GameManager.Consumables.Get(slot.itemData) as ConsumableItem;
+      if (item!.GetDuration() < 0) return;
+      UseConsumableItem(slot.itemData);
+      slot.SetItem(null);
     }
 
     private void LateUpdate()
@@ -116,11 +179,14 @@ namespace Player
 
     private void Hit(float damage)
     {
-      if (currentStatus.evasionRate.ApplyPercentage())
+      if (isInvincibility) return;
+
+      if (currentStatus.evasionRate.ApplyProbability())
       {
         GameManager.Pool.Summon("ui/miss", transform.GetAroundRandom(0.4f));
         return;
       }
+
       var dmg = damage * (1 - currentStatus.armor);
       status.hp = Mathf.Max(0, status.hp - dmg);
       colorTweener.Kill();
@@ -129,6 +195,64 @@ namespace Player
 
       GameManager.Pool.Summon<Damage>("ui/damage", transform.GetAroundRandom(0.4f),
         obj => obj.value = Mathf.RoundToInt(damage));
+
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/playerhit");
+
+      if (status.hp <= 0)
+      {
+        var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
+        foreach (var consumableSlot in wrapper.slots)
+        {
+          if (string.IsNullOrEmpty(consumableSlot.itemData)) continue;
+          var item = GameManager.Consumables.Get(consumableSlot.itemData) as ConsumableItem;
+          var resurrection = item!.GetStatus().GetValue("resurrection");
+          if (item!.GetDuration() < 0 && resurrection > 0)
+          {
+            consumableSlot.SetItem(null);
+            Resurrection(true, resurrection);
+            return;
+          }
+        }
+
+        if (isResurrection)
+          Resurrection();
+        else
+          Dead();
+      }
+    }
+
+    private void Resurrection(bool isAutoUsing = false, float invTime = 0f)
+    {
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/resurrection");
+      GameManager.Broadcast.Say("부활하였습니다.");
+      var white = GameManager.UI.Find<Animator>("$white");
+      white.SetFloat("speed", 0.5f);
+      white.Play("FadeIn");
+      1f.Wait(() => white.Play("None"));
+      status.hp = currentStatus.maxHp;
+
+      if (!isAutoUsing)
+      {
+        var buff = buffs
+          .Where(x => x.Key.status.GetValue("resurrection") > 0)
+          .OrderByDescending(x => x.Key.timer.elapsedTime)
+          .First()
+          .Key;
+        invincibilityTimer.duration = buff.status.GetValue("resurrection");
+        OnBuffEnd(buff);
+      }
+      else
+      {
+        invincibilityTimer.duration = invTime;
+      }
+
+      invincibilityTimer.Start();
+    }
+
+    public void Dead()
+    {
+      Debug.Log("Dead");
+      GameManager.Manager.GameOver(GameOverReason.Dead);
     }
 
     public void Heal(int amount)
@@ -144,22 +268,40 @@ namespace Player
 
     public void SuccessfulAttack()
     {
-      if (currentStatus.drainHp.ApplyPercentage())
+      if (currentStatus.drainHp.ApplyProbability())
       {
         Heal(1);
       }
     }
 
-    public PlayerStatus GetStatus()
+    private PlayerStatus GetStatus()
     {
       var res = status;
+      var increases = new IncreaseStatus()
+      {
+        moveSpeed = "%+0"
+      };
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
-        res += ((ItemData) GameManager.GetItem(item.name)).status[item.tier] * count;
+        increases += ((ItemData)GameManager.GetItem(item.name)).status * count;
 
-      res += GetChemistryStatus(out var _);
+      foreach (var (data, ui) in buffs)
+        increases += data.status;
 
+      foreach (var item in weaponInventory.weapons.Where(x => x.HasValue).Select
+                 (x => ((WeaponData)GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+        increases += item;
+
+      foreach (var partnerWI in partners.Select(x => x.weaponInventory.weapons))
+      foreach (var item in partnerWI.Where(x => x.HasValue).Select
+                 (x => ((WeaponData)GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+        increases += item;
+
+      increases += GetChemistryStatus(out var _);
+
+      res += increases;
+      moveSpeedPercent = increases.GetValue("moveSpeed");
       return res;
     }
 
@@ -175,15 +317,15 @@ namespace Player
       }
 
       foreach (var weapon in weaponInventory.weapons.Where(x => x != null)
-                .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-        foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-          Add(flag);
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
-      foreach (var partnerWeaponInventory in partnerWeaponInventories)
-        foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
-                  .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-          foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-            Add(flag);
+      foreach (var partnerWeaponInventory in partners.Select(x => x.weaponInventory))
+      foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
       foreach (var (att, count) in dict)
         res += GameManager.Data.data.GetAttributeChemistryIncrease(att, count);
@@ -192,17 +334,101 @@ namespace Player
       return res;
     }
 
-    // protected override void OnInteract(Interacter caster)
-    // {
-    //   base.OnInteract(caster);
-    //   if (caster.TryGetComponent<EnemyController>(out var ec))
-    //   {
-    //     Hit(ec.status.damage);
-    //   }
-    // }
+    private void WaveOnonWaveEnd()
+    {
+      var list = buffs.Keys.ToList();
+      for (var i = 0; i < list.Count; i++)
+        OnBuffEnd(list[i]);
+    }
+
+    public void UseConsumableItem(string consumableItemName)
+    {
+      GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/useitem");
+      var consumable = GameManager.Consumables.Get(consumableItemName) as ConsumableItem;
+      var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
+      var stat = consumable.GetStatus();
+
+      var heal = stat.GetValue("hp");
+      if (heal > 0)
+      {
+        Heal(Mathf.FloorToInt(currentStatus.maxHp * heal));
+      }
+
+      if (consumable.GetDuration() > 0)
+      {
+        var buff = new BuffData(consumable)
+        {
+          onEnd = OnBuffEnd,
+          onTick = OnBuffTick
+        };
+
+        buffs.Add(buff, buffWrapper.Add(buff.name, buff.icon, stat.GetDescription()));
+        buff.StartTimer();
+      }
+
+      foreach (var (fieldName, action) in activeConsumable)
+      {
+        var value = stat.GetValue(fieldName);
+        if (value > 0)
+          action.Invoke(value);
+      }
+
+      RefreshStatus();
+    }
+
+    private void OnBuffTick(BuffData targetBuffData)
+    {
+      buffs[targetBuffData].timerImage.fillAmount = targetBuffData.timer.value;
+    }
+
+    private void OnBuffEnd(BuffData targetBuffData)
+    {
+      var buffWrapper = GameManager.UI.Find<BuffInformation>("$buff_wrapper");
+      targetBuffData.timer.Stop();
+      buffWrapper.Remove(buffs[targetBuffData]);
+      buffs.Remove(targetBuffData);
+
+      foreach (var (fieldName, action) in endActiveConsumable)
+      {
+        var value = targetBuffData.status.GetValue(fieldName);
+        if (value > 0)
+          action.Invoke(value);
+      }
+
+      RefreshStatus();
+    }
+
+    private void OnUseResurrection(float value)
+    {
+      isResurrection = true;
+    }
+
+    private void OnEndResurrection(float obj)
+    {
+      isResurrection = false;
+    }
+
+    private void OnUseKillEnemy(float value)
+    {
+      var enemies = FindObjectsOfType<TargetableObject>();
+      var count = value > 9999 ? 9999 : Mathf.FloorToInt(value);
+      Debug.Log(count);
+      var i = 0;
+
+      foreach (var targetableObject in enemies)
+      {
+        if (i >= count) break;
+        GameManager.Pool.Summon<ExplosionEffectController>("effect/explosion", targetableObject.transform.position,
+          obj => { obj.SetRange(2f); });
+        targetableObject.Kill(true);
+        i++;
+      }
+    }
 
     private void Start()
     {
+      foreach (var partner in partners)
+        partner.weaponInventory.onChanged += () => RefreshStatus();
       status = GameManager.Data.data.GetPlayerStatus();
       coinExplorer.GetComponent<CircleCollider2D>().radius =
         GameManager.Data.data.GetPlayerStatusData(PlayerStatusItem.CoinDetectRange) / 10;

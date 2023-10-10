@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: katana
   m_EditorClassIdentifier: 
   _name: "\uCE74\uD0C0\uB098"
-  m_icon: {fileID: 21300000, guid: 864e56da447c48341b22952af97e88dd, type: 3}
+  m_icon: {fileID: 21300000, guid: 8c2deb530b7cb8e4bafc3898623a6a87, type: 3}
   descriptions: 
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
   bullet: bullet

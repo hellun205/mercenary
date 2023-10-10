@@ -24,6 +24,8 @@ namespace UI
     [SerializeField]
     private Timer animationTimer = new Timer();
 
+    public bool lastToReverse = true;
+
     private float startX;
     private float endX;
 
@@ -54,7 +56,11 @@ namespace UI
 
     public void SlidePage(int index)
     {
-      if (index >= pages.Count || index <= -1 || animationTimer.isPlaying) return;
+      if (animationTimer.isPlaying) return;
+      if (index > pages.Count - 1 || index < 0)
+        if (lastToReverse)
+          index = index < 0 ? pages.Count - 1 : index > pages.Count - 1 ? 0 : index;
+        else return;
 
       Set(index);
       animationTimer.Start();

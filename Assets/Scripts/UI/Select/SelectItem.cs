@@ -1,7 +1,9 @@
 ﻿using System;
+using DG.Tweening;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Select
@@ -15,19 +17,27 @@ namespace UI.Select
     protected Outline outline;
 
     [SerializeField]
+    protected Image panel;
+    
+    [SerializeField]
     protected Image icon;
 
     [SerializeField]
     protected Color defaultColor;
+    [SerializeField]
+    protected Color defaultOutlineColor;
     
     [SerializeField]
     protected Color selectColor;
-
-    [SerializeField]
-    protected float defaultBold = 1;
     
     [SerializeField]
-    protected float selectBold = 3;
+    protected Color selectOutlineColor;
+
+    [SerializeField]
+    protected float defaultOutlineBold = 1;
+    
+    [SerializeField]
+    protected float selectOutlineBold = 3;
 
     [SerializeField]
     protected string m_popupName;
@@ -53,16 +63,18 @@ namespace UI.Select
     public void Select()
     {
       isSelected = true;
-      outline.effectColor = selectColor;
-      outline.effectDistance = new Vector2(selectBold, -selectBold);
+      outline.DOColor(selectOutlineColor, 0.2f);
+      panel.DOColor(selectColor, 0.2f);
+      outline.effectDistance = new Vector2(selectOutlineBold, -selectOutlineBold);
       onSelected?.Invoke(this);
     }
 
     public void Deselect()
     {
       isSelected = false;
-      outline.effectColor = defaultColor;
-      outline.effectDistance = new Vector2(defaultBold, -defaultBold);
+      outline.DOColor(defaultOutlineColor, 0.2f);
+      panel.DOColor(defaultColor, 0.2f);
+      outline.effectDistance = new Vector2(defaultOutlineBold, -defaultOutlineBold);
       onDeselected?.Invoke(this);
     }
 

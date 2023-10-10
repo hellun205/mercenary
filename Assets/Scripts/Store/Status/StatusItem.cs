@@ -1,4 +1,5 @@
 ﻿using System;
+using Manager;
 using TMPro;
 using UI.Popup;
 using UnityEngine;
@@ -47,7 +48,7 @@ namespace Store.Status
 
     public override void OnEntered()
     {
-      popupPanel.ShowPopup(statName, GetValue(description));
+      popupPanel.ShowPopup(statName, GetValue(description), statIcon);
     }
 
     private string GetValue(string format)
@@ -60,7 +61,10 @@ namespace Store.Status
           statValue.GetViaValue(""),
           TaggedText.Parse(Mathf.FloorToInt(statValue * 100f).GetViaValue("")).AppendText("%"),
           (statValue * 0.1f).GetViaValue(""),
-          Mathf.FloorToInt(statValue * 100f).GetViaValue("")
+          Mathf.FloorToInt(statValue * 100f).GetViaValue(""),
+          (Mathf.FloorToInt(GameManager.Player.moveSpeedPercent * 100f)).GetViaValue(""),
+          TaggedText.Parse((Mathf.FloorToInt(GameManager.Player.moveSpeedPercent * 100f)).GetViaValue(""))
+           .AppendText("%")
         );
       }
       catch

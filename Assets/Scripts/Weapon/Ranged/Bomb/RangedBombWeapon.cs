@@ -10,6 +10,8 @@ namespace Weapon.Ranged.Bomb
 
     protected override void OnFire()
     {
+      StartAnimation();
+      PlayFireSound();
       var stat = weaponData.status[tier]; 
       for (var i = 0; i < stat.bulletCount; i++)
       {
@@ -22,7 +24,7 @@ namespace Weapon.Ranged.Bomb
           bulletObj.maxPenetrateCount = 0;
           bulletObj.explosionTimer.duration = weaponData.explosionDelay;
           bulletObj.mainCtrler = this;
-          bulletObj.SetTarget(target, stat.errorRange);
+          bulletObj.SetTarget(transform.eulerAngles.z, stat.errorRange);
           bulletObj.SetRange(stat.explosionRange + GameManager.Player.currentStatus.explosionRange);
           bulletObj.OnStart();
         }
@@ -34,7 +36,7 @@ namespace Weapon.Ranged.Bomb
           bulletObj.speed = stat.bulletSpeed;
           bulletObj.maxPenetrateCount = 0;
           bulletObj.mainCtrler = this;
-          bulletObj.SetTarget(target, stat.errorRange);
+          bulletObj.SetTarget(transform.eulerAngles.z, stat.errorRange);
           bulletObj.SetRange(stat.explosionRange + GameManager.Player.currentStatus.explosionRange);
           bulletObj.OnStart();
         }

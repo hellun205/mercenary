@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: frying_pan
   m_EditorClassIdentifier: 
   _name: "\uD504\uB77C\uC774\uD32C"
-  m_icon: {fileID: 21300000, guid: e5ead335df5fecb459ea83e790f93ccc, type: 3}
+  m_icon: {fileID: 21300000, guid: 9818866398a204944b86ec9329fe8cd8, type: 3}
   descriptions: 
-  needFlipY: 0
+  needFlipY: 1
   needFlipX: 0
   rotate: 1
   bullet: bullet

@@ -3,8 +3,10 @@ using System.Text;
 using Data;
 using Item;
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Util.Text;
 
 namespace Weapon
 {
@@ -14,8 +16,7 @@ namespace Weapon
     [Header("Weapon Desc"), SerializeField]
     private string _name;
 
-    [NonSerialized]
-    public Attribute attribute;
+    public Attribute attribute => GameManager.Data.data.GetWeaponAttribute(specfiedName);
 
     [SerializeField]
     private Sprite m_icon;
@@ -23,8 +24,9 @@ namespace Weapon
     [Multiline]
     public string descriptions;
 
-    [NonSerialized]
-    public WeaponStatus[] status;
+    public WeaponStatus[] status => GameManager.Data.data.GetWeaponStatus(specfiedName);
+
+    public IncreaseStatus[] increaseStatus => GameManager.Data.data.GetWeaponIncreaseStatus(specfiedName);
 
     [Header("Sprite Setting")]
     public bool needFlipY;
@@ -38,28 +40,37 @@ namespace Weapon
 
     [Header("Explosion")]
     public bool fireOnContact;
+
     public bool isFixedTargetPosition;
     public string effectObj = "effect_explosion";
     public float explosionDelay;
 
     public string specfiedName => name;
     public string itemName => $"[무기] {_name}";
-    public string description => GetDescription(0);
     public Sprite icon => m_icon;
-    public int price => status[0].price;
 
     public string GetDescription(int tier)
     {
       var sb = new StringBuilder();
-      sb.Append(status[tier].GetDescription());
+      sb.Append("무기 능력치\n".AddColor(GameManager.GetAttributeColor()))
+       .Append(status[tier].GetDescription())
+       .Append($"{string.Format(descriptions, status[tier].bulletCount)}");
+
+      if (!increaseStatus[tier].isEmpty)
+        sb.Append("\n착용 시 능력치 증가\n".AddColor(GameManager.GetAttributeColor()))
+         .Append(increaseStatus[tier].GetDescription());
+      return sb.ToString();
+    }
+
+    public string GetDescriptionWithAdditionalStatus(int tier, IncreaseStatus additional)
+    {
+      var sb = new StringBuilder();
+      sb.Append(status[tier].GetDescription(additional));
       sb.Append($"{descriptions}");
       return sb.ToString();
     }
 
-    public void Refresh()
-    {
-      attribute = GameManager.Data.data.GetWeaponAttribute(specfiedName);
-      status = GameManager.Data.data.GetWeaponStatus(specfiedName);
-    }
+    public int GetPrice(int tier)
+      => Convert.ToInt32(GameManager.Data.data.GetWeaponStatusData(specfiedName, tier, WeaponStatusItem.Price));
   }
 }

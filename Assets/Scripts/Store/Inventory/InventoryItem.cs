@@ -1,19 +1,27 @@
+using System;
 using System.Text;
+using Consumable;
 using Data;
-using Item;
 using Manager;
+using Sound;
 using Store.Equipment;
 using TMPro;
-using UI.DragNDrop;
+using UI;
 using UI.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 using Util.Text;
+using Util.UI;
 using Weapon;
+using WeaponData = Weapon.WeaponData;
 
 namespace Store.Inventory
 {
-  public class InventoryItem : UsePopup<ListPopup>
+  public class InventoryItem
+    : UsePopup<ListPopup>,
+      IPoolableUI<InventoryItem>,
+      IUseContextMenu
   {
     public (string name, int tier)? itemData;
 
@@ -23,42 +31,21 @@ namespace Store.Inventory
     [SerializeField]
     private Image icon;
 
-    public InventoryUI parentUI;
+    private Image img;
 
     public override string popupName => "$popup_item";
-
-    private ItemDrop useDrop;
-    private ItemDrag useDrag;
 
     protected override void Awake()
     {
       base.Awake();
-      parentUI = FindObjectOfType<InventoryUI>();
-      useDrag = GetComponent<ItemDrag>();
-      useDrop = GetComponent<ItemDrop>();
-
-      useDrag.draggingObject = GameManager.UI.Find<DraggingObject>("$dragging_item");
-      useDrag.getter = () => new ItemRequest()
-      {
-        beginDragType = DragType.Inventory,
-        item = itemData!.Value.name,
-        tier = itemData!.Value.tier,
-        draggingImage = GameManager.GetIPossessible(itemData!.Value.name).icon,
-        weaponInventoryUI = FindObjectOfType<WeaponInventoryUI>()
-      };
-
-      useDrop.onGetRequest += OnDrop;
-    }
-
-    private void OnDrop(ItemRequest data)
-    {
-      parentUI.OnDrop(data);
+      img = GetComponent<Image>();
     }
 
     public void SetItem((string name, int tier)? item, ushort count)
     {
       itemData = item;
       icon.sprite = GameManager.GetIPossessible(itemData!.Value.name).icon;
+      img.color = GameManager.GetTierColor(itemData.Value.tier);
       SetCount(count);
     }
 
@@ -79,21 +66,21 @@ namespace Store.Inventory
 
       var sb = new StringBuilder();
       var item = GameManager.GetIPossessible(itemData!.Value.name);
-      
+
       sb.Append
         (
-          item.itemName
-           .SetSizePercent(1.5f)
+          $"{item.itemName} {(itemData.Value.tier + 1).ToRomanNumeral(true)}"
+           .SetSizePercent(1.25f)
            .SetAlign(TextAlign.Center)
         )
        .Append("\n");
-      if (item is Weapon.WeaponData weaponData)
+      if (item is WeaponData weaponData)
       {
         sb.Append
           (
             weaponData.attribute.GetTexts()
              .SetSizePercent(1.25f)
-             .AddColor(new Color32(72, 156, 255, 255))
+             .AddColor(GameManager.GetAttributeColor())
              .SetLineHeight(1.25f)
              .SetAlign(TextAlign.Center)
           )
@@ -106,11 +93,46 @@ namespace Store.Inventory
          .SetAlign(TextAlign.Left)
       );
 
-      if (item is Weapon.WeaponData weaponData2)
+      if (item is WeaponData weaponData2)
         popupPanel.ShowPopup(sb.ToString(),
           GameManager.Data.data.GetAttributeChemistryDescriptions(weaponData2.attribute));
       else
         popupPanel.ShowPopup(text: sb.ToString());
     }
+
+    public InventoryItem component => this;
+
+    public string contextMenuName => "$context_menu_cant_duplicate";
+
+    public object[] contextMenuFormats => new object[]
+    {
+      $"${GameManager.GetIPossessible(itemData!.Value.name).GetPrice(itemData!.Value.tier) / 2}"
+    };
+
+    public bool contextMenuCondition => itemData.HasValue;
+
+    public Action<string> contextMenuFunction => res =>
+    {
+      switch (res)
+      {
+        case "sell":
+          var price = GameManager.GetIPossessible(itemData!.Value.name).GetPrice(itemData!.Value.tier) / 2;
+          GameManager.Manager.coin.value += price;
+          
+          var item = GameManager.GetIPossessible(itemData.Value.name);
+          var tier = itemData.Value.tier;
+          GameManager.Broadcast.Say
+          (
+            "{0}(을)를 {1}에 판매하였습니다.",
+            $"{item.itemName} {(tier + 1).ToRomanNumeral()}",
+            $"${price}"
+          );
+          
+          GameManager.Player.inventory.LoseItem(itemData!.Value.name, itemData.Value.tier);
+          
+          GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/sell");
+          break;
+      }
+    };
   }
 }

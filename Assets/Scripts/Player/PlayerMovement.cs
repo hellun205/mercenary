@@ -1,6 +1,7 @@
 using System;
 using Manager;
 using UnityEngine;
+using Util;
 
 namespace Player
 {
@@ -8,13 +9,15 @@ namespace Player
   {
     public Vector2 currentMoveAmount = Vector2.zero;
 
-    public float baseMoveSpeed = 4;
+    private Animator anim;
+    
+    public Transform flip;
 
-    private Rigidbody2D rigid;
+    public bool isWalking => currentMoveAmount != Vector2.zero;
 
     private void Awake()
     {
-      rigid = GetComponent<Rigidbody2D>();
+      anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -28,13 +31,22 @@ namespace Player
         (Keys.PlayerMovementRight, () => h = 1f));
 
       currentMoveAmount = new Vector2(h, v).normalized;
+
+      var ls = flip.localScale;
+      if (h > 0)
+        flip.localScale = ls.Setter(x: Mathf.Abs(ls.x));
+      else if (h < 0)
+        flip.localScale = ls.Setter(x: -Mathf.Abs(ls.x));
+
+      anim.SetBool("walking", isWalking);
     }
 
     private void FixedUpdate()
     {
       // rigid.MovePosition(transform.position + (Vector3)currentMoveAmount *
       //   (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
-      transform.Translate(currentMoveAmount * (baseMoveSpeed * (GameManager.Player.status.moveSpeed + 1) * Time.fixedDeltaTime));
+
+      transform.Translate(currentMoveAmount * (GameManager.Player.currentStatus.moveSpeed * Time.fixedDeltaTime));
     }
   }
 }

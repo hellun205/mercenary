@@ -15,6 +15,8 @@ namespace UI.Popup
     [FormerlySerializedAs("nameText")]
     [SerializeField]
     protected TextMeshProUGUI valueText;
+
+    public bool perfectHide;
     
     private void Awake()
     {
@@ -29,7 +31,26 @@ namespace UI.Popup
       this.RebuildLayout(20);
     }
 
-    public void ShowPopup() => gameObject.SetVisible(true);
-    public void HidePopup() => gameObject.SetVisible(false);
+    public void ShowPopup()
+    {
+      if (perfectHide)
+      {
+        gameObject.SetActive(true);
+        gameObject.SetVisible(true);
+      }
+      else
+        gameObject.SetVisible(true);
+    }
+
+    public void HidePopup()
+    {
+      if (perfectHide)
+      {
+        gameObject.SetActive(false);
+        gameObject.SetVisible(true);
+      }
+      else
+        gameObject.SetVisible(false);
+    }
   }
 }

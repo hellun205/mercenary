@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -640458343421406574}
   - component: {fileID: 7118866549088153384}
   - component: {fileID: 3998550730770054177}
-  - component: {fileID: 7683778118613851098}
+  - component: {fileID: 3474059436645635783}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -69,9 +69,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.03, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.1160634
 --- !u!114 &-640458343421406574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   type: 
+  originalName: 
 --- !u!50 &7118866549088153384
 Rigidbody2D:
   serializedVersion: 4
@@ -128,11 +129,7 @@ MonoBehaviour:
   caster: 2
   currentCondition: 4
   ignoreOpponentAttack: 1
-  damage: 0
-  bleeding: 0
-  isCritical: 0
-  knockBack: 0
-  multipleDamage: 0
+  canAttack: 1
   speed: 10
   maxPenetrateCount: 0
   curPenetrateCount: 0
@@ -144,9 +141,9 @@ MonoBehaviour:
     m_value: 0
     m_type: 0
     m_isPlaying: 0
-  detectEnemy: {fileID: 7683778118613851098}
+  detectEnemy: {fileID: 3474059436645635783}
   sr: {fileID: 1109187027350855757}
---- !u!114 &7683778118613851098
+--- !u!114 &3474059436645635783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,13 +186,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6926705991952487148}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9057168, w: 0.42388338}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450850595602888240}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -129.84}
 --- !u!212 &1109187027350855757
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -237,8 +234,8 @@ SpriteRenderer:
   m_SortingLayerID: 769535787
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c4db446d99911e949a9944efe3dc09e4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -295,9 +292,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.3, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 2.4093008
 --- !u!50 &3901535069065765203
 Rigidbody2D:
   serializedVersion: 4

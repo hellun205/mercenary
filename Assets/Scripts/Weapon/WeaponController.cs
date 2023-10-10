@@ -2,6 +2,7 @@ using System;
 using Manager;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Weapon
@@ -9,10 +10,9 @@ namespace Weapon
   [RequireComponent(typeof(CircleCollider2D))]
   public class WeaponController : MonoBehaviour, ITier
   {
-    public WeaponData weaponData;
+    public WeaponData weaponData { get; set; }
 
-    [NonSerialized]
-    public WeaponStatus status;
+    public WeaponStatus status { get; set; }
 
     [Header("Target")]
     public TargetableObject target;
@@ -23,8 +23,9 @@ namespace Weapon
     public bool isAttacking;
 
     [Header("Weapon Control")]
-    [SerializeField]
-    protected SpriteRenderer sr;
+    public SpriteRenderer sr;
+
+    public SpriteRenderer arrowSr;
 
     [SerializeField]
     private CircleCollider2D col;
@@ -35,10 +36,16 @@ namespace Weapon
     [NonSerialized]
     public bool isReady;
 
-    public string GetPObj(string objName) => $"weapon/{name}/{objName}";
+    public string specifiedName;
+
+    public string GetPObj(string objName) => $"weapon/{specifiedName}/{objName}";
 
     public int tier { get; set; }
-    public string dataName => $"{name}.{tier}";
+    public bool isAdditionalStatus { get; set; }
+    public Func<IncreaseStatus> additionalStatusGetter { get; set; }
+
+    protected Animator anim;
+    protected bool hasAnimator;
 
     protected virtual void Reset()
     {
@@ -48,29 +55,26 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      GameManager.Wave.onWaveStart += RefreshStatus;
+      // GameManager.Wave.onWaveStart += RefreshStatus;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
+      hasAnimator = TryGetComponent(out anim);
       RefreshStatus();
     }
 
     private void RefreshStatus()
     {
-      while (weaponData == null)
-      {
-        try
-        {
-          weaponData = GameManager.WeaponData[name];
-        }
-        catch (Exception ex)
-        {
-          Debug.Log(ex);
-        }
-      }
+      weaponData = GameManager.WeaponData[specifiedName];
 
-      status = weaponData.status[tier] + GameManager.Player.GetStatus();
+      status = weaponData.status[tier] + GameManager.Player.RefreshStatus();
+
+      if (isAdditionalStatus)
+        status += additionalStatusGetter.Invoke();
+
+      if (hasAnimator)
+        anim.SetFloat("speed", 1 / status.attackSpeed);
     }
 
     [ContextMenu("Refresh Range")]
@@ -86,7 +90,7 @@ namespace Weapon
       if (!isReady)
       {
         readyTime += Time.deltaTime;
-        if (readyTime >= 2f) isReady = true;
+        if (readyTime >= 1f) isReady = true;
         return;
       }
 
@@ -96,7 +100,8 @@ namespace Weapon
         var r = transform.GetRotationOfLookAtObject(target.transform);
         if (weaponData.rotate && !isAttacking)
         {
-          transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
+          transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 40f);
+          // transform.localRotation = r;
         }
 
         if (time >= status.attackSpeed && (
@@ -115,20 +120,45 @@ namespace Weapon
         // time = 0;
       }
 
-      if (weaponData.needFlipY)
-        transform.localScale =
-          transform.localScale.Setter(y: (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270) ? -1 : 1);
-      if (weaponData.needFlipX)
-        sr.flipX = (transform.rotation.eulerAngles.z is < 90 and > -90 or >= 270);
+      if (!isAttacking)
+      {
+        if (weaponData.needFlipY)
+          FlipY(transform.rotation.eulerAngles.z);
+        if (weaponData.needFlipX)
+          FlipX(transform.rotation.eulerAngles.z);
+      }
+    }
+
+    protected virtual void FlipY(float z)
+    {
+      transform.localScale =
+        transform.localScale.Setter(y: (z is < 90 and > -90 or >= 270) ? -1 : 1);
+    }
+
+    protected virtual void FlipX(float z)
+    {
+      sr.flipX = (z is < 90 and > -90 or >= 270);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-      if (!hasTarget && other.TryGetComponent(typeof(TargetableObject), out var component))
+      if (other.TryGetComponent<TargetableObject>(out var targetable))
       {
-        var targetable = component as TargetableObject;
-        target = targetable;
-        hasTarget = true;
+        if (hasTarget)
+        {
+          var newTargetDistance = Vector2.Distance(transform.position, targetable.transform.position);
+          var targetDistance = Vector2.Distance(transform.position, target.transform.position);
+
+          if (newTargetDistance < targetDistance)
+            target = targetable;
+          
+          hasTarget = true;
+        }
+        else
+        {
+          target = targetable;
+          hasTarget = true;
+        }
       }
     }
 
@@ -145,13 +175,24 @@ namespace Weapon
     {
     }
 
+    protected virtual void StartAnimation()
+    {
+      if (hasAnimator)
+        anim.SetTrigger("fire");
+    }
+
     protected void ApplyDamage(AttackableObject ao)
     {
       ao.damage = status.attackDamage;
       ao.multipleDamage = status.multipleCritical;
-      ao.isCritical = status.criticalPercent.ApplyPercentage();
+      ao.isCritical = status.criticalPercent.ApplyProbability();
       ao.bleeding = status.bleedingDamage;
       ao.knockBack = status.knockback;
+    }
+
+    protected void PlayFireSound()
+    {
+      this.PlaySound();
     }
   }
 }

@@ -10,6 +10,8 @@ namespace Weapon.Ranged
   
     protected override void OnFire()
     {
+      StartAnimation();
+      PlayFireSound();
       var stat = weaponData.status[tier];
       for (var i = 0; i < stat.bulletCount; i++)
       {
@@ -17,7 +19,7 @@ namespace Weapon.Ranged
         ApplyDamage(bulletObj);
         bulletObj.speed = stat.bulletSpeed;
         bulletObj.maxPenetrateCount = stat.penetrate;
-        bulletObj.SetTarget(target, stat.errorRange);
+        bulletObj.SetTarget(transform.eulerAngles.z, stat.errorRange);
       }
     }
   }

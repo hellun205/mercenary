@@ -3,14 +3,14 @@
     {
       "name": "normal",
       "defaultStatus": {
-        "hp": 5.0,
+        "hp": 3.0,
         "damage": 1.0,
-        "moveSpeed": 2.0,
+        "moveSpeed": 1.6,
         "dropCoin": 1.0
       },
       "increaseStatus": {
         "hp": 3.0,
-        "damage": 0.6,
+        "damage": 0.5,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
@@ -21,12 +21,12 @@
       "defaultStatus": {
         "hp": 2.0,
         "damage": 1.0,
-        "moveSpeed": 4.0,
+        "moveSpeed": 2.4,
         "dropCoin": 1.0
       },
       "increaseStatus": {
-        "hp": 1.5,
-        "damage": 0.6,
+        "hp": 2.5,
+        "damage": 0.5,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
@@ -37,19 +37,19 @@
       "defaultStatus": {
         "hp": 5.0,
         "damage": 1.0,
-        "moveSpeed": 1.5,
+        "moveSpeed": 1.2,
         "dropCoin": 2.0
       },
       "increaseStatus": {
-        "hp": 1.5,
-        "damage": 0.6,
+        "hp": 3.5,
+        "damage": 0.5,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
       "detailStatus": [
         {
           "status": 0,
-          "value": 50.0
+          "value": 40.0
         },
         {
           "status": 1,
@@ -66,12 +66,12 @@
       "defaultStatus": {
         "hp": 25.0,
         "damage": 2.0,
-        "moveSpeed": 1.5,
+        "moveSpeed": 1.4,
         "dropCoin": 5.0
       },
       "increaseStatus": {
-        "hp": 12.0,
-        "damage": 0.8,
+        "hp": 21.0,
+        "damage": 0.6,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
@@ -82,23 +82,23 @@
       "defaultStatus": {
         "hp": 10.0,
         "damage": 2.0,
-        "moveSpeed": 1.0,
+        "moveSpeed": 1.1,
         "dropCoin": 5.0
       },
       "increaseStatus": {
-        "hp": 8.0,
-        "damage": 0.8,
+        "hp": 12.0,
+        "damage": 0.6,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
       "detailStatus": [
         {
           "status": 0,
-          "value": 80.0
+          "value": 70.0
         },
         {
           "status": 1,
-          "value": 8.0
+          "value": 5.0
         },
         {
           "status": 2,
@@ -111,19 +111,19 @@
       "defaultStatus": {
         "hp": 15.0,
         "damage": 1.0,
-        "moveSpeed": 2.0,
+        "moveSpeed": 1.8,
         "dropCoin": 8.0
       },
       "increaseStatus": {
-        "hp": 15.0,
-        "damage": 1.0,
+        "hp": 18.0,
+        "damage": 0.35,
         "moveSpeed": 0.0,
         "dropCoin": 0.0
       },
       "detailStatus": [
         {
           "status": 3,
-          "value": 0.5
+          "value": 0.2
         },
         {
           "status": 4,
@@ -691,25 +691,25 @@
     }
   ],
   "waveTime": [
-    20.0,
     24.0,
     28.0,
     32.0,
     36.0,
     40.0,
-    43.0,
-    46.0,
-    49.0,
-    52.0,
-    55.0,
-    58.0,
+    44.0,
+    48.0,
+    51.0,
+    54.0,
+    57.0,
     60.0,
-    62.0,
-    64.0,
+    63.0,
     66.0,
     68.0,
     70.0,
     72.0,
-    74.0
+    74.0,
+    76.0,
+    78.0,
+    80.0
   ]
 }

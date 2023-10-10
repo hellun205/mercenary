@@ -10,7 +10,7 @@ namespace Data
     MeleeDamage, RangedDamage, CriticalPercent,
     BleedingDamage, AttackSpeed, Range,
     Armor, KnockBack, MoveSpeed,
-    Luck, Price, EvasionRate
+    Luck, Price, EvasionRate, Damage
   }
 
   public static class ItemDataUtility

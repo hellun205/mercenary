@@ -11,6 +11,8 @@ namespace UI.Popup
     public T popupPanel { get; private set; }
     public abstract string popupName { get; }
 
+    public bool ignore { get; set; } = false;
+
     public Canvas canvas { get; private set; }
 
     protected virtual void Awake()
@@ -21,6 +23,7 @@ namespace UI.Popup
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+      if (ignore) return;
       popupPanel.rectTransform.anchoredPosition = canvas.ScreenToCanvasPosition(eventData.position);
       isPopup = true;
       OnEntered();
@@ -28,6 +31,7 @@ namespace UI.Popup
 
     public void OnPointerExit(PointerEventData eventData)
     {
+      if (ignore) return;
       isPopup = false;
       OnExited();
     }
