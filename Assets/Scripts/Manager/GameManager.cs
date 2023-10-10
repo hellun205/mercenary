@@ -199,8 +199,8 @@ namespace Manager
     public void AskRestart()
     {
       var askBox = Window.Open(WindowType.AskBox).GetContent<AskBox>();
-      askBox.window.title = "스테이지 재 시작";
-      askBox.message = "정말로 재 시작하시겠습니까?";
+      askBox.window.title = "스테이지 재시작";
+      askBox.message = "정말로 재시작하시겠습니까?";
       askBox.onReturn = res =>
       {
         if (res == AskBoxResult.Yes)
@@ -256,6 +256,8 @@ namespace Manager
 
     public void StartStage(int stage, string startWeapon)
     {
+      Clear();
+      ExitGame();
       if (stage == 0) isTutorial = true;
       else isTutorial = false;
 
