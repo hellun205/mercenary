@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6748818345274506607}
   - component: {fileID: 5922952963596503401}
   - component: {fileID: 1466820270915025616}
+  - component: {fileID: 1338504269152460300}
   m_Layer: 0
   m_Name: stage_item
   m_TagString: Untagged
@@ -115,6 +116,18 @@ MonoBehaviour:
   defaultOutlineBold: 1
   selectOutlineBold: 3
   m_popupName: $select_popup
+--- !u!114 &1338504269152460300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998986232368725732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7067f51d36064c099a295c69fd1a6d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8313960809274597194
 GameObject:
   m_ObjectHideFlags: 0

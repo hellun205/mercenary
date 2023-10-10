@@ -13,6 +13,8 @@ namespace Player
     
     public Transform flip;
 
+    public bool isWalking => currentMoveAmount != Vector2.zero;
+
     private void Awake()
     {
       anim = GetComponent<Animator>();
@@ -36,7 +38,7 @@ namespace Player
       else if (h < 0)
         flip.localScale = ls.Setter(x: -Mathf.Abs(ls.x));
 
-      anim.SetBool("walking", currentMoveAmount != Vector2.zero);
+      anim.SetBool("walking", isWalking);
     }
 
     private void FixedUpdate()

@@ -18,5 +18,21 @@ namespace Util
 
     public static float EaseInOut(this float t, float pow = 2f)
       => Mathf.Lerp(EaseIn(t, pow), EaseOut(t, pow), t);
+
+    public static int ToNormalize(this float number)
+      => number switch
+      {
+        > 0 => 1,
+        < 0 => -1,
+        _ => 0
+      };
+
+    public static int ToNormalize(this int number)
+      => number switch
+      {
+        > 0 => 1,
+        < 0 => -1,
+        _ => 0
+      };
   }
 }

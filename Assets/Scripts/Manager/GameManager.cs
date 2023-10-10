@@ -8,7 +8,9 @@ using Pool;
 using Scene;
 using Sound;
 using Spawn;
+using Store.Consumable;
 using Store.Equipment;
+using Store.Inventory;
 using Store.Status;
 using TMPro;
 using Transition;
@@ -57,7 +59,7 @@ namespace Manager
 
     public static event Action onLoaded;
     public static bool isLoaded { get; private set; }
-    
+
     public static bool isTutorial { get; set; }
 
     public int currentStage { get; set; }
@@ -70,6 +72,7 @@ namespace Manager
         3 => new Color32(115, 26, 45, 255),
         _ => new Color32(72, 72, 72, 255),
       };
+
     public static Color GetAttributeColor()
       => new Color32(72, 156, 255, 255);
 
@@ -85,15 +88,17 @@ namespace Manager
     public bool isMenuOpened { get; private set; }
 
     public string startWeaponName { get; set; }
-    
+
     public GameOverReason gameOverReason { get; set; }
+
+    public event Action onClear;
 
     private void Init()
     {
       Manager = this;
       Data = Manager.isTestMode switch
       {
-        true  => new DataManager(),
+        true => new DataManager(),
         false => new DataManager(dataJsons),
       };
       Key ??= new KeyManager();
@@ -116,6 +121,8 @@ namespace Manager
       Window ??= new WindowManager();
       Sprites = transform.Find("@sprites").GetComponent<SpriteCollection>();
       Broadcast = new Broadcast();
+
+      Transition.Play(Transitions.OUT);
     }
 
     private void Awake()
@@ -142,12 +149,13 @@ namespace Manager
       UI.Find<Button>("$menu_gotomain_btn").interactable = false;
 
       coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
+
+      1f.Wait(() => Transition.Play(Transitions.FADEIN, 0.7f));
     }
 
     public void OpenSetting()
     {
       var setting = Window.Open(WindowType.Setting).GetContent<SettingWindow>();
-      
     }
 
     public static IPossessible GetItem(string itemName)
@@ -158,13 +166,13 @@ namespace Manager
       IPossessible res = null;
 
       if (Items.items.TryGetValue(name, out var item))
-        res = (IPossessible) item;
+        res = (IPossessible)item;
       else if (WeaponData.items.TryGetValue(name, out var weapon))
-        res = (IPossessible) weapon;
+        res = (IPossessible)weapon;
       else if (Partners.items.TryGetValue(name, out var partner))
-        res = (IPossessible) partner;
+        res = (IPossessible)partner;
       else if (Consumables.items.TryGetValue(name, out var consumable))
-        res = (IPossessible) consumable;
+        res = (IPossessible)consumable;
 
       return res ?? throw new Exception($"can't find IPossessble object: {name}");
     }
@@ -214,24 +222,24 @@ namespace Manager
         {
           Clear();
           new SceneLoader("Main")
-           .Out(Transitions.FADEOUT)
-           .In(Transitions.FADEIN, delay: 2f)
-           .OnEndOut(() =>
+            .Out(Transitions.FADEOUT)
+            .In(Transitions.FADEIN, delay: 2f)
+            .OnEndOut(() =>
             {
               SetGameMenu(false);
               ExitGame();
               UI.Find<Button>("$menu_restart_btn").interactable = false;
               UI.Find<Button>("$menu_gotomain_btn").interactable = false;
             })
-           .Load();
+            .Load();
         }
       };
     }
 
     private void ExitGame()
     {
-      GameManager.Wave.EndWave(false);
-      GameManager.UI.Find("$store").SetVisible(false);
+      Wave.EndWave(false);
+      UI.Find("$store").SetVisible(false);
       Player = null;
     }
 
@@ -250,55 +258,72 @@ namespace Manager
     {
       if (stage == 0) isTutorial = true;
       else isTutorial = false;
-      
+
       startWeaponName = startWeapon;
       currentStage = stage;
 
       new SceneLoader($"Stage{stage}")
-       .Out(Transitions.FADEOUT)
-       .In(Transitions.FADEIN)
-       .OnEndOut(() =>
+        .Out(Transitions.FADEOUT)
+        .In(Transitions.FADEIN)
+        .OnEndOut(() =>
         {
           UI.Find<Button>("$menu_restart_btn").interactable = true;
           UI.Find<Button>("$menu_gotomain_btn").interactable = true;
         })
-       .Load();
+        .Load();
     }
 
     public void GameClear(bool exit = true)
     {
       if (exit) ExitGame();
-      // Clear();
-      GameManager.Wave.SetUIEnabled(false);
+      Clear();
+      Wave.SetUIEnabled(false);
       new SceneLoader("GameClear")
-       .Out(Transitions.OUT)
-       .In(Transitions.FADEIN, delay: 1.25f)
-       .Load();
+        .Out(Transitions.OUT, speed: 2f)
+        .In(Transitions.FADEIN, delay: 1.25f)
+        .Load();
     }
 
     public void GameOver(GameOverReason reason, bool exit = true)
     {
       gameOverReason = reason;
       if (exit) ExitGame();
-      // Clear();
-      GameManager.Wave.SetUIEnabled(false);
+      Clear();
+      Wave.SetUIEnabled(false);
       new SceneLoader("GameOver")
-       .Out(Transitions.OUT)
-       .In(Transitions.FADEIN, delay: 1.25f)
-       .Load();
+        .Out(Transitions.OUT, speed: 2f)
+        .In(Transitions.FADEIN, delay: 1.25f)
+        .Load();
     }
 
     private void Clear()
     {
       var wui = FindObjectOfType<WeaponInventoryUI>();
       foreach (var weaponSlotWrapper in wui.list)
-        foreach (var slot in weaponSlotWrapper.slots)
-          slot.Set(null, false);
+      foreach (var slot in weaponSlotWrapper.slots)
+        slot.Set(null, false);
       var partners = FindObjectsOfType<PartnerSlot>();
       foreach (var partnerSlot in partners)
       {
         partnerSlot.SetPartner(null, false);
       }
+
+      var inventorySlot = UI.Find("$inventory_items").transform.GetChilds<InventoryItem>();
+
+      foreach (var inventoryItem in inventorySlot)
+      {
+        Destroy(inventoryItem.gameObject);
+      }
+
+      var consumableSlot = FindObjectsOfType<ConsumableSlot>();
+
+      foreach (var slot in consumableSlot)
+      {
+        slot.SetItem(null);
+      }
+
+      Manager.coin.value = Convert.ToInt32(Data.data.GetPlayerStatusData(PlayerStatusItem.Coin));
+      onClear?.Invoke();
     }
   }
 }

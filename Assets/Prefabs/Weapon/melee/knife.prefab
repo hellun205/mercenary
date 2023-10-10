@@ -119,6 +119,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 2983364493825563897}
+  arrowSr: {fileID: 0}
   col: {fileID: 4050276591124512170}
   specifiedName: knife
   movingObj: {fileID: 1075818993657578876}
@@ -232,7 +233,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.42069864, y: -0.054108024}
+  m_Offset: {x: 0.07483715, y: -0.017632317}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -243,7 +244,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77846575, y: 0.18293321}
+  m_Size: {x: 0.92203104, y: 0.1752387}
   m_EdgeRadius: 0
 --- !u!50 &5331006113200373165
 Rigidbody2D:
@@ -313,13 +314,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8757700173094275166}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.997257, w: 0.07401697}
+  m_LocalRotation: {x: 0, y: 0, z: 0.8791501, w: 0.47654516}
   m_LocalPosition: {x: 0, y: 0, z: -0.09132181}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1075818993657578876}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 171.511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 123.08}
 --- !u!212 &2983364493825563897
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ SpriteRenderer:
   m_SortingLayerID: 1535975209
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -180182075, guid: 1fb8a441ebdc2db43a70e77157907611, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65891cc4d3ddb034882161bfb4f9c4b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1

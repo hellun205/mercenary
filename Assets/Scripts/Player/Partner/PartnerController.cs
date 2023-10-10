@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using Store.Equipment;
 using UnityEngine;
 using Util;
@@ -7,6 +8,9 @@ namespace Player.Partner
 {
   public class PartnerController : MonoBehaviour
   {
+    [SerializeField]
+    private string layerName;
+
     private PartnerData _partner;
 
     public PartnerData partner
@@ -38,6 +42,28 @@ namespace Player.Partner
       weaponInventory = GetComponentInChildren<WeaponInventory>();
       weaponInventory.isPartnerOwner = true;
       weaponInventory.statusGetter = () => partner.GetStatus(tier);
+    }
+
+    public void SetPartner(string partnerName)
+    {
+      var characterSlot = transform.Find("@character");
+      RemovePartner();
+
+      var obj = Instantiate
+      (
+        GameManager.Prefabs.Get<PartnerAnimation>($"partners/{partnerName}"),
+        characterSlot.transform.position,
+        Quaternion.identity,
+        characterSlot
+      );
+      obj.sr.gameObject.layer = LayerMask.NameToLayer(layerName);
+    }
+
+    public void RemovePartner()
+    {
+      var characterSlot = transform.Find("@character");
+      if (characterSlot.childCount > 0)
+        Destroy(characterSlot.GetChild(0).gameObject);
     }
   }
 }

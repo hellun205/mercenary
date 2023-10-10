@@ -17,7 +17,6 @@ namespace Player
     public Dictionary<(string name, int tier), ushort> items = new();
 
     public Dictionary<(string name, int tier), InventoryItem> uiItems = new();
-    
 
     public event Action onChanged;
 
@@ -66,6 +65,17 @@ namespace Player
       }
 
       onChanged?.Invoke();
+    }
+
+    public void ClearItem()
+    {
+      foreach (var (item, inventoryItem) in uiItems)
+      {
+        Release(inventoryItem);
+      }
+      
+      items.Clear();
+      uiItems.Clear();
     }
   }
 }

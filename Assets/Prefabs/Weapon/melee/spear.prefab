@@ -119,6 +119,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 2983364493825563897}
+  arrowSr: {fileID: 0}
   col: {fileID: 4050276591124512170}
   specifiedName: spear
   movingObj: {fileID: 1075818993657578876}
@@ -232,7 +233,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1692416, y: -0.02453585}
+  m_Offset: {x: 0.35113937, y: -0.012133725}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -243,7 +244,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1128331, y: 0.20272562}
+  m_Size: {x: 1.4766287, y: 0.22752987}
   m_EdgeRadius: 0
 --- !u!50 &5331006113200373165
 Rigidbody2D:
@@ -315,8 +316,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.99712527, w: -0.07577063}
   m_LocalPosition: {x: 0, y: 0, z: -0.09132181}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1.6, y: 1.4, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075818993657578876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 188.691}

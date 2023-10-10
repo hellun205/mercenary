@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Width: 11
+  m_Width: 9
   m_Damping: 1
   m_MinFOV: 1
   m_MaxFOV: 73.5

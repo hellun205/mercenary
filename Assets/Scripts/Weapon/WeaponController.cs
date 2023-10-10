@@ -2,6 +2,7 @@ using System;
 using Manager;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Util;
 
 namespace Weapon
@@ -22,8 +23,8 @@ namespace Weapon
     public bool isAttacking;
 
     [Header("Weapon Control")]
-    [SerializeField]
-    protected SpriteRenderer sr;
+    public SpriteRenderer sr;
+    public SpriteRenderer arrowSr;
 
     [SerializeField]
     private CircleCollider2D col;
@@ -99,7 +100,8 @@ namespace Weapon
         var r = transform.GetRotationOfLookAtObject(target.transform);
         if (weaponData.rotate && !isAttacking)
         {
-          transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 20f);
+          transform.localRotation = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 40f);
+          // transform.localRotation = r;
         }
 
         if (time >= status.attackSpeed && (

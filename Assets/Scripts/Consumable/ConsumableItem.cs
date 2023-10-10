@@ -47,16 +47,15 @@ namespace Consumable
       var duration = GetDuration();
       var durText = duration > 0
         ? $"{duration.ToString().AddColor(Color.yellow)}초 동안"
-        : "즉시".AddColor(Color.yellow);
+        : duration < 0
+          ? ""
+          : "즉시".AddColor(Color.yellow);
 
-      sb.Append(
-        $"사용 시 {durText}".AddColor(GameManager.GetAttributeColor()));
+        sb.Append($"{(duration >= 0 ? "사용" : "보유")} 시 {durText}".AddColor(GameManager.GetAttributeColor()));
 
-
-      sb.Append("\n")
-       .Append(GetStatus().GetDescription())
-       .Append("\n")
-       .Append(_descrption);
+        sb.Append("\n")
+          .Append(GetStatus().GetDescription())
+          .Append(string.IsNullOrEmpty(_descrption) ? "" : $"\n{_descrption}");
 
       return sb.ToString();
     }

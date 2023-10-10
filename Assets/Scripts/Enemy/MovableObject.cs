@@ -33,8 +33,11 @@ namespace Enemy
       // transform.rotation = transform.GetRotationOfLookAtObject(GameManager.Player.transform);
       var dir = (GameManager.Player.transform.position - transform.position).normalized;
       transform.Translate(dir * (Time.deltaTime * Mathf.Min((speed + increasedMoveSpeed), maxSpeed)));
-      sr.flipX = dir.x > 0;
+      // sr.flipX =;
 
+      var scale = transform.localScale;
+      transform.localScale = scale.Setter(x: Mathf.Abs(scale.x) *  dir.x > 0 ? -1 : 1);
+      
       increasedMoveSpeed += increaseAmount * Time.deltaTime;
     }
 

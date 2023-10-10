@@ -94,10 +94,19 @@ namespace Store.Equipment
         GameManager.Player.partners[index].tier = data?.tier ?? 0;
         GameManager.Player.partners[index].weaponInventory.gameObject.SetActive(data.HasValue);
       }
+
       panelImg.color = GameManager.GetTierColor(data?.tier ?? 0);
       iconImg.color = data.HasValue ? Color.white : Color.clear;
       if (data.HasValue)
         iconImg.sprite = GameManager.GetIPossessible(data.Value.name).icon;
+
+      if (createPartnerObject)
+      {
+        if (data.HasValue)
+          GameManager.Player.partners[index].SetPartner(data.Value.name);
+        else
+          GameManager.Player.partners[index].RemovePartner();
+      }
     }
 
     public override void OnEntered()
@@ -109,25 +118,25 @@ namespace Store.Equipment
       sb.Append
         (
           $"{data.itemName} {(partner.Value.tier + 1).ToRomanNumeral()}"
-           .SetSizePercent(1.25f)
-           .SetAlign(TextAlign.Center)
+            .SetSizePercent(1.25f)
+            .SetAlign(TextAlign.Center)
         )
-       .Append("\n")
-       .Append
+        .Append("\n")
+        .Append
         (
           data.GetAttribute().GetTexts()
-           .SetSizePercent(1.25f)
-           .AddColor(GameManager.GetAttributeColor())
-           .SetLineHeight(1.25f)
-           .SetAlign(TextAlign.Center)
+            .SetSizePercent(1.25f)
+            .AddColor(GameManager.GetAttributeColor())
+            .SetLineHeight(1.25f)
+            .SetAlign(TextAlign.Center)
         )
-       .Append("\n");
+        .Append("\n");
 
 
       sb.Append
       (
         data.GetDescription(partner.Value.tier)
-         .SetAlign(TextAlign.Left)
+          .SetAlign(TextAlign.Left)
       );
       popupPanel.ShowPopup(sb.ToString());
     }
@@ -153,7 +162,7 @@ namespace Store.Equipment
         case "sell":
           var price = GameManager.GetIPossessible(partner!.Value.name).GetPrice(partner!.Value.tier) / 2;
           GameManager.Manager.coin.value += price;
-          
+
           var item = GameManager.GetIPossessible(partner.Value.name);
           var tier = partner.Value.tier;
           GameManager.Broadcast.Say
@@ -180,7 +189,7 @@ namespace Store.Equipment
         {
           partnerSlot.SetPartner(null);
           SetPartner((partner.Value.name, partner.Value.tier + 1));
-          
+
           var item = GameManager.GetIPossessible(partner.Value.name);
           var tier = partner.Value.tier;
           GameManager.Broadcast.Say
@@ -193,7 +202,7 @@ namespace Store.Equipment
           return;
         }
       }
-      
+
       GameManager.Broadcast.Say("결합할 수 있는 용병이 존재하지 않습니다.");
       GameManager.Sound.Play(SoundType.SFX_UI, "sfx/ui/error");
     }

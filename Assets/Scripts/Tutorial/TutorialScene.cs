@@ -3,6 +3,7 @@ using System.Linq;
 using Manager;
 using Store.Equipment;
 using UnityEngine;
+using Util;
 using Util.UI;
 using Weapon;
 using ContextMenu = Util.UI.ContextMenu;
@@ -24,6 +25,70 @@ namespace Tutorial
       infoDown = GameObject.Find("info_down").GetComponent<Information>();
       infoUp = GameObject.Find("info_up").GetComponent<Information>();
       highlights = FindObjectsOfType<Highlight>().OrderBy(x => x.name).ToArray();
+      GameManager.Manager.onClear += ManagerOnClear;
+    }
+
+    private void ManagerOnClear()
+    {
+      GameManager.Manager.onClear -= ManagerOnClear;
+      try
+      {
+        GameManager.Spawn.onSpawned -= WaveOnEnemySpawn;
+      }
+      catch
+      {
+      }
+      try
+      {
+        GameManager.Wave.onStoreOpen -= WaveOnStoreOpen;
+      }
+      catch
+      {
+      }
+      try
+      {
+        GameManager.Wave.onStoreOpen -= WaveOnStoreOpen;
+      }
+      catch
+      {
+      }
+
+      try
+      {
+        ContextMenu.onOpened -= ContextMenuOnonOpened;
+        
+      }
+      catch
+      {
+        
+      }
+      try
+      {
+        var wui = FindObjectOfType<WeaponInventoryUI>();
+        wui.onDuplicated -= WuiOnonDuplicated;
+      }
+      catch
+      {
+        
+      }
+
+      try
+      {
+        WeaponSlot.onSale -= WeaponSlotOnonSale;
+      }
+      catch
+      {
+        
+      }
+
+      try
+      {
+        GameManager.Camera.SetZoom();
+      }
+      catch
+      {
+        
+      }
     }
 
     private void Start()
@@ -33,6 +98,21 @@ namespace Tutorial
       GameManager.Wave.onStoreOpen += WaveOnStoreOpen;
     }
 
+    private void WaveOnEnemySpawn()
+    {
+      1.5f.Wait(() =>
+      {
+        if (event1)
+        {
+          GameManager.Spawn.onSpawned -= WaveOnEnemySpawn;
+          return;
+        }
+
+        event1 = true;
+        Event1();
+      });
+    }
+    
     private void WaveOnStoreOpen()
     {
       if (event2)
@@ -43,19 +123,6 @@ namespace Tutorial
 
       event2 = true;
       Event2();
-    }
-
-
-    private void WaveOnEnemySpawn()
-    {
-      if (event1)
-      {
-        GameManager.Spawn.onSpawned -= WaveOnEnemySpawn;
-        return;
-      }
-
-      event1 = true;
-      Event1();
     }
 
     private void Event1()
@@ -149,6 +216,14 @@ namespace Tutorial
     private void WeaponSlotOnonSale()
     {
       WeaponSlot.onSale -= WeaponSlotOnonSale;
+      try
+      {
+        FindObjectOfType<WeaponInventoryUI>().onDuplicated -= WuiOnonDuplicated;
+      }
+      catch
+      {
+        
+      }
       if (event7) return;
       
       infoDown.StartWrite("그래요, 다른 무기를 사용하고 싶으면 판매하실 수도 있답니다.", () =>
@@ -161,6 +236,14 @@ namespace Tutorial
     private void WuiOnonDuplicated()
     {
       FindObjectOfType<WeaponInventoryUI>().onDuplicated -= WuiOnonDuplicated;
+      try
+      {
+        WeaponSlot.onSale -= WeaponSlotOnonSale;
+      }
+      catch
+      {
+        
+      }
       if (event7) return;
       
       event7 = true;

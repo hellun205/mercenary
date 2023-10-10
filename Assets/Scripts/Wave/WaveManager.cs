@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Data;
 using Manager;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
 using Util.UI;
 using Weapon;
+using Window;
+using Window.Contents;
 using Random = UnityEngine.Random;
 
 namespace Wave
@@ -37,11 +40,23 @@ namespace Wave
 
     // private readonly string[] uiNames = { "$coin_display", "$hp", "$timer", "$wave", "$menu_btn" };
 
+    private TextMeshProUGUI healBtnText;
+    private Button healBtn;
+
+    private int healPrice;
+    private int healAmount;
+
+    private ProgressBar hpBar;
+
     private void Awake()
     {
       waveText = GameManager.UI.Find<TextMeshProUGUI>("$wave");
       timerText = GameManager.UI.Find<TextMeshProUGUI>("$timer");
       storePanel = GameManager.UI.Find<Image>("$store");
+      healBtn = GameManager.UI.Find<Button>("$heal_btn");
+      healBtnText = healBtn.GetComponentInChildren<TextMeshProUGUI>();
+      hpBar = GameManager.UI.Find<ProgressBar>("$hp_bar");
+      healBtn.onClick.AddListener(AskHeal);
       waveTimer.onTick += OnTimerTick;
       waveTimer.onEnd += OnTimerEnd;
       GameManager.UI.Find<Button>("$btn_nextwave").onClick.AddListener(() =>
@@ -59,6 +74,40 @@ namespace Wave
       var inventories = GameManager.UI.Find<TabPage>("$inventory_tab_pages");
       GameManager.UI.Find<RadioButtonList>("$inventory_tab_buttons").onChanged +=
         select => inventories.SetEnable(select);
+    }
+
+    private void Update()
+    {
+      if (GameManager.Player == null) return;
+      healAmount = Mathf.CeilToInt(GameManager.Player.currentStatus.maxHp - GameManager.Player.status.hp);
+      healPrice = healAmount / 2;
+      healBtnText.text = healAmount > 0 ? $"체력 회복\n${healPrice}" : "체력이 최대입니다.";
+      healBtn.interactable = healAmount > 0;
+      hpBar.maxValue = GameManager.Player.currentStatus.maxHp;
+      hpBar.value = GameManager.Player.status.hp;
+    }
+
+    private void AskHeal()
+    {
+      // var askBox = GameManager.Window.Open(WindowType.AskBox).GetContent<AskBox>();
+      // askBox.window.title = "체력 회복";
+      // askBox.message = $"${healPrice}를 지불하고 체력을 모두 회복하시겠습니까?";
+      // askBox.onReturn = res =>
+      // {
+      //   if (res == AskBoxResult.Yes)
+      //   {
+      if (GameManager.Manager.coin.value >= healPrice)
+      {
+        GameManager.Manager.coin.value -= healPrice;
+        GameManager.Player.Heal(healAmount);
+        GameManager.Broadcast.Say("체력을 모두 회복하였습니다.");
+      }
+      else
+      {
+        GameManager.Broadcast.Say("돈이 부족합니다.");
+      }
+      //   }
+      // };
     }
 
     public void SetUIEnabled(bool value)
@@ -145,7 +194,7 @@ namespace Wave
       {
         var timer = new Timer();
 
-        timer.duration = (GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay) *
+        timer.duration = (GameManager.Data.data.GetWaveTime(currentWave) - spawn.delay - 1.4f) *
           spawn.simultaneousSpawnCount / spawn.count;
 
         timer.onStart += t =>
@@ -201,8 +250,21 @@ namespace Wave
       if (!start) return;
       CoroutineUtility.Start((new WaitForSeconds(1.5f), () =>
       {
-        GameManager.UI.Find<Camera>($"$player_display_camera").transform.position =
+        GameManager.UI.Find<Camera>("$player_display_camera").transform.position =
           GameManager.Player.transform.position.Setter(z: -5);
+        GameManager.UI.Find<Camera>("$partner1_display_camera").transform.position =
+          GameManager.Player.partners[0].transform.position.Setter(z: -5);
+        GameManager.UI.Find<Camera>("$partner2_display_camera").transform.position =
+          GameManager.Player.partners[1].transform.position.Setter(z: -5);
+
+        var btn = GameManager.UI.Find<Button>("$btn_nextwave");
+        btn.GetComponentInChildren<TextMeshProUGUI>().text = string.Format
+        (
+          "다음 웨이브\n({0}/{1})",
+          currentWave + 2,
+          GameManager.isTutorial ? 2 : GameManager.Data.data.spawns.waves.Length
+        );
+
         Time.timeScale = 0f;
         storePanel.SetVisible(true, 0.1f);
         onStoreOpen?.Invoke();

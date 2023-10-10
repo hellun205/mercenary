@@ -134,6 +134,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 835311814787891203}
+  arrowSr: {fileID: 0}
   col: {fileID: 4181827904235362178}
   specifiedName: katana
   movingObj: {fileID: 2222215273383787293}
@@ -349,7 +350,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.72178036, w: 0.69212216}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5689769344766886322}
@@ -500,9 +501,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.9}
+  m_Offset: {x: 0, y: -1.08}
   serializedVersion: 2
-  m_Radius: 0.63
+  m_Radius: 0.1656315
 --- !u!114 &1426879713626349018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,9 +610,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36, y: 0.33}
+  m_Offset: {x: 0.36, y: 0.5482944}
   serializedVersion: 2
-  m_Radius: 1.19
+  m_Radius: 0.96298885
 --- !u!114 &8728203121397632685
 MonoBehaviour:
   m_ObjectHideFlags: 0

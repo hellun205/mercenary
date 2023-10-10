@@ -182,6 +182,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 835311814787891203}
+  arrowSr: {fileID: 0}
   col: {fileID: 4181827904235362178}
   specifiedName: lazer_sword
   movingObj: {fileID: 2222215273383787293}
@@ -265,7 +266,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.8057732, w: 0.5922243}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5689769344766886322}
@@ -349,7 +350,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.902, y: -0.331, z: 0}
-  m_LocalScale: {x: 1, y: 0.9, z: 1}
+  m_LocalScale: {x: 1.05798, y: 1.05798, z: 0.7557}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5791073417348056907}

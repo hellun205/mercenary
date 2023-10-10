@@ -105,7 +105,7 @@ namespace Player
       partners.Length.For(i =>
       {
         partners[i].wrapper = FindObjectsOfType<WeaponSlotWrapper>()
-         .First
+          .First
           (
             x => x.type == EquipmentType.Partner && x.partnerIndex == i
           );
@@ -124,7 +124,7 @@ namespace Player
     {
       if (obj.TryGetComponent(typeof(IAttacker), out var component))
       {
-        Hit(((IAttacker) component).damage * (1 - currentStatus.armor));
+        Hit(((IAttacker)component).damage * (1 - currentStatus.armor));
       }
     }
 
@@ -160,6 +160,8 @@ namespace Player
 
       if (string.IsNullOrEmpty(slot.itemData)) return;
 
+      var item = GameManager.Consumables.Get(slot.itemData) as ConsumableItem;
+      if (item!.GetDuration() < 0) return;
       UseConsumableItem(slot.itemData);
       slot.SetItem(null);
     }
@@ -197,13 +199,29 @@ namespace Player
       GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/playerhit");
 
       if (status.hp <= 0)
+      {
+        var wrapper = GameManager.UI.Find<ConsumableSlotWrapper>("$consumable_wrapper");
+        foreach (var consumableSlot in wrapper.slots)
+        {
+          if (string.IsNullOrEmpty(consumableSlot.itemData)) continue;
+          var item = GameManager.Consumables.Get(consumableSlot.itemData) as ConsumableItem;
+          var resurrection = item!.GetStatus().GetValue("resurrection");
+          if (item!.GetDuration() < 0 && resurrection > 0)
+          {
+            consumableSlot.SetItem(null);
+            Resurrection(true, resurrection);
+            return;
+          }
+        }
+
         if (isResurrection)
           Resurrection();
         else
           Dead();
+      }
     }
 
-    private void Resurrection()
+    private void Resurrection(bool isAutoUsing = false, float invTime = 0f)
     {
       GameManager.Sound.Play(SoundType.SFX_Normal, "sfx/normal/resurrection");
       GameManager.Broadcast.Say("부활하였습니다.");
@@ -212,16 +230,23 @@ namespace Player
       white.Play("FadeIn");
       1f.Wait(() => white.Play("None"));
       status.hp = currentStatus.maxHp;
-      var buff = buffs
-       .Where(x => x.Key.status.GetValue("resurrection") > 0)
-       .OrderByDescending(x => x.Key.timer.elapsedTime)
-       .First()
-       .Key;
 
-      invincibilityTimer.duration = buff.status.GetValue("resurrection");
+      if (!isAutoUsing)
+      {
+        var buff = buffs
+          .Where(x => x.Key.status.GetValue("resurrection") > 0)
+          .OrderByDescending(x => x.Key.timer.elapsedTime)
+          .First()
+          .Key;
+        invincibilityTimer.duration = buff.status.GetValue("resurrection");
+        OnBuffEnd(buff);
+      }
+      else
+      {
+        invincibilityTimer.duration = invTime;
+      }
+
       invincibilityTimer.Start();
-
-      OnBuffEnd(buff);
     }
 
     public void Dead()
@@ -259,19 +284,19 @@ namespace Player
       var items = inventory.items;
 
       foreach (var (item, count) in items.Where(x => GameManager.GetIPossessible(x.Key.name) is ItemData))
-        increases += ((ItemData) GameManager.GetItem(item.name)).status * count;
+        increases += ((ItemData)GameManager.GetItem(item.name)).status * count;
 
       foreach (var (data, ui) in buffs)
         increases += data.status;
 
       foreach (var item in weaponInventory.weapons.Where(x => x.HasValue).Select
-                 (x => ((WeaponData) GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+                 (x => ((WeaponData)GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
         increases += item;
 
       foreach (var partnerWI in partners.Select(x => x.weaponInventory.weapons))
-        foreach (var item in partnerWI.Where(x => x.HasValue).Select
-                   (x => ((WeaponData) GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
-          increases += item;
+      foreach (var item in partnerWI.Where(x => x.HasValue).Select
+                 (x => ((WeaponData)GameManager.GetIPossessible(x.Value.name)).increaseStatus[x.Value.tier]))
+        increases += item;
 
       increases += GetChemistryStatus(out var _);
 
@@ -292,15 +317,15 @@ namespace Player
       }
 
       foreach (var weapon in weaponInventory.weapons.Where(x => x != null)
-                .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-        foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-          Add(flag);
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
       foreach (var partnerWeaponInventory in partners.Select(x => x.weaponInventory))
-        foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
-                  .Select(x => GameManager.WeaponData.Get(x.Value.name)))
-          foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
-            Add(flag);
+      foreach (var weapon in partnerWeaponInventory.weapons.Where(x => x != null)
+                 .Select(x => GameManager.WeaponData.Get(x.Value.name)))
+      foreach (var flag in weapon.attribute.GetFlags().Where(x => x != 0))
+        Add(flag);
 
       foreach (var (att, count) in dict)
         res += GameManager.Data.data.GetAttributeChemistryIncrease(att, count);

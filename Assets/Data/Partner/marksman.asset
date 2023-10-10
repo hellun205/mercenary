@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: marksman
   m_EditorClassIdentifier: 
   _displayName: "\uB9C8\uD06C\uC2A4\uB9E8"
-  _icon: {fileID: 21300000, guid: 1a63cdd61be74f346933bc0267aeefa6, type: 3}
+  _icon: {fileID: 858661058, guid: 147bd8775b3098e4c9c7cbd490986854, type: 3}
   description: 

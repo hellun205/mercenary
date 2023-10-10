@@ -158,6 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6047602079476767000}
   - component: {fileID: 5814547588737308087}
+  - component: {fileID: 4447264082689137267}
   m_Layer: 0
   m_Name: special_force
   m_TagString: Untagged
@@ -193,7 +194,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 26a7b08a84290ba438459c9420ad160f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -202,3 +203,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4447264082689137267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201620658485517412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d43564e918342379dcc55a20e0d2a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipObject: {fileID: 9220073648266911046}
+  sr: {fileID: 2937107429217819641}

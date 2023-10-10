@@ -24,6 +24,8 @@ namespace Tutorial
 
     private bool skipable;
 
+    public Highlight highlight;
+
     public bool isActive { get; private set; }
 
     [SerializeField]
@@ -44,9 +46,10 @@ namespace Tutorial
           skipable = false;
           anim.SetBool("open", false);
           nextButton.gameObject.SetActive(false);
+          highlight.StopHighlighting();
         }
       });
-      
+
       nextButton.gameObject.SetActive(false);
     }
 
@@ -81,6 +84,7 @@ namespace Tutorial
       }
 
       skipable = true;
+      highlight.StartHighlighting();
     }
 
     private void EndCloseAnimation()

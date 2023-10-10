@@ -134,6 +134,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hasTarget: 0
   sr: {fileID: 835311814787891203}
+  arrowSr: {fileID: 0}
   col: {fileID: 4181827904235362178}
   specifiedName: frying_pan
   movingObj: {fileID: 2222215273383787293}
@@ -349,7 +350,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.9048271, w: 0.42577925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5689769344766886322}
@@ -500,9 +501,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.9}
+  m_Offset: {x: 0, y: -1.05}
   serializedVersion: 2
-  m_Radius: 0.3713032
+  m_Radius: 0.20713434
 --- !u!114 &1426879713626349018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,7 +612,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.013466597, y: 0.33000004}
   serializedVersion: 2
-  m_Radius: 0.6634666
+  m_Radius: 0.79558414
 --- !u!114 &8728203121397632685
 MonoBehaviour:
   m_ObjectHideFlags: 0

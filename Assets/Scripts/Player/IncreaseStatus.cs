@@ -182,6 +182,7 @@ namespace Player
         = new()
         {
           { "maxHp", ("최대 체력", v => v, "", false) },
+          { "hp", ("체력 회복", v => v, "", false) },
           { "regeneration", ("체력 재생", v => v / 10, "", false) },
           { "drainHp", ("흡혈", v => v * 100, "", false) },
           { "meleeDamage", ("근거리 피해량", v => v, "", false) },

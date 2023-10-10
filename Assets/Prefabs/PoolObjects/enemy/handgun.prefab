@@ -209,7 +209,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &3511379061321155166
 MonoBehaviour:
@@ -370,7 +370,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.041386187, y: -0.0070295334}
-  m_Size: {x: 0.20858234, y: 0.6555512}
+  m_Size: {x: 0.4503289, y: 0.6555512}
   m_Direction: 0
 --- !u!1 &4698865367858969847
 GameObject:
@@ -445,7 +445,7 @@ SpriteRenderer:
   m_SortingLayerID: -1145342499
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1028076795, guid: 03d7b9527e7c8bc4d90cc47c975a8b0d, type: 3}
+  m_Sprite: {fileID: 1596689861, guid: 5a0db787dc21dc946a23caa476e6379c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

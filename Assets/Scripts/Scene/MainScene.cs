@@ -70,6 +70,8 @@ namespace Scene
           description = ""
         });
       }
+      
+      GameManager.UI.Find("$tobecontinue").transform.SetAsLastSibling();
     }
 
     private void Update()

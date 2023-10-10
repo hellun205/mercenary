@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: futher_person
   m_EditorClassIdentifier: 
   _displayName: "\uBBF8\uB798\uC778"
-  _icon: {fileID: 21300000, guid: 1a63cdd61be74f346933bc0267aeefa6, type: 3}
+  _icon: {fileID: -2131055885, guid: 147bd8775b3098e4c9c7cbd490986854, type: 3}
   description: 
