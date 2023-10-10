@@ -4393,7 +4393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=#FFFFFFFF>0</color>
+  m_text: <color=#980000FF>-2</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
   m_sharedMaterial: {fileID: -996571601158255941, guid: caa05e5017021c4439936d73cb1cc821, type: 2}
@@ -6162,7 +6162,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 1b58470ac7b468844a5c541f53cc3fc2, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: f261accf1c63ed64bafc1c522d51349e, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -6903,7 +6903,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 1b58470ac7b468844a5c541f53cc3fc2, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: f261accf1c63ed64bafc1c522d51349e, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -13977,7 +13977,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 1b58470ac7b468844a5c541f53cc3fc2, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: f261accf1c63ed64bafc1c522d51349e, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -16179,46 +16179,46 @@ MonoBehaviour:
   isPath: 0
   items:
     _serializedList:
-    - Key: bamboo_spear
-      Value: {fileID: 11400000, guid: 92d27364b75d08d4d969f745a59f1d55, type: 2}
     - Key: knife
       Value: {fileID: 11400000, guid: a88da5c26a9f8c14698363ded7d1d3c8, type: 2}
-    - Key: lance
-      Value: {fileID: 11400000, guid: c844944592bfc064584a5c2c1815c9e2, type: 2}
     - Key: rapier
       Value: {fileID: 11400000, guid: e3282fb7d4e0c184ca43a5ec639c3b4d, type: 2}
     - Key: spear
       Value: {fileID: 11400000, guid: 99cb30cb2da04cc4e8684a0131a76e00, type: 2}
-    - Key: baseball_bat
-      Value: {fileID: 11400000, guid: 9768efdaf8350114b810b27985240795, type: 2}
+    - Key: lance
+      Value: {fileID: 11400000, guid: c844944592bfc064584a5c2c1815c9e2, type: 2}
+    - Key: bamboo_spear
+      Value: {fileID: 11400000, guid: 92d27364b75d08d4d969f745a59f1d55, type: 2}
     - Key: frying_pan
       Value: {fileID: 11400000, guid: 5e32c7b9ef0cbe948b0fc320bbf47f21, type: 2}
+    - Key: baseball_bat
+      Value: {fileID: 11400000, guid: 9768efdaf8350114b810b27985240795, type: 2}
     - Key: katana
       Value: {fileID: 11400000, guid: 0da60488b54074c4ca79c8b447110ba6, type: 2}
-    - Key: lazer_sword
-      Value: {fileID: 11400000, guid: 1a2e050193d654f49b95b5bd07cbe414, type: 2}
     - Key: long_sword
       Value: {fileID: 11400000, guid: 6da1b8b4cd5be644cad9cd37ce416c78, type: 2}
-    - Key: granade_launcher
-      Value: {fileID: 11400000, guid: 8b4d6bb89f60eec4692e90c36000422f, type: 2}
-    - Key: rocket_launcher
-      Value: {fileID: 11400000, guid: 7a8c47b278120da4ba2061dea9baa251, type: 2}
-    - Key: ballista
-      Value: {fileID: 11400000, guid: 4e1e01af4309d504dbade11e650e3f02, type: 2}
-    - Key: bow
-      Value: {fileID: 11400000, guid: c1f71405b470fa34a9d9e548c6f02802, type: 2}
+    - Key: lazer_sword
+      Value: {fileID: 11400000, guid: 1a2e050193d654f49b95b5bd07cbe414, type: 2}
     - Key: hand_gun
       Value: {fileID: 11400000, guid: 58769ee47ef8f144d9ceb3878093692e, type: 2}
-    - Key: lazer_gun
-      Value: {fileID: 11400000, guid: 34e563b119b1ffb40bbd25f109339301, type: 2}
-    - Key: mini_gun
-      Value: {fileID: 11400000, guid: d2694efe33e97f04aa47dc43ea840cad, type: 2}
+    - Key: submachine_gun
+      Value: {fileID: 11400000, guid: dbe687c01fe913d4d977a071b3800293, type: 2}
     - Key: shot_gun
       Value: {fileID: 11400000, guid: ec23bbd439f42e944b3a5f9c67a34574, type: 2}
     - Key: sniper_gun
       Value: {fileID: 11400000, guid: cd50a0edf0894a441a11316ce051f11f, type: 2}
-    - Key: submachine_gun
-      Value: {fileID: 11400000, guid: dbe687c01fe913d4d977a071b3800293, type: 2}
+    - Key: rocket_launcher
+      Value: {fileID: 11400000, guid: 7a8c47b278120da4ba2061dea9baa251, type: 2}
+    - Key: granade_launcher
+      Value: {fileID: 11400000, guid: 8b4d6bb89f60eec4692e90c36000422f, type: 2}
+    - Key: mini_gun
+      Value: {fileID: 11400000, guid: d2694efe33e97f04aa47dc43ea840cad, type: 2}
+    - Key: bow
+      Value: {fileID: 11400000, guid: c1f71405b470fa34a9d9e548c6f02802, type: 2}
+    - Key: ballista
+      Value: {fileID: 11400000, guid: 4e1e01af4309d504dbade11e650e3f02, type: 2}
+    - Key: lazer_gun
+      Value: {fileID: 11400000, guid: 34e563b119b1ffb40bbd25f109339301, type: 2}
 --- !u!1 &7024174278012727996
 GameObject:
   m_ObjectHideFlags: 0

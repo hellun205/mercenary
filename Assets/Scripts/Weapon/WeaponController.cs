@@ -24,6 +24,7 @@ namespace Weapon
 
     [Header("Weapon Control")]
     public SpriteRenderer sr;
+
     public SpriteRenderer arrowSr;
 
     [SerializeField]
@@ -54,7 +55,6 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      
       // GameManager.Wave.onWaveStart += RefreshStatus;
     }
 
@@ -142,11 +142,23 @@ namespace Weapon
 
     private void OnTriggerStay2D(Collider2D other)
     {
-      if (!hasTarget && other.TryGetComponent(typeof(TargetableObject), out var component))
+      if (other.TryGetComponent<TargetableObject>(out var targetable))
       {
-        var targetable = component as TargetableObject;
-        target = targetable;
-        hasTarget = true;
+        if (hasTarget)
+        {
+          var newTargetDistance = Vector2.Distance(transform.position, targetable.transform.position);
+          var targetDistance = Vector2.Distance(transform.position, target.transform.position);
+
+          if (newTargetDistance < targetDistance)
+            target = targetable;
+          
+          hasTarget = true;
+        }
+        else
+        {
+          target = targetable;
+          hasTarget = true;
+        }
       }
     }
 
