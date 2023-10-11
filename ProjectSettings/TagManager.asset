@@ -49,11 +49,11 @@ TagManager:
   - name: Enemy
     uniqueID: 3149624797
     locked: 0
-  - name: Player
-    uniqueID: 3287589021
-    locked: 0
   - name: Weapon
     uniqueID: 1535975209
+    locked: 0
+  - name: Player
+    uniqueID: 3287589021
     locked: 0
   - name: Effect
     uniqueID: 769535787

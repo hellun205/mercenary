@@ -45,6 +45,7 @@ namespace Enemy
       movableObject = GetComponent<MovableObject>();
       rangedAttacker = GetComponent<RangedAttacker>();
       to.onDead += OnDead;
+      currentCondition = InteractCondition.Normal;
       attackCooldownTimer.onStart += _ => currentCondition = InteractCondition.Normal;
       attackCooldownTimer.onEnd += _ =>
       {
@@ -86,6 +87,11 @@ namespace Enemy
       {
         rangedAttacker.Ready();
       }
+    }
+
+    public void StartAttacking()
+    {
+      currentCondition = InteractCondition.Attack;
     }
 
     public void OnKilled()

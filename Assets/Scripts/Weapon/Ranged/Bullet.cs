@@ -37,6 +37,8 @@ namespace Weapon.Ranged
     {
       despawnTimer.onEnd += t => Kill();
       detectEnemy.onInteract += OnDetect;
+
+      currentCondition = InteractCondition.Normal;
     }
 
     protected virtual void OnDetect(Interacter obj)
