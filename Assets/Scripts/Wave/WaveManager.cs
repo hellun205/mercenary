@@ -130,6 +130,7 @@ namespace Wave
     public void StartWave(int index)
     {
       currentWave = index;
+      tutorialWave = index;
       StartWave();
     }
 
@@ -225,7 +226,7 @@ namespace Wave
     {
       if
       (
-        (GameManager.isTutorial && tutorialWave == 1) ||
+        (start && GameManager.isTutorial && tutorialWave == 1) ||
         (start && GameManager.Data.data.spawns.waves.Length - 1 <= currentWave)
       )
       {
