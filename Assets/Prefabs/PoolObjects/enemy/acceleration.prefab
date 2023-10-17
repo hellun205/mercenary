@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caster: 4
-  currentCondition: 4
+  currentCondition: 2
   ignoreOpponentAttack: 1
   attackCooldownTimer:
     m_isUnscaled: 0

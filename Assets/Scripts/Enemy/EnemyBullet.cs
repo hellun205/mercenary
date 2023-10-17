@@ -50,7 +50,7 @@ namespace Enemy
       }
     }
 
-    private void Kill()
+    public void Kill()
     {
       if (isDead) return;
       isDead = true;

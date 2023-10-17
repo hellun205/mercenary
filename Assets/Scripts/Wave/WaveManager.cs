@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using Enemy;
 using Manager;
 using TMPro;
 using UI;
@@ -280,11 +281,14 @@ namespace Wave
 
     private void KillEnemies()
     {
-      var objs = FindObjectsOfType<TargetableObject>();
-      foreach (var obj in objs)
-      {
+      var enemies = FindObjectsOfType<TargetableObject>();
+      var bullets = FindObjectsOfType<EnemyBullet>();
+
+      foreach (var obj in enemies)
         obj.Kill(false);
-      }
+
+      foreach (var enemyBullet in bullets)
+        enemyBullet.Kill();
     }
   }
 }

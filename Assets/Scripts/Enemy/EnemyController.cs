@@ -73,6 +73,8 @@ namespace Enemy
 
     private void OnDead()
     {
+      if (rangedAttacker == null)
+        currentCondition = InteractCondition.Normal;
       if (to.playerAttacked)
         ThrowCoin();
     }
@@ -91,7 +93,8 @@ namespace Enemy
 
     public void StartAttacking()
     {
-      currentCondition = InteractCondition.Attack;
+      if (rangedAttacker == null)
+        currentCondition = InteractCondition.Attack;
     }
 
     public void OnKilled()

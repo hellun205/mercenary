@@ -179,6 +179,7 @@ namespace Player
 
     private void Hit(float damage)
     {
+      if (!GameManager.Wave.state) return;
       if (isInvincibility) return;
 
       if (currentStatus.evasionRate.ApplyProbability())

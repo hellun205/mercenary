@@ -70,6 +70,8 @@ namespace Store.Equipment
       }
       else if (obj.beginDragType == DragType.PartnerSlot)
       {
+        if (obj.partnerSlot == this)
+          return;
         var tmp = (obj.partnerSlot.partner!.Value.name, obj.partnerSlot.partner.Value.tier);
 
         if (partner.HasValue)
