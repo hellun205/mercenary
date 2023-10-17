@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Coin;
 using Data;
 using Enemy;
 using Manager;
@@ -270,6 +271,13 @@ namespace Wave
         Time.timeScale = 0f;
         storePanel.SetVisible(true, 0.1f);
         onStoreOpen?.Invoke();
+
+        var coins = FindObjectsOfType<CoinController>().Length;
+        GameManager.Pool.ClearPools();
+        var pos = GameManager.Player.transform.position +
+                  new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+        var coinChest = GameManager.Pool.Summon<CoinChest>("object/chest", pos);
+        coinChest.coin = coins;
       }));
     }
 

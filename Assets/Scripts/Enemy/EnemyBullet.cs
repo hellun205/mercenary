@@ -24,10 +24,14 @@ namespace Enemy
 
     private Timer despawnTimer = new Timer();
 
+    private Animator anim;
+
     private void Awake()
     {
       despawnTimer.duration = 10;
       despawnTimer.onEnd += t => Kill();
+      anim = GetComponent<Animator>();
+      anim.keepAnimatorStateOnDisable = true;
     }
 
     private void Reset()

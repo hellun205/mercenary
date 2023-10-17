@@ -39,7 +39,7 @@ namespace Weapon
 
     private MovableObject movableObject;
 
-    public float maxHp =>
+    public virtual float maxHp =>
       GameManager.Data.data.GetEnemyStatus(poolObject.originalName, GameManager.Wave.currentWave).maxHp;
 
     [Header("Targetable Object"), SerializeField]

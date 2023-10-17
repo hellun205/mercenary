@@ -55,7 +55,11 @@ namespace Weapon
 
     protected virtual void Awake()
     {
-      // GameManager.Wave.onWaveStart += RefreshStatus;
+      GameManager.Wave.onWaveStart += () =>
+      {
+        isReady = false;
+        readyTime = 0f;
+      };
     }
 
     protected virtual void Start()
@@ -90,7 +94,7 @@ namespace Weapon
       if (!isReady)
       {
         readyTime += Time.deltaTime;
-        if (readyTime >= 1f) isReady = true;
+        if (readyTime >= 0.7f) isReady = true;
         return;
       }
 

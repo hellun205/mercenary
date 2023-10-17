@@ -198,7 +198,7 @@ namespace Player
           { "luck", ("행운", v => v * 100, "", false) },
           { "explosionRange", ("폭발 범위", v => v, "", false) },
           { "evasionRate", ("회피율", v => v * 100, "", false) },
-          { "penetrateCount", ("관통", v => v * 100, "", false) },
+          { "penetrateCount", ("관통", v => v, "", false) },
           { "multipleCritical", ("치명타 데미지", v => v * 100, "x", false) },
         };
 

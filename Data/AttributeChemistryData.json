@@ -90,7 +90,7 @@
           "apply": [
             {
               "type": 2,
-              "value": 4.0
+              "value": 5.0
             }
           ]
         },
@@ -99,7 +99,7 @@
           "apply": [
             {
               "type": 2,
-              "value": 8.0
+              "value": 10.0
             }
           ]
         },
@@ -108,7 +108,7 @@
           "apply": [
             {
               "type": 2,
-              "value": 14.0
+              "value": 20.0
             }
           ]
         },
@@ -117,7 +117,7 @@
           "apply": [
             {
               "type": 2,
-              "value": 22.0
+              "value": 50.0
             }
           ]
         }
@@ -135,7 +135,7 @@
             },
             {
               "type": 3,
-              "value": 1.0
+              "value": 2.0
             }
           ]
         },
@@ -144,11 +144,11 @@
           "apply": [
             {
               "type": 2,
-              "value": 4.0
+              "value": 6.0
             },
             {
               "type": 3,
-              "value": 2.0
+              "value": 6.0
             }
           ]
         },
@@ -157,11 +157,11 @@
           "apply": [
             {
               "type": 2,
-              "value": 8.0
+              "value": 14.0
             },
             {
               "type": 3,
-              "value": 4.0
+              "value": 14.0
             }
           ]
         },
@@ -170,11 +170,11 @@
           "apply": [
             {
               "type": 2,
-              "value": 14.0
+              "value": 36.0
             },
             {
               "type": 3,
-              "value": 7.0
+              "value": 36.0
             }
           ]
         }
@@ -352,7 +352,7 @@
           "apply": [
             {
               "type": 8,
-              "value": 8.0
+              "value": 2.0
             }
           ]
         },
@@ -361,7 +361,7 @@
           "apply": [
             {
               "type": 8,
-              "value": 15.0
+              "value": 4.0
             }
           ]
         },
@@ -370,7 +370,7 @@
           "apply": [
             {
               "type": 8,
-              "value": 25.0
+              "value": 6.0
             }
           ]
         },
@@ -379,7 +379,7 @@
           "apply": [
             {
               "type": 8,
-              "value": 40.0
+              "value": 10.0
             }
           ]
         }
