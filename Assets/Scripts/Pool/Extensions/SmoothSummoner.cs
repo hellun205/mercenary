@@ -28,7 +28,8 @@ namespace Pool.Extensions
 
     public void OnSummon()
     {
-      dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * dirRange;
+      dir = new Vector2(Random.Range(-Random.Range(0f, 1f), Random.Range(0f, 1f)),
+        Random.Range(-Random.Range(0f, 1f), Random.Range(0f, 1f))) * dirRange;
       curRange = dirRange;
       isEnabled = true;
     }

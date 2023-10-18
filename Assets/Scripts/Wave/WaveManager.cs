@@ -274,8 +274,7 @@ namespace Wave
 
         var coins = FindObjectsOfType<CoinController>().Length;
         GameManager.Pool.ClearPools();
-        var pos = GameManager.Player.transform.position +
-                  new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+        var pos = GameManager.Map.GetRandom();
         var coinChest = GameManager.Pool.Summon<CoinChest>("object/chest", pos);
         coinChest.coin = coins;
       }));

@@ -57,6 +57,7 @@ namespace Weapon
     {
       GameManager.Wave.onWaveStart += () =>
       {
+        time = 0f;
         isReady = false;
         readyTime = 0f;
       };
